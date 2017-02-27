@@ -18,6 +18,19 @@ namespace CharacterBuilder
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+
+            routes.MapRoute(
+                name: "LogOut",
+                url: "auth/{action}",
+                defaults: new { controller = "Account", action = "LogOff" }
+            );
+
+            routes.MapRoute(
+                name: "EmptyDefault",
+                url: "",
+                defaults: new { controller = "Home", action = "Index" }
+            );
         }
     }
 }
