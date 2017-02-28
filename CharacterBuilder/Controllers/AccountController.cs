@@ -10,6 +10,7 @@ using CharacterBuilder.Models;
 
 namespace CharacterBuilder.Controllers
 {
+    //https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/individual-accounts-in-web-api
     [AllowAnonymous]
     public class AccountController : Controller
     {
@@ -211,7 +212,7 @@ namespace CharacterBuilder.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "CharacterBuilder");
         }
 
         protected override void Dispose(bool disposing)
@@ -252,7 +253,7 @@ namespace CharacterBuilder.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "CharacterBuilder");
         }
 
         private async Task<string> SendEmailConfirmationTokenAsync(string userID, string subject)

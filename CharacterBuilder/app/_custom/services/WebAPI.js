@@ -92,5 +92,13 @@ define(function(require) {
 		});
 	};
 
+	ApiCls.prototype.Login = function (loginData) {
+	    return this.ajax({
+	        type: 'POST',
+	        url: '/api/Account/Login',
+	        data: loginData
+	    });
+	};
+
 	return new ApiCls();
 });
