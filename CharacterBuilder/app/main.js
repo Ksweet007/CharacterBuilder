@@ -1,6 +1,6 @@
 ﻿/* global jQuery:false, $:false, ko:false, require:false, requirejs:false, moment:false */
 define('jquery', function () { return jQuery; });
-define('knockout', ko)
+define('knockout', ko);
 define('moment', function () { return moment; });
 
 requirejs.config({
