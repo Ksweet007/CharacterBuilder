@@ -1,0 +1,142 @@
+﻿<nav-header params="{isDirty: isDirty, save: save}"></nav-header>
+<div class="container-fluid full-width-container">
+
+    <div class="row" data-bind="visible: showAll()">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="pmd-card pmd-card-inverse pageTitle">
+                <div class="pmd-card-title">
+                    <div class="row">
+                        <div class="media-left">
+                            <h2 class="pmd-display2 typo-fill-secondary"><span>Weapons</span></h2>
+                        </div>
+                        <div class="btnAddNewContainer">
+                            <span class="btnAddNew">
+                                <span class="pmd-card-subtitle-text">Add New</span>
+                                <button class="material-icons md-light pmd-xs btncard btnadd pmd-ripple-effect" data-bind='click: openCreateForm, enable: showAll()'>
+                                    add
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="pmd-card-title">
+                    <div class="row">
+                        <div class="media-right">
+                            <!--ko foreach:weaponTypes-->
+                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+                                <input type='checkbox' name="type" data-bind='checked: $parent.selectedWeaponType, value:Name' />
+                                <span class="pmd-checkbox-label" data-bind="text:Name"> </span>
+                            </label>
+                            <!--/ko-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="row" data-bind="visible: showAll() ">
+            <!--ko foreach:weaponsToShow-->
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-title">
+                        <div class="media-body media-middle">
+                            <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:Name"></h1>
+                            <span class="pmd-card-subtitle-text" data-bind="text:ProficiencyName"></span>
+                        </div>
+                        <div class="media-right">
+                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectWeaponToEdit">
+                                edit
+                            </button>
+                            <button class="material-icons md-light pmd-xs btncard btndelete pmd-ripple-effect btn-danger" data-bind="click:$parent.deleteWeapon">
+                                delete
+                            </button>
+                        </div>
+                    </div>
+                    <div class="pmd-card-body">
+                        <span class="pmd-card-subtitle-text">Cost</span>
+                        <p data-bind="text:Cost"></p>
+
+                        <span class="pmd-card-subtitle-text">Damage</span>
+                        <p data-bind="text:Damage"></p>
+
+                        <span class="pmd-card-subtitle-text">Weight</span>
+                        <p data-bind="text:Weight"></p>
+
+                        <span class="pmd-card-subtitle-text">Properties</span>
+                        <!--ko foreach:WeaponProperties()-->
+                        <p data-bind="text:Name"> </p>
+                        <!--/ko-->
+                    </div>
+                </div>
+            </div>
+            <!--/ko-->
+        </div>
+
+        <div class="row" data-bind="visible: $data.isAddingNew() ">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5 pmd-card-custom-form" data-bind="with : newWeapon">
+                    <div class="pmd-card-body">
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <!--ko foreach: $parent.weaponTypes-->
+                            <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
+                                <input type='radio' name="inlineRadioOptions" data-bind="checked: $parent.newSelectedWeaponTypes, value: Name" /><span class="pmd-radio-label">&nbsp;</span>
+                                <span data-bind="text:Name"> </span>
+                            </label>
+                            <!--/ko-->
+                        </div>
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <label for="name" class="control-label">Name</label>
+                            <input type="text" id="name" data-bind='value: Name, valueUpdate: "afterkeydown"' class="form-control">
+                        </div>
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <label for="cost" class="control-label">Cost</label>
+                            <input type="text" id="cost" data-bind='value: Cost, valueUpdate: "afterkeydown"' class="form-control">
+                        </div>
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <label for="diesize" class="control-label">Damage Die Size</label>
+                            <input type="text" id="diesize" data-bind='value: DamageDie, valueUpdate: "afterkeydown"' class="form-control">
+                        </div>
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <label for="diecount" class="control-label">Damage Die Count</label>
+                            <input type="text" id="diecount" data-bind='value: DamageDieCount, valueUpdate: "afterkeydown"' class="form-control">
+                        </div>
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <label for="wgt" class="control-label">Weight</label>
+                            <input type="text" id="wgt" data-bind='value: Weight, valueUpdate: "afterkeydown"' class="form-control">
+                        </div>
+
+                        <div class="form-group pmd-textfield">
+                            <label>Properties</label>
+                            <div class="row">
+                                <!--ko foreach: $parent.weaponProperties-->
+                                <div class="col-xs-6">
+                                    <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+                                        <input type="checkbox" data-bind='checked: $parent.WeaponProperties, value:$data '>
+                                        <span class="pmd-checkbox-label" data-bind="text:Name"> </span>
+                                    </label>
+                                </div>
+                                <!--/ko-->
+                            </div>
+                        </div>
+
+                        <div class="pmd-card-actions">
+                            <button class="btn pmd-ripple-effect btn-primary" data-bind='click: $parent.save'>Save</button>
+                            <button class="btn pmd-ripple-effect btn-primary" data-bind='click: $parent.cancelEditor'>Cancel</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

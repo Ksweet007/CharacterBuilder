@@ -1,44 +1,85 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
+    <title>Character Builder</title>
     <meta charset="utf-8" />
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="description" content="CharacterSheetCreator">
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+
+    <!-- Google icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    @Styles.Render("~/content/css")
+
+    <!-- Range Slider css -->
+    <link href="~/assets/css/nouislider.min.css" rel="stylesheet" />
+
+    <!-- Nouislider css-->
+    <link href="/assets/css/range-slider.css" type="text/css" rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/css?family=Eagle+Lake|IM+Fell+English+SC|Jim+Nightshade|Metamorphous|Milonga|Pirata+One|MedievalSharp" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="~/assets/css/main.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+<div id="content" class="pmd-content content-area dashboard">
+    <nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" data-bind="rippleeffect">
+        <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
-                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
+                <a href="#" class="navbar-brand">Character Sheet</a>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+    </nav>
+    <div class="container-fluid full-width-container">
         @RenderBody()
-        @RenderSection("SPAViews", required: false)
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+</div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("Scripts", required: false)
+    <!-- Scripts Starts -->
+    @Scripts.Render("~/scripts/vendor")
+
+    <script>
+        window.jQuery || document.write('<script src="js/jquery-3.1.1.min.js">\x3C/script>')
+    </script>
+
+    @Scripts.Render("~/scripts/vendortwo")
+
+    <script>
+        $(document).ready(function () {
+            var sPath = window.location.pathname;
+            var sPage = sPath.substring(sPath.lastIndexOf('/') + 1);
+            $(".pmd-sidebar-nav").each(function () {
+                $(this).find("a[href='#']").parents(".dropdown").addClass("open");
+                $(this).find("a[href='#']").parents(".dropdown").find('.dropdown-menu').css("display", "block");
+                $(this).find("a[href='#']").parents(".dropdown").find('a.dropdown-toggle').addClass("active");
+                $(this).find("a[href='#']").addClass("active");
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        (function () {
+            "use strict";
+            var toggles = document.querySelectorAll(".c-hamburger");
+            for (var i = toggles.length - 1; i >= 0; i--) {
+                var toggle = toggles[i];
+                toggleHandler(toggle);
+            };
+            function toggleHandler(toggle) {
+                toggle.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    (this.classList.contains("is-active") === true) ? this.classList.remove("is-active") : this.classList.add("is-active");
+                });
+            }
+
+        })();
+    </script>
+    <!-- Scripts Ends -->
+
 </body>
 </html>

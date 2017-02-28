@@ -1,0 +1,15 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="pmd-card-title-text">Save Changes?</h2>
+        </div>
+        <div class="modal-body">
+            <p>You have unsaved changes. Would you like to Save them? </p>
+        </div>
+        <div id="dlgfoot" class="pmd-modal-action pmd-modal-bordered text-right">
+            <button class="btn pmd-ripple-effect btn-primary" data-bind="click: dialogButtonClick.bind($root, 'save', true, true)">Save Changes</button>
+            <button class="btn pmd-ripple-effect btn-primary" data-bind="click: dialogButtonClick.bind($root, 'skipSave', true, true)">Don't Save Changes</button>
+            <button class="btn pmd-ripple-effect btn-primary" data-bind="click: dialogButtonClick.bind($root, 'cancel', false, false)">Cancel</button>
+        </div>
+    </div>
+</div>
