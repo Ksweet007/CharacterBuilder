@@ -4,71 +4,74 @@
     ViewBag.Title = "Log in";
 }
 
-<div class="row">
-    <div class="logincard">
-        <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-            <div class="login-card">
-                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-
-                    <div class="pmd-card-title card-header-border text-center">
-                        <h3>
-                            <strong>Sign In</strong>
-                        </h3>
-                    </div>
-                    <div class="pmd-card-body">
-                        @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+<div class="container-fluid full-width-container">
+   
+        <div class="row">
+            <div class="logincard">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="login-card">
+                        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
                         {
-                            <div class="alert-danger" role="alert">
-                                Critical Failure!
-                                @Html.ValidationSummary(true, "", new { @class = "alert-danger", role = "alert" })
+                            @Html.AntiForgeryToken()
+
+                            <div class="pmd-card-title card-header-border text-center">
+                                <h3>
+                                    <strong>Sign In</strong>
+                                </h3>
+                            </div>
+                            <div class="pmd-card-body">
+                                @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                                {
+                                    <div class="alert-danger" role="alert">
+                                        Critical Failure!
+                                        @Html.ValidationSummary(true, "", new { @class = "alert-danger", role = "alert" })
+                                    </div>
+                                }
+
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    @Html.LabelFor(model => model.Email, new { @class = "control-label pmd-input-group-label" })
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="material-icons md-dark pmd-sm">perm_identity</i>
+                                        </div>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "alert-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    @Html.LabelFor(model => model.Password, new { @class = "control-label pmd-input-group-label" })
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="material-icons md-dark pmd-sm">lock_outline</i>
+                                        </div>
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "alert-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+                                <div class="form-group clearfix">
+                                    <div class="checkbox pull-left">
+                                        <label class="pmd-checkbox checkbox-pmd-ripple-effect">
+                                            @Html.CheckBoxFor(m => m.RememberMe)
+                                            @Html.LabelFor(m => m.RememberMe, new { @class = "pmd-checkbox" })
+                                        </label>
+                                    </div>
+                                    <span class="pull-right forgot-password">
+                                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
+                                    </span>
+                                </div>
+                                <button type="submit" class="btn pmd-ripple-effect btn-primary btn-block">Sign In</button>
+                                <p class="redirection-link">
+                                    <span>Ready to start you Adventure? </span>@Html.ActionLink("Sign Up", "Register", new { @class = "login-register" })
+                                </p>
                             </div>
                         }
-
-
-                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                            @Html.LabelFor(model => model.Email, new { @class = "control-label pmd-input-group-label" })
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="material-icons md-dark pmd-sm">perm_identity</i>
-                                </div>
-                                @Html.TextBoxFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "alert-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                            @Html.LabelFor(model => model.Password, new { @class = "control-label pmd-input-group-label" })
-                            <div class="input-group">
-                                <div class="input-group-addon">
-                                    <i class="material-icons md-dark pmd-sm">lock_outline</i>
-                                </div>
-                                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "alert-danger" })
-                            </div>
-                        </div>
                     </div>
-                    <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
-                        <div class="form-group clearfix">
-                            <div class="checkbox pull-left">
-                                <label class="pmd-checkbox checkbox-pmd-ripple-effect">
-                                    @Html.CheckBoxFor(m => m.RememberMe)
-                                    @Html.LabelFor(m => m.RememberMe, new { @class = "pmd-checkbox" })
-                                </label>
-                            </div>
-                            <span class="pull-right forgot-password">
-                                @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                            </span>
-                        </div>
-                        <button type="submit" class="btn pmd-ripple-effect btn-primary btn-block">Sign In</button>
-                        <p class="redirection-link">
-                            @Html.ActionLink("Sign Up", "Register", new { @class = "login-register" })
-                        </p>
-                    </div>
-                }
+                </div>
+
             </div>
         </div>
 
-    </div>
 </div>

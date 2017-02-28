@@ -234,11 +234,17 @@
   <ItemGroup>
     <Content Include="app\armor\armor.html" />
     <Content Include="app\armor\armor.js" />
+    <Content Include="app\confirmdelete\confirmdelete.html" />
+    <Content Include="app\confirmdelete\confirmdelete.js" />
+    <Content Include="app\home\home.html" />
+    <Content Include="app\home\home.js" />
     <Content Include="app\main.js" />
     <Content Include="app\navaway\navaway.html" />
     <Content Include="app\navaway\navaway.js" />
     <Content Include="app\shell\shell.html" />
     <Content Include="app\shell\shell.js" />
+    <Content Include="app\weapon\weapon.html" />
+    <Content Include="app\weapon\weapon.js" />
     <Content Include="app\_custom\all.js" />
     <Content Include="app\_custom\bindinghandlers\alert.js" />
     <Content Include="app\_custom\bindinghandlers\contentEditable.js" />

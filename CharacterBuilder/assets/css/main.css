@@ -66,7 +66,7 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 
 /*==================== SIDEBAR ====================*/
 .pmd-sidebar, .pmd-sidebar-right-fixed  {background-color: #2c3544 !important; border-color: rgba(16, 16, 16, 0.34) !important}
-.login-card   {background-color: #333 !important;}
+/*.login-card   {background-color: #333 !important;}*/
 .btn-primary  {background-color: #E23C3C; opacity: .8;}
 .btn-primary:hover  {background-color: #d20b0b; opacity: .8;}
 .btn-primary:disabled {background-color: #cc6767; opacity: .5; }
@@ -107,7 +107,7 @@ h2.typo-fill-secondary, .pmd-card-title-text,
 
 /*=================Login css====================*/
 .body-custom{ height:100%;}
-.logincard{margin:auto; position:relative; top:50%; max-width:360px; }
+.logincard{margin:auto; position:relative; top:50%; max-width:400px; }
 .login-card, .register-card  { background-color: rgba(33, 33, 33, 0.46); }
 .logincard .checkbox{ margin-left:0px;}
 .logincard .checkbox label{padding:0;}
