@@ -9,5 +9,13 @@ namespace CharacterBuilder.Controllers.Api
 {
     public class AdminController : ApiController
     {
+        [HttpGet]
+        [Route("api/IsAdmin")]
+        public IHttpActionResult IsUserAdmin()
+        {
+            var isAdmin = User.IsInRole("Admin");
+
+            return Ok(isAdmin);
+        }
     }
 }

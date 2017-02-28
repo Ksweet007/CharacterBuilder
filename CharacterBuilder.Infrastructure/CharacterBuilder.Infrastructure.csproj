@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201702270132327_INITIAL_BUILD.Designer.cs">
       <DependentUpon>201702270132327_INITIAL_BUILD.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702272037220_CONTEXT_CHANGE.cs" />
+    <Compile Include="Migrations\201702272037220_CONTEXT_CHANGE.Designer.cs">
+      <DependentUpon>201702272037220_CONTEXT_CHANGE.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -74,6 +78,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702270132327_INITIAL_BUILD.resx">
       <DependentUpon>201702270132327_INITIAL_BUILD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702272037220_CONTEXT_CHANGE.resx">
+      <DependentUpon>201702272037220_CONTEXT_CHANGE.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

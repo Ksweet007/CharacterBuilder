@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace CharacterBuilder
@@ -16,7 +12,7 @@ namespace CharacterBuilder
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "CharacterBuilder", action = "Index", id = UrlParameter.Optional }
             );
 
 
@@ -29,7 +25,7 @@ namespace CharacterBuilder
             routes.MapRoute(
                 name: "EmptyDefault",
                 url: "",
-                defaults: new { controller = "Home", action = "Index" }
+                defaults: new { controller = "CharacterBuilder", action = "Index" }
             );
         }
     }
