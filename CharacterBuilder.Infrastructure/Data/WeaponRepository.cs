@@ -37,6 +37,11 @@ namespace CharacterBuilder.Infrastructure.Data
             return _db.WeaponProperties.ToList();
         }
 
+        public WeaponProperty GetWeaponPropertyById(int weaponPropertyId)
+        {
+            return _db.WeaponProperties.Single(p => p.Id == weaponPropertyId);
+        }
+
         public IList<WeaponCategory> GetAllWeaponCategories()
         {
             return _db.WeaponCategories.ToList();

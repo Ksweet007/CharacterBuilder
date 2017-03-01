@@ -184,11 +184,6 @@
             });
         };
 
-        self.buildNewWeaponToSave = function (weaponToSave) {
-
-        };
-
-
         self.save = function (weaponToSave) {
             var isEditState = self.isDirty() && self.isEditing();
             var isNewState = self.isAddingNew();

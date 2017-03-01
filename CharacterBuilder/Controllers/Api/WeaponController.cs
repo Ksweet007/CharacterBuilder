@@ -43,11 +43,8 @@ namespace CharacterBuilder.Controllers.Api
         public IHttpActionResult AddWeapon([FromBody] Weapon weaponToAdd)
         {
             //_weaponRepository.AddWeapon(weaponToAdd);
-            //var armorAddedProficiency = _proficiencyRepository.GetProficiencyById(weaponToAdd.ProficiencyId);
-            //weaponToAdd.Proficiency = armorAddedProficiency;
-            //_weaponService.CreateWeapon(weaponToAdd);
-            //return Ok(weaponToAdd);
-            return Ok();
+            _weaponService.CreateWeapon(weaponToAdd);
+            return Ok(weaponToAdd);            
         }
 
         [HttpGet]

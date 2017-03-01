@@ -9,33 +9,13 @@ namespace CharacterBuilder.Infrastructure.Services
     public class WeaponService
     {
         private readonly WeaponRepository _weaponRepository;
-        private readonly ProficiencyRepository _proficiencyRepository;
 
         public WeaponService()
         {
             _weaponRepository = new WeaponRepository();
-            _proficiencyRepository = new ProficiencyRepository();
         }
 
-        public IList<WeaponCategoryDTO> GetCategoryDTOList()
-        {
-            var catList = _weaponRepository.GetAllWeaponCategories();
-            var profList = _proficiencyRepository.GetWeaponProficiencies();
-            
-            var returnList = catList.Select(item => new WeaponCategoryDTO
-            {
-                Id = item.Id, Name = item.Name
-            }).ToList();
-
-            foreach (var item in returnList)
-            {
-                item.ProficiencyId = profList.Single(p => p.Name == item.Name).Id;
-            }
-
-            return returnList;
-        }
-
-        public void CreateWeapon(WeaponDTO weaponToAdd)
+        public void CreateWeapon(Weapon weaponToAdd)
         {
             var newWeapon = new Weapon()
             {
@@ -45,11 +25,14 @@ namespace CharacterBuilder.Infrastructure.Services
                 DamageDie = weaponToAdd.DamageDie,
                 DamageDieCount = weaponToAdd.DamageDieCount,
                 Weight = weaponToAdd.Weight,
-                WeaponProperties = weaponToAdd.WeaponProperties,
-                WeaponCategory = _weaponRepository.GetWeaponCategoryById(weaponToAdd.WeaponCategory.Id),
-                ProficiencyId = weaponToAdd.WeaponCategory.ProficiencyId
+                ProficiencyId = weaponToAdd.Proficiency.Id,
             };
-            
+            var weaponCategoryPicked = _weaponRepository.GetWeaponCategoryById(weaponToAdd.WeaponCategory.Id);
+            newWeapon.WeaponCategory = weaponCategoryPicked;
+
+            var propList = weaponToAdd.WeaponProperties.Select(item => _weaponRepository.GetWeaponPropertyById(item.Id)).ToList();
+            newWeapon.WeaponProperties = propList;
+
             _weaponRepository.AddWeapon(newWeapon);
         }
     }
