@@ -17,6 +17,7 @@
         self.isEditing = _i.ko.observable(false);
         self.showAll = _i.ko.observable(true);
 
+
         /*==================== WEAPON OBSERVABLES ====================*/
         self.weapons = _i.ko.observableArray([]);
         self.newWeapon = _i.ko.observable();
@@ -184,53 +185,31 @@
         };
 
         self.buildNewWeaponToSave = function (weaponToSave) {
-            var proficiencySelected = self.weaponProficiencies().filter(function(prof) {
-                return prof.Id === weaponToSave.WeaponCategory().ProficiencyId;
-            });
-            var categorySelected = self.weaponCategories().filter(function (cat) {
-                return cat.Id === weaponToSave.WeaponCategory().Id;
-            });
 
-            return  {
-                Name: weaponToSave.Name(),
-                Id: weaponToSave.Id(),
-                Cost: weaponToSave.Cost(),
-                DamageDie: weaponToSave.DamageDie(),
-                DamageDieCount: weaponToSave.DamageDieCount(),
-                Proficiency: proficiencySelected,
-                Weight: weaponToSave.Weight(),
-                WeaponCategory: categorySelected(),
-                WeaponProperties: weaponToSave.WeaponProperties()
-            };
         };
 
-        self.buildweaponToEdit = function (weaponToSave) {
-            var proficiencySelected = self.weaponProficiencies().filter(function (prof) {
-                return prof.Id === weaponToSave.WeaponCategory().ProficiencyId;
-            });
-            var categorySelected = self.weaponCategories().filter(function (cat) {
-                return cat.Id === weaponToSave.WeaponCategory().Id;
-            });
-
-            return {
-                Name: weaponToSave.Name(),
-                Id: weaponToSave.Id(),
-                Cost: weaponToSave.Cost(),
-                DamageDie: weaponToSave.DamageDie(),
-                DamageDieCount: weaponToSave.DamageDieCount(),
-                Proficiency: proficiencySelected,
-                Weight: weaponToSave.Weight(),
-                WeaponCategory: categorySelected(),
-                WeaponProperties: weaponToSave.WeaponProperties()
-            };
-        };
 
         self.save = function (weaponToSave) {
             var isEditState = self.isDirty() && self.isEditing();
             var isNewState = self.isAddingNew();
+
+            var proficiencySelected = self.weaponProficiencies().filter(function (prof) {
+                return prof.Name === weaponToSave.WeaponCategory().Name;
+            })[0];
+
+            var dataToSave = {
+                Name: weaponToSave.Name(),
+                Id: weaponToSave.Id(),
+                Cost: weaponToSave.Cost(),
+                DamageDie: weaponToSave.DamageDie(),
+                DamageDieCount: weaponToSave.DamageDieCount(),
+                Proficiency: proficiencySelected,
+                Weight: weaponToSave.Weight(),
+                WeaponCategory: weaponToSave.WeaponCategory(),
+                WeaponProperties: weaponToSave.WeaponProperties()
+            };
             
             if (isNewState) {
-                var dataToSave = self.buildNewWeaponToSave(weaponToSave);
                 return _i.charajax.post('api/weapon/AddWeapon/', dataToSave).done(function (response) {
                     var mapped = _i.ko.mapping.fromJS(response);
                     mapped.dirtyFlag = new _i.ko.dirtyFlag(mapped);
@@ -241,8 +220,7 @@
             }
 
             if (isEditState) {
-                var dataToEdit = self.buildNewWeaponToEdit(weaponToSave);
-                return _i.charajax.put('api/weapon/EditWeapon/', dataToEdit).done(function (response) {
+                return _i.charajax.put('api/weapon/EditWeapon/', dataToSave).done(function (response) {
                     self.selectedWeapon().dirtyFlag.reset();
                     self.resetToBaseList("success", "Weapon Edit Saved");
                 });
