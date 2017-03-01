@@ -239,6 +239,8 @@
     <Content Include="app\classlist\classlist.js" />
     <Content Include="app\confirmdelete\confirmdelete.html" />
     <Content Include="app\confirmdelete\confirmdelete.js" />
+    <Content Include="app\feature\feature.html" />
+    <Content Include="app\feature\feature.js" />
     <Content Include="app\home\home.html" />
     <Content Include="app\home\home.js" />
     <Content Include="app\items\items.html" />
@@ -248,10 +250,14 @@
     <Content Include="app\navaway\navaway.js" />
     <Content Include="app\other\other.html" />
     <Content Include="app\other\other.js" />
+    <Content Include="app\proficiency\proficiency.html" />
+    <Content Include="app\proficiency\proficiency.js" />
     <Content Include="app\racelist\racelist.html" />
     <Content Include="app\racelist\racelist.js" />
     <Content Include="app\shell\shell.html" />
     <Content Include="app\shell\shell.js" />
+    <Content Include="app\spells\spells.html" />
+    <Content Include="app\spells\spells.js" />
     <Content Include="app\tools\tools.html" />
     <Content Include="app\tools\tools.js" />
     <Content Include="app\weapons\weapons.html" />

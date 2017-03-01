@@ -25,7 +25,7 @@
 .pmd-sidebar::-webkit-scrollbar-thumb { border-radius: 10px; -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); background-color: #BFBFBF;}
 
 /* -- Sidebar My account ---------------------------------------- */
-.pmd-sidebar .pmd-user-info > a{ background-color: rgba(52, 65, 86, 0.73); background-size:cover; color:#fff;} ORIGINAL STYLE
+/*.pmd-sidebar .pmd-user-info > a{ background-color: rgba(52, 65, 86, 0.73); background-size:cover; color:#fff;}*/
 .pmd-sidebar .pmd-user-info > a:hover, .pmd-sidebar .pmd-user-info > a:focus{ background-color:#333;}
 
 @media (max-width: 767px) {
