@@ -145,7 +145,7 @@
                 if (response.accepted) {
                     _i.charajax.delete('api/armor/DeleteArmor/' + obj.Id(), '').done(function (response) {
                         self.armors.remove(obj);
-                        _i.alert.showAlert({type:"danger",message:"Armor Deleted"});
+                        _i.alert.showAlert({type:"error",message:"Armor Deleted"});
                     });
                 }
             });

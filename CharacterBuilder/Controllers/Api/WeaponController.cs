@@ -34,6 +34,17 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(profList);
         }
 
+        [HttpPost]
+        [Route("AddWeapon/")]
+        public IHttpActionResult AddArmor([FromBody] Weapon weaponToAdd)
+        {
+            _weaponRepository.AddWeapon(weaponToAdd);
+            var armorAddedProficiency = _proficiencyRepository.GetProficiencyById(weaponToAdd.ProficiencyId);
+            weaponToAdd.Proficiency = armorAddedProficiency;
+
+            return Ok(weaponToAdd);
+        }
+
         [HttpGet]
         [Route("GetAllWeaponProperties")]
         public IHttpActionResult GetAllWeaponProperties()
@@ -44,7 +55,7 @@ namespace CharacterBuilder.Controllers.Api
         }
 
         [HttpPut]
-        [Route("EditWeapon")]
+        [Route("EditWeapon/")]
         public IHttpActionResult EditWeapon([FromBody] Weapon weaponToEdit)
         {
             _weaponRepository.EditWeapon(weaponToEdit);

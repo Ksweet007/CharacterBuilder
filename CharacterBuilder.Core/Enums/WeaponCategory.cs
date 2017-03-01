@@ -1,10 +1,12 @@
-﻿namespace CharacterBuilder.Core.Enums
+﻿using System.Collections.Generic;
+using CharacterBuilder.Core.Model;
+
+namespace CharacterBuilder.Core.Enums
 {
-    public enum WeaponCategory
+    public class WeaponCategory
     {
-        SimpleMelee = 1,
-        SimpleRanged,
-        MartialMelee,
-        MartialRanged
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public IList<Weapon> Weapons { get; set; }
     }
 }

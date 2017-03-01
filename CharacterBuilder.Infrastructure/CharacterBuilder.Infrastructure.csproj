@@ -71,6 +71,14 @@
     <Compile Include="Migrations\201703010120569_CHANGE_PROFTYPE_TO_POCO.Designer.cs">
       <DependentUpon>201703010120569_CHANGE_PROFTYPE_TO_POCO.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703010246313_CHANGE_WEAPONPROF.cs" />
+    <Compile Include="Migrations\201703010246313_CHANGE_WEAPONPROF.Designer.cs">
+      <DependentUpon>201703010246313_CHANGE_WEAPONPROF.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703010252243_CHANGE_WEAPONCATEGORY.cs" />
+    <Compile Include="Migrations\201703010252243_CHANGE_WEAPONCATEGORY.Designer.cs">
+      <DependentUpon>201703010252243_CHANGE_WEAPONCATEGORY.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -96,6 +104,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703010120569_CHANGE_PROFTYPE_TO_POCO.resx">
       <DependentUpon>201703010120569_CHANGE_PROFTYPE_TO_POCO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703010246313_CHANGE_WEAPONPROF.resx">
+      <DependentUpon>201703010246313_CHANGE_WEAPONPROF.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703010252243_CHANGE_WEAPONCATEGORY.resx">
+      <DependentUpon>201703010252243_CHANGE_WEAPONCATEGORY.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -73,7 +73,7 @@
 
         self.getAllWeaponProperties = function () {
             var deferred = _i.deferred.create();
-            _i.charajax.get('api/getAllWeaponProperties', '').done(function (response) {
+            _i.charajax.get('api/weapon/getAllWeaponProperties', '').done(function (response) {
                 var mapped = _i.ko.mapping.fromJS(response);
 
                 response.forEach(function (property) {
@@ -88,7 +88,7 @@
 
         self.getWeapons = function () {
             var promise = _i.deferred.create();
-            _i.charajax.get('api/GetAllWeapons', '').done(function (response) {
+            _i.charajax.get('api/weapon/GetAllWeapons', '').done(function (response) {
                 var mapped = _i.ko.mapping.fromJS(response);
                 mapped().forEach(function (weap) {
                     self.selectedWeaponType().push(weap.ProficiencyName())
@@ -151,7 +151,7 @@
         self.deleteWeapon = function (obj) {
             _i.confirmdelete.show().then(function (response) {
                 if (response.accepted) {
-                    _i.charajax.delete('api/DeleteWeapon/' + obj.Id(), '').done(function (response) {
+                    _i.charajax.delete('api/weapon/DeleteWeapon/' + obj.Id(), '').done(function (response) {
                         self.weapons.remove(obj);
                     });
                 }

@@ -19,6 +19,7 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
         public DbSet<ProficiencyType> ProficiencyTypes { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
         public DbSet<WeaponProperty> WeaponProperties { get; set; }
+        public DbSet<WeaponCategory> WeaponCategories { get; set; }
         
         //public DbSet<AbilityScoreIncrease> AbilityScoreIncreases { get; set; }
         //public DbSet<Alignment> Alignments { get; set; }
