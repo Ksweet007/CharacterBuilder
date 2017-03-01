@@ -52,8 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ArmorRepository.cs" />
-    <Compile Include="Data\ClassRepository.cs" />
     <Compile Include="Data\Contexts\CharacterBuilderDbContext.cs" />
+    <Compile Include="Data\ProficiencyRepository.cs" />
+    <Compile Include="Data\WeaponRepository.cs" />
     <Compile Include="Migrations\201702270132327_INITIAL_BUILD.cs" />
     <Compile Include="Migrations\201702270132327_INITIAL_BUILD.Designer.cs">
       <DependentUpon>201702270132327_INITIAL_BUILD.cs</DependentUpon>
@@ -61,6 +62,14 @@
     <Compile Include="Migrations\201702272037220_CONTEXT_CHANGE.cs" />
     <Compile Include="Migrations\201702272037220_CONTEXT_CHANGE.Designer.cs">
       <DependentUpon>201702272037220_CONTEXT_CHANGE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703010100152_ARMOR_AND_WEAPON_CONTROLLERS_REPOS_CONTEXT.cs" />
+    <Compile Include="Migrations\201703010100152_ARMOR_AND_WEAPON_CONTROLLERS_REPOS_CONTEXT.Designer.cs">
+      <DependentUpon>201703010100152_ARMOR_AND_WEAPON_CONTROLLERS_REPOS_CONTEXT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703010120569_CHANGE_PROFTYPE_TO_POCO.cs" />
+    <Compile Include="Migrations\201703010120569_CHANGE_PROFTYPE_TO_POCO.Designer.cs">
+      <DependentUpon>201703010120569_CHANGE_PROFTYPE_TO_POCO.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +90,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702272037220_CONTEXT_CHANGE.resx">
       <DependentUpon>201702272037220_CONTEXT_CHANGE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703010100152_ARMOR_AND_WEAPON_CONTROLLERS_REPOS_CONTEXT.resx">
+      <DependentUpon>201703010100152_ARMOR_AND_WEAPON_CONTROLLERS_REPOS_CONTEXT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703010120569_CHANGE_PROFTYPE_TO_POCO.resx">
+      <DependentUpon>201703010120569_CHANGE_PROFTYPE_TO_POCO.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

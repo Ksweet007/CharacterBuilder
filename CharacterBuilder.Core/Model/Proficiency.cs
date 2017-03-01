@@ -7,7 +7,7 @@ namespace CharacterBuilder.Core.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ProficiencyType ProficiencyTypeId { get; set; }
+        public ProficiencyType ProficiencyType { get; set; }
         public IList<Weapon> Weapons { get; set; }
         public IList<Armor> Armors { get; set; }
     }

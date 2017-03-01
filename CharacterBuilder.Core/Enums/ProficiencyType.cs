@@ -1,13 +1,13 @@
-﻿namespace CharacterBuilder.Core.Enums
+﻿using System.Collections.Generic;
+using CharacterBuilder.Core.Model;
+
+namespace CharacterBuilder.Core.Enums
 {
-    public enum ProficiencyType
+    public class ProficiencyType
     {
-        Armor = 1,
-        Weapon,
-        Tool,
-        Save,
-        Skill,
-        Vision,
-        Language
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public IList<Proficiency> Proficiencies { get; set; }
     }
+
 }

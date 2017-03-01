@@ -9,7 +9,8 @@ namespace CharacterBuilder.Infrastructure.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(CharacterBuilder.Infrastructure.Data.Contexts.CharacterBuilderDbContext context)

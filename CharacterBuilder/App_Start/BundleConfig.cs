@@ -45,7 +45,6 @@ namespace CharacterBuilder
                 .Include("~/assets/js/wNumb.js")
                 .Include("~/assets/js/nouislider.js");
 
-
             if (!minifyJs)
             {
                 vendorBundleTwo.Transforms.Clear(); //disables minification
