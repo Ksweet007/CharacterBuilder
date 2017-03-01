@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CharacterBuilder.Core.DTO;
+﻿using System.Linq;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data;
 

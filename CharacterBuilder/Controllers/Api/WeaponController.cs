@@ -42,8 +42,8 @@ namespace CharacterBuilder.Controllers.Api
         [Route("AddWeapon/")]
         public IHttpActionResult AddWeapon([FromBody] Weapon weaponToAdd)
         {
-            //_weaponRepository.AddWeapon(weaponToAdd);
             _weaponService.CreateWeapon(weaponToAdd);
+
             return Ok(weaponToAdd);            
         }
 
