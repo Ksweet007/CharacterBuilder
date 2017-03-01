@@ -42,7 +42,7 @@
                     { route: 'race', title: 'Race', moduleId: 'race/race', nav: true, hash: "#race", linktype: 'race' },
                     { route: 'classlist', title: 'Classes', moduleId: 'classlist/classlist', nav: true, hash: "#classlist", linktype: 'single' },
 					{ route: 'backgrounds', title: 'Backgrounds', moduleId: 'backgrounds/backgrounds', nav: true, hash: "#backgrounds", linktype: 'single' },                    
-                    { route: 'proficiency', title: 'Proficiencies', moduleId: 'proficiency/proficiency', nav: true, hash: "#proficiencies", linktype: 'single' },
+                    { route: 'proficiency', title: 'Proficiencies', moduleId: 'proficiency/proficiency', nav: true, hash: "#proficiency", linktype: 'single' },
                     { route: 'spells', title: 'Spells', moduleId: 'spells/spells', nav: true, hash: "#spells", linktype: 'single' },
                     { route: 'feature', title: 'Features', moduleId: 'features/features', nav: true, hash: "#features", linktype: 'single' },
 

@@ -1,22 +1,12 @@
-﻿<nav-header params="{isDirty: isDirty, save: save}"></nav-header>
+﻿<nav-header params="{isDirty: null, save: null}"></nav-header>
 <div class="container-fluid full-width-container">
-    <div class="row" data-bind="visible: showAll()">
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <div class="pmd-card pmd-card-inverse pageTitle">
                 <div class="pmd-card-title">
                     <div class="row">
                         <div class="media-left">
-                            <h2 class="pmd-display2 typo-fill-secondary"><span>Armor</span></h2>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="media-left">
-                            <span class="pmd-card-subtitle-text">Add New</span>
-                        </div>
-                        <div class="media-right">
-                            <button class="material-icons md-light pmd-xs btncard btnadd pmd-ripple-effect" data-bind='click: openCreateForm, enable: showAll()'>
-                                add
-                            </button>
+                            <h2 class="pmd-display2 typo-fill-secondary"><span>Proficiencies</span></h2>
                         </div>
                     </div>
                 </div>
@@ -26,10 +16,10 @@
                             <span class="pmd-card-subtitle-text">Sort:</span>
                         </div>
                         <div class="media-right">
-                            <!--ko foreach:armorTypes()-->
+                            <!--ko foreach:proficiencyTypes()-->
                             <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-                                <input type='checkbox' name="type" data-bind='checked: $parent.selectedArmorType, value:Name' />
-                                <span data-bind="text:Name"> </span>
+                                <input type='checkbox' name="type" data-bind='checked: $parent.selectedProficiencyTypes, value:Name' />
+                                <span data-bind="text:Name"> </span>                                      
                             </label>
                             <!--/ko-->
                         </div>
@@ -38,168 +28,25 @@
             </div>
         </div>
     </div>
-
     <div class="section">
-        <div class="row" data-bind="visible: showAll()">
-            <!--ko foreach:armorsToShow-->
+        <div class="row">
+            <!--ko foreach:proficienciesToShow-->
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-title">
                         <div class="media-body media-middle">
                             <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:Name"></h1>
+                            <!--ko with: ProficiencyType-->
                             <span class="pmd-card-subtitle-text" data-bind="text:Name"></span>
-                        </div>
-                        <div class="media-right">
-                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectArmorToEdit">
-                                edit
-                            </button>
-                            <button class="material-icons md-light pmd-xs btncard btndelete pmd-ripple-effect btn-danger" data-bind="click:$parent.deleteArmor">
-                                delete
-                            </button>
+                            <!--/ko-->                                                      
                         </div>
                     </div>
                     <div class="pmd-card-body">
-                        <span class="pmd-card-subtitle-text">Armor Class</span>
-                        <p data-bind="text:ArmorClass"></p>
-                        <span class="pmd-card-subtitle-text">Cost</span>
-                        <p data-bind="text:Cost"></p>
-                        <span class="pmd-card-subtitle-text">Weight</span>
-                        <p data-bind="text:Weight"></p>
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <span class="pmd-card-subtitle-text">Strength</span>
-                                <p data-bind="text:Strength"></p>
-                            </div>
-                            <!-- CHANGE TO BE A TOGGLE SWITCH! -->
-                            <div class="col-xs-6" data-bind="enable:false">
-                                <label class="pmd-checkbox pmd-checkbox-ripple-effect" data-bind="enable: false">
-                                    <input type="checkbox" data-bind='checked: Stealth, enable:false'>
-                                    <span> Stealth</span>
-                                </label>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <!--/ko-->
-        </div>
-
-        <div class="row" data-bind="visible: $data.isAddingNew() ">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6">
-                <div class="pmd-card pmd-card-inverse pmd-z-depth-5 pmd-card-custom-form" data-bind="with : newArmor">
-                    <div class="pmd-card-body">
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <!--ko foreach: $parent.armorTypes()-->
-                            <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
-                                <input type='radio' name="inlineRadioOptions" data-bind="checked: $parent.ProficiencyId, value: Id" /><span class="pmd-radio-label">&nbsp;</span>
-                                <span data-bind="text:Name"> </span>
-                            </label>
-                            <!--/ko-->
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label for="name" class="control-label">Name</label>
-                            <input type="text" id="name" data-bind='value: Name, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label for="recType" class="control-label">Cost</label>
-                            <input type="text" id="recType" data-bind='value: Cost, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label for="recType" class="control-label">Armor Class</label>
-                            <input type="text" id="recType" data-bind='value: ArmorClass, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label class="control-label">Weight</label>
-                            <input type="text" id="recType" data-bind='value: Weight, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label class="control-label">Strength</label>
-                            <input type="text" id="recType" data-bind='value: Strength, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <div class="checkbox">
-                                <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                    <input type="checkbox" data-bind='checked: Stealth '>
-                                    <span class="pmd-checkbox-label">Stealth</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="pmd-card-actions">
-                            <button class="btn pmd-ripple-effect btn-primary" data-bind='click: $parent.save'>Save</button>
-                            <button class="btn pmd-ripple-effect btn-primary" data-bind='click: $parent.cancelEditor'>Cancel</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row" data-bind="visible: $data.isEditing() ">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6">
-                <div class="pmd-card pmd-card-inverse pmd-z-depth-5 pmd-card-custom-form" data-bind="with : selectedArmor">
-                    <div class="pmd-card-body">
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <!--ko foreach: $parent.armorTypes()-->
-                            <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
-                                <input type='radio' name="inlineRadioOptions" data-bind='checked: $parent.ProficiencyId, value: Id' /><span class="pmd-radio-label">&nbsp;</span>
-                                <span data-bind="text:Name"> </span>
-                            </label>
-                            <!--/ko-->
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label for="name" class="control-label">Name</label>
-                            <input type="text" id="name" data-bind='value: Name, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label for="recType" class="control-label">Cost</label>
-                            <input type="text" id="recType" data-bind='value: Cost, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label for="recType" class="control-label">Armor Class</label>
-                            <input type="text" id="recType" data-bind='value: ArmorClass, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label class="control-label">Weight</label>
-                            <input type="text" id="recType" data-bind='value: Weight, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label class="control-label">Strength</label>
-                            <input type="text" id="recType" data-bind='value: Strength, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <div class="checkbox">
-                                <label class="pmd-checkbox pmd-checkbox-ripple-effect">
-                                    <input type="checkbox" data-bind='checked: Stealth '>
-                                    <span class="pmd-checkbox-label">Stealth</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="pmd-card-actions">
-                            <button class="btn pmd-ripple-effect btn-primary" data-bind='click: $parent.save'>Save</button>
-                            <button class="btn pmd-ripple-effect btn-primary" data-bind='click: $parent.cancelEditor'>Cancel</button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+        </div> 
     </div>
+
 </div>
