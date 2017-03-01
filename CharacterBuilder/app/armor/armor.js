@@ -182,12 +182,9 @@
                     self.selectedArmor().dirtyFlag.reset();
                     self.resetToBaseList("success", "Armor Edit Saved");
                 });
-            }
+            }          
 
-            if (!isNewState && !isEditState) {
-                return _i.deferred.createResolved();
-            }
-
+            return _i.deferred.createResolved();           
         };
 
     }

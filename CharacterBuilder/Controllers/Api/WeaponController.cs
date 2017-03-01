@@ -1,6 +1,8 @@
 ﻿using System.Web.Http;
+using CharacterBuilder.Core.DTO;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data;
+using CharacterBuilder.Infrastructure.Services;
 
 namespace CharacterBuilder.Controllers.Api
 {
@@ -9,11 +11,13 @@ namespace CharacterBuilder.Controllers.Api
     {
         private readonly WeaponRepository _weaponRepository;
         private readonly ProficiencyRepository _proficiencyRepository;
+        private readonly WeaponService _weaponService;
 
         public WeaponController()
         {
             _weaponRepository = new WeaponRepository();
             _proficiencyRepository = new ProficiencyRepository();
+            _weaponService = new WeaponService();
         }
 
         [HttpGet]
@@ -36,13 +40,14 @@ namespace CharacterBuilder.Controllers.Api
 
         [HttpPost]
         [Route("AddWeapon/")]
-        public IHttpActionResult AddArmor([FromBody] Weapon weaponToAdd)
+        public IHttpActionResult AddWeapon([FromBody] Weapon weaponToAdd)
         {
-            _weaponRepository.AddWeapon(weaponToAdd);
-            var armorAddedProficiency = _proficiencyRepository.GetProficiencyById(weaponToAdd.ProficiencyId);
-            weaponToAdd.Proficiency = armorAddedProficiency;
-
-            return Ok(weaponToAdd);
+            //_weaponRepository.AddWeapon(weaponToAdd);
+            //var armorAddedProficiency = _proficiencyRepository.GetProficiencyById(weaponToAdd.ProficiencyId);
+            //weaponToAdd.Proficiency = armorAddedProficiency;
+            //_weaponService.CreateWeapon(weaponToAdd);
+            //return Ok(weaponToAdd);
+            return Ok();
         }
 
         [HttpGet]
@@ -52,6 +57,15 @@ namespace CharacterBuilder.Controllers.Api
             var profList = _weaponRepository.GetAllWeaponProperties();
 
             return Ok(profList);
+        }
+
+        [HttpGet]
+        [Route("GetAllWeaponCategories")]
+        public IHttpActionResult GetAllWeaponCategories()
+        {
+            var catList = _weaponRepository.GetAllWeaponCategories();
+
+            return Ok(catList);
         }
 
         [HttpPut]

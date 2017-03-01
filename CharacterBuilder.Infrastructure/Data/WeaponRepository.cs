@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CharacterBuilder.Core.Enums;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data.Contexts;
 
@@ -34,6 +35,16 @@ namespace CharacterBuilder.Infrastructure.Data
         public IList<WeaponProperty> GetAllWeaponProperties()
         {
             return _db.WeaponProperties.ToList();
+        }
+
+        public IList<WeaponCategory> GetAllWeaponCategories()
+        {
+            return _db.WeaponCategories.ToList();
+        }
+
+        public WeaponCategory GetWeaponCategoryById(int categoryId)
+        {
+            return _db.WeaponCategories.Single(c => c.Id == categoryId);
         }
 
         public void AddWeapon(Weapon weaponToAdd)

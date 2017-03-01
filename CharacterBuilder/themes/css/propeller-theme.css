@@ -60,7 +60,7 @@ a{ color:rgba(0, 0, 0, 0.84); text-decoration:none; outline:none;}
 /*a:hover, a:focus, a:active{color:#00a9a6;text-decoration:underline;}*/
 
 /*======= Input Field =======*/
-.pmd-textfield .form-control{border-color:rgba(0,0,0,0.14);}
+/*.pmd-textfield .form-control{border-color:rgba(0,0,0,0.14);}*/
 .pmd-textfield-focused{background-color:#001E80;}
 
 /* Input Field & Selectbox Inverse Theme */

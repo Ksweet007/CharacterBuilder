@@ -78,13 +78,15 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 .section-inner.pmd-card { color: #c1b4b4;}
 .pageTitle{ background: transparent;}
 
+/*==================== INPUT FIELDS ====================*/
+.pmd-textfield .form-control{border-color:#c1b4b4;}
+
 /*==================== BORDERS ====================*/
 .item-details { border-right:1px solid #dfe3e7; }
 
-
 /*==================== INNER HEADERS ====================*/
 h2.typo-fill-secondary, .pmd-card-title-text,
-.navbar-brand, .pmd-card-title strong, .pmd-card-footer, .pmd-sidebar a, .navbar-header .btn:hover,.pmd-textfield label { color: #e2733c !important;}  /*{color: #E23C3C !important;}*/
+.navbar-brand, .pmd-card-title strong, .pmd-card-footer, .pmd-sidebar a, .navbar-header .btn:hover,.pmd-textfield label { color: #e2733c !important;}
 .pmd-textfield-floating-label.pmd-textfield-floating-label-completed label  {color: #c1b4b4 !important;}
 
 /*==================== BUTTONS ====================*/
@@ -105,7 +107,7 @@ h2.typo-fill-secondary, .pmd-card-title-text,
 .home-content h3{ font-weight:bold;}
 .section-custom-home{ max-width:800px;}
 
-/*=================Login css====================*/
+/*================= Login ====================*/
 .body-custom{ height:100%;}
 .logincard{margin:auto; position:relative; top:50%; max-width:400px; }
 .login-card, .register-card  { background-color: rgba(33, 33, 33, 0.46); }
