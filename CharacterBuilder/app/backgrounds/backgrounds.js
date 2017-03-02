@@ -41,8 +41,15 @@
         self.getBackgroundList = function () {
             var deferred = _i.deferred.create();
             _i.charajax.get('api/background/GetAllBackgrounds', '').done(function (response) {
+                response.forEach(function(bg) {
+                    bg.BackgroundCharacteristic.forEach(function(char) {
+                        for (var i = 0; i < char.BackgroundOptions.length; i++) {                            
+                            char.BackgroundOptions[i].rollValue = i + 1;
+                        }
+                    });
+                });
                 var mapped = _i.ko.mapping.fromJS(response);
-
+                
                 self.backgrounds(mapped());
                 deferred.resolve();
             });

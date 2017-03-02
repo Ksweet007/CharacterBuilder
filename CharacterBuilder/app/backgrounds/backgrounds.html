@@ -32,29 +32,57 @@
                     <div class="pmd-card-body">
                         <span class="pmd-card-subtitle-text">Description</span>
                         <p data-bind="text:Description"></p>
-                        
-                        <div class="pmd-textfield">                            
-                            <!--ko foreach: BackgroundCharacteristic-->
-                            <label class="control-label" data-bind="text:Name"></label>
-                          
-                            <!--/ko-->
-                            <!--ko foreach: Skills-->
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <p data-bind="text:Name"></p>
-                                </div>
-                            </div>
-                            <!--/ko-->
-                        </div>
-
-
-
                     </div>
                 </div>
             </div>
             <!--/ko-->
         </div>
 
+        <div class="row" data-bind="visible: viewingDetails() ">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5" data-bind="with : selectedBackground">
+                    <div class="pmd-card-title">
+                        <div class="media-body media-middle">
+                            <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:Name"></h1>
+                        </div>
+                        <div class="media-right">
+                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.closeMoreDetails">
+                                fullscreen_exit
+                            </button>
+                        </div>
+                    </div>
+                    <div class="pmd-card-body">
+                        <div class="pmd-textfield">
+                            <label for="desc" class="control-label">Description</label>
+                            <p id="desc" data-bind="text:Description"></p>
+                        </div>
+                        
+                        <!--ko foreach: BackgroundCharacteristic-->
+                        <div class="pmd-textfield">
+                            <div class="pmd-table-card">
+                                <table class="table pmd-table table-inverse">
+                                    <thead>
+                                    <tr>
+                                        <th data-bind="text:'d'+ BackgroundOptions().length"></th>
+                                        <th data-bind="text:Name"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <!--ko foreach: $data.BackgroundOptions-->
+                                    <tr>
+                                        <td data-bind="text:rollValue"></td>
+                                        <td data-bind="text:Description"></td>
+                                    </tr>
+                                        <!--/ko-->
+                                    </tbody>
+                                </table>
+                            </div> 
+                        </div>
+                        <!--/ko-->
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>

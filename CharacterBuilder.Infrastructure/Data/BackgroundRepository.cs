@@ -17,7 +17,10 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public IList<Background> GetAllBackgrounds()
         {
-            return _db.Backgrounds.Include(b => b.BackgroundCharacteristic.Select(y => y.BackgroundOptions)).ToList();
+            return
+                _db.Backgrounds.Include(b => b.BackgroundCharacteristic.Select(y => y.BackgroundOptions))
+                    .Include(s => s.Skills)
+                    .ToList();
         }
     }
 }

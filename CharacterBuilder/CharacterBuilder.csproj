@@ -348,6 +348,8 @@
     <Content Include="assets\js\propeller.js" />
     <Content Include="assets\js\propeller.min.js" />
     <Content Include="assets\js\wNumb.js" />
+    <Content Include="Content\BackgroundModified.js" />
+    <Content Include="Content\Backgrounds.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -633,7 +635,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
