@@ -58,7 +58,6 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
   }
 }
 
-
 /*==================== NAVBAR ====================*/
 .nav>li>a:hover{background-color: #161a22 !important;}
 .navbar-inverse {background-color: #2c3544 !important; border-color: #2c3544 !important}
@@ -66,7 +65,6 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 
 /*==================== SIDEBAR ====================*/
 .pmd-sidebar, .pmd-sidebar-right-fixed  {background-color: #2c3544 !important; border-color: rgba(16, 16, 16, 0.34) !important}
-/*.login-card   {background-color: #333 !important;}*/
 .btn-primary  {background-color: #E23C3C; opacity: .8;}
 .btn-primary:hover  {background-color: #d20b0b; opacity: .8;}
 .btn-primary:disabled {background-color: #cc6767; opacity: .5; }
@@ -77,6 +75,28 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 .pmd-textfield-floating-label label,.login-register,.material-icons.md-dark {color:#c1b4b4 !important;}
 .section-inner.pmd-card { color: #c1b4b4;}
 .pageTitle{ background: transparent;}
+
+/*==================== CARD MORE DETAIL LABELS ====================*/
+.mordetaillabel { color: #e2733c;}
+
+/*==================== TABLE ====================*/
+tbody { color: #c1b4b4;}
+.thead-inverse th { color: #fff; background-color: #373a3c;}
+
+.thead-default th { color: #e2733c; background-color: #eceeef;}
+
+.table-inverse { color: ##c1b4b4; background-color: #373a3c;}
+.table-inverse.table-striped tbody tr:nth-of-type(odd) { background:rgba(255,255,255,0.02);}
+
+.table-inverse.table-hover tbody tr:hover,
+.table-inverse.table-hover tbody tr:nth-of-type(odd):hover { background:rgba(255,255,255,0.04); cursor:pointer;}
+
+.table-inverse.table-bordered { border: 0;}
+
+/*==================== INVERSE TABLE HOVER ====================*/
+.pmd-table.table.table-inverse > thead > tr > th {color:#e2733c;}
+.pmd-table.table-striped.table-inverse tbody tr:nth-of-type(odd){background-color:#323638;}
+.pmd-table.table-hover.table-inverse tbody tr:hover{background-color: #404446;}
 
 /*==================== INPUT FIELDS ====================*/
 .pmd-textfield .form-control{border-color:#c1b4b4;}

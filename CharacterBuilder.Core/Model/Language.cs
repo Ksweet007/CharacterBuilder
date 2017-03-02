@@ -1,4 +1,5 @@
-﻿using CharacterBuilder.Core.Enums;
+﻿using System.Collections.Generic;
+using CharacterBuilder.Core.Enums;
 
 namespace CharacterBuilder.Core.Model
 {
@@ -9,5 +10,6 @@ namespace CharacterBuilder.Core.Model
         public LanguageType LanguageType { get; set; }        
         public string ScriptName { get; set; }
         public string Description { get; set; }
+        public IList<Background> Backgrounds { get; set; }
     }
 }

@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ArmorRepository.cs" />
+    <Compile Include="Data\BackgroundRepository.cs" />
     <Compile Include="Data\CharacterSheetRepository.cs" />
     <Compile Include="Data\ClassRepository.cs" />
     <Compile Include="Data\Contexts\CharacterBuilderDbContext.cs" />
@@ -97,6 +98,42 @@
     <Compile Include="Migrations\201703020042332_HIT_DIE_FIX.Designer.cs">
       <DependentUpon>201703020042332_HIT_DIE_FIX.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703020113585_CHARSHEET_SKILL_FIX.cs" />
+    <Compile Include="Migrations\201703020113585_CHARSHEET_SKILL_FIX.Designer.cs">
+      <DependentUpon>201703020113585_CHARSHEET_SKILL_FIX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020118326_ABILITYSCORE_TO_SKILLS.cs" />
+    <Compile Include="Migrations\201703020118326_ABILITYSCORE_TO_SKILLS.Designer.cs">
+      <DependentUpon>201703020118326_ABILITYSCORE_TO_SKILLS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.cs" />
+    <Compile Include="Migrations\201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.Designer.cs">
+      <DependentUpon>201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.cs" />
+    <Compile Include="Migrations\201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.Designer.cs">
+      <DependentUpon>201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.cs" />
+    <Compile Include="Migrations\201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.Designer.cs">
+      <DependentUpon>201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703021803099_REMOVE_BG_FROM_OPTION.cs" />
+    <Compile Include="Migrations\201703021803099_REMOVE_BG_FROM_OPTION.Designer.cs">
+      <DependentUpon>201703021803099_REMOVE_BG_FROM_OPTION.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703022025347_ADDED_VARIANT_AND_LANGUAGE_TO_BACKGROUND.cs" />
+    <Compile Include="Migrations\201703022025347_ADDED_VARIANT_AND_LANGUAGE_TO_BACKGROUND.Designer.cs">
+      <DependentUpon>201703022025347_ADDED_VARIANT_AND_LANGUAGE_TO_BACKGROUND.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703022027082_ADDED_BG_TO_LANGUAGE.cs" />
+    <Compile Include="Migrations\201703022027082_ADDED_BG_TO_LANGUAGE.Designer.cs">
+      <DependentUpon>201703022027082_ADDED_BG_TO_LANGUAGE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703022035254_ADDED_LANGUAGETYPE.cs" />
+    <Compile Include="Migrations\201703022035254_ADDED_LANGUAGETYPE.Designer.cs">
+      <DependentUpon>201703022035254_ADDED_LANGUAGETYPE.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WeaponService.cs" />
@@ -141,6 +178,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703020042332_HIT_DIE_FIX.resx">
       <DependentUpon>201703020042332_HIT_DIE_FIX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020113585_CHARSHEET_SKILL_FIX.resx">
+      <DependentUpon>201703020113585_CHARSHEET_SKILL_FIX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020118326_ABILITYSCORE_TO_SKILLS.resx">
+      <DependentUpon>201703020118326_ABILITYSCORE_TO_SKILLS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.resx">
+      <DependentUpon>201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.resx">
+      <DependentUpon>201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.resx">
+      <DependentUpon>201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703021803099_REMOVE_BG_FROM_OPTION.resx">
+      <DependentUpon>201703021803099_REMOVE_BG_FROM_OPTION.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703022025347_ADDED_VARIANT_AND_LANGUAGE_TO_BACKGROUND.resx">
+      <DependentUpon>201703022025347_ADDED_VARIANT_AND_LANGUAGE_TO_BACKGROUND.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703022027082_ADDED_BG_TO_LANGUAGE.resx">
+      <DependentUpon>201703022027082_ADDED_BG_TO_LANGUAGE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703022035254_ADDED_LANGUAGETYPE.resx">
+      <DependentUpon>201703022035254_ADDED_LANGUAGETYPE.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

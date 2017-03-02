@@ -1,8 +1,8 @@
 ﻿namespace CharacterBuilder.Core.Enums
 {
-    public enum LanguageType
+    public class LanguageType
     {
-        Standard = 1,
-        Exoctic
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

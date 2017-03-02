@@ -6,20 +6,22 @@ using CharacterBuilder.Infrastructure.Data.Contexts;
 
 namespace CharacterBuilder.Infrastructure.Data
 {
-    public class ClassRepository
+    public class BackgroundRepository
     {
         private readonly CharacterBuilderDbContext _db;
 
-        public ClassRepository()
+        public BackgroundRepository()
         {
             _db = new CharacterBuilderDbContext();
         }
 
-        public IList<Class> GetAllClasses()
+        public IList<Background> GetAllBackgrounds()
         {
-            return _db.Classes.Include(s => s.Skills).ToList();
+            return
+                _db.Backgrounds.Include(b => b.BackgroundCharacteristic.Select(y => y.BackgroundOptions))
+                    .Include(s => s.Skills)
+                    .Include(l=>l.Languages)
+                    .ToList();
         }
-
-        
     }
 }

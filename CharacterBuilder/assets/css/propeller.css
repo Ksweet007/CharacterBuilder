@@ -1080,18 +1080,6 @@ body.pmd-body-open { overflow: hidden;}
 
 .table-responsive { display: block; width: 100%; overflow-x: auto;}
 
-.thead-inverse th { color: #fff; background-color: #373a3c;}
-
-.thead-default th { color: #55595c; background-color: #eceeef;}
-
-.table-inverse { color: #eceeef; background-color: #373a3c;}
-.table-inverse.table-striped tbody tr:nth-of-type(odd) { background:rgba(255,255,255,0.02);}
-
-.table-inverse.table-hover tbody tr:hover,
-.table-inverse.table-hover tbody tr:nth-of-type(odd):hover { background:rgba(255,255,255,0.04); cursor:pointer;}
-
-.table-inverse.table-bordered { border: 0;}
-
 .table.table-inverse > thead > tr > th,
 .table.table-inverse > tbody > tr > th,
 .table.table-inverse > tfoot > tr > th,
@@ -1159,10 +1147,7 @@ Propeller Table
 
 /* -- Table Hover -------------- */
 .pmd-table.table-hover tbody tr:hover{background-color: #eeeeee;}
-/* -- Inverse Table Hover ------ */
-.pmd-table.table.table-inverse > thead > tr > th {color:rgba(255, 255, 255, 0.54);}
-.pmd-table.table-striped.table-inverse tbody tr:nth-of-type(odd){background-color:#323638;}
-.pmd-table.table-hover.table-inverse tbody tr:hover{background-color: #404446;}
+
 /* -- Table in card-------------- */
 .table-heading { min-height:64px; border-bottom:1px solid #ddd; padding:4px 24px 4px 24px;}
 .table-footer{ padding: 8px 24px 8px 24px; border-top: 1px solid #ddd; display:inline-block; width:100%;}

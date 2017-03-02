@@ -14,7 +14,7 @@ namespace CharacterBuilder.Core.Model
         public string Hpathigherlevels { get; set; }
         public IList<Feature> Features { get; set; }
         public IList<Skill> Skills { get; set; }
-        //public IList<Spell> Spells { get; set; }
+        public int SkillPickCount { get; set; }        
         public IList<Proficiency> Proficiencies { get; set; }
         public IList<ProficiencyType> ProficiencyTypes { get; set; }
     }
