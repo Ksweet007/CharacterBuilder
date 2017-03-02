@@ -31,6 +31,17 @@
             return skills.join(', ');
         };
 
+        self.languageVerbiage = function() {
+            var languages = [];
+            self.selectedBackground().Languages().forEach(function (item) {
+                languages.push(item.Name());
+            });
+            var formattedArray = languages.join(', ');
+            var countVerbiage = 'Choose ' + self.selectedBackground().LanguageCount() + ' from:';
+
+            return countVerbiage + " " + formattedArray;
+        };
+
         self.activate = function () {
             return self.getPageData().done(function () {
 
