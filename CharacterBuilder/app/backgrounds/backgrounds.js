@@ -15,11 +15,21 @@
 
         /*==================== PAGE STATE/FILTERED ITEMS ====================*/
         self.selectedBackground = _i.ko.observable();
+        
         self.viewingDetails = _i.ko.observable(false);
         self.backgroundListToShow = _i.ko.computed(function () {
             var returnList = self.backgrounds();
             return _i.list.sortAlphabeticallyObservables(returnList);
         });
+
+        self.skillsList = function () {            
+            var skills = [];
+            self.selectedBackground().Skills().forEach(function(item) {
+                skills.push(item.Name());
+            });
+
+            return skills.join(', ');
+        };
 
         self.activate = function () {
             return self.getPageData().done(function () {
