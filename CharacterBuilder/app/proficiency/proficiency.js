@@ -24,8 +24,7 @@
             });
             return _i.list.sortAlphabeticallyObservables(returnList);            
         });
-
-
+        
         self.activate = function() {
             return self.getPageData().done(function (response) {
                 

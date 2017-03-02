@@ -1,13 +1,20 @@
 ﻿using System.Web.Mvc;
+using CharacterBuilder.ViewModels;
 
 namespace CharacterBuilder.Controllers
 {
-    [System.Web.Mvc.Authorize]
+    [Authorize]
     public class CharacterBuilderController : Controller
     {
         public ActionResult Index()
         {
-            return View();
+            var model = new IndexViewModel
+            {
+                SheetId = 1,
+                UserName = User.Identity.Name
+            };
+
+            return View(model);
         }
     }
 }

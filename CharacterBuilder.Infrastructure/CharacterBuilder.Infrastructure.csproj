@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ArmorRepository.cs" />
+    <Compile Include="Data\CharacterSheetRepository.cs" />
+    <Compile Include="Data\ClassRepository.cs" />
     <Compile Include="Data\Contexts\CharacterBuilderDbContext.cs" />
     <Compile Include="Data\ProficiencyRepository.cs" />
     <Compile Include="Data\WeaponRepository.cs" />
@@ -78,6 +80,22 @@
     <Compile Include="Migrations\201703010252243_CHANGE_WEAPONCATEGORY.cs" />
     <Compile Include="Migrations\201703010252243_CHANGE_WEAPONCATEGORY.Designer.cs">
       <DependentUpon>201703010252243_CHANGE_WEAPONCATEGORY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020017127_CLASS_ADDED.cs" />
+    <Compile Include="Migrations\201703020017127_CLASS_ADDED.Designer.cs">
+      <DependentUpon>201703020017127_CLASS_ADDED.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020024381_CLASS_FIX_PROFICIENCYKEY.cs" />
+    <Compile Include="Migrations\201703020024381_CLASS_FIX_PROFICIENCYKEY.Designer.cs">
+      <DependentUpon>201703020024381_CLASS_FIX_PROFICIENCYKEY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020027277_CLASS_FIX_SKILLKEY.cs" />
+    <Compile Include="Migrations\201703020027277_CLASS_FIX_SKILLKEY.Designer.cs">
+      <DependentUpon>201703020027277_CLASS_FIX_SKILLKEY.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020042332_HIT_DIE_FIX.cs" />
+    <Compile Include="Migrations\201703020042332_HIT_DIE_FIX.Designer.cs">
+      <DependentUpon>201703020042332_HIT_DIE_FIX.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,6 +129,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703010252243_CHANGE_WEAPONCATEGORY.resx">
       <DependentUpon>201703010252243_CHANGE_WEAPONCATEGORY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020017127_CLASS_ADDED.resx">
+      <DependentUpon>201703020017127_CLASS_ADDED.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020024381_CLASS_FIX_PROFICIENCYKEY.resx">
+      <DependentUpon>201703020024381_CLASS_FIX_PROFICIENCYKEY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020027277_CLASS_FIX_SKILLKEY.resx">
+      <DependentUpon>201703020027277_CLASS_FIX_SKILLKEY.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020042332_HIT_DIE_FIX.resx">
+      <DependentUpon>201703020042332_HIT_DIE_FIX.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

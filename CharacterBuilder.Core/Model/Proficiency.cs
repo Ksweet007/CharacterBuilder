@@ -10,5 +10,7 @@ namespace CharacterBuilder.Core.Model
         public ProficiencyType ProficiencyType { get; set; }
         public IList<Weapon> Weapons { get; set; }
         public IList<Armor> Armors { get; set; }
+        public IList<Class> Classes { get; set; }
+        
     }
 }
