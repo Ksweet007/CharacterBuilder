@@ -1,0 +1,52 @@
+﻿<nav-header params="{isDirty: null, save: null}"></nav-header>
+<div class="container-fluid full-width-container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="pmd-card pmd-card-inverse pageTitle">
+                <div class="pmd-card-title">
+                    <div class="row">
+                        <div class="media-left">
+                            <h2 class="pmd-display2 typo-fill-secondary"><span>Proficiencies</span></h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="pmd-card-title">
+                    <div class="row">
+                        <div class="media-left">
+                            <span class="pmd-card-subtitle-text">Sort:</span>
+                        </div>
+                        <div class="media-right">
+                            <!--ko foreach:proficiencyTypes()-->
+                            <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
+                                <input type='checkbox' name="type" data-bind='checked: $parent.selectedProficiencyTypes, value:Name' />
+                                <span data-bind="text:Name"> </span>                                      
+                            </label>
+                            <!--/ko-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <div class="row">
+            <!--ko foreach:proficienciesToShow-->
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-title">
+                        <div class="media-body media-middle">
+                            <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:Name"></h1>
+                            <!--ko with: ProficiencyType-->
+                            <span class="pmd-card-subtitle-text" data-bind="text:Name"></span>
+                            <!--/ko-->                                                      
+                        </div>
+                    </div>
+                    <div class="pmd-card-body">
+                    </div>
+                </div>
+            </div>
+            <!--/ko-->
+        </div> 
+    </div>
+
+</div>

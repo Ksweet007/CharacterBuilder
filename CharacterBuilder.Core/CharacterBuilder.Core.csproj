@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\WeaponCategoryDTO.cs" />
+    <Compile Include="DTO\WeaponDTO.cs" />
     <Compile Include="Enums\AbilityScore.cs" />
     <Compile Include="Enums\FeatureBonusType.cs" />
     <Compile Include="Enums\LanguageType.cs" />
@@ -52,6 +54,7 @@
     <Compile Include="Model\Background.cs" />
     <Compile Include="Model\BackgroundCharacteristic.cs" />
     <Compile Include="Model\BackgroundOption.cs" />
+    <Compile Include="Model\CharacterSheet.cs" />
     <Compile Include="Model\Class.cs" />
     <Compile Include="Model\DieSize.cs" />
     <Compile Include="Model\Feature.cs" />

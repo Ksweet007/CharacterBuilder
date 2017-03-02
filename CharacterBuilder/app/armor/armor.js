@@ -66,7 +66,7 @@
 
         self.getArmorProficiencies = function () {
             var deferred = _i.deferred.create();
-            _i.charajax.get('api/GetArmorProficiencyTypes', '').done(function (response) {
+            _i.charajax.get('api/armor/GetArmorProficiencyTypes', '').done(function (response) {
                 response.forEach(function (item) {
                     self.selectedArmorType().push(item.Name);
                 });
@@ -79,7 +79,7 @@
 
         self.getArmor = function () {
             var promise = _i.deferred.create();
-            _i.charajax.get('api/GetAllArmor', '').done(function (response) {
+            _i.charajax.get('api/armor/GetAllArmor', '').done(function (response) {
                 var mapped = _i.ko.mapping.fromJS(response);
                 mapped().forEach(function (item) {
                     item.dirtyFlag = new _i.ko.dirtyFlag(item);
@@ -143,8 +143,9 @@
         self.deleteArmor = function (obj) {
             _i.confirmdelete.show().then(function (response) {
                 if (response.accepted) {
-                    _i.charajax.delete('api/DeleteArmor/' + obj.Id(), '').done(function (response) {
+                    _i.charajax.delete('api/armor/DeleteArmor/' + obj.Id(), '').done(function (response) {
                         self.armors.remove(obj);
+                        _i.alert.showAlert({type:"error",message:"Armor Deleted"});
                     });
                 }
             });
@@ -161,14 +162,13 @@
                 Cost: armorToSave.Cost(),
                 Name: armorToSave.Name(),
                 ProficiencyName: armorToSave.ProficiencyName(),
-                ProficiencyId: armorToSave.ProficiencyId(),
                 Stealth: armorToSave.Stealth(),
                 Strength: armorToSave.Strength(),
                 Weight: armorToSave.Weight()
             };
 
             if (isNewState) {
-                return _i.charajax.post('api/AddArmor/', dataToSave).done(function (response) {
+                return _i.charajax.post('api/armor/AddArmor/', dataToSave).done(function (response) {
                     var mapped = _i.ko.mapping.fromJS(response);
                     mapped.dirtyFlag = new _i.ko.dirtyFlag(mapped);
 
@@ -178,16 +178,13 @@
             }
 
             if (isEditState) {
-                return _i.charajax.put('api/EditArmor/', dataToSave).done(function (response) {
+                return _i.charajax.put('api/armor/EditArmor/', dataToSave).done(function (response) {
                     self.selectedArmor().dirtyFlag.reset();
                     self.resetToBaseList("success", "Armor Edit Saved");
                 });
-            }
+            }          
 
-            if (!isNewState && !isEditState) {
-                return _i.deferred.createResolved();
-            }
-
+            return _i.deferred.createResolved();           
         };
 
     }

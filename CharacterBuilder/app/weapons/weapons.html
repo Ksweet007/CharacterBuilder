@@ -22,9 +22,9 @@
                 <div class="pmd-card-title">
                     <div class="row">
                         <div class="media-right">
-                            <!--ko foreach:weaponTypes-->
+                            <!--ko foreach:weaponCategories-->
                             <label class="checkbox-inline pmd-checkbox pmd-checkbox-ripple-effect">
-                                <input type='checkbox' name="type" data-bind='checked: $parent.selectedWeaponType, value:Name' />
+                                <input type='checkbox' name="type" data-bind='checked: $parent.selectedWeaponCategory, value:Name' />
                                 <span class="pmd-checkbox-label" data-bind="text:Name"> </span>
                             </label>
                             <!--/ko-->
@@ -80,9 +80,13 @@
                     <div class="pmd-card-body">
 
                         <div class="form-group pmd-textfield pmd-textfield">
-                            <!--ko foreach: $parent.weaponTypes-->
+                            <!--ko foreach: $parent.weaponCategories-->
+                            <!--<label class="radio-inline pmd-radio pmd-radio-ripple-effect">
+                                <input type='radio' name="inlineRadioOptions" data-bind="checked: $parent.ProficiencyId, value: ProficiencyId"/><span class="pmd-radio-label">&nbsp;</span>
+                                <span data-bind="text:Name"> </span>
+                            </label>-->
                             <label class="radio-inline pmd-radio pmd-radio-ripple-effect">
-                                <input type='radio' name="inlineRadioOptions" data-bind="checked: $parent.newSelectedWeaponTypes, value: Name" /><span class="pmd-radio-label">&nbsp;</span>
+                                <input type='radio' name="inlineRadioOptions" data-bind="checked: $parent.WeaponCategory, value: $data" /><span class="pmd-radio-label">&nbsp;</span>
                                 <span data-bind="text:Name"> </span>
                             </label>
                             <!--/ko-->
@@ -98,16 +102,20 @@
                             <input type="text" id="cost" data-bind='value: Cost, valueUpdate: "afterkeydown"' class="form-control">
                         </div>
 
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label for="diesize" class="control-label">Damage Die Size</label>
-                            <input type="text" id="diesize" data-bind='value: DamageDie, valueUpdate: "afterkeydown"' class="form-control">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <label for="diecount" class="control-label">Damage Die Count</label>
+                                    <input type="text" id="diecount" data-bind='value: DamageDieCount, valueUpdate: "afterkeydown"' class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <label for="diesize" class="control-label">Damage Die Size</label>
+                                    <input type="text" id="diesize" data-bind='value: DamageDie, valueUpdate: "afterkeydown"' class="form-control">
+                                </div>
+                            </div>                           
                         </div>
-
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <label for="diecount" class="control-label">Damage Die Count</label>
-                            <input type="text" id="diecount" data-bind='value: DamageDieCount, valueUpdate: "afterkeydown"' class="form-control">
-                        </div>
-
                         <div class="form-group pmd-textfield pmd-textfield">
                             <label for="wgt" class="control-label">Weight</label>
                             <input type="text" id="wgt" data-bind='value: Weight, valueUpdate: "afterkeydown"' class="form-control">

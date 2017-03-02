@@ -17,20 +17,22 @@
         self.isEditing = _i.ko.observable(false);
         self.showAll = _i.ko.observable(true);
 
+
         /*==================== WEAPON OBSERVABLES ====================*/
         self.weapons = _i.ko.observableArray([]);
         self.newWeapon = _i.ko.observable();
         self.selectedWeapon = _i.ko.observable();
         self.weaponProperties = _i.ko.observableArray([]);
-
-        self.newSelectedWeaponTypes = _i.ko.observableArray([]);
+        self.weaponProficiencies = _i.ko.observableArray([]);
+        
+        self.newSelectedWeaponCategories = _i.ko.observableArray([]);
         self.selectedProperties = _i.ko.observableArray([]);
-        self.weaponTypes = _i.ko.observableArray([{ Name: "Simple Melee" }, { Name: "Simple Ranged" }, { Name: "Martial Melee" }, { Name: "Martial Ranged" }]);
-        self.selectedWeaponType = _i.ko.observableArray([]);
+        self.weaponCategories = _i.ko.observableArray([]);
+        self.selectedWeaponCategory = _i.ko.observableArray([]);
 
         self.weaponsToShow = _i.ko.computed(function () {
             var returnList = self.weapons().filter(function (weap) {
-                return self.selectedWeaponType().includes(weap.ProficiencyName());
+                return self.selectedWeaponCategory().includes(weap.ProficiencyName());
             });
             returnList.forEach(function (weap) {
                 weap.Damage = weap.DamageDieCount() + 'd' + weap.DamageDie();
@@ -55,12 +57,13 @@
         /*==================== DATA SETUP ====================*/
         self.activate = function () {
             return self.getPageData().done(function () {
+                var foo = 'bar';
             });
         };
 
         self.getPageData = function () {
             var deferred = _i.deferred.create();
-            var promise = _i.deferred.waitForAll(self.getAllWeaponProperties());
+            var promise = _i.deferred.waitForAll(self.getAllWeaponProperties(), self.getWeaponProficiencies(), self.getWeaponCategories());
 
             promise.done(function () {
                 self.getWeapons().done(function () {
@@ -73,7 +76,7 @@
 
         self.getAllWeaponProperties = function () {
             var deferred = _i.deferred.create();
-            _i.charajax.get('api/getAllWeaponProperties', '').done(function (response) {
+            _i.charajax.get('api/weapon/getAllWeaponProperties', '').done(function (response) {
                 var mapped = _i.ko.mapping.fromJS(response);
 
                 response.forEach(function (property) {
@@ -86,16 +89,39 @@
             return deferred;
         };
 
+        self.getWeaponProficiencies = function () {
+            var deferred = _i.deferred.create();
+            _i.charajax.get('api/weapon/GetWeaponProficiencyTypes', '').done(function (response) {
+                self.weaponProficiencies(response);
+                deferred.resolve();
+            });
+            return deferred;
+        };
+
+        self.getWeaponCategories = function () {
+            var deferred = _i.deferred.create();
+            _i.charajax.get('api/weapon/GetAllWeaponCategories', '').done(function (response) {
+                response.forEach(function (item) {
+                    self.selectedWeaponCategory().push(item.Name);
+                });
+
+                self.weaponCategories(response);
+
+                deferred.resolve();
+            });
+            return deferred;
+        };
+
         self.getWeapons = function () {
             var promise = _i.deferred.create();
-            _i.charajax.get('api/GetAllWeapons', '').done(function (response) {
-                var mapped = _i.ko.mapping.fromJS(response);
-                mapped().forEach(function (weap) {
-                    self.selectedWeaponType().push(weap.ProficiencyName())
+            _i.charajax.get('api/weapon/GetAllWeapons', '').done(function (response) {
+                self.data = _i.ko.mapping.fromJS(response);
+
+                self.data().forEach(function (weap) {                    
                     weap.dirtyFlag = new _i.ko.dirtyFlag(weap);
                 });
-                self.weapons(mapped());
 
+                self.weapons(self.data());
                 _i.list.sortAlphabeticallyObservables(self.weapons());
 
                 promise.resolve();
@@ -129,13 +155,12 @@
 
             self.newWeapon({
                 Id: _i.ko.observable(0),
-                ProficiencyId: _i.ko.observable(0),
-                ProficiencyName: _i.ko.observable(''),
                 Name: _i.ko.observable(''),
                 Cost: _i.ko.observable(''),
                 DamageDie: _i.ko.observable(),
                 DamageDieCount: _i.ko.observable(),
                 Weight: _i.ko.observable(''),
+                WeaponCategory: _i.ko.observable(),
                 WeaponProperties: _i.ko.observableArray([])
             });
 
@@ -151,50 +176,52 @@
         self.deleteWeapon = function (obj) {
             _i.confirmdelete.show().then(function (response) {
                 if (response.accepted) {
-                    _i.charajax.delete('api/DeleteWeapon/' + obj.Id(), '').done(function (response) {
+                    _i.charajax.delete('api/weapon/DeleteWeapon/' + obj.Id(), '').done(function (response) {
                         self.weapons.remove(obj);
+                        _i.alert.showAlert({ type: "error", message: "Armor Deleted" });
                     });
                 }
             });
         };
 
         self.save = function (weaponToSave) {
-            // var isEditState = self.isDirty() && self.isEditing();
-            // var isNewState = self.isAddingNew();
-            //
-            // var dataToSave = {
-            //     Id: weaponToSave.Id(),
-            // 	ProficiencyId: weaponToSave.ProficiencyId(),
-            //     ArmorClass: weaponToSave.ArmorClass(),
-            // 	Cost: weaponToSave.Cost(),
-            // 	Name: weaponToSave.Name(),
-            // 	ProficiencyName: weaponToSave.ProficiencyName(),
-            // 	ProficiencyId: weaponToSave.ProficiencyId(),
-            // 	Stealth: weaponToSave.Stealth(),
-            // 	Strength: weaponToSave.Strength(),
-            //     Weight: weaponToSave.Weight()
-            // };
-            //
-            // if(isNewState){
-            //     return _i.charajax.post('api/AddArmor/', dataToSave).done(function (response) {
-            // 		var mapped = _i.ko.mapping.fromJS(response);
-            // 		mapped.dirtyFlag = new _i.ko.dirtyFlag(mapped);
-            //
-            //         self.armors.push(mapped);
-            //         self.resetToBaseList("success", "New Armor Added");
-            //     });
-            // }
-            //
-            // if(isEditState){
-            //     return _i.charajax.put('api/EditArmor/', dataToSave).done(function (response) {
-            //         self.selectedArmor().dirtyFlag.reset();
-            // 		self.resetToBaseList("success", "Armor Edit Saved");
-            //     });
-            // }
-            //
-            // if(!isNewState && !isEditState){
-            // 	return _i.deferred.createResolved();
-            // }
+            var isEditState = self.isDirty() && self.isEditing();
+            var isNewState = self.isAddingNew();
+
+            var proficiencySelected = self.weaponProficiencies().filter(function (prof) {
+                return prof.Name === weaponToSave.WeaponCategory().Name;
+            })[0];
+
+            var dataToSave = {
+                Name: weaponToSave.Name(),
+                Id: weaponToSave.Id(),
+                Cost: weaponToSave.Cost(),
+                DamageDie: weaponToSave.DamageDie(),
+                DamageDieCount: weaponToSave.DamageDieCount(),
+                Proficiency: proficiencySelected,
+                Weight: weaponToSave.Weight(),
+                WeaponCategory: weaponToSave.WeaponCategory(),
+                WeaponProperties: weaponToSave.WeaponProperties()
+            };
+            
+            if (isNewState) {
+                return _i.charajax.post('api/weapon/AddWeapon/', dataToSave).done(function (response) {
+                    var mapped = _i.ko.mapping.fromJS(response);
+                    mapped.dirtyFlag = new _i.ko.dirtyFlag(mapped);
+
+                    self.weapons.push(mapped);
+                    self.resetToBaseList("success", "New Weapon Added");
+                });
+            }
+
+            if (isEditState) {
+                return _i.charajax.put('api/weapon/EditWeapon/', dataToSave).done(function (response) {
+                    self.selectedWeapon().dirtyFlag.reset();
+                    self.resetToBaseList("success", "Weapon Edit Saved");
+                });
+            }
+
+            return _i.deferred.createResolved();
 
         };
 

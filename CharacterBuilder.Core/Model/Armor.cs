@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public int ProficiencyId { get; set; }
         public Proficiency Proficiency { get; set; }
+        public string ProficiencyName => Proficiency?.Name;
         public string Cost { get; set; }
         public string ArmorClass { get; set; }
         public string Strength { get; set; }

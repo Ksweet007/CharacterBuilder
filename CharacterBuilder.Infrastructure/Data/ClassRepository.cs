@@ -1,4 +1,7 @@
-﻿using CharacterBuilder.Infrastructure.Data.Contexts;
+﻿using System.Collections.Generic;
+using System.Linq;
+using CharacterBuilder.Core.Model;
+using CharacterBuilder.Infrastructure.Data.Contexts;
 
 namespace CharacterBuilder.Infrastructure.Data
 {
@@ -11,6 +14,12 @@ namespace CharacterBuilder.Infrastructure.Data
             _db = new CharacterBuilderDbContext();
         }
 
-        
+        public IList<Class> GetAllClasses()
+        {
+            return _db.Classes.ToList();
+        }
+
+
+
     }
 }

@@ -1,56 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using CharacterBuilder.Core.Enums;
+﻿using System.Web.Http;
 using CharacterBuilder.Core.Model;
+using CharacterBuilder.Infrastructure.Data;
 
 namespace CharacterBuilder.Controllers.Api
 {
+    [Authorize]
+    [RoutePrefix("api/armor")]
     public class ArmorController : ApiController
     {
+        private readonly ProficiencyRepository _profRepository;
+        private readonly ArmorRepository _armorRepository;
+
+        public ArmorController()
+        {
+            _armorRepository = new ArmorRepository();
+            _profRepository = new ProficiencyRepository();
+        }
+
         [HttpGet]
-        [Route("api/GetAllArmor/")]
+        [Route("GetAllArmor")]
         public IHttpActionResult GetAllArmor()
         {
-            var armorList = new List<Armor>();
-            var armorToAdd = new Armor
-            {
-                Id = 1,
-                ArmorClass = "14 + Dex Modifier",
-                Cost = "1 sp.",
-                Name = "Armor",
-                Proficiency = new Proficiency
-                {
-                    Id = 1,
-                    Name = "Armor Prof",
-                    ProficiencyTypeId = ProficiencyType.Armor
-                },
-                ProficiencyId = 1,
-                Stealth = true,
-                Strength = "",
-                Weight = "10 lbs."
-            };
-
-            armorList.Add(armorToAdd);
+            var armorList = _armorRepository.GetAllArmors();
 
             return Ok(armorList);
         }
 
         [HttpGet]
-        [Route("api/GetArmorProficiencyTypes/")]
+        [Route("GetArmorProficiencyTypes")]
         public IHttpActionResult GetArmorProficiencyTypes()
         {
-            var profList = new Proficiency
-            {
-                Id = 1,
-                Name = "Armor Prof",
-                ProficiencyTypeId = ProficiencyType.Armor
-            };
+            var profList = _profRepository.GetArmorProficiencies();
 
             return Ok(profList);
         }
+
+        [HttpPost]
+        [Route("AddArmor/")]
+        public IHttpActionResult AddArmor([FromBody] Armor armorToAdd)
+        {
+            _armorRepository.AddArmor(armorToAdd);
+            var armorAddedProficiency = _profRepository.GetProficiencyById(armorToAdd.ProficiencyId);
+            armorToAdd.Proficiency = armorAddedProficiency;
+
+            return Ok(armorToAdd);
+        }
+
+        [HttpPut]
+        [Route("EditArmor/")]
+        public IHttpActionResult EditArmor([FromBody] Armor armorToEdit)
+        {
+            _armorRepository.EditArmor(armorToEdit);
+
+            return Ok(armorToEdit);
+        }
+
+        [HttpDelete]
+        [Route("DeleteArmor/{armorId}")]
+        public IHttpActionResult DeleteArmorById(int armorId)
+        {
+            _armorRepository.DeleteArmorById(armorId);
+
+            return Ok(armorId);
+        }
+
     }
 }
