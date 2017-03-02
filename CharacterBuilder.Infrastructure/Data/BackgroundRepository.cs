@@ -20,6 +20,7 @@ namespace CharacterBuilder.Infrastructure.Data
             return
                 _db.Backgrounds.Include(b => b.BackgroundCharacteristic.Select(y => y.BackgroundOptions))
                     .Include(s => s.Skills)
+                    .Include(l=>l.Languages)
                     .ToList();
         }
     }

@@ -23,6 +23,7 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
         public DbSet<Class> Classes { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<Language> Languages { get; set; }
+        public DbSet<LanguageType> LanguageTypes { get; set; } 
         public DbSet<Proficiency> Proficiencies { get; set; }
         public DbSet<ProficiencyType> ProficiencyTypes { get; set; }
         public DbSet<Skill> Skills { get; set; }        
