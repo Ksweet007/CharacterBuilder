@@ -54,6 +54,7 @@
     <Compile Include="Model\Background.cs" />
     <Compile Include="Model\BackgroundCharacteristic.cs" />
     <Compile Include="Model\BackgroundOption.cs" />
+    <Compile Include="Model\BackgroundVariant.cs" />
     <Compile Include="Model\CharacterSheet.cs" />
     <Compile Include="Model\Class.cs" />
     <Compile Include="Model\DieSize.cs" />
