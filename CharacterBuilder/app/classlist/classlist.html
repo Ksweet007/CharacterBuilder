@@ -21,7 +21,7 @@
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-title">
                         <div class="media-body media-middle">
-                            <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:Name"></h1>                            
+                            <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:Name"></h1>
                         </div>
                         <div class="media-right">
                             <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.viewMoreDetails">
@@ -32,7 +32,7 @@
                     <div class="pmd-card-body">
                         <span class="pmd-card-subtitle-text">Primary Ability</span>
                         <p data-bind="text:Primaryability"></p>
-                        
+
                         <span class="pmd-card-subtitle-text">Description</span>
                         <p data-bind="text:Description"></p>
 
@@ -41,7 +41,7 @@
             </div>
             <!--/ko-->
         </div>
-        
+
         <div class="row" data-bind="visible: viewingDetails() ">
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5" data-bind="with : selectedClass">
@@ -56,19 +56,36 @@
                         </div>
                     </div>
                     <div class="pmd-card-body">
-                        <span class="pmd-card-subtitle-text">Description</span>
-                        <p data-bind="text:Description"></p>
-                        
-                        <span class="pmd-card-subtitle-text">Primary Ability</span>
-                        <p data-bind="text:Primaryability"></p>
+                        <div class="pmd-textfield">
+                            <label for="desc" class="control-label">Description</label>
+                            <p id="desc" data-bind="text:Description"></p>
+                        </div>
 
-                        <span class="pmd-card-subtitle-text">Hit Die</span>
-                        <p data-bind="text:'1d' + Hitdie()"></p>                      
+                        <div class="pmd-textfield">
+                            <label for="abil" class="control-label">Primary Ability</label>
+                            <p id="abil" data-bind="text:Primaryability"></p>
+                        </div>
+
+                        <div class="pmd-textfield">
+                            <label for="hitdie" class="control-label">Hit Die</label>
+                            <p id="hitdie" data-bind="text:'1d' + Hitdie()"></p>
+                        </div>
+
+                        <div class="pmd-textfield">                            
+                            <label class="control-label" data-bind="text:'Skills: Choose ' + SkillPickCount() + ' from' "></label>
+                            <!--ko foreach: Skills-->
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <p data-bind="text:Name"></p>
+                                </div>
+                            </div>
+                            <!--/ko-->
+                        </div>
+
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </div>
-</div>
 

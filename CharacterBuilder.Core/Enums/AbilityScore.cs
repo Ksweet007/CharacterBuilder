@@ -1,12 +1,8 @@
 ﻿namespace CharacterBuilder.Core.Enums
 {
-    public enum AbilityScore
+    public class AbilityScore
     {
-        Strength = 1,
-        Dexterity,
-        Constitution,
-        Wisdom,
-        Intelligence,
-        Charisma
+        public int Id { get; set; }
+        public string Name { get; set; }        
     }
 }

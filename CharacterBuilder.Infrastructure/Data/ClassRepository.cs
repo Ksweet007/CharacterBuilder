@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data.Contexts;
@@ -16,10 +17,9 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public IList<Class> GetAllClasses()
         {
-            return _db.Classes.ToList();
+            return _db.Classes.Include(s => s.Skills).ToList();
         }
 
-
-
+        
     }
 }

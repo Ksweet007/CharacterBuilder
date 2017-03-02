@@ -97,6 +97,18 @@
     <Compile Include="Migrations\201703020042332_HIT_DIE_FIX.Designer.cs">
       <DependentUpon>201703020042332_HIT_DIE_FIX.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703020113585_CHARSHEET_SKILL_FIX.cs" />
+    <Compile Include="Migrations\201703020113585_CHARSHEET_SKILL_FIX.Designer.cs">
+      <DependentUpon>201703020113585_CHARSHEET_SKILL_FIX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020118326_ABILITYSCORE_TO_SKILLS.cs" />
+    <Compile Include="Migrations\201703020118326_ABILITYSCORE_TO_SKILLS.Designer.cs">
+      <DependentUpon>201703020118326_ABILITYSCORE_TO_SKILLS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.cs" />
+    <Compile Include="Migrations\201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.Designer.cs">
+      <DependentUpon>201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WeaponService.cs" />
@@ -141,6 +153,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703020042332_HIT_DIE_FIX.resx">
       <DependentUpon>201703020042332_HIT_DIE_FIX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020113585_CHARSHEET_SKILL_FIX.resx">
+      <DependentUpon>201703020113585_CHARSHEET_SKILL_FIX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020118326_ABILITYSCORE_TO_SKILLS.resx">
+      <DependentUpon>201703020118326_ABILITYSCORE_TO_SKILLS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.resx">
+      <DependentUpon>201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

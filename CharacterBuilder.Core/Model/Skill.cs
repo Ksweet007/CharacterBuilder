@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using CharacterBuilder.Core.Enums;
 
 namespace CharacterBuilder.Core.Model
@@ -13,5 +9,6 @@ namespace CharacterBuilder.Core.Model
         public string Name { get; set; }
         public AbilityScore AbilityScore { get; set; }
         public IList<Class> Classes { get; set; }
+        public IList<CharacterSheet> CharacterSheets { get; set; }
     }
 }
