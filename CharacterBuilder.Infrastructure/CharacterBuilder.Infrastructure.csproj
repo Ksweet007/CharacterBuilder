@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ArmorRepository.cs" />
+    <Compile Include="Data\BackgroundRepository.cs" />
     <Compile Include="Data\CharacterSheetRepository.cs" />
     <Compile Include="Data\ClassRepository.cs" />
     <Compile Include="Data\Contexts\CharacterBuilderDbContext.cs" />
@@ -109,6 +110,14 @@
     <Compile Include="Migrations\201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.Designer.cs">
       <DependentUpon>201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.cs" />
+    <Compile Include="Migrations\201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.Designer.cs">
+      <DependentUpon>201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.cs" />
+    <Compile Include="Migrations\201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.Designer.cs">
+      <DependentUpon>201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WeaponService.cs" />
@@ -162,6 +171,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.resx">
       <DependentUpon>201703020127132_SOMETHING_CHANGED_NOTSUREWHAT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.resx">
+      <DependentUpon>201703020213155_ADDING_BACKGROUNDS_TO_CONTEXT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.resx">
+      <DependentUpon>201703020242220_SOMETHING_CHANGED_NOTSUREWHATAGAIN.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

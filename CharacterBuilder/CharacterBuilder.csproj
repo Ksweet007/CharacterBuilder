@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\AdminController.cs" />
     <Compile Include="Controllers\Api\ArmorController.cs" />
+    <Compile Include="Controllers\Api\BackgroundController.cs" />
     <Compile Include="Controllers\Api\ClassController.cs" />
     <Compile Include="Controllers\Api\ProficiencyController.cs" />
     <Compile Include="Controllers\Api\WeaponController.cs" />

@@ -10,5 +10,6 @@ namespace CharacterBuilder.Core.Model
         public AbilityScore AbilityScore { get; set; }
         public IList<Class> Classes { get; set; }
         public IList<CharacterSheet> CharacterSheets { get; set; }
+        public IList<Background> Backgrounds { get; set; }
     }
 }

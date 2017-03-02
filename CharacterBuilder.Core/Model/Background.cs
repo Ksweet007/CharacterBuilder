@@ -8,5 +8,6 @@ namespace CharacterBuilder.Core.Model
         public string Name { get; set; }
         public string Description { get; set; }
         public IList<BackgroundCharacteristic> BackgroundCharacteristic { get; set; }
+        public IList<Skill>Skills { get; set; }
     }
 }
