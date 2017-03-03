@@ -7,7 +7,10 @@ namespace CharacterBuilder.Core.Model
     {
         public int Id { get; set; }
         public string UserNameOwner { get; set; }
+        public string CharacterName { get; set; }
+        public string PlayerName { get; set; }
         public Class Class { get; set; }
+        public Background Background { get; set; }
         public int ClassLevel { get; set; }
         public int HitPointsMax { get; set; }
         public int Strength { get; set; }
@@ -23,5 +26,6 @@ namespace CharacterBuilder.Core.Model
         public int Charisma { get; set; }
         public int CharismaMod => (int)Math.Floor((double)(Strength - 10 / 2));
         public IList<Skill> Skills { get; set; }
+        public bool IsComplete { get; set; }
     }
 }

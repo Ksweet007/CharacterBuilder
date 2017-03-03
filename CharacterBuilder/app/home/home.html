@@ -1,17 +1,17 @@
 ﻿<nav-header params="{isDirty: null, save: null}"></nav-header>
 <div class="container-fluid full-width-container">
-    <h2 class="section-title">Drunken Gnome Inn</h2>
-    <div class="section section-custom-home">
-        <div class="section-inner pmd-card-inverse pmd-card pmd-z-depth-5">
-            <div class="pmd-card-title">
-                <div class="media-body media-middle">
-                    <h3 class="section-title">"Welcome to the Inn, Adventurer"</h3>                    
+    <section data-bind="visible: !viewingDetails()">
+        <h2 class="section-title">Drunken Gnome Inn</h2>
+        <div class="section section-custom-home">
+            <div class="section-inner pmd-card-inverse pmd-card pmd-z-depth-5">
+                <div class="pmd-card-title">
+                    <div class="media-body media-middle">
+                        <h3 class="section-title">"Welcome to the Inn, Adventurer"</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="pmd-card-body">
-                <p>*The Inn keeper glances around and motions to the small, rundown bar*</p>
-                <h3 class="section-title">From here you can manage all your created Character Sheets, or create a new one.</h3>
-                
+                <div class="pmd-card-body">
+                    <p>*The Inn keeper glances around and motions to the small, rundown bar*</p>
+                    <h3 class="section-title">From here you can manage all your created Character Sheets, or create a new one.</h3>
                     <div class="media-left">
                         <span class="pmd-card-subtitle-text">Add New</span>
                     </div>
@@ -20,8 +20,94 @@
                             add
                         </button>
                     </div>
-                
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section data-bind="visible: !viewingDetails()">
+        <div class="row">
+            <!--ko foreach:characterSheetsToShow-->
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-title">
+                        <div class="media-body media-middle">
+                            <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:CharacterName"></h1>
+                        </div>
+                        <div class="media-right">
+                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.viewMoreDetails">
+                                fullscreen
+                            </button>
+                        </div>
+                    </div>
+                    <div class="pmd-card-body">
+                        <span class="pmd-card-subtitle-text">Class</span>
+                        <!--ko with:Class-->
+                        <p data-bind="text:Name"></p>
+                        <!--/ko-->
+                    </div>
+                </div>
+            </div>
+            <!--/ko-->
+        </div>
+    </section>
+
+    <section data-bind="visible: viewingDetails(),with : selectedSheet ">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-body">
+                        <div class="sheettext largetext" data-bind="text:CharacterName"></div>
+                        <div class="sheetheader subheader">Character Name</div>
+                    </div>
+                </div>
+                </div>
+            <div class="col-lg-6 col-sm-6 col-xs-12">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-body text-center">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <!--ko with: Class-->
+                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.ClassLevel() "></div>
+                                <div class="sheetheader subheader">Class & Level</div>
+                                <!--/ko-->
+                            </div>
+                            <div class="col-xs-4">
+                                <!--ko with: Background-->
+                                <div class="sheettext largetext" data-bind="text:Name"></div>
+                                <div class="sheetheader subheader">Background</div>
+                                <!--/ko-->
+                            </div>
+                            <div class="col-xs-4">
+                                <!--ko with: Background-->
+                                <div class="sheettext largetext" data-bind="text:Name"></div>
+                                <div class="sheetheader subheader">Background</div>
+                                <!--/ko-->
+                            </div>
+                            <div class="col-xs-4">
+                                <!--ko with: Background-->
+                                <div class="sheettext largetext" data-bind="text:Name"></div>
+                                <div class="sheetheader subheader">Background</div>
+                                <!--/ko-->
+                            </div>
+                            <div class="col-xs-4">
+                                <!--ko with: Background-->
+                                <div class="sheettext largetext" data-bind="text:Name"></div>
+                                <div class="sheetheader subheader">Background</div>
+                                <!--/ko-->
+                            </div>
+                            <div class="col-xs-4">
+                                <!--ko with: Background-->
+                                <div class="sheettext largetext" data-bind="text:Name"></div>
+                                <div class="sheetheader subheader">Background</div>
+                                <!--/ko-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>        
+    </section>
 </div>

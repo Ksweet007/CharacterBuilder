@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data.Contexts;
 
@@ -11,6 +13,15 @@ namespace CharacterBuilder.Infrastructure.Data
         public CharacterSheetRepository()
         {
             _db = new CharacterBuilderDbContext();
+        }
+
+        public IList<CharacterSheet> GetCharacterSheetByUserName(string userName)
+        {
+            return
+                _db.CharacterSheets.Where(s => s.UserNameOwner == userName)
+                    .Include(c => c.Class)
+                    .Include(b => b.Background)
+                    .ToList();
         }
 
         public CharacterSheet GetCharacterSheetById(int sheetId)

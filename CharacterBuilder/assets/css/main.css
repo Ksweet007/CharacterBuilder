@@ -58,6 +58,18 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
   }
 }
 
+/*==================== CHARACTER SHEET ====================*/
+
+/*-------------------- HEADERS --------------------*/
+.sheetheader {color: #e2733c;}
+    .sheetheader.primaryheader{ font-size: 1rem;}
+    .sheetheader.subheader{ font-size: .75rem;}
+
+/*-------------------- HEADERS --------------------*/
+.sheettext { color: #c1b4b4;}
+    .sheettext.largetext{ font-size: 1rem;}
+    .sheettext.smalltext{font-size: .75rem;}
+
 /*==================== NAVBAR ====================*/
 .nav>li>a:hover{background-color: #161a22 !important;}
 .navbar-inverse {background-color: #2c3544 !important; border-color: #2c3544 !important}
@@ -78,6 +90,7 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 
 /*==================== CARD MORE DETAIL LABELS ====================*/
 .mordetaillabel { color: #e2733c;}
+.charactersheetlabel { color: #e2733c;font-size: 20px;}
 
 /*==================== TABLE ====================*/
 tbody { color: #c1b4b4;}

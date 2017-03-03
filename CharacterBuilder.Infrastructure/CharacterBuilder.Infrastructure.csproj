@@ -134,6 +134,14 @@
     <Compile Include="Migrations\201703022035254_ADDED_LANGUAGETYPE.Designer.cs">
       <DependentUpon>201703022035254_ADDED_LANGUAGETYPE.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703030113567_ADDING_STATE_TO_SHEET.cs" />
+    <Compile Include="Migrations\201703030113567_ADDING_STATE_TO_SHEET.Designer.cs">
+      <DependentUpon>201703030113567_ADDING_STATE_TO_SHEET.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703030332476_ADDED_BG_TO_CLASS.cs" />
+    <Compile Include="Migrations\201703030332476_ADDED_BG_TO_CLASS.Designer.cs">
+      <DependentUpon>201703030332476_ADDED_BG_TO_CLASS.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WeaponService.cs" />
@@ -205,6 +213,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703022035254_ADDED_LANGUAGETYPE.resx">
       <DependentUpon>201703022035254_ADDED_LANGUAGETYPE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703030113567_ADDING_STATE_TO_SHEET.resx">
+      <DependentUpon>201703030113567_ADDING_STATE_TO_SHEET.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703030332476_ADDED_BG_TO_CLASS.resx">
+      <DependentUpon>201703030332476_ADDED_BG_TO_CLASS.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
