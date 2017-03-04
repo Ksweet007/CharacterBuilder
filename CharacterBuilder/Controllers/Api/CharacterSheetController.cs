@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using CharacterBuilder.Infrastructure.Data;
+using Microsoft.AspNet.Identity;
 
 namespace CharacterBuilder.Controllers.Api
 {
@@ -19,6 +20,9 @@ namespace CharacterBuilder.Controllers.Api
         [Route("GetUserSheets")]
         public IHttpActionResult GetUserSheets()
         {
+            var currentUserId = User.Identity.GetUserId();
+            _characterSheetRepository.GetUserSheet(currentUserId);
+
             var userName = User.Identity.Name;
             var sheets = _characterSheetRepository.GetCharacterSheetByUserName(userName);
             return Ok(sheets);

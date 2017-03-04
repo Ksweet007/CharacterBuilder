@@ -2,7 +2,10 @@
 using System.Data.Entity;
 using System.Linq;
 using CharacterBuilder.Core.Model;
+using CharacterBuilder.Core.Model.User;
 using CharacterBuilder.Infrastructure.Data.Contexts;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CharacterBuilder.Infrastructure.Data
 {
@@ -13,6 +16,17 @@ namespace CharacterBuilder.Infrastructure.Data
         public CharacterSheetRepository()
         {
             _db = new CharacterBuilderDbContext();
+        }
+
+        public void GetUserSheet(string userId)
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
+
+            var currentUser = manager.FindById(userId);
+
+            var userInfoId = currentUser.AppUserInfo.Id;
+
+            var sheets = _db.AppUserInfo.Single(u => u.Id == userInfoId);
         }
 
         public IList<CharacterSheet> GetCharacterSheetByUserName(string userName)
