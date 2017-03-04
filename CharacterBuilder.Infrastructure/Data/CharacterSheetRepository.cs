@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using CharacterBuilder.Core.Model;
+using CharacterBuilder.Core.Model.Character_Sheet;
 using CharacterBuilder.Core.Model.User;
 using CharacterBuilder.Infrastructure.Data.Contexts;
 using Microsoft.AspNet.Identity;
@@ -20,12 +20,16 @@ namespace CharacterBuilder.Infrastructure.Data
             _manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
         }
 
-        public void CreateNewSheet(string userId)
+        public CharacterSheet CreateNewSheet(string userId)
         {
             var currentUser = _manager.FindById(userId);
-            var sheet = new CharacterSheet {User = currentUser};
+            var sheet = new CharacterSheet {User = currentUser, ToDo = new ToDo()};
+
+            _db.CharacterSheets.Add(sheet);
 
             Save();
+
+            return sheet;
         }
 
         public IEnumerable<CharacterSheet> GetUserSheet(string userId)
@@ -38,12 +42,6 @@ namespace CharacterBuilder.Infrastructure.Data
         public CharacterSheet GetCharacterSheetById(int sheetId)
         {
             return _db.CharacterSheets.Single(s => s.Id == sheetId);           
-        }
-
-        public void CreateCharacterSheet(CharacterSheet sheetToCreate)
-        {
-            _db.CharacterSheets.Add(sheetToCreate);
-            Save();
         }
 
         public void SaveClassSelection(int classId, int characterSheetId)

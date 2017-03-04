@@ -66,17 +66,9 @@
     <Compile Include="Data\Contexts\CharacterBuilderDbContext.cs" />
     <Compile Include="Data\ProficiencyRepository.cs" />
     <Compile Include="Data\WeaponRepository.cs" />
-    <Compile Include="Migrations\201703040532142_INIT.cs" />
-    <Compile Include="Migrations\201703040532142_INIT.Designer.cs">
-      <DependentUpon>201703040532142_INIT.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703041421281_FIX_CLASS_PROFTYPE.cs" />
-    <Compile Include="Migrations\201703041421281_FIX_CLASS_PROFTYPE.Designer.cs">
-      <DependentUpon>201703041421281_FIX_CLASS_PROFTYPE.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703041458498_POINT_SHEET_AT_APPLICATIONUSER.cs" />
-    <Compile Include="Migrations\201703041458498_POINT_SHEET_AT_APPLICATIONUSER.Designer.cs">
-      <DependentUpon>201703041458498_POINT_SHEET_AT_APPLICATIONUSER.cs</DependentUpon>
+    <Compile Include="Migrations\201703041650415_FUCKMICROSOFT.cs" />
+    <Compile Include="Migrations\201703041650415_FUCKMICROSOFT.Designer.cs">
+      <DependentUpon>201703041650415_FUCKMICROSOFT.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,14 +85,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703040532142_INIT.resx">
-      <DependentUpon>201703040532142_INIT.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703041421281_FIX_CLASS_PROFTYPE.resx">
-      <DependentUpon>201703041421281_FIX_CLASS_PROFTYPE.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703041458498_POINT_SHEET_AT_APPLICATIONUSER.resx">
-      <DependentUpon>201703041458498_POINT_SHEET_AT_APPLICATIONUSER.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703041650415_FUCKMICROSOFT.resx">
+      <DependentUpon>201703041650415_FUCKMICROSOFT.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

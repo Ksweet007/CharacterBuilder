@@ -1,4 +1,8 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web;
+using System.Web.Http;
+using System.Web.Http.Controllers;
+using System.Web.WebSockets;
 using CharacterBuilder.Infrastructure.Data;
 using Microsoft.AspNet.Identity;
 
@@ -9,6 +13,7 @@ namespace CharacterBuilder.Controllers.Api
     public class CharacterSheetController : ApiController
     {
         private readonly CharacterSheetRepository _characterSheetRepository;
+        const string Cookie_Name = "SheetBeingWorked";
 
         public CharacterSheetController()
         {
@@ -40,8 +45,19 @@ namespace CharacterBuilder.Controllers.Api
         public IHttpActionResult CreateNewSheet()
         {
             var userId = User.Identity.GetUserId();
+            var newSheet = _characterSheetRepository.CreateNewSheet(userId);
 
-            return Ok();
+            var response = HttpContext.Current.Response;
+            var request = HttpContext.Current.Request;
+
+            //Check if a Cookie already exists. If so remove it, and add a new one so we don't risk collision on what sheet is being worked
+            var cookie = request.Cookies[Cookie_Name] ?? new HttpCookie(Cookie_Name, newSheet.Id.ToString());
+            response.Cookies.Remove(Cookie_Name);
+            response.Cookies.Add(cookie);
+
+            //Each page will need to check if there is a current Sheet being worked or not.
+            //Current working cookie will only go away when they delete the sheet, finish the sheet, or create a new sheet
+            return Ok(newSheet);
         }
 
     }

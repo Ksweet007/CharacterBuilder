@@ -43,7 +43,7 @@
 
         self.getCharacterSheets = function () {
             var deferred = _i.deferred.create();
-            _i.charajax.get('api/charactersheet/GetUserSheets','' ).done(function (response) {              
+            _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {              
                 var mapped = _i.ko.mapping.fromJS(response);
 
                 self.characterSheets(mapped());
@@ -61,6 +61,11 @@
             self.viewingDetails(false);
         };
 
+        self.addNew = function() {
+            _i.charajax.post('api/charactersheet/CreateNewSheet', '').done(function(response) {
+
+            });
+        };
 
     }
 });

@@ -2,6 +2,7 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 using CharacterBuilder.Core.Enums;
 using CharacterBuilder.Core.Model;
+using CharacterBuilder.Core.Model.Character_Sheet;
 using CharacterBuilder.Core.Model.User;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -17,8 +18,8 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
         {
             Configuration.LazyLoadingEnabled = false;
         }
-        public DbSet<AppUserInfo> AppUserInfo { get; set; }
         public DbSet<CharacterSheet> CharacterSheets { get; set; }
+        public DbSet<ToDo> ToDos { get; set; }
         public DbSet<Armor> Armors { get; set; }
         public DbSet<Background> Backgrounds { get; set; }
         public DbSet<BackgroundCharacteristic> BackgroundCharacteristics { get; set; }
@@ -53,7 +54,14 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.HasDefaultSchema("core");
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();           
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            EfMapCharacterSheet(modelBuilder);
+        }
+
+        private static void EfMapCharacterSheet(DbModelBuilder modelBuilder)
+        {
+            var sheet = modelBuilder.Entity<CharacterSheet>();
         }
 
         public static CharacterBuilderDbContext Create()

@@ -98,8 +98,7 @@ namespace CharacterBuilder.Controllers
             var user = new ApplicationUser
             {
                 UserName = model.Email,
-                Email = model.Email,
-                AppUserInfo = new AppUserInfo { Name = model.Name }
+                Email = model.Email
             };
             
             var result = await UserManager.CreateAsync(user, model.Password);

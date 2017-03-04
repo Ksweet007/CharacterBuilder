@@ -72,6 +72,7 @@
     <Compile Include="Model\BackgroundCharacteristic.cs" />
     <Compile Include="Model\BackgroundOption.cs" />
     <Compile Include="Model\BackgroundVariant.cs" />
+    <Compile Include="Model\Character Sheet\ToDo.cs" />
     <Compile Include="Model\CharacterSheet.cs" />
     <Compile Include="Model\Class.cs" />
     <Compile Include="Model\DieSize.cs" />
@@ -90,7 +91,6 @@
     <Compile Include="Model\ToolOption.cs" />
     <Compile Include="Model\Trait.cs" />
     <Compile Include="Model\User\ApplicationUser.cs" />
-    <Compile Include="Model\User\AppUserInfo.cs" />
     <Compile Include="Model\Weapon.cs" />
     <Compile Include="Model\WeaponProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
