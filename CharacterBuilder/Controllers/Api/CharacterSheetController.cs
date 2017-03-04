@@ -24,5 +24,15 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(sheets);
         }
 
+        [HttpPut]
+        [Route("SaveClassSelection/{classId}/{characterSheetId}")]
+        public IHttpActionResult SaveClassSelection(int classId, int characterSheetId)
+        {
+            _characterSheetRepository.SaveClassSelection(classId, characterSheetId);
+
+
+            return Ok(characterSheetId);   
+        }
+
     }
 }

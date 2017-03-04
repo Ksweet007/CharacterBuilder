@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using CharacterBuilder.Core.Model.User;
 
 namespace CharacterBuilder.Core.Model
 {
     public class CharacterSheet
     {
         public int Id { get; set; }
+        public AppUserInfo AppUserInfo { get; set; }
         public string UserNameOwner { get; set; }
         public string CharacterName { get; set; }
         public string PlayerName { get; set; }

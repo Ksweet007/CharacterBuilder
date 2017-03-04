@@ -2,18 +2,20 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 using CharacterBuilder.Core.Enums;
 using CharacterBuilder.Core.Model;
+using CharacterBuilder.Core.Model.User;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CharacterBuilder.Infrastructure.Data.Contexts
 
 {
-    public class CharacterBuilderDbContext : DbContext
+    public class CharacterBuilderDbContext : IdentityDbContext<ApplicationUser>
     {
         public CharacterBuilderDbContext() 
-            : base("CharacterBuilderDbContext")
+            : base("CharacterBuilderProd")
         {
             Configuration.LazyLoadingEnabled = false;
         }
-
+        public DbSet<AppUserInfo> AppUserInfo { get; set; }
         public DbSet<CharacterSheet> CharacterSheets { get; set; }
         public DbSet<Armor> Armors { get; set; }
         public DbSet<Background> Backgrounds { get; set; }
@@ -46,10 +48,15 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("core");
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.HasDefaultSchema("core");
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();           
+        }
+
+        public static CharacterBuilderDbContext Create()
+        {
+            return new CharacterBuilderDbContext();
         }
 
     }

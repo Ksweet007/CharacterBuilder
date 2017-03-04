@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CharacterBuilder.Core.Model.User;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -91,8 +92,17 @@ namespace CharacterBuilder.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-           
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };                
+            
+            
+            //var userInfo = new AppUserInfo {FirstName = model.Name};
+            //var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email,               
+            };
+            var AppUserInfo = new AppUserInfo {Name = model.Name};
+
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {

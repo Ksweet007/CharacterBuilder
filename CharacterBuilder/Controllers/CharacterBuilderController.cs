@@ -8,9 +8,10 @@ namespace CharacterBuilder.Controllers
     {
         public ActionResult Index()
         {
+            //TODO: This needs to give the most recent sheetId, then it needs to be changed when the user selects one on their main page
             var model = new IndexViewModel
             {
-                SheetId = 1,
+                SheetId = 5,
                 UserName = User.Identity.Name
             };
 

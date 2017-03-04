@@ -35,6 +35,14 @@ namespace CharacterBuilder.Infrastructure.Data
             Save();
         }
 
+        public void SaveClassSelection(int classId, int characterSheetId)
+        {
+            var clsFromDb = _db.Classes.Single(c => c.Id == classId);
+            var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == characterSheetId);
+            sheetFromDb.Class = clsFromDb;
+            Save();
+        }
+
         public void Save()
         {
             _db.SaveChanges();
