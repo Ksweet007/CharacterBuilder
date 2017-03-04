@@ -20,24 +20,19 @@ namespace CharacterBuilder.Infrastructure.Data
             _manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
         }
 
+        public void CreateNewSheet(string userId)
+        {
+            var currentUser = _manager.FindById(userId);
+            var sheet = new CharacterSheet {User = currentUser};
+
+            Save();
+        }
+
         public IEnumerable<CharacterSheet> GetUserSheet(string userId)
         {
             var currentUser = _manager.FindById(userId);
 
             return _db.CharacterSheets.ToList().Where(x => x.User.Id == currentUser.Id);
-
-            //var userInfoId = currentUser.AppUserInfo.Id;
-
-            //var sheets = _db.AppUserInfo.Single(u => u.Id == userInfoId);
-        }
-
-        public IList<CharacterSheet> GetCharacterSheetByUserName(string userName)
-        {
-            return
-                _db.CharacterSheets.Where(s => s.UserNameOwner == userName)
-                    .Include(c => c.Class)
-                    .Include(b => b.Background)
-                    .ToList();
         }
 
         public CharacterSheet GetCharacterSheetById(int sheetId)

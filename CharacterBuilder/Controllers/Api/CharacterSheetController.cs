@@ -31,9 +31,17 @@ namespace CharacterBuilder.Controllers.Api
         public IHttpActionResult SaveClassSelection(int classId, int characterSheetId)
         {
             _characterSheetRepository.SaveClassSelection(classId, characterSheetId);
-
-
+            
             return Ok(characterSheetId);   
+        }
+
+        [HttpPost]
+        [Route("CreateNewSheet")]
+        public IHttpActionResult CreateNewSheet()
+        {
+            var userId = User.Identity.GetUserId();
+
+            return Ok();
         }
 
     }
