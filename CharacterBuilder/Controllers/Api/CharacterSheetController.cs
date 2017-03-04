@@ -12,7 +12,7 @@ namespace CharacterBuilder.Controllers.Api
 
         public CharacterSheetController()
         {
-            _characterSheetRepository = new CharacterSheetRepository();
+            _characterSheetRepository = new CharacterSheetRepository();        
         }
 
 
@@ -20,11 +20,9 @@ namespace CharacterBuilder.Controllers.Api
         [Route("GetUserSheets")]
         public IHttpActionResult GetUserSheets()
         {
-            var currentUserId = User.Identity.GetUserId();
-            _characterSheetRepository.GetUserSheet(currentUserId);
+            var userId = User.Identity.GetUserId();
+            var sheets = _characterSheetRepository.GetUserSheet(userId);
 
-            var userName = User.Identity.Name;
-            var sheets = _characterSheetRepository.GetCharacterSheetByUserName(userName);
             return Ok(sheets);
         }
 

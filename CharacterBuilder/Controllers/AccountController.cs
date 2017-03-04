@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CharacterBuilder.Models;
 
+//https://blogs.msdn.microsoft.com/webdev/2013/10/16/customizing-profile-information-in-asp-net-identity-in-vs-2013-templates/
+
 namespace CharacterBuilder.Controllers
 {
     //https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/individual-accounts-in-web-api
@@ -91,18 +93,15 @@ namespace CharacterBuilder.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-            
-            
-            //var userInfo = new AppUserInfo {FirstName = model.Name};
-            //var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+            if (!ModelState.IsValid) return View(model);                      
+
             var user = new ApplicationUser
             {
                 UserName = model.Email,
-                Email = model.Email,               
+                Email = model.Email,
+                AppUserInfo = new AppUserInfo { Name = model.Name }
             };
-            var AppUserInfo = new AppUserInfo {Name = model.Name};
-
+            
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {

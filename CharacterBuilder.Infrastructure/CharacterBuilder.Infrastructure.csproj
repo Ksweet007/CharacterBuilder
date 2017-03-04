@@ -70,6 +70,14 @@
     <Compile Include="Migrations\201703040532142_INIT.Designer.cs">
       <DependentUpon>201703040532142_INIT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703041421281_FIX_CLASS_PROFTYPE.cs" />
+    <Compile Include="Migrations\201703041421281_FIX_CLASS_PROFTYPE.Designer.cs">
+      <DependentUpon>201703041421281_FIX_CLASS_PROFTYPE.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703041458498_POINT_SHEET_AT_APPLICATIONUSER.cs" />
+    <Compile Include="Migrations\201703041458498_POINT_SHEET_AT_APPLICATIONUSER.Designer.cs">
+      <DependentUpon>201703041458498_POINT_SHEET_AT_APPLICATIONUSER.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WeaponService.cs" />
@@ -87,6 +95,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201703040532142_INIT.resx">
       <DependentUpon>201703040532142_INIT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703041421281_FIX_CLASS_PROFTYPE.resx">
+      <DependentUpon>201703041421281_FIX_CLASS_PROFTYPE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703041458498_POINT_SHEET_AT_APPLICATIONUSER.resx">
+      <DependentUpon>201703041458498_POINT_SHEET_AT_APPLICATIONUSER.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

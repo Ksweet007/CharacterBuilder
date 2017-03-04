@@ -5,6 +5,8 @@ using CharacterBuilder.Core.Model;
 using CharacterBuilder.Core.Model.User;
 using Microsoft.AspNet.Identity.EntityFramework;
 
+//http://stackoverflow.com/questions/11009189/export-table-data-from-one-sql-server-to-another
+
 namespace CharacterBuilder.Infrastructure.Data.Contexts
 
 {

@@ -12,21 +12,23 @@ namespace CharacterBuilder.Infrastructure.Data
     public class CharacterSheetRepository
     {
         private readonly CharacterBuilderDbContext _db;
+        private readonly UserManager<ApplicationUser> _manager;
 
         public CharacterSheetRepository()
         {
             _db = new CharacterBuilderDbContext();
+            _manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
         }
 
-        public void GetUserSheet(string userId)
+        public IEnumerable<CharacterSheet> GetUserSheet(string userId)
         {
-            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
+            var currentUser = _manager.FindById(userId);
 
-            var currentUser = manager.FindById(userId);
+            return _db.CharacterSheets.ToList().Where(x => x.User.Id == currentUser.Id);
 
-            var userInfoId = currentUser.AppUserInfo.Id;
+            //var userInfoId = currentUser.AppUserInfo.Id;
 
-            var sheets = _db.AppUserInfo.Single(u => u.Id == userInfoId);
+            //var sheets = _db.AppUserInfo.Single(u => u.Id == userInfoId);
         }
 
         public IList<CharacterSheet> GetCharacterSheetByUserName(string userName)
