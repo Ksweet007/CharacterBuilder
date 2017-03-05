@@ -69,7 +69,8 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
     .sheettext.smalltext{font-size: .75rem;}
 
 .form-group.pmd-textfield{ margin-bottom:16px; line-height:22px;}
-.pmd-textfield .sheet-control{background: transparent; border: none; border-bottom:solid 1px #e6e6e6; outline: none; box-shadow:none; padding:0; border-radius:0; font-size:12px;}
+.pmd-textfield .sheet-control{background: transparent; border: none; border-bottom:solid 1px #e6e6e6; outline: none; box-shadow:none; padding:0; border-radius:0; font-size:13px;}
+.pmd-textfield .sheet-control-hiddenborder{background: transparent; border: none; outline: none; box-shadow:none; padding:0; border-radius:0; font-size:13px;}
 .pmd-textfield .sheet-control{padding-bottom:6px;}
 .pmd-textfield input.sheet-control{height: inherit; width:100%}
 .pmd-textfield textarea.sheet-control{height: 80px;}

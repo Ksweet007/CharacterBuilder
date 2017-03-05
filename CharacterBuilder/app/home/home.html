@@ -76,7 +76,6 @@
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-body">
                         <div class="form-group pmd-textfield pmd-textfield">
-                            <!--<div class="sheettext largetext" data-bind="text:CharacterName"></div>-->
                             <input type="text" id="name" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="sheet-control">
                             <div class="sheetheader subheader">Character Name</div>
                         </div>                        
@@ -85,42 +84,54 @@
             </div>
             <div class="col-lg-6 col-sm-6 col-xs-12">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-                    <div class="pmd-card-body text-center">
+                    <div class="pmd-card-body">
                         <div class="row">
                             <div class="col-xs-4">
                                 <!--ko with: Class-->
-                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.ClassLevel() "></div>
-                                <div class="sheetheader subheader">Class & Level</div>
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <input class="sheet-control-hiddenborder" data-bind="value:Name() + ' ' + $parent.ClassLevel() " readonly />
+                                    <div class="sheetheader subheader">Class & Level</div>
+                                </div>                                
                                 <!--/ko-->
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <div class="sheetheader subheader">Background</div>
+                                <div class="form-group pmd-textfield pmd-textfield text-center">
+                                    <input class="sheet-control-hiddenborder" data-bind="text:Name" readonly />
+                                    <div class="sheetheader subheader">Background</div>
+                                </div>
                                 <!--/ko-->
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <div class="sheetheader subheader">Background</div>
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <input class="sheet-control-hiddenborder" data-bind="text:Name" readonly />
+                                    <div class="sheetheader subheader">Background</div>
+                                </div>
                                 <!--/ko-->
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <div class="sheetheader subheader">Background</div>
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <input class="sheet-control-hiddenborder" data-bind="text:Name" readonly />
+                                    <div class="sheetheader subheader">Background</div>
+                                </div>
                                 <!--/ko-->
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <div class="sheetheader subheader">Background</div>
+                                <div class="form-group pmd-textfield pmd-textfield text-center">
+                                    <input class="sheet-control-hiddenborder" data-bind="text:Name" readonly />
+                                    <div class="sheetheader subheader">Background</div>
+                                </div>
                                 <!--/ko-->
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <div class="sheetheader subheader">Background</div>
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <input class="sheet-control-hiddenborder" data-bind="text:Name" readonly />
+                                    <div class="sheetheader subheader">Background</div>
+                                </div>
                                 <!--/ko-->
 
                             </div>
