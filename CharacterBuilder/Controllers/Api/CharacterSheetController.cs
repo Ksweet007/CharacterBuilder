@@ -33,6 +33,7 @@ namespace CharacterBuilder.Controllers.Api
         public IHttpActionResult SaveClassSelection(int classId, int characterSheetId)
         {
             _characterSheetRepository.SaveClassSelection(classId, characterSheetId);
+            _characterSheetRepository.ToDoClassSelected(characterSheetId);
             
             return Ok(characterSheetId);   
         }

@@ -11,7 +11,9 @@
 
     return function () {
         var self = this;
+        /*==================== GLOBAL SHEET STATUS ====================*/
         self.sheetId = _i.globals.getSheetId;
+        self.hasPickedClass = _i.globals.hasPickedClass;
 
         /*==================== BASE DATA ====================*/
         self.classes = _i.ko.observableArray([]);
@@ -68,6 +70,7 @@
         self.save = function() {
             return _i.charajax.put('api/charactersheet/SaveClassSelection/'+ self.selectedClass().Id() + '/' + self.sheetId()).done(function() {
                 _i.alert.showAlert({ type: "success", message: "Class Selected" });
+                _i.globals.selectClass();
             });
         };
 

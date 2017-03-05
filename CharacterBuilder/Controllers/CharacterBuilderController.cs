@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
+using CharacterBuilder.Infrastructure.Data;
 using CharacterBuilder.ViewModels;
 
 namespace CharacterBuilder.Controllers
@@ -6,16 +8,25 @@ namespace CharacterBuilder.Controllers
     [Authorize]
     public class CharacterBuilderController : Controller
     {
+        private readonly CharacterSheetRepository _characterSheetRepository;
+
+        public CharacterBuilderController()
+        {
+            _characterSheetRepository = new CharacterSheetRepository();
+        }
+
         public ActionResult Index()
         {
+            var model = new IndexViewModel{UserName = User.Identity.Name};
+
             var cookie = Request.Cookies["SheetBeingWorked"];
-            var sheetId = cookie?.Value;
-            
-            var model = new IndexViewModel
-            {
-                UserName = User.Identity.Name,
-                SheetId = sheetId
-            };
+            if (cookie == null) return View(model);
+
+            var sheetId = cookie.Value;
+            model.SheetId = sheetId;
+
+            var sheetInProgress = _characterSheetRepository.GetCharacterSheetById(Convert.ToInt32(sheetId));
+            model.HasSelectedClass = sheetInProgress.ToDo.HasSelectedClass;
 
             return View(model);
         }

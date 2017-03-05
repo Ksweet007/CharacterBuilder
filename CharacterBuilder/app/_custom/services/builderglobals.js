@@ -10,5 +10,13 @@
         return window.builder.global_userName;
     };
 
+    BuilderGlobalsCls.prototype.hasPickedClass = function () {
+        return window.builder.global_userName;
+    };
+
+    BuilderGlobalsCls.prototype.selectClass = function () {
+        window.builder.global_hasSelectedClass = true;
+    };
+
     return new BuilderGlobalsCls();
 });

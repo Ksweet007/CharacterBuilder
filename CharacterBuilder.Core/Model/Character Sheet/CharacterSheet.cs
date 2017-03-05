@@ -8,7 +8,8 @@ namespace CharacterBuilder.Core.Model
     {
         public CharacterSheet()
         {
-            CreatedDate = DateTime.Now;            
+            CreatedDate = DateTime.Now;
+            ClassLevel = 1;            
         }
 
         public int Id { get; set; }
