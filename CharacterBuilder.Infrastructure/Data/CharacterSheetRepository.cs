@@ -33,11 +33,13 @@ namespace CharacterBuilder.Infrastructure.Data
             return sheet;
         }
 
-        public IList<CharacterSheet> GetUserSheet(string userId)
+        public IList<CharacterSheet> GetUserSheets(string userId)
         {
             var currentUser = _manager.FindById(userId);
 
-            return _db.CharacterSheets.Include(c => c.Class).Where(x => x.User.Id == currentUser.Id).ToList();
+            return _db.CharacterSheets.Include(c => c.Class)
+                .Include(b=>b.Background)
+                .Where(x => x.User.Id == currentUser.Id).ToList();
         }
 
         public CharacterSheet GetCharacterSheetById(int sheetId)
@@ -50,6 +52,16 @@ namespace CharacterBuilder.Infrastructure.Data
             var clsFromDb = _db.Classes.Single(c => c.Id == classId);
             var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == characterSheetId);
             sheetFromDb.Class = clsFromDb;
+
+            Save();
+        }
+
+        public void SaveBackgroundSelection(int backgroundId, int characterSheetId)
+        {
+
+            var bgFromDb = _db.Backgrounds.Single(b => b.Id == backgroundId);
+            var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == characterSheetId);
+            sheetFromDb.Background = bgFromDb;
 
             Save();
         }

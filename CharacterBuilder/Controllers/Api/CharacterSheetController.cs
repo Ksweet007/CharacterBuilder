@@ -23,7 +23,7 @@ namespace CharacterBuilder.Controllers.Api
         public IHttpActionResult GetUserSheets()
         {
             var userId = User.Identity.GetUserId();
-            var sheets = _characterSheetRepository.GetUserSheet(userId);
+            var sheets = _characterSheetRepository.GetUserSheets(userId);
 
             return Ok(sheets);
         }
@@ -36,6 +36,16 @@ namespace CharacterBuilder.Controllers.Api
             _characterSheetRepository.ToDoClassSelected(characterSheetId);
             
             return Ok(characterSheetId);   
+        }
+
+        [HttpPut]
+        [Route("SaveBackgroundSelection/{backgroundId}/{characterSheetId}")]
+        public IHttpActionResult SaveBackgroundSelection(int backgroundId, int characterSheetId)
+        {
+            _characterSheetRepository.SaveBackgroundSelection(backgroundId,characterSheetId);
+            _characterSheetRepository.ToDoBackgroundSelected(characterSheetId);
+
+            return Ok(characterSheetId);
         }
 
         [HttpPost]

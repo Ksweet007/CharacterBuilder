@@ -13,7 +13,7 @@
         var self = this;
         /*==================== GLOBAL SHEET STATUS ====================*/
         self.sheetId = _i.globals.getSheetId;
-        self.hasPickedClass = _i.globals.hasPickedClass;
+        self.hasPickedClass = _i.globals.hasSelectedClass;
 
         /*==================== BASE DATA ====================*/
         self.classes = _i.ko.observableArray([]);

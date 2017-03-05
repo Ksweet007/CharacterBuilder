@@ -10,12 +10,20 @@
         return window.builder.global_userName;
     };
 
-    BuilderGlobalsCls.prototype.hasPickedClass = function () {
-        return window.builder.global_userName;
+    BuilderGlobalsCls.prototype.hasSelectedClass = function () {
+        return window.builder.global_hasSelectedClass;
     };
 
     BuilderGlobalsCls.prototype.selectClass = function () {
         window.builder.global_hasSelectedClass = true;
+    };
+
+    BuilderGlobalsCls.prototype.hasSelectedBackground = function () {
+        return window.builder.global_hasSelectedBackground;
+    };
+
+    BuilderGlobalsCls.prototype.selectBackground = function () {
+        window.builder.global_hasSelectedBackground = true;
     };
 
     return new BuilderGlobalsCls();

@@ -4,11 +4,15 @@
         $: require('jquery'),
         charajax: require('_custom/services/WebAPI'),
         list: require('_custom/services/listmanager'),
-        deferred: require('_custom/deferred')
+        deferred: require('_custom/deferred'),
+        globals: require('_custom/services/builderglobals'),
+        alert: require('_custom/services/alert')
     };
 
     return function () {
         var self = this;
+        self.sheetId = _i.globals.getSheetId;
+        self.hasSelectedBackground = _i.globals.hasSelectedBackground;
 
         /*==================== BASE DATA ====================*/
         self.backgrounds = _i.ko.observableArray([]);
@@ -88,6 +92,17 @@
 
         self.closeMoreDetails = function () {
             self.viewingDetails(false);
+        };
+
+        self.selectBackground = function () {
+            self.save();
+        };
+
+        self.save = function () {
+            return _i.charajax.put('api/charactersheet/SaveBackgroundSelection/' + self.selectedBackground().Id() + '/' + self.sheetId()).done(function () {
+                _i.alert.showAlert({ type: "success", message: "Background Selected" });
+                _i.globals.selectBackground();
+            });
         };
 
 

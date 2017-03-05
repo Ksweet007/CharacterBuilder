@@ -65,7 +65,7 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
     .sheetheader.subheader{ font-size: .75rem;}
 
 .sheettext { color: #c1b4b4;}
-    .sheettext.largetext{ font-size: 1rem;}
+    .sheettext.largetext{ font-size: 14px;}
     .sheettext.smalltext{font-size: .75rem;}
 
 .form-group.pmd-textfield{ margin-bottom:16px; line-height:22px;}
