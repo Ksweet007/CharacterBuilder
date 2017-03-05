@@ -75,6 +75,9 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 .pmd-textfield input.sheet-control{height: inherit; width:100%}
 .pmd-textfield textarea.sheet-control{height: 80px;}
 
+.scorecontainer { margin-bottom: 10px;}
+.abilitymodcontainer {border: 1px solid; border-radius: 12px; text-align: center;padding-bottom: 3px;}
+
 /*==================== NAVBAR ====================*/
 .nav>li>a:hover{background-color: #161a22 !important;}
 .navbar-inverse {background-color: #2c3544 !important; border-color: #2c3544 !important}
