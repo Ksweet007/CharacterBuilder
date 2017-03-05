@@ -70,6 +70,30 @@
     <Compile Include="Migrations\201703041650415_FUCKMICROSOFT.Designer.cs">
       <DependentUpon>201703041650415_FUCKMICROSOFT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703051351494_REMOVED_MOD_CALC_FROM_MODEL.cs" />
+    <Compile Include="Migrations\201703051351494_REMOVED_MOD_CALC_FROM_MODEL.Designer.cs">
+      <DependentUpon>201703051351494_REMOVED_MOD_CALC_FROM_MODEL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703051400054_GaveCreatedDateADefaultInitializer.cs" />
+    <Compile Include="Migrations\201703051400054_GaveCreatedDateADefaultInitializer.Designer.cs">
+      <DependentUpon>201703051400054_GaveCreatedDateADefaultInitializer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703051405066_Switch_Datetime_TO_TOday.cs" />
+    <Compile Include="Migrations\201703051405066_Switch_Datetime_TO_TOday.Designer.cs">
+      <DependentUpon>201703051405066_Switch_Datetime_TO_TOday.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703051407541_Switch_Datetime_TO_UTC.cs" />
+    <Compile Include="Migrations\201703051407541_Switch_Datetime_TO_UTC.Designer.cs">
+      <DependentUpon>201703051407541_Switch_Datetime_TO_UTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703051412430_PUTBACKDATETIME.cs" />
+    <Compile Include="Migrations\201703051412430_PUTBACKDATETIME.Designer.cs">
+      <DependentUpon>201703051412430_PUTBACKDATETIME.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703051416538_Removed_UserName.cs" />
+    <Compile Include="Migrations\201703051416538_Removed_UserName.Designer.cs">
+      <DependentUpon>201703051416538_Removed_UserName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WeaponService.cs" />
@@ -87,6 +111,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201703041650415_FUCKMICROSOFT.resx">
       <DependentUpon>201703041650415_FUCKMICROSOFT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703051351494_REMOVED_MOD_CALC_FROM_MODEL.resx">
+      <DependentUpon>201703051351494_REMOVED_MOD_CALC_FROM_MODEL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703051400054_GaveCreatedDateADefaultInitializer.resx">
+      <DependentUpon>201703051400054_GaveCreatedDateADefaultInitializer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703051405066_Switch_Datetime_TO_TOday.resx">
+      <DependentUpon>201703051405066_Switch_Datetime_TO_TOday.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703051407541_Switch_Datetime_TO_UTC.resx">
+      <DependentUpon>201703051407541_Switch_Datetime_TO_UTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703051412430_PUTBACKDATETIME.resx">
+      <DependentUpon>201703051412430_PUTBACKDATETIME.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703051416538_Removed_UserName.resx">
+      <DependentUpon>201703051416538_Removed_UserName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,11 +8,13 @@ namespace CharacterBuilder.Controllers
     {
         public ActionResult Index()
         {
-            //TODO: This needs to give the most recent sheetId, then it needs to be changed when the user selects one on their main page
+            var cookie = Request.Cookies["SheetBeingWorked"];
+            var sheetId = cookie?.Value;
+            
             var model = new IndexViewModel
             {
-                SheetId = 5,
-                UserName = User.Identity.Name
+                UserName = User.Identity.Name,
+                SheetId = sheetId
             };
 
             return View(model);

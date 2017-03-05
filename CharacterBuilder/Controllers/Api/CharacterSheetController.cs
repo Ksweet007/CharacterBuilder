@@ -1,8 +1,5 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Http;
-using System.Web.Http.Controllers;
-using System.Web.WebSockets;
 using CharacterBuilder.Infrastructure.Data;
 using Microsoft.AspNet.Identity;
 

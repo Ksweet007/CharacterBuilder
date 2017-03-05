@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Core.Model.User;
@@ -22,7 +23,7 @@ namespace CharacterBuilder.Infrastructure.Data
         public CharacterSheet CreateNewSheet(string userId)
         {
             var currentUser = _manager.FindById(userId);
-            var sheet = new CharacterSheet {User = currentUser, ToDo = new ToDo()};
+            var sheet = new CharacterSheet {User = currentUser, ToDo = new ToDo(), CreatedDate = DateTime.UtcNow};
 
             _db.CharacterSheets.Add(sheet);
 
