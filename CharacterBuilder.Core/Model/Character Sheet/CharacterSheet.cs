@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CharacterBuilder.Core.Model.Character_Sheet;
 using CharacterBuilder.Core.Model.User;
 
 namespace CharacterBuilder.Core.Model

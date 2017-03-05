@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CharacterBuilder.Core.Model
+﻿namespace CharacterBuilder.Core.Model
 {
     public class BackgroundOption
     {

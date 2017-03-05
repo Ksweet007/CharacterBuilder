@@ -48,10 +48,9 @@ namespace CharacterBuilder.Controllers.Api
             var newSheet = _characterSheetRepository.CreateNewSheet(userId);
 
             var response = HttpContext.Current.Response;
-            var request = HttpContext.Current.Request;
 
             //Check if a Cookie already exists. If so remove it, and add a new one so we don't risk collision on what sheet is being worked
-            var cookie = request.Cookies[Cookie_Name] ?? new HttpCookie(Cookie_Name, newSheet.Id.ToString());
+            var cookie = new HttpCookie(Cookie_Name, newSheet.Id.ToString());
             response.Cookies.Remove(Cookie_Name);
             response.Cookies.Add(cookie);
 

@@ -21,7 +21,8 @@
         self.viewingDetails = _i.ko.observable(false);
         self.characterSheetsToShow = _i.ko.computed(function () {
             var returnList = self.characterSheets();
-            return _i.list.sortAlphabeticallyObservables(returnList);
+            return returnList;
+            //return _i.list.sortAlphabeticallyObservables(returnList);
         });
 
         self.activate = function () {

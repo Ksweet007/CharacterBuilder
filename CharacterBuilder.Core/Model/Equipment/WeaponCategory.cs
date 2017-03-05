@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using CharacterBuilder.Core.Model;
 
-namespace CharacterBuilder.Core.Enums
+namespace CharacterBuilder.Core.Model
 {
     public class WeaponCategory
     {

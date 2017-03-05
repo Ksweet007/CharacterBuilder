@@ -1,4 +1,4 @@
-﻿namespace CharacterBuilder.Core.Model.Character_Sheet
+﻿namespace CharacterBuilder.Core.Model
 {
     public class ToDo
     {

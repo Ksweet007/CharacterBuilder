@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CharacterBuilder.Core.Model;
-using CharacterBuilder.Core.Model.Character_Sheet;
 using CharacterBuilder.Core.Model.User;
 using CharacterBuilder.Infrastructure.Data.Contexts;
 using Microsoft.AspNet.Identity;

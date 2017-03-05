@@ -2,7 +2,6 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 using CharacterBuilder.Core.Enums;
 using CharacterBuilder.Core.Model;
-using CharacterBuilder.Core.Model.Character_Sheet;
 using CharacterBuilder.Core.Model.User;
 using Microsoft.AspNet.Identity.EntityFramework;
 
