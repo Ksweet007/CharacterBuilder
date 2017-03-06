@@ -31,6 +31,16 @@ namespace CharacterBuilder.Infrastructure.Migrations
                 new Class { Name = "Monk", Description = "A master of martial arts, harnessing the power of the body in pursuit of physical and spiritual perfection", Primaryability = "Dexterity & Wisdom", Hitdie = "8", SkillPickCount = 2 }
 
             );
+
+            context.Races.AddOrUpdate(
+                r => r.Name,
+                new Race { Name = "Elf", Description = "Elves are a magical people of otherworldly grace, living in the world but not entirely part of it.They live in places of ethereal beauty, in the midst of ancient forests or in silvery spires glittering with faerie light, where soft music drifts through the air and gentle fragrances waft on the breeze.Elves love nature and magic, art and artistry, music and poetry,and the good things of the world." }
+            );
+
+            context.Backgrounds.AddOrUpdate(
+                b=> b.Name,
+                new Background { Name = "Acolyte", Description = "You have spent your life in the service of a temple  to a specific god or pantheon of gods.You act as an intermediary between the realm of the holy and the mortal world, performing sacred rites and offering sacrifices in order to conduct worshipers into the presence of the divine.You are not necessarily a cleric—performing sacred rites is not the same thing as channeling divine power.", Gold = 0, LanguageCount = 2}
+            );
             
         }
     }
