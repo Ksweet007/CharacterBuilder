@@ -19,6 +19,7 @@ namespace CharacterBuilder.Core.Model
         public string PlayerName { get; set; }
         public Class Class { get; set; }
         public Background Background { get; set; }
+        public Race Race { get; set; }
         public int ClassLevel { get; set; }
         public int HitPointsMax { get; set; }
         public int Strength { get; set; }

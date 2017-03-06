@@ -220,6 +220,7 @@
     <Compile Include="Controllers\Api\CharacterSheetController.cs" />
     <Compile Include="Controllers\Api\ClassController.cs" />
     <Compile Include="Controllers\Api\ProficiencyController.cs" />
+    <Compile Include="Controllers\Api\RaceController.cs" />
     <Compile Include="Controllers\Api\WeaponController.cs" />
     <Compile Include="Controllers\CharacterBuilderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

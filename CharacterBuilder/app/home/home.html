@@ -33,18 +33,39 @@
                     <div class="pmd-card-title">
                         <div class="media-body media-middle">
                             <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:CharacterName"></h1>
+                            <span class="pmd-card-subtitle-text" data-bind="text:'Created: ' + createdDateFormatted()"></span>
                         </div>
                         <div class="media-right">
                             <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.viewMoreDetails">
                                 fullscreen
                             </button>
+                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectClassToEdit">
+                                edit
+                            </button>
                         </div>
                     </div>
                     <div class="pmd-card-body">
-                        <span class="pmd-card-subtitle-text">Class</span>
-                        <!--ko with:Class-->
-                        <p data-bind="text:Name"></p>
-                        <!--/ko-->
+                        <div class="row">
+                            <div class="col-xs-4">                                
+                                <!--ko with:Class-->
+                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.ClassLevel()"></div>
+                                <!--/ko-->
+                                <span class="sheetheader subheader">Class & Level</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <!--ko with: Background-->
+                                <div class="sheettext largetext" data-bind="text:Name"></div>                                
+                                <!--/ko-->
+                                <span class="sheetheader subheader">Background</span>
+                            </div>
+                            <div class="col-xs-4">                                
+                                <!--ko with:Race-->
+                                <div class="sheettext largetext" data-bind="text:Name"></div>
+                                <!--/ko-->
+                                <span class="sheetheader subheader">Race</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

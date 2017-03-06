@@ -65,6 +65,7 @@
     <Compile Include="Data\ClassRepository.cs" />
     <Compile Include="Data\Contexts\CharacterBuilderDbContext.cs" />
     <Compile Include="Data\ProficiencyRepository.cs" />
+    <Compile Include="Data\RaceRepository.cs" />
     <Compile Include="Data\WeaponRepository.cs" />
     <Compile Include="Migrations\201703041650415_FUCKMICROSOFT.cs" />
     <Compile Include="Migrations\201703041650415_FUCKMICROSOFT.Designer.cs">
@@ -109,6 +110,18 @@
     <Compile Include="Migrations\201703060113340_Remove_Extrenious_HP_Info.cs" />
     <Compile Include="Migrations\201703060113340_Remove_Extrenious_HP_Info.Designer.cs">
       <DependentUpon>201703060113340_Remove_Extrenious_HP_Info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703060119261_Remove_SubRace_Again.cs" />
+    <Compile Include="Migrations\201703060119261_Remove_SubRace_Again.Designer.cs">
+      <DependentUpon>201703060119261_Remove_SubRace_Again.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703060122574_Alter_AbilityScoreImprovement.cs" />
+    <Compile Include="Migrations\201703060122574_Alter_AbilityScoreImprovement.Designer.cs">
+      <DependentUpon>201703060122574_Alter_AbilityScoreImprovement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703060146248_Add_Race_TO_CharacterSheet.cs" />
+    <Compile Include="Migrations\201703060146248_Add_Race_TO_CharacterSheet.Designer.cs">
+      <DependentUpon>201703060146248_Add_Race_TO_CharacterSheet.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,6 +170,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703060113340_Remove_Extrenious_HP_Info.resx">
       <DependentUpon>201703060113340_Remove_Extrenious_HP_Info.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060119261_Remove_SubRace_Again.resx">
+      <DependentUpon>201703060119261_Remove_SubRace_Again.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060122574_Alter_AbilityScoreImprovement.resx">
+      <DependentUpon>201703060122574_Alter_AbilityScoreImprovement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060146248_Add_Race_TO_CharacterSheet.resx">
+      <DependentUpon>201703060146248_Add_Race_TO_CharacterSheet.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

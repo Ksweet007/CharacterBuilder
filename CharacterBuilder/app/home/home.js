@@ -2,6 +2,7 @@
     var _i = {
         ko: require('knockout'),
         $: require('jquery'),
+        moment: require('moment'),
         charajax: require('_custom/services/WebAPI'),
         list: require('_custom/services/listmanager'),
         deferred: require('_custom/deferred'),
@@ -51,7 +52,10 @@
 
         self.getCharacterSheets = function () {
             var deferred = _i.deferred.create();
-            _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {              
+            _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
+                response.forEach(function(sheet) {
+                    sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
+                });
                 var mapped = _i.ko.mapping.fromJS(response);
 
                 self.characterSheets(mapped());
@@ -67,6 +71,15 @@
 
         self.closeMoreDetails = function () {
             self.viewingDetails(false);
+        };
+
+        self.selectClassToEdit = function (sheetToEdit) {
+            self.selectedSheet(sheetToEdit);
+
+            _i.globals.setSheetToEdit(self.selectedSheet.Id());
+
+            var editMessage = "Currently Editing " + sheetToEdit.CharacterName();
+            _i.alert.showAlert({ type: "success", message: editMessage });
         };
 
         self.showAlertAndOpenEditor = function () {

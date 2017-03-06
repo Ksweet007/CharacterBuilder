@@ -39,6 +39,7 @@ namespace CharacterBuilder.Infrastructure.Data
 
             return _db.CharacterSheets.Include(c => c.Class)
                 .Include(b=>b.Background)
+                .Include(r=>r.Race)
                 .Where(x => x.User.Id == currentUser.Id).ToList();
         }
 
@@ -62,6 +63,15 @@ namespace CharacterBuilder.Infrastructure.Data
             var bgFromDb = _db.Backgrounds.Single(b => b.Id == backgroundId);
             var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == characterSheetId);
             sheetFromDb.Background = bgFromDb;
+
+            Save();
+        }
+
+        public void SaveRaceSelection(int raceId, int characterSheetId)
+        {
+            var raceFromDb = _db.Races.Single(r => r.Id == raceId);
+            var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == characterSheetId);
+            sheetFromDb.Race = raceFromDb;
 
             Save();
         }

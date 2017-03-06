@@ -27,6 +27,7 @@ namespace CharacterBuilder.Controllers
 
             var sheetInProgress = _characterSheetRepository.GetCharacterSheetById(Convert.ToInt32(sheetId));
             model.HasSelectedClass = sheetInProgress.ToDo.HasSelectedClass;
+            model.HasSelectedRace = sheetInProgress.ToDo.HasSelectedRace;
 
             return View(model);
         }
