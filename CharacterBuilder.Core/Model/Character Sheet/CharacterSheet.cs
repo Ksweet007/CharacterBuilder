@@ -9,7 +9,7 @@ namespace CharacterBuilder.Core.Model
         public CharacterSheet()
         {
             CreatedDate = DateTime.Now;
-            ClassLevel = 1;            
+            ClassLevel = 1;
         }
 
         public int Id { get; set; }
@@ -22,17 +22,12 @@ namespace CharacterBuilder.Core.Model
         public Race Race { get; set; }
         public int ClassLevel { get; set; }
         public int HitPointsMax { get; set; }
-        public int Strength { get; set; }
+        public IList<AbilityScoreSheetValue> AbilityScores { get; set; }
         public int StrengthMod { get; set; }
-        public int Dexterity { get; set; }
         public int DexterityMod { get; set; }
-        public int Constitution { get; set; }
         public int ConstitutionMod { get; set; }
-        public int Wisdom { get; set; }
         public int WisdomMod { get; set; }
-        public int Intelligence { get; set; }
         public int IntelligenceMod { get; set; }
-        public int Charisma { get; set; }
         public int CharismaMod { get; set; }
         public IList<Skill> Skills { get; set; }
         public bool IsComplete { get; set; }

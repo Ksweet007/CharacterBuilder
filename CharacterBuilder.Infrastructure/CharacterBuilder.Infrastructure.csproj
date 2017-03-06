@@ -123,6 +123,26 @@
     <Compile Include="Migrations\201703060146248_Add_Race_TO_CharacterSheet.Designer.cs">
       <DependentUpon>201703060146248_Add_Race_TO_CharacterSheet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703062142531_Update_Sheet_AbilityScore_Obj.cs" />
+    <Compile Include="Migrations\201703062142531_Update_Sheet_AbilityScore_Obj.Designer.cs">
+      <DependentUpon>201703062142531_Update_Sheet_AbilityScore_Obj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703062148551_Update_Sheet_AbilityScore.cs" />
+    <Compile Include="Migrations\201703062148551_Update_Sheet_AbilityScore.Designer.cs">
+      <DependentUpon>201703062148551_Update_Sheet_AbilityScore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703062151087_Update_Sheet_Ability.cs" />
+    <Compile Include="Migrations\201703062151087_Update_Sheet_Ability.Designer.cs">
+      <DependentUpon>201703062151087_Update_Sheet_Ability.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703062221380_Update_Sheet_SCOREVALUEOBJ.cs" />
+    <Compile Include="Migrations\201703062221380_Update_Sheet_SCOREVALUEOBJ.Designer.cs">
+      <DependentUpon>201703062221380_Update_Sheet_SCOREVALUEOBJ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703062231117_Update_Sheet_SCOREVA.cs" />
+    <Compile Include="Migrations\201703062231117_Update_Sheet_SCOREVA.Designer.cs">
+      <DependentUpon>201703062231117_Update_Sheet_SCOREVA.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WeaponService.cs" />
@@ -179,6 +199,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703060146248_Add_Race_TO_CharacterSheet.resx">
       <DependentUpon>201703060146248_Add_Race_TO_CharacterSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062142531_Update_Sheet_AbilityScore_Obj.resx">
+      <DependentUpon>201703062142531_Update_Sheet_AbilityScore_Obj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062148551_Update_Sheet_AbilityScore.resx">
+      <DependentUpon>201703062148551_Update_Sheet_AbilityScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062151087_Update_Sheet_Ability.resx">
+      <DependentUpon>201703062151087_Update_Sheet_Ability.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062221380_Update_Sheet_SCOREVALUEOBJ.resx">
+      <DependentUpon>201703062221380_Update_Sheet_SCOREVALUEOBJ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703062231117_Update_Sheet_SCOREVA.resx">
+      <DependentUpon>201703062231117_Update_Sheet_SCOREVA.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

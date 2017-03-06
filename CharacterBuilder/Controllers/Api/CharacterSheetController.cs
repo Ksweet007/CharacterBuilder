@@ -50,7 +50,7 @@ namespace CharacterBuilder.Controllers.Api
 
         [HttpPut]
         [Route("SaveRaceSelection/{raceId}/{characterSheetId}")]
-        public IHttpActionResult SaveRaceId(int raceId, int characterSheetId)
+        public IHttpActionResult SaveRaceSelection(int raceId, int characterSheetId)
         {
             _characterSheetRepository.SaveRaceSelection(raceId, characterSheetId);
             _characterSheetRepository.ToDoRaceSelected(characterSheetId);

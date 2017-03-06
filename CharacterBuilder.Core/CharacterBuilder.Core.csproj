@@ -59,11 +59,12 @@
   <ItemGroup>
     <Compile Include="DTO\WeaponCategoryDTO.cs" />
     <Compile Include="DTO\WeaponDTO.cs" />
-    <Compile Include="Model\Background\AbilityScore.cs" />
+    <Compile Include="Enums\AbilityScore.cs" />
     <Compile Include="Enums\FeatureBonusType.cs" />
     <Compile Include="Enums\LanguageType.cs" />
     <Compile Include="Enums\ProficiencyType.cs" />
     <Compile Include="Enums\TraitType.cs" />
+    <Compile Include="Model\Character Sheet\AbilityScoreSheetValue.cs" />
     <Compile Include="Model\Equipment\WeaponCategory.cs" />
     <Compile Include="Model\Character Sheet\AbilityScoreIncrease.cs" />
     <Compile Include="Model\Character Sheet\Alignment.cs" />
