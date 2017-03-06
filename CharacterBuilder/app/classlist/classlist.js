@@ -4,11 +4,16 @@
         $: require('jquery'),
         charajax: require('_custom/services/WebAPI'),
         list: require('_custom/services/listmanager'),
-        deferred: require('_custom/deferred')
+        deferred: require('_custom/deferred'),
+        globals: require('_custom/services/builderglobals'),
+        alert: require('_custom/services/alert')
     };
 
     return function () {
         var self = this;
+        /*==================== GLOBAL SHEET STATUS ====================*/
+        self.sheetId = _i.globals.getSheetId;
+        self.hasPickedClass = _i.globals.hasSelectedClass;
 
         /*==================== BASE DATA ====================*/
         self.classes = _i.ko.observableArray([]);
@@ -58,6 +63,16 @@
             self.viewingDetails(false);
         };
 
+        self.selectClass = function () {
+            self.save();
+        };
+
+        self.save = function() {
+            return _i.charajax.put('api/charactersheet/SaveClassSelection/'+ self.selectedClass().Id() + '/' + self.sheetId()).done(function() {
+                _i.alert.showAlert({ type: "success", message: "Class Selected" });
+                _i.globals.selectClass();
+            });
+        };
 
     }
 });

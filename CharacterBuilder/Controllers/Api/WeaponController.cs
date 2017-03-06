@@ -1,5 +1,4 @@
 ﻿using System.Web.Http;
-using CharacterBuilder.Core.DTO;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data;
 using CharacterBuilder.Infrastructure.Services;

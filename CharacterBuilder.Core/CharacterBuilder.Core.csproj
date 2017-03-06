@@ -30,7 +30,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,42 +59,47 @@
   <ItemGroup>
     <Compile Include="DTO\WeaponCategoryDTO.cs" />
     <Compile Include="DTO\WeaponDTO.cs" />
-    <Compile Include="Enums\AbilityScore.cs" />
+    <Compile Include="Model\Background\AbilityScore.cs" />
     <Compile Include="Enums\FeatureBonusType.cs" />
     <Compile Include="Enums\LanguageType.cs" />
     <Compile Include="Enums\ProficiencyType.cs" />
     <Compile Include="Enums\TraitType.cs" />
-    <Compile Include="Enums\WeaponCategory.cs" />
-    <Compile Include="Model\AbilityScoreIncrease.cs" />
-    <Compile Include="Model\Alignment.cs" />
-    <Compile Include="Model\Armor.cs" />
-    <Compile Include="Model\Background.cs" />
-    <Compile Include="Model\BackgroundCharacteristic.cs" />
-    <Compile Include="Model\BackgroundOption.cs" />
-    <Compile Include="Model\BackgroundVariant.cs" />
-    <Compile Include="Model\CharacterSheet.cs" />
-    <Compile Include="Model\Class.cs" />
-    <Compile Include="Model\DieSize.cs" />
-    <Compile Include="Model\Feature.cs" />
-    <Compile Include="Model\Item.cs" />
-    <Compile Include="Model\Language.cs" />
-    <Compile Include="Model\Proficiency.cs" />
-    <Compile Include="Model\Race.cs" />
-    <Compile Include="Model\RaceFeature.cs" />
-    <Compile Include="Model\Skill.cs" />
-    <Compile Include="Model\Spell.cs" />
-    <Compile Include="Model\Subrace.cs" />
-    <Compile Include="Model\Tool.cs" />
-    <Compile Include="Model\ToolType.cs" />
-    <Compile Include="Model\Size.cs" />
-    <Compile Include="Model\ToolOption.cs" />
-    <Compile Include="Model\Trait.cs" />
-    <Compile Include="Model\Weapon.cs" />
-    <Compile Include="Model\WeaponProperty.cs" />
+    <Compile Include="Model\Equipment\WeaponCategory.cs" />
+    <Compile Include="Model\Character Sheet\AbilityScoreIncrease.cs" />
+    <Compile Include="Model\Character Sheet\Alignment.cs" />
+    <Compile Include="Model\Equipment\Armor.cs" />
+    <Compile Include="Model\Background\Background.cs" />
+    <Compile Include="Model\Background\BackgroundCharacteristic.cs" />
+    <Compile Include="Model\Background\BackgroundOption.cs" />
+    <Compile Include="Model\Background\BackgroundVariant.cs" />
+    <Compile Include="Model\Character Sheet\ToDo.cs" />
+    <Compile Include="Model\Character Sheet\CharacterSheet.cs" />
+    <Compile Include="Model\Class\Class.cs" />
+    <Compile Include="Model\Character Sheet\DieSize.cs" />
+    <Compile Include="Model\Class\Feature.cs" />
+    <Compile Include="Model\Equipment\Item.cs" />
+    <Compile Include="Model\Character Sheet\Language.cs" />
+    <Compile Include="Model\Character Sheet\Proficiency.cs" />
+    <Compile Include="Model\Race\Race.cs" />
+    <Compile Include="Model\Race\RaceFeature.cs" />
+    <Compile Include="Model\Character Sheet\Skill.cs" />
+    <Compile Include="Model\Spell\Spell.cs" />
+    <Compile Include="Model\Race\Subrace.cs" />
+    <Compile Include="Model\Equipment\Tool.cs" />
+    <Compile Include="Model\Equipment\ToolType.cs" />
+    <Compile Include="Model\Race\Size.cs" />
+    <Compile Include="Model\Equipment\ToolOption.cs" />
+    <Compile Include="Model\User\ApplicationUser.cs" />
+    <Compile Include="Model\Equipment\Weapon.cs" />
+    <Compile Include="Model\Equipment\WeaponProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

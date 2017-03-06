@@ -8,6 +8,7 @@ namespace CharacterBuilder.Core.Enums
         public int Id { get; set; }
         public string Name { get; set; }
         public IList<Proficiency> Proficiencies { get; set; }
+        public  IList<Class> Classes { get; set; }
     }
 
 }

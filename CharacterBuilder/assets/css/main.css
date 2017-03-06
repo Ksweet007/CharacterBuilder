@@ -58,6 +58,27 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
   }
 }
 
+/*==================== CHARACTER SHEET ====================*/
+.sheetsubtitletext { line-height: 1.6; margin-bottom: 0; opacity: 0.54; font-size: 14px; color: #e2733c; }
+
+.sheetheader {color: #e2733c;}
+    .sheetheader.primaryheader{ font-size: 1rem;}
+    .sheetheader.subheader{ font-size: .75rem;}
+
+.sheettext { color: #c1b4b4;}
+    .sheettext.largetext{ font-size: 14px;}
+    .sheettext.smalltext{font-size: .75rem;}
+
+.form-group.pmd-textfield{ margin-bottom:16px; line-height:22px;}
+.pmd-textfield .sheet-control{background: transparent; border: none; border-bottom:solid 1px #e6e6e6; outline: none; box-shadow:none; padding:0; border-radius:0; font-size:13px;}
+.pmd-textfield .sheet-control-hiddenborder{background: transparent; border: none; outline: none; box-shadow:none; padding:0; border-radius:0; font-size:13px;}
+.pmd-textfield .sheet-control{padding-bottom:6px;}
+.pmd-textfield input.sheet-control{height: inherit; width:100%}
+.pmd-textfield textarea.sheet-control{height: 80px;}
+
+.scorecontainer { margin-bottom: 10px;}
+.abilitymodcontainer {border: 1px solid; border-radius: 12px; text-align: center;padding-bottom: 3px;}
+
 /*==================== NAVBAR ====================*/
 .nav>li>a:hover{background-color: #161a22 !important;}
 .navbar-inverse {background-color: #2c3544 !important; border-color: #2c3544 !important}
@@ -78,6 +99,7 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 
 /*==================== CARD MORE DETAIL LABELS ====================*/
 .mordetaillabel { color: #e2733c;}
+.charactersheetlabel { color: #e2733c;font-size: 20px;}
 
 /*==================== TABLE ====================*/
 tbody { color: #c1b4b4;}

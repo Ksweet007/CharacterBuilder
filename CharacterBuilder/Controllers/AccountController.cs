@@ -3,10 +3,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using CharacterBuilder.Core.Model.User;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using CharacterBuilder.Models;
+
+//https://blogs.msdn.microsoft.com/webdev/2013/10/16/customizing-profile-information-in-asp-net-identity-in-vs-2013-templates/
 
 namespace CharacterBuilder.Controllers
 {
@@ -90,9 +93,14 @@ namespace CharacterBuilder.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (!ModelState.IsValid) return View(model);
-           
-            var user = new ApplicationUser { UserName = model.Email, Email = model.Email };                
+            if (!ModelState.IsValid) return View(model);                      
+
+            var user = new ApplicationUser
+            {
+                UserName = model.Email,
+                Email = model.Email
+            };
+            
             var result = await UserManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
