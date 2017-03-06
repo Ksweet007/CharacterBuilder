@@ -100,6 +100,20 @@ namespace CharacterBuilder.Infrastructure.Data
             Save();
         }
 
+        public void DeleteSheetAndToDoList(int characterSheetId)
+        {
+            var sheetFromDb = _db.CharacterSheets
+                .Include(t=>t.ToDo)
+                .Single(s => s.Id == characterSheetId);
+
+            var toDoToDelete = sheetFromDb.ToDo;
+
+            _db.CharacterSheets.Remove(sheetFromDb);
+            _db.ToDos.Remove(toDoToDelete);
+
+            Save();
+        }
+
         public void Save()
         {
             _db.SaveChanges();

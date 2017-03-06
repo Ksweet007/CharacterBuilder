@@ -77,5 +77,23 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(newSheet);
         }
 
+        [HttpDelete]
+        [Route("DeleteSheet/{sheetId}")]
+        public IHttpActionResult DeleteSheet(int sheetId)
+        {
+            var cookie = HttpContext.Current.Request.Cookies[Cookie_Name];
+            if (cookie != null)
+            {
+                if (cookie.Value == sheetId.ToString())
+                {
+                    HttpContext.Current.Response.Cookies.Remove(Cookie_Name);
+                }                
+            }
+
+            _characterSheetRepository.DeleteSheetAndToDoList(sheetId);
+
+            return Ok(sheetId);
+        }
+
     }
 }
