@@ -94,6 +94,22 @@
     <Compile Include="Migrations\201703051416538_Removed_UserName.Designer.cs">
       <DependentUpon>201703051416538_Removed_UserName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703060059117_Added_Race.cs" />
+    <Compile Include="Migrations\201703060059117_Added_Race.Designer.cs">
+      <DependentUpon>201703060059117_Added_Race.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703060104052_Alter_Race.cs" />
+    <Compile Include="Migrations\201703060104052_Alter_Race.Designer.cs">
+      <DependentUpon>201703060104052_Alter_Race.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703060106409_Remove_Subrace.cs" />
+    <Compile Include="Migrations\201703060106409_Remove_Subrace.Designer.cs">
+      <DependentUpon>201703060106409_Remove_Subrace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703060113340_Remove_Extrenious_HP_Info.cs" />
+    <Compile Include="Migrations\201703060113340_Remove_Extrenious_HP_Info.Designer.cs">
+      <DependentUpon>201703060113340_Remove_Extrenious_HP_Info.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WeaponService.cs" />
@@ -129,6 +145,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703051416538_Removed_UserName.resx">
       <DependentUpon>201703051416538_Removed_UserName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060059117_Added_Race.resx">
+      <DependentUpon>201703060059117_Added_Race.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060104052_Alter_Race.resx">
+      <DependentUpon>201703060104052_Alter_Race.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060106409_Remove_Subrace.resx">
+      <DependentUpon>201703060106409_Remove_Subrace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703060113340_Remove_Extrenious_HP_Info.resx">
+      <DependentUpon>201703060113340_Remove_Extrenious_HP_Info.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

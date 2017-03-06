@@ -10,8 +10,6 @@ namespace CharacterBuilder.Core.Model
         public string Description { get; set; }
         public string Primaryability { get; set; }
         public string Hitdie { get; set; }
-        public string Hpatfirstlevel { get; set; }
-        public string Hpathigherlevels { get; set; }
         public IList<Feature> Features { get; set; }
         public IList<Skill> Skills { get; set; }
         public int SkillPickCount { get; set; }        

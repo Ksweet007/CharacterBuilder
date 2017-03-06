@@ -35,12 +35,12 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
         public DbSet<WeaponProperty> WeaponProperties { get; set; }
         public DbSet<WeaponCategory> WeaponCategories { get; set; }
 
-        //public DbSet<AbilityScoreIncrease> AbilityScoreIncreases { get; set; }
+        public DbSet<AbilityScoreIncrease> AbilityScoreIncreases { get; set; }
         //public DbSet<Alignment> Alignments { get; set; }
         //public DbSet<Spell> Spells { get; set; }
         //public DbSet<DieSize> DiceSizes { get; set; }
         //public DbSet<Item> Items { get; set; }       
-        //public DbSet<Race> Races { get; set; }
+        public DbSet<Race> Races { get; set; }
         //public DbSet<RaceFeature> RaceFeatures { get; set; }
         //public DbSet<Size> Sizes { get; set; }
         //public DbSet<Subrace> Subraces { get; set; }

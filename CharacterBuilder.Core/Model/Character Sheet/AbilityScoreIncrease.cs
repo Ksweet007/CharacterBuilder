@@ -1,4 +1,5 @@
-﻿using CharacterBuilder.Core.Enums;
+﻿using System.Collections.Generic;
+using CharacterBuilder.Core.Enums;
 
 namespace CharacterBuilder.Core.Model
 {
