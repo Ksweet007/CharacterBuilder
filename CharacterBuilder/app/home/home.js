@@ -65,6 +65,24 @@
             return deferred;
         };
 
+        self.rollAbilityScore = function () {
+            var rolls = [];
+
+            for (var i = 0; i < 4; i++) {
+                var d6 = 1 + Math.floor(Math.random() * 6);
+                rolls.push(d6);
+            }
+
+            rolls.sort();        
+            rolls.shift();
+
+            var scoreTotal = 0;
+            for (var s in rolls) {
+                scoreTotal += rolls[s];
+            }
+
+        };
+
         self.viewMoreDetails = function (bgSelected) {
             self.selectedSheet(bgSelected);
             self.viewingDetails(true);
