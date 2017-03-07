@@ -7,8 +7,8 @@ namespace CharacterBuilder.Core.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        //public AbilityScoreIncrease AbilityScoreIncreases { get; set; }
-        //public Race Race { get; set; }
+        public IList<AbilityScoreIncrease> AbilityScoreIncreases { get; set; }
+        public Race Race { get; set; }
         //public IList<RaceFeature> RacialFeature { get; set; }
     }
 }

@@ -48,16 +48,6 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(characterSheetId);
         }
 
-        [HttpPut]
-        [Route("SaveRaceSelection/{raceId}/{characterSheetId}")]
-        public IHttpActionResult SaveRaceSelection(int raceId, int characterSheetId)
-        {
-            _characterSheetRepository.SaveRaceSelection(raceId, characterSheetId);
-            _characterSheetRepository.ToDoRaceSelected(characterSheetId);
-
-            return Ok(characterSheetId);
-        }
-
         [HttpPost]
         [Route("CreateNewSheet")]
         public IHttpActionResult CreateNewSheet()

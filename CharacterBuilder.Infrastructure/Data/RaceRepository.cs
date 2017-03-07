@@ -17,7 +17,12 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public IList<Race> GetAllRaces()
         {
-            return _db.Races.Include(r => r.AbilityScoreIncreases).ToList();
+            return _db.Races.Include(r => r.AbilityScoreIncreases).Include(s => s.Subraces).ToList();
+        }
+
+        public Race GetRaceById(int raceId)
+        {
+            return _db.Races.Single(r => r.Id == raceId);
         }
 
     }

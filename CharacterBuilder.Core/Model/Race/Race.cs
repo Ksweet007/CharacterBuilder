@@ -14,7 +14,7 @@ namespace CharacterBuilder.Core.Model
         //public IList<Language> Languages { get; set; }
         public IList<AbilityScoreIncrease> AbilityScoreIncreases { get; set; }
         //public IList<RaceFeature> RacialFeatures { get; set; }
-        //public IList<Subrace> Subraces { get; set; }
+        public IList<Subrace> Subraces { get; set; }
         //public IList<Proficiency> Proficiencies { get; set; }
     }
 }

@@ -12,14 +12,16 @@
     return function () {
         var self = this;
         self.sheetId = _i.globals.getSheetId;
-        self.hasSelectedBackground = _i.globals.hasSelectedRace;
-
+        self.hasSelectedRace = _i.globals.hasSelectedRace; //To Set State of page to edit, or Select
+        
         /*==================== BASE DATA ====================*/
         self.races = _i.ko.observableArray([]);
+        self.subRaces = _i.ko.observableArray([]);
 
         /*==================== PAGE STATE/FILTERED ITEMS ====================*/
         self.selectedRace = _i.ko.observable();
-        
+        self.selectedSubRace = _i.ko.observable();
+
         self.viewingDetails = _i.ko.observable(false);
         self.raceListToShow = _i.ko.computed(function () {
             var returnList = self.races();
@@ -68,7 +70,7 @@
         };
 
         self.save = function () {
-            return _i.charajax.put('api/charactersheet/SaveRaceSelection/' + self.selectedRace().Id() + '/' + self.sheetId()).done(function () {
+            return _i.charajax.put('api/charactersheet/SaveRaceSelection/' + self.sheetId() + '/' + self.selectedRace().Id()).done(function () {
                 _i.alert.showAlert({ type: "success", message: "Race Selected" });
                 _i.globals.selectRace();
             });

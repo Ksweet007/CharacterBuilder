@@ -59,7 +59,9 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public CharacterSheet GetCharacterSheetById(int sheetId)
         {
-            return _db.CharacterSheets.Include(t=>t.ToDo).Single(s => s.Id == sheetId);
+            return _db.CharacterSheets.Include(t=>t.ToDo)
+                .Include(t=>t.ToDo)
+                .Single(s => s.Id == sheetId);
         }
 
         public void SaveClassSelection(int classId, int characterSheetId)
@@ -91,7 +93,15 @@ namespace CharacterBuilder.Infrastructure.Data
             {
                 var scoreToIncrease = sheetFromDb.AbilityScores.Single(x => x.Name == item.AbilityScore.Name);
                 scoreToIncrease.Value += item.IncreaseValue;
+                sheetFromDb.AbilityScores.Add(new AbilityScoreSheetValue {Name = item.AbilityScore.Name, Value = item.IncreaseValue});
             }
+
+            Save();
+        }
+
+        public void SaveSubRaceSelection(int subRaceId, int characterSheetId)
+        {
+
 
             Save();
         }
@@ -112,14 +122,15 @@ namespace CharacterBuilder.Infrastructure.Data
             Save();
         }
 
-        public void ToDoRaceSelected(int characterSheetId)
+
+        public void ToDoSubRaceSelected(int characterSheetId)
         {
             var sheetFromDb = _db.CharacterSheets.Include(t => t.ToDo).Single(s => s.Id == characterSheetId);
-            sheetFromDb.ToDo.HasSelectedRace = true;
+            sheetFromDb.ToDo.HasSelectedSubRace = true;
 
             Save();
         }
-
+        
         public void DeleteSheetAndToDoList(int characterSheetId)
         {
             var sheetFromDb = _db.CharacterSheets

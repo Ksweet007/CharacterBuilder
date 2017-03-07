@@ -43,7 +43,7 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
         public DbSet<Race> Races { get; set; }
         //public DbSet<RaceFeature> RaceFeatures { get; set; }
         //public DbSet<Size> Sizes { get; set; }
-        //public DbSet<Subrace> Subraces { get; set; }
+        public DbSet<Subrace> Subraces { get; set; }
         //public DbSet<Tool> Tools { get; set; }
         //public DbSet<ToolOption> ToolOptions { get; set; }
         //public DbSet<ToolType> ToolTypes { get; set; }

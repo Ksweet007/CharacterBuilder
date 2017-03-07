@@ -13,12 +13,7 @@
 
     return function () {
         var self = this;
-        /*
-            moment('stringofdate').format('LLL') --> January 1, 2017 9:00 AM
-            moment('stringofdate').format('LL') --> January 1, 2017
-            moment('stringofdate').format('L') --> 1/1/2017
-        */
-
+        
         /*==================== BASE DATA ====================*/
         self.characterSheets = _i.ko.observableArray([]);
 

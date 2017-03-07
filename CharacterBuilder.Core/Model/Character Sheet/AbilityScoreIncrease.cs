@@ -9,5 +9,6 @@ namespace CharacterBuilder.Core.Model
         public AbilityScore AbilityScore { get; set; }
         public int IncreaseValue { get; set; }
         public IList<Race> Races { get; set; }
+        public IList<Subrace> SubRaces { get; set; } 
     }
 }

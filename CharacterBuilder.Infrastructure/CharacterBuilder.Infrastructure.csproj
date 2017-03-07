@@ -143,6 +143,14 @@
     <Compile Include="Migrations\201703062231117_Update_Sheet_SCOREVA.Designer.cs">
       <DependentUpon>201703062231117_Update_Sheet_SCOREVA.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703071257155_Add_Subrace_ToRace.cs" />
+    <Compile Include="Migrations\201703071257155_Add_Subrace_ToRace.Designer.cs">
+      <DependentUpon>201703071257155_Add_Subrace_ToRace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703071259440_Add_Subrace_To_AbilityScoreIncrease.cs" />
+    <Compile Include="Migrations\201703071259440_Add_Subrace_To_AbilityScoreIncrease.Designer.cs">
+      <DependentUpon>201703071259440_Add_Subrace_To_AbilityScoreIncrease.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\WeaponService.cs" />
@@ -214,6 +222,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703062231117_Update_Sheet_SCOREVA.resx">
       <DependentUpon>201703062231117_Update_Sheet_SCOREVA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703071257155_Add_Subrace_ToRace.resx">
+      <DependentUpon>201703071257155_Add_Subrace_ToRace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703071259440_Add_Subrace_To_AbilityScoreIncrease.resx">
+      <DependentUpon>201703071259440_Add_Subrace_To_AbilityScoreIncrease.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
