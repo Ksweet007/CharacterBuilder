@@ -15,6 +15,7 @@ namespace CharacterBuilder.Infrastructure.Data
     {
         private readonly CharacterBuilderDbContext _db;
         private readonly UserManager<ApplicationUser> _manager;
+        private readonly BaseRepository 
 
         public CharacterSheetRepository()
         {
@@ -27,17 +28,7 @@ namespace CharacterBuilder.Infrastructure.Data
             var currentUser = _manager.FindById(userId);
             var sheet = new CharacterSheet
             {
-                User = currentUser, ToDo = new ToDo(), CreatedDate = DateTime.UtcNow
-                //AbilityScores = new List<AbilityScoreSheetValue>
-                //{
-                //    new AbilityScoreSheetValue {Name = "Strength", Value = 0},
-                //    new AbilityScoreSheetValue {Name = "Dexterity", Value = 0},
-                //    new AbilityScoreSheetValue {Name = "Constitution", Value = 0},
-                //    new AbilityScoreSheetValue {Name = "Intelligence", Value = 0},
-                //    new AbilityScoreSheetValue {Name = "Wisdom", Value = 0},
-                //    new AbilityScoreSheetValue {Name = "Charisma", Value = 0}
-                //}
-                
+                User = currentUser, ToDo = new ToDo(), CreatedDate = DateTime.UtcNow                
             };
 
             _db.CharacterSheets.Add(sheet);
@@ -53,7 +44,7 @@ namespace CharacterBuilder.Infrastructure.Data
 
             return _db.CharacterSheets.Include(c => c.Class)
                 .Include(b=>b.Background)
-                .Include(r=>r.Race)
+                .Include(r=>r.Race.AbilityScoreIncreases.Select(a=>a.AbilityScore))
                 .Where(x => x.User.Id == currentUser.Id).ToList();
         }
 

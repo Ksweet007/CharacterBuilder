@@ -25,5 +25,10 @@ namespace CharacterBuilder.Infrastructure.Data
             return _db.Races.Single(r => r.Id == raceId);
         }
 
+        public List<AbilityScoreIncrease> GetByRaceId(int raceId)
+        {
+            return _db.Races.Single(r => r.Id == raceId).AbilityScoreIncreases.ToList();
+        }
+
     }
 }

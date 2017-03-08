@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Http;
 using CharacterBuilder.Infrastructure.Data;
+using CharacterBuilder.Infrastructure.Services;
 using Microsoft.AspNet.Identity;
 
 namespace CharacterBuilder.Controllers.Api
@@ -10,11 +11,14 @@ namespace CharacterBuilder.Controllers.Api
     public class CharacterSheetController : ApiController
     {
         private readonly CharacterSheetRepository _characterSheetRepository;
+        private readonly CharacterSheetService _characterSheetService;
+
         const string Cookie_Name = "SheetBeingWorked";
 
         public CharacterSheetController()
         {
             _characterSheetRepository = new CharacterSheetRepository();        
+            _characterSheetService = new CharacterSheetService();
         }
 
 

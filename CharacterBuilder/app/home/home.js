@@ -49,7 +49,7 @@
         self.getCharacterSheets = function () {
             var deferred = _i.deferred.create();
             _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
-                response.forEach(function(sheet) {
+                response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
                 });
                 var mapped = _i.ko.mapping.fromJS(response);

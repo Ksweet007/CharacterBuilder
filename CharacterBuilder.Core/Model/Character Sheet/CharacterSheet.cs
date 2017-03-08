@@ -5,7 +5,7 @@ using CharacterBuilder.Core.Model.User;
 
 namespace CharacterBuilder.Core.Model
 {
-    public class CharacterSheet
+    public class CharacterSheet : BaseEntity
     {
         public CharacterSheet()
         {
@@ -13,7 +13,6 @@ namespace CharacterBuilder.Core.Model
             ClassLevel = 1;
         }
         
-        public int Id { get; set; }
         public virtual ApplicationUser User { get; set; }
         public AbilityScores AbilityScores { get; set; }
         public IList<AbilityScoreIncrease> AbilityScoreIncreases { get; set; } 
