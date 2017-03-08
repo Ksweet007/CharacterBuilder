@@ -22,7 +22,9 @@ namespace CharacterBuilder.Infrastructure.Services
 
         public CharacterSheet SetToDoRaceSelectedDone(int charactersheetId, int subRaceId)
         {
-            
+            var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(charactersheetId);
+            sheetFromDb.ToDo.HasSelectedRace = true;
+            sheetFromDb.Update();
 
             return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedRace = true);
         }

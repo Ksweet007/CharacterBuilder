@@ -61,9 +61,11 @@
   <ItemGroup>
     <Compile Include="Data\ArmorRepository.cs" />
     <Compile Include="Data\BackgroundRepository.cs" />
+    <Compile Include="Data\BaseRepository.cs" />
     <Compile Include="Data\CharacterSheetRepository.cs" />
     <Compile Include="Data\ClassRepository.cs" />
     <Compile Include="Data\Contexts\CharacterBuilderDbContext.cs" />
+    <Compile Include="Data\EfRepository.cs" />
     <Compile Include="Data\ProficiencyRepository.cs" />
     <Compile Include="Data\RaceRepository.cs" />
     <Compile Include="Data\WeaponRepository.cs" />
