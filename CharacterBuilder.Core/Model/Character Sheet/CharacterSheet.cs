@@ -20,6 +20,7 @@ namespace CharacterBuilder.Core.Model
         public ToDo ToDo { get; set; }
         public string CharacterName { get; set; }
         public string PlayerName { get; set; }
+        public string Alignment { get; set; }
         public Class Class { get; set; }
         public Background Background { get; set; }
         public Race Race { get; set; }

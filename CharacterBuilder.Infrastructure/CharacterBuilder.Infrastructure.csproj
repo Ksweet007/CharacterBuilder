@@ -161,6 +161,10 @@
     <Compile Include="Migrations\201703082217227_AttemptToMakeCOmplexTypeDoShit.Designer.cs">
       <DependentUpon>201703082217227_AttemptToMakeCOmplexTypeDoShit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703082222483_Add_Alignment.cs" />
+    <Compile Include="Migrations\201703082222483_Add_Alignment.Designer.cs">
+      <DependentUpon>201703082222483_Add_Alignment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CharacterSheetService.cs" />
@@ -245,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703082217227_AttemptToMakeCOmplexTypeDoShit.resx">
       <DependentUpon>201703082217227_AttemptToMakeCOmplexTypeDoShit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703082222483_Add_Alignment.resx">
+      <DependentUpon>201703082222483_Add_Alignment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
