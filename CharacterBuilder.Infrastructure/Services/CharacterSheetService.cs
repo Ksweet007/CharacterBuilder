@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data;
 
@@ -17,21 +15,16 @@ namespace CharacterBuilder.Infrastructure.Services
             _raceRepository = new RaceRepository();
         }
 
-        public CharacterSheet GetById(int characterSheetId)
-        {
-            
-        }
-
         public CharacterSheet SetToDoSubRaceSelectedDone(int charactersheetId, int subRaceId)
         {
             return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedSubRace = true);
-
         }
 
         public CharacterSheet SetToDoRaceSelectedDone(int charactersheetId, int subRaceId)
         {
-            return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedRace = true);
+            
 
+            return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedRace = true);
         }
 
         public CharacterSheet SaveRaceSelection(int charactersheetId, int raceId)

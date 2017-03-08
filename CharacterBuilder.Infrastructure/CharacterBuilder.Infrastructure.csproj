@@ -153,6 +153,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CharacterSheetService.cs" />
     <Compile Include="Services\WeaponService.cs" />
   </ItemGroup>
   <ItemGroup>
