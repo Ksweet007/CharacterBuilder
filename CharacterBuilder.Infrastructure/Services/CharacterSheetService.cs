@@ -22,10 +22,6 @@ namespace CharacterBuilder.Infrastructure.Services
 
         public CharacterSheet SetToDoRaceSelectedDone(int charactersheetId, int subRaceId)
         {
-            var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(charactersheetId);
-            sheetFromDb.ToDo.HasSelectedRace = true;
-            sheetFromDb.Update();
-
             return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedRace = true);
         }
 
@@ -33,11 +29,7 @@ namespace CharacterBuilder.Infrastructure.Services
         {
             var raceFromDb = _raceRepository.GetRaceById(raceId);
             
-            return UpdateCharacterSheet(charactersheetId, s =>
-            {
-                s.Race = raceFromDb;
-                s.AbilityScoreIncreases.AddRange(raceFromDb.AbilityScoreIncreases);
-            });
+            return UpdateCharacterSheet(charactersheetId, s => s.Race = raceFromDb);
         }
 
         private CharacterSheet UpdateCharacterSheet(int characterSheetId, Action<CharacterSheet> characterSheetModifications )

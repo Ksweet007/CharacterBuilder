@@ -27,16 +27,16 @@ namespace CharacterBuilder.Infrastructure.Data
             var currentUser = _manager.FindById(userId);
             var sheet = new CharacterSheet
             {
-                User = currentUser, ToDo = new ToDo(), CreatedDate = DateTime.UtcNow,
-                AbilityScores = new List<AbilityScoreSheetValue>
-                {
-                    new AbilityScoreSheetValue {Name = "Strength", Value = 0},
-                    new AbilityScoreSheetValue {Name = "Dexterity", Value = 0},
-                    new AbilityScoreSheetValue {Name = "Constitution", Value = 0},
-                    new AbilityScoreSheetValue {Name = "Intelligence", Value = 0},
-                    new AbilityScoreSheetValue {Name = "Wisdom", Value = 0},
-                    new AbilityScoreSheetValue {Name = "Charisma", Value = 0}
-                }
+                User = currentUser, ToDo = new ToDo(), CreatedDate = DateTime.UtcNow
+                //AbilityScores = new List<AbilityScoreSheetValue>
+                //{
+                //    new AbilityScoreSheetValue {Name = "Strength", Value = 0},
+                //    new AbilityScoreSheetValue {Name = "Dexterity", Value = 0},
+                //    new AbilityScoreSheetValue {Name = "Constitution", Value = 0},
+                //    new AbilityScoreSheetValue {Name = "Intelligence", Value = 0},
+                //    new AbilityScoreSheetValue {Name = "Wisdom", Value = 0},
+                //    new AbilityScoreSheetValue {Name = "Charisma", Value = 0}
+                //}
                 
             };
 
@@ -83,21 +83,22 @@ namespace CharacterBuilder.Infrastructure.Data
             Save();
         }
 
-        public void SaveRaceSelection(int raceId, int characterSheetId)
-        {
-            var raceFromDb = _db.Races.Include(a=>a.AbilityScoreIncreases.Select(y=>y.AbilityScore)).Single(r => r.Id == raceId);
-            var sheetFromDb = _db.CharacterSheets.Include(a=>a.AbilityScores).Single(s => s.Id == characterSheetId);
-            sheetFromDb.Race = raceFromDb;
+        //public void SaveRaceSelection(int raceId, int characterSheetId)
+        //{
+        //    var raceFromDb = _db.Races.Include(a=>a.AbilityScoreIncreases.Select(y=>y.AbilityScore)).Single(r => r.Id == raceId);
+        //    //var sheetFromDb = _db.CharacterSheets.Include(a=>a.AbilityScores).Single(s => s.Id == characterSheetId);
+        //    var sheetFromDb = _db.CharacterSheets.Include(a => a.AbilityScores).Single(s => s.Id == characterSheetId);
+        //    sheetFromDb.Race = raceFromDb;
 
-            foreach (var item in raceFromDb.AbilityScoreIncreases)
-            {
-                var scoreToIncrease = sheetFromDb.AbilityScores.Single(x => x.Name == item.AbilityScore.Name);
-                scoreToIncrease.Value += item.IncreaseValue;
-                sheetFromDb.AbilityScores.Add(new AbilityScoreSheetValue {Name = item.AbilityScore.Name, Value = item.IncreaseValue});
-            }
+        //    foreach (var item in raceFromDb.AbilityScoreIncreases)
+        //    {
+        //        var scoreToIncrease = sheetFromDb.AbilityScores.Single(x => x.Name == item.AbilityScore.Name);
+        //        scoreToIncrease.Value += item.IncreaseValue;
+        //        sheetFromDb.AbilityScores.Add(new AbilityScoreSheetValue {Name = item.AbilityScore.Name, Value = item.IncreaseValue});
+        //    }
 
-            Save();
-        }
+        //    Save();
+        //}
 
         public void SaveSubRaceSelection(int subRaceId, int characterSheetId)
         {

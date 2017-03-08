@@ -60,7 +60,7 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
 
         private static void EfMapCharacterSheet(DbModelBuilder modelBuilder)
         {
-            var sheet = modelBuilder.Entity<CharacterSheet>();           
+            var sheet = modelBuilder.Entity<CharacterSheet>();                        
         }
 
         public static CharacterBuilderDbContext Create()

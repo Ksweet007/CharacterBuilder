@@ -5,7 +5,7 @@ using CharacterBuilder.Core.Model.User;
 
 namespace CharacterBuilder.Core.Model
 {
-    public class CharacterSheet : BaseEntity
+    public class CharacterSheet
     {
         public CharacterSheet()
         {
@@ -13,10 +13,10 @@ namespace CharacterBuilder.Core.Model
             ClassLevel = 1;
         }
         
+        public int Id { get; set; }
         public virtual ApplicationUser User { get; set; }
-        public IList<AbilityScoreSheetValue> AbilityScores { get; set; }
-        public AbilityScores AbilityScoreSection = new AbilityScores();
-        public List<AbilityScoreIncrease> AbilityScoreIncreases { get; set; }
+        public AbilityScores AbilityScores { get; set; }
+        public IList<AbilityScoreIncrease> AbilityScoreIncreases { get; set; } 
         public ToDo ToDo { get; set; }
         public string CharacterName { get; set; }
         public string PlayerName { get; set; }
@@ -28,45 +28,15 @@ namespace CharacterBuilder.Core.Model
         public IList<Skill> Skills { get; set; }
         public bool IsComplete { get; set; }
         public DateTime CreatedDate { get; set; }
-
-        public TResult CreateScore<TResult>(Func<AbilityScores, TResult> action)
-        {
-            return action(AbilityScoreSection);
-        }
-
-        public void UpdateToDo(Action<ToDo> toDoToSetAction )
-        {
-            toDoToSetAction(ToDo);
-        }
-
-        //public override Update()
-        //{
-            
-        //}
-
     }
 
-    [ComplexType]
     public class AbilityScores
     {
-        public int StrengthRoll { get; set; }
-        public int StrengthMod { get; set; }
-
-        public int DexterityRoll { get; set; }
-        public int DexterityMod { get; set; }
-
-        public int ConstitutionRoll { get; set; }
-        public int ConstitutionMod { get; set; }
-
-        public int WisdomRoll { get; set; }
-        public int WisdomMod { get; set; }
-
-        public int IntelligenceRoll { get; set; }
-        public int IntelligenceMod { get; set; }
-
-        public int CharismaRoll { get; set; }
-        public int CharismaMod { get; set; }
-
-
+        public int Strength { get; set; }
+        public int Dexterity { get; set; }
+        public int Constitution { get; set; }
+        public int Wisdom { get; set; }
+        public int Intelligence { get; set; }
+        public int Charisma { get; set; }
     }
 }
