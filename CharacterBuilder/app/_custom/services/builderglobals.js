@@ -1,5 +1,4 @@
 ﻿define(function (require) {
-
     function BuilderGlobalsCls() { }
 
     BuilderGlobalsCls.prototype.getSheetId = function () {
@@ -36,6 +35,17 @@
 
     BuilderGlobalsCls.prototype.selectRace = function () {
         window.builder.global_hasSelectedRace = true;
+    };
+
+    BuilderGlobalsCls.prototype.createCookie = function (name, value) {
+        var expiry = moment().utc().add(5, 'days').format('LLL');
+
+        var nameValueString = name + "=" + value + ";";
+        var expirationString = expiry + ";" + "path=/";
+
+        var fullCookieString = nameValueString + expirationString;
+
+        document.cookie = fullCookieString;
     };
 
     return new BuilderGlobalsCls();

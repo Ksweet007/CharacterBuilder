@@ -106,23 +106,14 @@
             self.selectedSheet(sheetToEdit);
 
             _i.globals.setSheetToEdit(self.selectedSheet().Id());
-            self.createCookie();
-            //document.cookie = "SheetBeingWorked=self.selectedSheet().Id(); expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/";
-
+            _i.globals.createCookie("SheetBeingWorked",self.selectedSheet().Id());
+            
             var editMessage = "Currently Editing";
             if (sheetToEdit.CharacterName() != null) {
                 editMessage += " " + sheetToEdit.CharacterName();
             }
             
             _i.alert.showAlert({ type: "success", message: editMessage });
-        };
-
-        self.createCookie = function () {
-            var name = "SheetBeingWorked";
-            var value = self.selectedSheet().Id();
-            var expiry = moment().utc().add(5, 'days').format('LLL');
-            
-            document.cookie = name + "=" + value + expiry + "; path=/";
         };
 
         self.showAlertAndOpenEditor = function () {
