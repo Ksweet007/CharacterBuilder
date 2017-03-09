@@ -54,12 +54,7 @@ namespace CharacterBuilder.Infrastructure.Services
         {
             return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedSubRace = true);
         }
-        
-        //public CharacterSheet SaveRaceSelection(int charactersheetId, int raceId)
-        //{
-
-        //}
-
+      
         private CharacterSheet UpdateCharacterSheet(int characterSheetId, Action<CharacterSheet> characterSheetModifications )
         {
             var sheetfromDb = _characterSheetRepository.GetCharacterSheetById(characterSheetId);

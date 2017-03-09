@@ -15,8 +15,8 @@ namespace CharacterBuilder.Core.Model
         
         public virtual ApplicationUser User { get; set; }
         public AbilityScores AbilityScores { get; set; } = new AbilityScores();
-        public IList<AbilityScoreIncrease> AbilityScoreIncreases { get; set; } 
-        public ToDo ToDo { get; set; }
+        public IList<AbilityScoreIncrease> AbilityScoreIncreases { get; set; } = new List<AbilityScoreIncrease>();
+        public ToDo ToDo { get; set; } = new ToDo();
         public string CharacterName { get; set; }
         public string PlayerName { get; set; }
         public string Alignment { get; set; }

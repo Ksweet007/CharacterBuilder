@@ -29,10 +29,16 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public CharacterSheet SaveRaceSelection(int sheetId, int raceId)
         {
-            var raceFromDb = _db.Races.Single(r => r.Id == raceId);
+            var raceFromDb = _db.Races.Include(a=>a.AbilityScoreIncreases).Single(r => r.Id == raceId);
             var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == sheetId);
 
             sheetFromDb.Race = raceFromDb;
+            sheetFromDb.ToDo.HasSelectedRace = true;
+            foreach (var item in raceFromDb.AbilityScoreIncreases)
+            {
+                sheetFromDb.AbilityScoreIncreases.Add(item);
+            }
+            
 
             Save();
 

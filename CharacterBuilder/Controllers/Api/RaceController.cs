@@ -31,7 +31,6 @@ namespace CharacterBuilder.Controllers.Api
         [Route("SaveRaceSelection/{characterSheetId}/{raceId}")]
         public IHttpActionResult SaveRaceSelection(int characterSheetId, int raceId )
         {
-            //var characterSheet = _characterSheetService.SaveRaceSelection(characterSheetId, raceId);
             var characterSheet = _raceRepository.SaveRaceSelection(characterSheetId,raceId);
 
             return Ok(characterSheet);
