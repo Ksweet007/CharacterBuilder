@@ -23,13 +23,30 @@ namespace CharacterBuilder.Infrastructure.Data
         public Race GetRaceById(int raceId)
         {
             return _db.Races
-                .Include(a=>a.AbilityScoreIncreases.Select(y=>y.AbilityScore))
+                .Include(a=>a.AbilityScoreIncreases)
                 .Single(r => r.Id == raceId);
+        }
+
+        public CharacterSheet SaveRaceSelection(int sheetId, int raceId)
+        {
+            var raceFromDb = _db.Races.Single(r => r.Id == raceId);
+            var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == sheetId);
+
+            sheetFromDb.Race = raceFromDb;
+
+            Save();
+
+            return sheetFromDb;
         }
 
         public List<AbilityScoreIncrease> GetByRaceId(int raceId)
         {
             return _db.Races.Single(r => r.Id == raceId).AbilityScoreIncreases.ToList();
+        }
+
+        public void Save()
+        {
+            _db.SaveChanges();
         }
 
     }

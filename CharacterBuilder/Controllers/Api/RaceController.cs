@@ -29,10 +29,10 @@ namespace CharacterBuilder.Controllers.Api
 
         [HttpPut]
         [Route("SaveRaceSelection/{characterSheetId}/{raceId}")]
-        public IHttpActionResult SaveRaceSelection(int characterSheetId,int raceId )
+        public IHttpActionResult SaveRaceSelection(int characterSheetId, int raceId )
         {
-            var characterSheet = _characterSheetService.SaveRaceSelection(characterSheetId, raceId);
-            _characterSheetService.SetToDoRaceSelectedDone(characterSheetId);
+            //var characterSheet = _characterSheetService.SaveRaceSelection(characterSheetId, raceId);
+            var characterSheet = _raceRepository.SaveRaceSelection(characterSheetId,raceId);
 
             return Ok(characterSheet);
         }

@@ -50,34 +50,25 @@ namespace CharacterBuilder.Infrastructure.Services
             return sheetDTO;
         }
 
-        public CharacterSheet SetToDoRaceSelectedDone(int charactersheetId)
-        {
-            return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedRace = true);
-        }
-
         public CharacterSheet SetToDoSubRaceSelectedDone(int charactersheetId)
         {
             return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedSubRace = true);
         }
         
-        public CharacterSheet SaveRaceSelection(int charactersheetId, int raceId)
-        {
-            var raceFromDb = _raceRepository.GetRaceById(raceId);
-            
-            return UpdateCharacterSheet(charactersheetId, s =>
-            {
-                s.Race = raceFromDb;
-                s.AbilityScoreIncreases = raceFromDb.AbilityScoreIncreases;
-            });
-        }
+        //public CharacterSheet SaveRaceSelection(int charactersheetId, int raceId)
+        //{
+
+        //}
 
         private CharacterSheet UpdateCharacterSheet(int characterSheetId, Action<CharacterSheet> characterSheetModifications )
         {
-            var sheetfromDb = _repository.GetById<CharacterSheet>(characterSheetId);
+            var sheetfromDb = _characterSheetRepository.GetCharacterSheetById(characterSheetId);
 
             characterSheetModifications(sheetfromDb);
 
-            return _repository.Update(sheetfromDb);
+            _characterSheetRepository.Save();
+
+            return sheetfromDb;
         }
 
     }
