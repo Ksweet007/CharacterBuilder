@@ -31,7 +31,7 @@ namespace CharacterBuilder.Controllers.Api
         [Route("SaveRaceSelection/{characterSheetId}/{raceId}")]
         public IHttpActionResult SaveRaceSelection(int characterSheetId, int raceId )
         {
-            var characterSheet = _raceRepository.SaveRaceSelection(characterSheetId,raceId);
+            var characterSheet = _characterSheetService.SaveRaceSelection(characterSheetId, raceId);
 
             return Ok(characterSheet);
         }
@@ -40,9 +40,7 @@ namespace CharacterBuilder.Controllers.Api
         [Route("SaveSubRaceSelection/{characterSheetId}/{subRaceId}")]
         public IHttpActionResult SaveSubRaceSelection(int characterSheetId, int subRaceId)
         {
-            var characterSheet = _characterSheetService.SetToDoSubRaceSelectedDone(characterSheetId);
-
-            return Ok(characterSheet);
+            return Ok();
         }
 
     }

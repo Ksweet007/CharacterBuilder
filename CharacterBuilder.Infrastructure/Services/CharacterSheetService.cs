@@ -1,70 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using CharacterBuilder.Core.DTO;
-using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data;
 
 namespace CharacterBuilder.Infrastructure.Services
 {
     public class CharacterSheetService
     {
-        private readonly BaseEfRepository _repository;
         private readonly CharacterSheetRepository _characterSheetRepository;
         private readonly RaceRepository _raceRepository;
 
         public CharacterSheetService()
         {
-            _repository = new BaseEfRepository();
             _characterSheetRepository = new CharacterSheetRepository();
             _raceRepository = new RaceRepository();
         }
 
-        public CharacterSheetDTO GetSheetInfoAndMapToDTO(int id)
+        public CharacterSheetDTO GetById(int sheetId)
         {
-            var sheetFromDB = _characterSheetRepository.GetCharacterSheetById(id);
+            var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
+            var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetFromDb);
 
-            var sheetDTO = new CharacterSheetDTO
-            {
-                Id = sheetFromDB.Id,
-                CreatedDate = sheetFromDB.CreatedDate,
-                Class = sheetFromDB.Class,
-                Level = sheetFromDB.ClassLevel,
-                CharacterName = sheetFromDB.CharacterName,
-                PlayerName = sheetFromDB.PlayerName,
-                Alignment = sheetFromDB.Alignment,
-                Background = sheetFromDB.Background,
-                Race = sheetFromDB.Race,
-                ToDo = sheetFromDB.ToDo,
-                IsComplete = sheetFromDB.IsComplete,
-                HpMax = sheetFromDB.HitPointsMax,
-                Strength = sheetFromDB.AbilityScores.Strength,
-                Dexterity = sheetFromDB.AbilityScores.Dexterity,
-                Constitution = sheetFromDB.AbilityScores.Constitution,
-                Intelligence = sheetFromDB.AbilityScores.Intelligence,
-                Wisdom = sheetFromDB.AbilityScores.Wisdom,
-                Charisma = sheetFromDB.AbilityScores.Charisma
-            };
-
-            sheetDTO.MapAbilityScoreIncreases(sheetFromDB.AbilityScoreIncreases);
-
-            return sheetDTO;
+            return sheetDto;
         }
 
-        public CharacterSheet SetToDoSubRaceSelectedDone(int charactersheetId)
+        public IList<CharacterSheetDTO> ListByUserId(string userId)
         {
-            return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedSubRace = true);
-        }
-      
-        private CharacterSheet UpdateCharacterSheet(int characterSheetId, Action<CharacterSheet> characterSheetModifications )
-        {
-            var sheetfromDb = _characterSheetRepository.GetCharacterSheetById(characterSheetId);
+            var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);
 
-            characterSheetModifications(sheetfromDb);
-
-            _characterSheetRepository.Save();
-
-            return sheetfromDb;
+            return sheetsFromDb.Select(Mappers.CharacterSheetMapper.MapCharacterSheetDto).ToList();
         }
 
+        public CharacterSheetDTO SaveRaceSelection(int characterSheetId, int raceId)
+        {
+            var sheetToSave = _raceRepository.SaveRaceSelection(characterSheetId, raceId);
+
+            return Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetToSave);
+        }  
     }
 }

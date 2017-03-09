@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using CharacterBuilder.Core.Model.User;
 
 namespace CharacterBuilder.Core.Model

@@ -25,7 +25,7 @@ namespace CharacterBuilder.Controllers.Api
         public IHttpActionResult GetUserSheets()
         {
             var userId = User.Identity.GetUserId();
-            var sheets = _characterSheetRepository.GetUserSheets(userId);
+            var sheets = _characterSheetService.ListByUserId(userId);
 
             return Ok(sheets);
         }

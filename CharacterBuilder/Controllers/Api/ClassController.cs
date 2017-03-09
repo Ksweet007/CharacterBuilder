@@ -18,6 +18,7 @@ namespace CharacterBuilder.Controllers.Api
         [Route("GetAllClasses")]
         public IHttpActionResult GetAllClasses()
         {
+            //TODO: Take classes from the rulebooks and stick them in cache
             var classList = _classRepository.GetAllClasses();
 
             return Ok(classList);

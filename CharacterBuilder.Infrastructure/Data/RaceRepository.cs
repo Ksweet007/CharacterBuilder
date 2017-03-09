@@ -39,7 +39,6 @@ namespace CharacterBuilder.Infrastructure.Data
                 sheetFromDb.AbilityScoreIncreases.Add(item);
             }
             
-
             Save();
 
             return sheetFromDb;
