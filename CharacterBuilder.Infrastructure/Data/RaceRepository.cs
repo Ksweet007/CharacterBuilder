@@ -22,7 +22,9 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public Race GetRaceById(int raceId)
         {
-            return _db.Races.Single(r => r.Id == raceId);
+            return _db.Races
+                .Include(a=>a.AbilityScoreIncreases.Select(y=>y.AbilityScore))
+                .Single(r => r.Id == raceId);
         }
 
         public List<AbilityScoreIncrease> GetByRaceId(int raceId)

@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\CharacterSheetDTO.cs" />
     <Compile Include="DTO\WeaponCategoryDTO.cs" />
     <Compile Include="DTO\WeaponDTO.cs" />
     <Compile Include="Enums\AbilityScore.cs" />
@@ -64,7 +65,9 @@
     <Compile Include="Enums\LanguageType.cs" />
     <Compile Include="Enums\ProficiencyType.cs" />
     <Compile Include="Enums\TraitType.cs" />
+    <Compile Include="Interfaces\IBaseEfRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\ISpecification.cs" />
     <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\Character Sheet\AbilityScoreSheetValue.cs" />
     <Compile Include="Model\Equipment\WeaponCategory.cs" />

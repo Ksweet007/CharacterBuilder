@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Data\ArmorRepository.cs" />
     <Compile Include="Data\BackgroundRepository.cs" />
+    <Compile Include="Data\BaseEfRepository.cs" />
     <Compile Include="Data\BaseRepository.cs" />
     <Compile Include="Data\CharacterSheetRepository.cs" />
     <Compile Include="Data\ClassRepository.cs" />
@@ -165,6 +166,14 @@
     <Compile Include="Migrations\201703082222483_Add_Alignment.Designer.cs">
       <DependentUpon>201703082222483_Add_Alignment.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703091133151_Corrected_ScoreIncrease_OnSheet.cs" />
+    <Compile Include="Migrations\201703091133151_Corrected_ScoreIncrease_OnSheet.Designer.cs">
+      <DependentUpon>201703091133151_Corrected_ScoreIncrease_OnSheet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703091319461_DidSomething.cs" />
+    <Compile Include="Migrations\201703091319461_DidSomething.Designer.cs">
+      <DependentUpon>201703091319461_DidSomething.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CharacterSheetService.cs" />
@@ -252,6 +261,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703082222483_Add_Alignment.resx">
       <DependentUpon>201703082222483_Add_Alignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703091133151_Corrected_ScoreIncrease_OnSheet.resx">
+      <DependentUpon>201703091133151_Corrected_ScoreIncrease_OnSheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703091319461_DidSomething.resx">
+      <DependentUpon>201703091319461_DidSomething.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

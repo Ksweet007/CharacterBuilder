@@ -32,15 +32,16 @@ namespace CharacterBuilder.Controllers.Api
         public IHttpActionResult SaveRaceSelection(int characterSheetId,int raceId )
         {
             var characterSheet = _characterSheetService.SaveRaceSelection(characterSheetId, raceId);
+            _characterSheetService.SetToDoRaceSelectedDone(characterSheetId);
 
             return Ok(characterSheet);
         }
 
         [HttpPut]
-        [Route("SaveSubRaceSelection/{subRaceId}/{characterSheetId}")]
-        public IHttpActionResult SaveSubRaceSelection(int subRaceId, int characterSheetId)
+        [Route("SaveSubRaceSelection/{characterSheetId}/{subRaceId}")]
+        public IHttpActionResult SaveSubRaceSelection(int characterSheetId, int subRaceId)
         {
-            var characterSheet = _characterSheetService.SetToDoSubRaceSelectedDone(characterSheetId, subRaceId);
+            var characterSheet = _characterSheetService.SetToDoSubRaceSelectedDone(characterSheetId);
 
             return Ok(characterSheet);
         }

@@ -25,6 +25,20 @@ namespace CharacterBuilder.Core.DTO
         public int Intelligence { get; set; }
         public int Charisma { get; set; }
         public IList<ScoreIncrease> AbilityScoreIncreases { get; set; } = new List<ScoreIncrease>();
+
+        public void MapAbilityScoreIncreases(IList<AbilityScoreIncrease>increases )
+        {
+            foreach(var item in increases)
+            {
+                AbilityScoreIncreases.Add( new ScoreIncrease
+                {
+                    Id = item.Id,
+                    IncreaseAmount = item.IncreaseValue,
+                    Name = item.AbilityScore.Name
+                });                
+            }
+        }
+
     }
 
     public class ScoreIncrease

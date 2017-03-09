@@ -8,21 +8,20 @@ namespace CharacterBuilder.Infrastructure.Services
 {
     public class CharacterSheetService
     {
+        private readonly BaseEfRepository _repository;
         private readonly CharacterSheetRepository _characterSheetRepository;
         private readonly RaceRepository _raceRepository;
-        private readonly BaseEfRepository _repository; 
 
         public CharacterSheetService()
         {
+            _repository = new BaseEfRepository();
             _characterSheetRepository = new CharacterSheetRepository();
             _raceRepository = new RaceRepository();
-            _repository = new BaseEfRepository();
         }
 
-        //public Race Get(int id) => _repository.GetById<Race>(id);
         public CharacterSheetDTO GetSheetInfoAndMapToDTO(int id)
         {
-            var sheetFromDB = _repository.GetById<CharacterSheet>(id);
+            var sheetFromDB = _characterSheetRepository.GetCharacterSheetById(id);
 
             var sheetDTO = new CharacterSheetDTO
             {
@@ -43,42 +42,42 @@ namespace CharacterBuilder.Infrastructure.Services
                 Constitution = sheetFromDB.AbilityScores.Constitution,
                 Intelligence = sheetFromDB.AbilityScores.Intelligence,
                 Wisdom = sheetFromDB.AbilityScores.Wisdom,
-                Charisma = sheetFromDB.AbilityScores.Charisma                
+                Charisma = sheetFromDB.AbilityScores.Charisma
             };
-            //TO DO: Add SUBRACE
-            var increaseList = new List<AbilityScoreIncrease>();
-            var raceIncreases = _raceRepository.GetByRaceId(sheetFromDB.Race.Id);
-            
+
+            sheetDTO.MapAbilityScoreIncreases(sheetFromDB.AbilityScoreIncreases);
 
             return sheetDTO;
         }
 
-        public CharacterSheet SetToDoSubRaceSelectedDone(int charactersheetId, int subRaceId)
-        {
-            return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedSubRace = true);
-        }
-
-        public CharacterSheet SetToDoRaceSelectedDone(int charactersheetId, int subRaceId)
+        public CharacterSheet SetToDoRaceSelectedDone(int charactersheetId)
         {
             return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedRace = true);
         }
 
+        public CharacterSheet SetToDoSubRaceSelectedDone(int charactersheetId)
+        {
+            return UpdateCharacterSheet(charactersheetId, s => s.ToDo.HasSelectedSubRace = true);
+        }
+        
         public CharacterSheet SaveRaceSelection(int charactersheetId, int raceId)
         {
             var raceFromDb = _raceRepository.GetRaceById(raceId);
             
-            return UpdateCharacterSheet(charactersheetId, s => s.Race = raceFromDb);
+            return UpdateCharacterSheet(charactersheetId, s =>
+            {
+                s.Race = raceFromDb;
+                s.AbilityScoreIncreases = raceFromDb.AbilityScoreIncreases;
+            });
         }
 
         private CharacterSheet UpdateCharacterSheet(int characterSheetId, Action<CharacterSheet> characterSheetModifications )
         {
-            var sheetfromDb = _characterSheetRepository.GetCharacterSheetById(characterSheetId);
+            var sheetfromDb = _repository.GetById<CharacterSheet>(characterSheetId);
 
             characterSheetModifications(sheetfromDb);
 
-            _characterSheetRepository.Save();
-
-            return sheetfromDb;
+            return _repository.Update(sheetfromDb);
         }
 
     }

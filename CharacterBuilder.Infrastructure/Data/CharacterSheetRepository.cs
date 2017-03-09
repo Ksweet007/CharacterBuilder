@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using CharacterBuilder.Core.Interfaces;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Core.Model.User;
 using CharacterBuilder.Infrastructure.Data.Contexts;
@@ -14,8 +14,7 @@ namespace CharacterBuilder.Infrastructure.Data
     public class CharacterSheetRepository
     {
         private readonly CharacterBuilderDbContext _db;
-        private readonly UserManager<ApplicationUser> _manager;
-        private readonly BaseRepository 
+        private readonly UserManager<ApplicationUser> _manager;        
 
         public CharacterSheetRepository()
         {
@@ -51,7 +50,9 @@ namespace CharacterBuilder.Infrastructure.Data
         public CharacterSheet GetCharacterSheetById(int sheetId)
         {
             return _db.CharacterSheets.Include(t=>t.ToDo)
-                .Include(t=>t.ToDo)
+                .Include(c => c.Class)
+                .Include(b => b.Background)
+                .Include(a => a.AbilityScoreIncreases.Select(y=>y.AbilityScore))
                 .Single(s => s.Id == sheetId);
         }
 
@@ -73,28 +74,9 @@ namespace CharacterBuilder.Infrastructure.Data
 
             Save();
         }
-
-        //public void SaveRaceSelection(int raceId, int characterSheetId)
-        //{
-        //    var raceFromDb = _db.Races.Include(a=>a.AbilityScoreIncreases.Select(y=>y.AbilityScore)).Single(r => r.Id == raceId);
-        //    //var sheetFromDb = _db.CharacterSheets.Include(a=>a.AbilityScores).Single(s => s.Id == characterSheetId);
-        //    var sheetFromDb = _db.CharacterSheets.Include(a => a.AbilityScores).Single(s => s.Id == characterSheetId);
-        //    sheetFromDb.Race = raceFromDb;
-
-        //    foreach (var item in raceFromDb.AbilityScoreIncreases)
-        //    {
-        //        var scoreToIncrease = sheetFromDb.AbilityScores.Single(x => x.Name == item.AbilityScore.Name);
-        //        scoreToIncrease.Value += item.IncreaseValue;
-        //        sheetFromDb.AbilityScores.Add(new AbilityScoreSheetValue {Name = item.AbilityScore.Name, Value = item.IncreaseValue});
-        //    }
-
-        //    Save();
-        //}
-
+        
         public void SaveSubRaceSelection(int subRaceId, int characterSheetId)
         {
-
-
             Save();
         }
 

@@ -12,7 +12,6 @@ namespace CharacterBuilder.Controllers.Api
     {
         private readonly CharacterSheetRepository _characterSheetRepository;
         private readonly CharacterSheetService _characterSheetService;
-
         const string Cookie_Name = "SheetBeingWorked";
 
         public CharacterSheetController()
@@ -20,8 +19,7 @@ namespace CharacterBuilder.Controllers.Api
             _characterSheetRepository = new CharacterSheetRepository();        
             _characterSheetService = new CharacterSheetService();
         }
-
-
+        
         [HttpGet]
         [Route("GetUserSheets")]
         public IHttpActionResult GetUserSheets()

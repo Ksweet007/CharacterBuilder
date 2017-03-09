@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Migrations.Model;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data.Contexts;
 
@@ -29,6 +26,11 @@ namespace CharacterBuilder.Infrastructure.Data
             return _dbContext.Set<T>().ToList();
         }
 
+        public IEnumerable<T> ListItems<T> (Expression<Func<T,bool>> predicate ) where T : BaseEntity
+        {
+            return _dbContext.Set<T>().Where(predicate);
+        }
+
         public T Add<T>(T entity) where T : BaseEntity
         {
             _dbContext.Set<T>().Add(entity);
@@ -43,7 +45,13 @@ namespace CharacterBuilder.Infrastructure.Data
             _dbContext.SaveChanges();
         }
 
-        public void Update<T>(T entity) where T : BaseEntity
+        public T Update<T>(T entity) where T : BaseEntity
+        {
+            _dbContext.SaveChanges();
+            return entity;
+        }
+
+        public void Save()
         {
             _dbContext.SaveChanges();
         }

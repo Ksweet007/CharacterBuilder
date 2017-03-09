@@ -70,7 +70,7 @@
         };
 
         self.save = function () {
-            return _i.charajax.put('api/charactersheet/SaveRaceSelection/' + self.sheetId() + '/' + self.selectedRace().Id()).done(function () {
+            return _i.charajax.put('api/race/SaveRaceSelection/' + self.sheetId() + '/' + self.selectedRace().Id()).done(function () {
                 _i.alert.showAlert({ type: "success", message: "Race Selected" });
                 _i.globals.selectRace();
             });
