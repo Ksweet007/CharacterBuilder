@@ -19,7 +19,7 @@
 
         /*==================== PAGE STATE/FILTERED ITEMS ====================*/
         self.selectedSheet = _i.ko.observable();
-
+     
         self.viewingDetails = _i.ko.observable(false);
         self.showAll = _i.ko.observable(true);
         
@@ -51,6 +51,24 @@
             _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
+                 
+                    sheet.AbilityScoreIncreases.forEach(function (item) {
+                        switch (item.Name) {
+                            case "Strength":
+                                sheet.Strength += item.IncreaseAmount;
+                            case "Dexterity":
+                                sheet.Dexterity += item.IncreaseAmount;
+                            case "Constitution":
+                                sheet.Constitution += item.IncreaseAmount;
+                            case "Intelligence":
+                                sheet.Intelligence += item.IncreaseAmount;
+                            case "Wisdom":
+                                sheet.Wisdom += item.IncreaseAmount;
+                            case "Charisma":
+                                sheet.Charisma += item.IncreaseAmount;
+                        }
+                    });
+                    
                 });
                 var mapped = _i.ko.mapping.fromJS(response);
 
@@ -99,9 +117,7 @@
                 }
             });
         };
-
-
-
+        
         self.selectSheetToEdit = function (sheetToEdit) {
             self.selectedSheet(sheetToEdit);
 

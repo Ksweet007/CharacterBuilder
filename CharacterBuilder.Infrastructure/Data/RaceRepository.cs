@@ -36,7 +36,8 @@ namespace CharacterBuilder.Infrastructure.Data
             sheetFromDb.ToDo.HasSelectedRace = true;
             foreach (var item in raceFromDb.AbilityScoreIncreases)
             {
-                sheetFromDb.AbilityScoreIncreases.Add(item);
+                var increaseFromDb = _db.AbilityScoreIncreases.Single(i => i.Id == item.Id);
+                sheetFromDb.AbilityScoreIncreases.Add(increaseFromDb);
             }
             
             Save();

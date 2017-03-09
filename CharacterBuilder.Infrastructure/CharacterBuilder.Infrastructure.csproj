@@ -175,6 +175,14 @@
     <Compile Include="Migrations\201703091319461_DidSomething.Designer.cs">
       <DependentUpon>201703091319461_DidSomething.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703092134575_SyncUpdfghdfghdfghfdgh.cs" />
+    <Compile Include="Migrations\201703092134575_SyncUpdfghdfghdfghfdgh.Designer.cs">
+      <DependentUpon>201703092134575_SyncUpdfghdfghdfghfdgh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703092136262_SyncUpdfghdfghdfghfdghdcgvbcghbfgh.cs" />
+    <Compile Include="Migrations\201703092136262_SyncUpdfghdfghdfghfdghdcgvbcghbfgh.Designer.cs">
+      <DependentUpon>201703092136262_SyncUpdfghdfghdfghfdghdcgvbcghbfgh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CharacterSheetService.cs" />
@@ -268,6 +276,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703091319461_DidSomething.resx">
       <DependentUpon>201703091319461_DidSomething.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703092134575_SyncUpdfghdfghdfghfdgh.resx">
+      <DependentUpon>201703092134575_SyncUpdfghdfghdfghfdgh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703092136262_SyncUpdfghdfghdfghfdghdcgvbcghbfgh.resx">
+      <DependentUpon>201703092136262_SyncUpdfghdfghdfghfdghdcgvbcghbfgh.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

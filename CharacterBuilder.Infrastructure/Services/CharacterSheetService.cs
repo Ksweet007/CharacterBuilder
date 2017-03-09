@@ -24,6 +24,14 @@ namespace CharacterBuilder.Infrastructure.Services
             return sheetDto;
         }
 
+        public CharacterSheetDTO CreateNewSheetByUserId(string userId)
+        {
+            var newSheet = _characterSheetRepository.CreateNewSheet(userId);
+            var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(newSheet);
+
+            return sheetDto;
+        }
+
         public IList<CharacterSheetDTO> ListByUserId(string userId)
         {
             var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);

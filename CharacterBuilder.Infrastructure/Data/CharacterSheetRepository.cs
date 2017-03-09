@@ -42,8 +42,8 @@ namespace CharacterBuilder.Infrastructure.Data
             var currentUser = _manager.FindById(userId);
 
             return _db.CharacterSheets.Include(c => c.Class)
-                .Include(b=>b.Background)
-                .Include(r=>r.Race.AbilityScoreIncreases.Select(a=>a.AbilityScore))
+                .Include(b=>b.Background)                
+                .Include(i=>i.AbilityScoreIncreases.Select(a=>a.AbilityScore))
                 .Where(x => x.User.Id == currentUser.Id).ToList();
         }
 

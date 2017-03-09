@@ -55,17 +55,13 @@ namespace CharacterBuilder.Controllers.Api
         public IHttpActionResult CreateNewSheet()
         {
             var userId = User.Identity.GetUserId();
-            var newSheet = _characterSheetRepository.CreateNewSheet(userId);
+            var newSheet = _characterSheetService.CreateNewSheetByUserId(userId);
 
             var response = HttpContext.Current.Response;
-
-            //Check if a Cookie already exists. If so remove it, and add a new one so we don't risk collision on what sheet is being worked
             var cookie = new HttpCookie(Cookie_Name, newSheet.Id.ToString());
             response.Cookies.Remove(Cookie_Name);
             response.Cookies.Add(cookie);
-
-            //Each page will need to check if there is a current Sheet being worked or not.
-            //Current working cookie will only go away when they delete the sheet, finish the sheet, or create a new sheet
+            
             return Ok(newSheet);
         }
 
