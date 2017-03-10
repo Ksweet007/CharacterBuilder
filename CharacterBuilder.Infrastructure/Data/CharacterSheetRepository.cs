@@ -123,6 +123,12 @@ namespace CharacterBuilder.Infrastructure.Data
             Save();
         }
 
+        public void Update<T>(T entity) where T: class
+        {
+            _db.Entry(entity).State = EntityState.Modified;
+            _db.SaveChanges();
+        }
+
         public void Save()
         {
             _db.SaveChanges();

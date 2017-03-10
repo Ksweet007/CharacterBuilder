@@ -32,6 +32,26 @@ namespace CharacterBuilder.Infrastructure.Services
             return sheetDto;
         }
 
+        public CharacterSheetDTO UpdateSheet(CharacterSheetDTO sheetToUpdate)
+        {
+            var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetToUpdate.Id);
+            sheetFromDb.AbilityScores.Strength = sheetToUpdate.Strength;
+            sheetFromDb.AbilityScores.Dexterity = sheetToUpdate.Dexterity;
+            sheetFromDb.AbilityScores.Constitution = sheetToUpdate.Constitution;
+            sheetFromDb.AbilityScores.Intelligence = sheetToUpdate.Intelligence;
+            sheetFromDb.AbilityScores.Wisdom = sheetToUpdate.Wisdom;
+            sheetFromDb.AbilityScores.Charisma = sheetToUpdate.Charisma;
+            sheetFromDb.ClassLevel = sheetToUpdate.Level;
+            sheetFromDb.PlayerName = sheetToUpdate.PlayerName;
+            sheetFromDb.CharacterName = sheetToUpdate.CharacterName;
+            sheetFromDb.Alignment = sheetToUpdate.Alignment;
+            sheetFromDb.HitPointsMax = sheetToUpdate.HpMax;
+
+            _characterSheetRepository.Update(sheetFromDb);
+
+            return sheetToUpdate;
+        }
+
         public IList<CharacterSheetDTO> ListByUserId(string userId)
         {
             var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);

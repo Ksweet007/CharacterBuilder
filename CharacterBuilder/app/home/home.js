@@ -121,7 +121,8 @@
         };
 
         self.rollStr = function () {
-            self.setScoreOnRoll(self.selectedSheet().Strength, self.selectedSheet().strBonus(), self.selectedSheet().StrengthMod);           
+            self.setScoreOnRoll(self.selectedSheet().Strength, self.selectedSheet().strBonus(), self.selectedSheet().StrengthMod);
+            self.saveSheet(self.selectedSheet());            
         };
 
         self.rollDex = function () {
@@ -205,6 +206,27 @@
             var alertConfig = { type: "success", message: "New Character Added!" };
             _i.alert.showAlert(alertConfig);
             self.viewingDetails(true);
+        };
+
+        self.saveSheet = function (sheetToSave) {
+            var dataToSave = {
+                Id: sheetToSave.Id(),
+                Level: sheetToSave.Level(),
+                CharacterName: sheetToSave.CharacterName(),
+                PlayerName: sheetToSave.PlayerName(),
+                Alignment: sheetToSave.Alignment(),
+                HpMax: sheetToSave.HpMax(),
+                Strength:sheetToSave.Strength(),
+                Dexterity:sheetToSave.Dexterity(),
+                Constitution:sheetToSave.Constitution(),
+                Wisdom:sheetToSave.Wisdom(),
+                Intelligence:sheetToSave.Intelligence(),
+                Charisma:sheetToSave.Charisma()
+            };
+
+            return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function(response) {
+                _i.alert.showAlert({ type: "success", message: "Sheet Saved!" });
+            });
         };
 
         self.addNew = function() {

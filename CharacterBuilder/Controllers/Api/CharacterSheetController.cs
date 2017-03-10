@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Http;
+using CharacterBuilder.Core.DTO;
 using CharacterBuilder.Infrastructure.Data;
 using CharacterBuilder.Infrastructure.Services;
 using Microsoft.AspNet.Identity;
@@ -63,6 +64,15 @@ namespace CharacterBuilder.Controllers.Api
             response.Cookies.Add(cookie);
             
             return Ok(newSheet);
+        }
+
+        [HttpPut]
+        [Route("EditSheet/")]
+        public IHttpActionResult EditSheet([FromBody] CharacterSheetDTO sheetToEdit)
+        {
+            _characterSheetService.UpdateSheet(sheetToEdit);
+
+            return Ok(sheetToEdit);
         }
 
         [HttpDelete]
