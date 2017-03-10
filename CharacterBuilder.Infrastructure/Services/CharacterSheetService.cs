@@ -35,12 +35,12 @@ namespace CharacterBuilder.Infrastructure.Services
         public CharacterSheetDTO UpdateSheet(CharacterSheetDTO sheetToUpdate)
         {
             var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetToUpdate.Id);
-            sheetFromDb.AbilityScores.Strength = sheetToUpdate.Strength;
-            sheetFromDb.AbilityScores.Dexterity = sheetToUpdate.Dexterity;
-            sheetFromDb.AbilityScores.Constitution = sheetToUpdate.Constitution;
-            sheetFromDb.AbilityScores.Intelligence = sheetToUpdate.Intelligence;
-            sheetFromDb.AbilityScores.Wisdom = sheetToUpdate.Wisdom;
-            sheetFromDb.AbilityScores.Charisma = sheetToUpdate.Charisma;
+            sheetFromDb.AbilityScores.Strength = sheetToUpdate.AbilityScores.Strength;
+            sheetFromDb.AbilityScores.Dexterity = sheetToUpdate.AbilityScores.Dexterity;
+            sheetFromDb.AbilityScores.Constitution = sheetToUpdate.AbilityScores.Constitution;
+            sheetFromDb.AbilityScores.Intelligence = sheetToUpdate.AbilityScores.Intelligence;
+            sheetFromDb.AbilityScores.Wisdom = sheetToUpdate.AbilityScores.Wisdom;
+            sheetFromDb.AbilityScores.Charisma = sheetToUpdate.AbilityScores.Charisma;
             sheetFromDb.ClassLevel = sheetToUpdate.Level;
             sheetFromDb.PlayerName = sheetToUpdate.PlayerName;
             sheetFromDb.CharacterName = sheetToUpdate.CharacterName;

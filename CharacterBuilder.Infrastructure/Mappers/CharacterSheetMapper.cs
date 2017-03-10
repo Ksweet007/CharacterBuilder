@@ -22,12 +22,15 @@ namespace CharacterBuilder.Infrastructure.Mappers
                 ToDo = characterSheet.ToDo,
                 IsComplete = characterSheet.IsComplete,
                 HpMax = characterSheet.HitPointsMax,
-                Strength = characterSheet.AbilityScores.Strength,
-                Dexterity = characterSheet.AbilityScores.Dexterity,
-                Constitution = characterSheet.AbilityScores.Constitution,
-                Intelligence = characterSheet.AbilityScores.Intelligence,
-                Wisdom = characterSheet.AbilityScores.Wisdom,
-                Charisma = characterSheet.AbilityScores.Charisma                
+                AbilityScores = new AbilityScores
+                {
+                    Strength = characterSheet.AbilityScores.Strength,
+                    Dexterity = characterSheet.AbilityScores.Dexterity,
+                    Constitution = characterSheet.AbilityScores.Constitution,
+                    Intelligence = characterSheet.AbilityScores.Intelligence,
+                    Wisdom = characterSheet.AbilityScores.Wisdom,
+                    Charisma = characterSheet.AbilityScores.Charisma
+                }              
             };
 
             sheetDto.MapAbilityScoreIncreases(characterSheet.AbilityScoreIncreases);

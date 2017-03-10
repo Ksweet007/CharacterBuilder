@@ -19,7 +19,7 @@
 
         /*==================== PAGE STATE/FILTERED ITEMS ====================*/
         self.selectedSheet = _i.ko.observable();
-     
+        
         self.viewingDetails = _i.ko.observable(false);
         self.showAll = _i.ko.observable(true);
         
@@ -50,12 +50,11 @@
             _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
-                    self.addAbilityScoreIncreasesToScores(sheet);
-                    self.calculateAbilityModifiers(sheet);
                 });
                 var mapped = _i.ko.mapping.fromJS(response);
                 mapped().forEach(function (sheet) {                                        
                     sheet.HpMax(sheet.ConstitutionMod());
+                    console.log(sheet.HpMax());
                 });
 
                 self.characterSheets(mapped());
@@ -65,39 +64,14 @@
         };
 
         self.addAbilityScoreIncreasesToScores = function (sheet) {
-            sheet.strBonus = 0;
-            sheet.dexBonus = 0;
-            sheet.conBonus = 0;
-            sheet.intBonus = 0;
-            sheet.wisBonus = 0;
-            sheet.chaBonus = 0;
-            sheet.AbilityScoreIncreases.forEach(function (item) {
-                switch (item.Name) {
-                    case "Strength":
-                        sheet.Strength += item.IncreaseAmount;
-                        sheet.strBonus = item.IncreaseAmount;
-                        break;
-                    case "Dexterity":
-                        sheet.Dexterity += item.IncreaseAmount;
-                        sheet.dexBonus = item.IncreaseAmount;
-                        break;
-                    case "Constitution":
-                        sheet.Constitution += item.IncreaseAmount;
-                        sheet.conBonus = item.IncreaseAmount;
-                        break;
-                    case "Intelligence":
-                        sheet.Intelligence += item.IncreaseAmount;
-                        sheet.intBonus = item.IncreaseAmount;
-                        break;
-                    case "Wisdom":
-                        sheet.Wisdom += item.IncreaseAmount;
-                        sheet.wisBonus = item.IncreaseAmount;
-                        break;
-                    case "Charisma":
-                        sheet.Charisma += item.IncreaseAmount;
-                        sheet.chaBonus = item.IncreaseAmount;
-                        break;
-                }
+            sheet.StrengthBonus = 0;
+            sheet.DexterityBonus = 0;
+            sheet.ConstitutionBonus = 0;
+            sheet.IntelligenceBonus = 0;
+            sheet.WisdomBonus = 0;
+            sheet.CharismaBonus = 0;
+            sheet.AbilityScoreIncreases.forEach(function (increase) {
+                sheet.AbilityScores[increase.Name] += increase.IncreaseAmount;
             });
         };
 
@@ -124,32 +98,32 @@
         };
 
         self.rollStr = function () {
-            self.setScoreOnRoll(self.selectedSheet().Strength, self.selectedSheet().strBonus(), self.selectedSheet().StrengthMod);
+            self.setScoreOnRoll(self.selectedSheet().Strength, self.selectedSheet().StrengthBonus(), self.selectedSheet().StrengthMod);
             self.saveSheet(self.selectedSheet());            
         };
 
         self.rollDex = function () {
-            self.setScoreOnRoll(self.selectedSheet().Dexterity, self.selectedSheet().dexBonus(), self.selectedSheet().DexterityMod);
+            self.setScoreOnRoll(self.selectedSheet().Dexterity, self.selectedSheet().DexterityBonus(), self.selectedSheet().DexterityMod);
             self.saveSheet(self.selectedSheet());
         };
 
         self.rollCon = function () {
-            self.setScoreOnRoll(self.selectedSheet().Constitution, self.selectedSheet().conBonus(), self.selectedSheet().ConstitutionMod);
+            self.setScoreOnRoll(self.selectedSheet().Constitution, self.selectedSheet().ConstitutionBonus(), self.selectedSheet().ConstitutionMod);
             self.saveSheet(self.selectedSheet());
         };
 
         self.rollInt = function () {
-            self.setScoreOnRoll(self.selectedSheet().Intelligence, self.selectedSheet().intBonus(), self.selectedSheet().IntelligenceMod);
+            self.setScoreOnRoll(self.selectedSheet().Intelligence, self.selectedSheet().IntelligenceBonus(), self.selectedSheet().IntelligenceMod);
             self.saveSheet(self.selectedSheet());
         };
 
         self.rollWis = function () {
-            self.setScoreOnRoll(self.selectedSheet().Wisdom, self.selectedSheet().wisBonus(), self.selectedSheet().WisdomMod);
+            self.setScoreOnRoll(self.selectedSheet().Wisdom, self.selectedSheet().WisdomBonus(), self.selectedSheet().WisdomMod);
             self.saveSheet(self.selectedSheet());
         };
 
         self.rollCha = function () {
-            self.setScoreOnRoll(self.selectedSheet().Charisma, self.selectedSheet().chaBonus(), self.selectedSheet().CharismaMod);
+            self.setScoreOnRoll(self.selectedSheet().Charisma, self.selectedSheet().CharismaBonus(), self.selectedSheet().CharismaMod);
             self.saveSheet(self.selectedSheet());
         };
 

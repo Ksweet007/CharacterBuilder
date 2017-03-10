@@ -18,13 +18,8 @@ namespace CharacterBuilder.Core.DTO
         public IList<Skill> Skills { get; set; }
         public ToDo ToDo { get; set; }
         public bool IsComplete { get; set; }
-        public int HpMax { get; set; }
-        public int Strength { get; set; }
-        public int Dexterity { get; set; }
-        public int Constitution { get; set; }
-        public int Wisdom { get; set; }
-        public int Intelligence { get; set; }
-        public int Charisma { get; set; }
+        public int HpMax { get; set; }        
+        public AbilityScores AbilityScores { get; set; }
         public IList<ScoreIncrease> AbilityScoreIncreases { get; set; } = new List<ScoreIncrease>();
 
         public void MapAbilityScoreIncreases(IList<AbilityScoreIncrease>increases )
@@ -38,8 +33,7 @@ namespace CharacterBuilder.Core.DTO
                     Name = item.AbilityScore.Name
                 });                
             }
-        }
-
+        }     
     }
 
     public class ScoreIncrease
