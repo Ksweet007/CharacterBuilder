@@ -1,6 +1,14 @@
 ﻿define(function (require) {
     function BuilderGlobalsCls() { }
 
+    BuilderGlobalsCls.prototype.clearToDoList = function() {
+        window.builder.global_sheetid = "";
+        window.builder.global_hasSelectedClass = "false";
+        window.builder.global_hasSelectedBackground = "false";
+        window.builder.global_hasSelectedRace = "false";
+        window.builder.global_hasSelectedSubRace = "false";
+    };
+
     BuilderGlobalsCls.prototype.getSheetId = function () {
         return window.builder.global_sheetid;
     };
@@ -30,7 +38,7 @@
     };
 
     BuilderGlobalsCls.prototype.hasSelectedRace = function () {
-        return window.builder.global_hasSelectedRace;
+        return window.builder.global_hasSelectedRace.toLowerCase() === "true" ? true : false;
     };
 
     BuilderGlobalsCls.prototype.selectRace = function () {

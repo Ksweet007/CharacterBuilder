@@ -50,7 +50,9 @@ namespace CharacterBuilder.Infrastructure.Data
         public CharacterSheet SaveSubRaceSelection(int sheetId, int subraceId)
         {
             var subraceFromDb = _db.Subraces.Include(a => a.AbilityScoreIncreases.Select(y => y.AbilityScore)).Single(s => s.Id == subraceId);
-            var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == sheetId);
+            var sheetFromDb = _db.CharacterSheets
+                .Include(t=>t.ToDo)
+                .Single(s => s.Id == sheetId);
 
             sheetFromDb.Subrace = subraceFromDb;
             sheetFromDb.ToDo.HasSelectedSubRace = true;

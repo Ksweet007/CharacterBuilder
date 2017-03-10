@@ -12,8 +12,8 @@
     return function () {
         var self = this;
         self.sheetId = _i.globals.getSheetId;
-        self.hasSelectedRace = _i.ko.observable(false);
-            
+        self.hasSelectedRace = _i.ko.observable(false);        
+       
         /*==================== BASE DATA ====================*/
         self.races = _i.ko.observableArray([]);
         self.subRaces = _i.ko.observableArray([]);
@@ -38,7 +38,7 @@
 
         self.activate = function () {
             return self.getPageData().done(function () {
-
+                self.hasSelectedRace(_i.globals.hasSelectedRace());
             });
         };
 
@@ -86,13 +86,11 @@
                 return _i.charajax.put('api/race/SaveRaceSelection/' + self.sheetId() + '/' + self.selectedRace().Id()).done(function () {
                     _i.alert.showAlert({ type: "success", message: "Race Selected" });
                     _i.globals.selectRace();
-                    self.viewingDetails(false);
                 });
             }
             return _i.charajax.put('api/race/SaveSubRaceSelection/' + self.sheetId() + '/' + self.selectedSubRace().Id()).done(function () {
                 _i.alert.showAlert({ type: "success", message: "Subrace Selected" });
                 _i.globals.selectSubRace();
-                self.viewingDetails(false);
             });
             
         };

@@ -175,9 +175,13 @@
             _i.confirmdelete.show().then(function (response) {
                 if (response.accepted) {
                     _i.charajax.delete('api/charactersheet/DeleteSheet/' + obj.Id(), '').done(function (response) {
-                        var alertMsg = "Character Sheet for " + obj.CharacterName() + " Deleted";
-                        self.characterSheets.remove(obj);
+                        var alertMsg = "Character Sheet for " + obj.CharacterName() + " Deleted";                        
                         document.cookie = "SheetBeingWorked=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        if (obj.Id() === _i.globals.getSheetId()) {
+                            console.log(obj.Id() + "  ---  " + _i.globals.getSheetId());
+                            _i.globals.clearToDoList();
+                        }
+                        self.characterSheets.remove(obj);                        
                         _i.alert.showAlert({ type: "error", message: alertMsg });
                     });
                 }
