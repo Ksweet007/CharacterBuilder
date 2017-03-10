@@ -14,6 +14,7 @@ namespace CharacterBuilder.Core.DTO
         public string Alignment { get; set; }
         public Background Background { get; set; }
         public Race Race { get; set; }
+        public Subrace Subrace { get; set; }
         public IList<Skill> Skills { get; set; }
         public ToDo ToDo { get; set; }
         public bool IsComplete { get; set; }

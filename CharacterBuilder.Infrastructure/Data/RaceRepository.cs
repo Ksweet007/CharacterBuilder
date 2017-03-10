@@ -49,6 +49,17 @@ namespace CharacterBuilder.Infrastructure.Data
         {
             var subraceFromDb = _db.Subraces.Include(a => a.AbilityScoreIncreases).Single(s => s.Id == subraceId);
             var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == sheetId);
+
+            sheetFromDb.Subrace = subraceFromDb;
+            sheetFromDb.ToDo.HasSelectedSubRace = true;
+            foreach (var item in subraceFromDb.AbilityScoreIncreases)
+            {
+                var increaseFromDb = _db.AbilityScoreIncreases.Single(i => i.Id == item.Id);
+                sheetFromDb.AbilityScoreIncreases.Add(increaseFromDb);
+            }
+
+            Save();
+
             return sheetFromDb;
         }
 

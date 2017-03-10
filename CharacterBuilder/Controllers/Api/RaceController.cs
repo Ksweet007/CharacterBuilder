@@ -31,6 +31,7 @@ namespace CharacterBuilder.Controllers.Api
         [Route("SaveRaceSelection/{characterSheetId}/{raceId}")]
         public IHttpActionResult SaveRaceSelection(int characterSheetId, int raceId )
         {
+            //TODO: Need to Direct elsewhere for an edit
             var characterSheet = _characterSheetService.SaveRaceSelection(characterSheetId, raceId);
 
             return Ok(characterSheet);
@@ -40,7 +41,9 @@ namespace CharacterBuilder.Controllers.Api
         [Route("SaveSubRaceSelection/{characterSheetId}/{subRaceId}")]
         public IHttpActionResult SaveSubRaceSelection(int characterSheetId, int subRaceId)
         {
-            return Ok();
+            var characterSheet = _characterSheetService.SaveSubRaceSelection(characterSheetId, subRaceId);
+            
+            return Ok(characterSheet);
         }
 
     }

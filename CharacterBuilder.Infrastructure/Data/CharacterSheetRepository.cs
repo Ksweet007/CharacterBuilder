@@ -52,6 +52,8 @@ namespace CharacterBuilder.Infrastructure.Data
             return _db.CharacterSheets.Include(t=>t.ToDo)
                 .Include(c => c.Class)
                 .Include(b => b.Background)
+                .Include(r => r.Race)
+                .Include(sr => sr.Subrace)
                 .Include(a => a.AbilityScoreIncreases.Select(y=>y.AbilityScore))
                 .Single(s => s.Id == sheetId);
         }

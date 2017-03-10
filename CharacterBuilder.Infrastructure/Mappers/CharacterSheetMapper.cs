@@ -18,6 +18,7 @@ namespace CharacterBuilder.Infrastructure.Mappers
                 Alignment = characterSheet.Alignment,
                 Background = characterSheet.Background,
                 Race = characterSheet.Race,
+                Subrace = characterSheet.Subrace,
                 ToDo = characterSheet.ToDo,
                 IsComplete = characterSheet.IsComplete,
                 HpMax = characterSheet.HitPointsMax,
