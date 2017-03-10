@@ -178,7 +178,6 @@
                         var alertMsg = "Character Sheet for " + obj.CharacterName() + " Deleted";                        
                         document.cookie = "SheetBeingWorked=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                         if (obj.Id() === _i.globals.getSheetId()) {
-                            console.log(obj.Id() + "  ---  " + _i.globals.getSheetId());
                             _i.globals.clearToDoList();
                         }
                         self.characterSheets.remove(obj);                        

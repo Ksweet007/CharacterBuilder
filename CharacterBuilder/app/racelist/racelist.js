@@ -86,6 +86,7 @@
                 return _i.charajax.put('api/race/SaveRaceSelection/' + self.sheetId() + '/' + self.selectedRace().Id()).done(function () {
                     _i.alert.showAlert({ type: "success", message: "Race Selected" });
                     _i.globals.selectRace();
+                    self.hasSelectedRace(true);
                 });
             }
             return _i.charajax.put('api/race/SaveSubRaceSelection/' + self.sheetId() + '/' + self.selectedSubRace().Id()).done(function () {
