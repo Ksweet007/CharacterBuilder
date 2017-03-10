@@ -136,7 +136,12 @@
                 rolls.push(d6);
             }
 
-            rolls.sort();        
+            rolls.sort();
+            _i.alert.showAlert({
+                type: "success",
+                message: "Rolls: " + rolls.join(', ')
+            });
+
             rolls.shift();
 
             var scoreTotal = 0;
