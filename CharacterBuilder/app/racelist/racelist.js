@@ -12,8 +12,8 @@
     return function () {
         var self = this;
         self.sheetId = _i.globals.getSheetId;
-        self.hasSelectedRace = _i.globals.hasSelectedRace; //To Set State of page to edit, or Select
-        
+        self.hasSelectedRace = _i.ko.observable(false);
+            
         /*==================== BASE DATA ====================*/
         self.races = _i.ko.observableArray([]);
         self.subRaces = _i.ko.observableArray([]);

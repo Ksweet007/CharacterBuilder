@@ -219,22 +219,5 @@
                 
             });
         };
-
-        //self.getCharacterSheets = function () {
-        //    var deferred = _i.deferred.create();
-        //    _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
-        //        response.forEach(function (sheet) {
-        //            sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
-        //            self.addAbilityScoreIncreasesToScores(sheet);
-        //            self.calculateAbilityModifiers(sheet);
-        //        });
-        //        var mapped = _i.ko.mapping.fromJS(response);
-
-        //        self.characterSheets(mapped());
-        //        deferred.resolve();
-        //    });
-        //    return deferred;
-        //};
-
     }
 });
