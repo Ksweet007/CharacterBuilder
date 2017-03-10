@@ -54,6 +54,9 @@
                     self.calculateAbilityModifiers(sheet);
                 });
                 var mapped = _i.ko.mapping.fromJS(response);
+                mapped().forEach(function (sheet) {                                        
+                    sheet.HpMax(sheet.ConstitutionMod());
+                });
 
                 self.characterSheets(mapped());
                 deferred.resolve();
@@ -126,23 +129,28 @@
         };
 
         self.rollDex = function () {
-            self.setScoreOnRoll(self.selectedSheet().Dexterity,self.selectedSheet().dexBonus(), self.selectedSheet().DexterityMod);
+            self.setScoreOnRoll(self.selectedSheet().Dexterity, self.selectedSheet().dexBonus(), self.selectedSheet().DexterityMod);
+            self.saveSheet(self.selectedSheet());
         };
 
         self.rollCon = function () {
-            self.setScoreOnRoll(self.selectedSheet().Constitution,self.selectedSheet().conBonus(), self.selectedSheet().ConstitutionMod);
+            self.setScoreOnRoll(self.selectedSheet().Constitution, self.selectedSheet().conBonus(), self.selectedSheet().ConstitutionMod);
+            self.saveSheet(self.selectedSheet());
         };
 
         self.rollInt = function () {
-            self.setScoreOnRoll(self.selectedSheet().Intelligence,self.selectedSheet().intBonus(), self.selectedSheet().IntelligenceMod);
+            self.setScoreOnRoll(self.selectedSheet().Intelligence, self.selectedSheet().intBonus(), self.selectedSheet().IntelligenceMod);
+            self.saveSheet(self.selectedSheet());
         };
 
         self.rollWis = function () {
-            self.setScoreOnRoll(self.selectedSheet().Wisdom, self.selectedSheet().wisBonus(),self.selectedSheet().WisdomMod);
+            self.setScoreOnRoll(self.selectedSheet().Wisdom, self.selectedSheet().wisBonus(), self.selectedSheet().WisdomMod);
+            self.saveSheet(self.selectedSheet());
         };
 
         self.rollCha = function () {
-            self.setScoreOnRoll(self.selectedSheet().Charisma, self.selectedSheet().chaBonus(),self.selectedSheet().CharismaMod);
+            self.setScoreOnRoll(self.selectedSheet().Charisma, self.selectedSheet().chaBonus(), self.selectedSheet().CharismaMod);
+            self.saveSheet(self.selectedSheet());
         };
 
         self.rollAbilityScore = function () {
