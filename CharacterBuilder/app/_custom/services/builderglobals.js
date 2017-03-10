@@ -37,12 +37,12 @@
         window.builder.global_hasSelectedBackground = true;
     };
 
-    BuilderGlobalsCls.prototype.hasSelectedRace = function () {
+    BuilderGlobalsCls.prototype.hasSelectedRace = function () {        
         return window.builder.global_hasSelectedRace.toLowerCase() === "true" ? true : false;
     };
 
     BuilderGlobalsCls.prototype.selectRace = function () {
-        window.builder.global_hasSelectedRace = true;
+        window.builder.global_hasSelectedRace = "true";
     };
 
     BuilderGlobalsCls.prototype.hasSelectedSubRace = function () {

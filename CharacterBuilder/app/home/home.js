@@ -50,11 +50,12 @@
             _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
+                    self.addAbilityScoreIncreasesToScores(sheet);
+                    self.calculateAbilityModifiers(sheet);
                 });
                 var mapped = _i.ko.mapping.fromJS(response);
                 mapped().forEach(function (sheet) {                                        
                     sheet.HpMax(sheet.ConstitutionMod());
-                    console.log(sheet.HpMax());
                 });
 
                 self.characterSheets(mapped());
@@ -76,12 +77,12 @@
         };
 
         self.calculateAbilityModifiers = function(sheet) {
-            sheet.StrengthMod = Math.floor((sheet.Strength - 10) / 2);
-            sheet.DexterityMod = Math.floor((sheet.Dexterity - 10) / 2);
-            sheet.ConstitutionMod = Math.floor((sheet.Constitution - 10) / 2);
-            sheet.IntelligenceMod = Math.floor((sheet.Intelligence - 10) / 2);
-            sheet.WisdomMod = Math.floor((sheet.Wisdom - 10) / 2);
-            sheet.CharismaMod = Math.floor((sheet.Charisma - 10) / 2);
+            sheet.StrengthMod = Math.floor((sheet.AbilityScores.Strength - 10) / 2);
+            sheet.DexterityMod = Math.floor((sheet.AbilityScores.Dexterity - 10) / 2);
+            sheet.ConstitutionMod = Math.floor((sheet.AbilityScores.Constitution - 10) / 2);
+            sheet.IntelligenceMod = Math.floor((sheet.AbilityScores.Intelligence - 10) / 2);
+            sheet.WisdomMod = Math.floor((sheet.AbilityScores.Wisdom - 10) / 2);
+            sheet.CharismaMod = Math.floor((sheet.AbilityScores.Charisma - 10) / 2);
         };
 
         self.calculateSingleModifier = function(abil) {
@@ -98,32 +99,32 @@
         };
 
         self.rollStr = function () {
-            self.setScoreOnRoll(self.selectedSheet().Strength, self.selectedSheet().StrengthBonus(), self.selectedSheet().StrengthMod);
+            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Strength, self.selectedSheet().StrengthBonus(), self.selectedSheet().StrengthMod);
             self.saveSheet(self.selectedSheet());            
         };
 
         self.rollDex = function () {
-            self.setScoreOnRoll(self.selectedSheet().Dexterity, self.selectedSheet().DexterityBonus(), self.selectedSheet().DexterityMod);
+            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Dexterity, self.selectedSheet().DexterityBonus(), self.selectedSheet().DexterityMod);
             self.saveSheet(self.selectedSheet());
         };
 
         self.rollCon = function () {
-            self.setScoreOnRoll(self.selectedSheet().Constitution, self.selectedSheet().ConstitutionBonus(), self.selectedSheet().ConstitutionMod);
+            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Constitution, self.selectedSheet().ConstitutionBonus(), self.selectedSheet().ConstitutionMod);
             self.saveSheet(self.selectedSheet());
         };
 
         self.rollInt = function () {
-            self.setScoreOnRoll(self.selectedSheet().Intelligence, self.selectedSheet().IntelligenceBonus(), self.selectedSheet().IntelligenceMod);
+            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Intelligence, self.selectedSheet().IntelligenceBonus(), self.selectedSheet().IntelligenceMod);
             self.saveSheet(self.selectedSheet());
         };
 
         self.rollWis = function () {
-            self.setScoreOnRoll(self.selectedSheet().Wisdom, self.selectedSheet().WisdomBonus(), self.selectedSheet().WisdomMod);
+            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Wisdom, self.selectedSheet().WisdomBonus(), self.selectedSheet().WisdomMod);
             self.saveSheet(self.selectedSheet());
         };
 
         self.rollCha = function () {
-            self.setScoreOnRoll(self.selectedSheet().Charisma, self.selectedSheet().CharismaBonus(), self.selectedSheet().CharismaMod);
+            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Charisma, self.selectedSheet().CharismaBonus(), self.selectedSheet().CharismaMod);
             self.saveSheet(self.selectedSheet());
         };
 
@@ -198,12 +199,7 @@
                 PlayerName: sheetToSave.PlayerName(),
                 Alignment: sheetToSave.Alignment(),
                 HpMax: sheetToSave.HpMax(),
-                Strength:sheetToSave.Strength(),
-                Dexterity:sheetToSave.Dexterity(),
-                Constitution:sheetToSave.Constitution(),
-                Wisdom:sheetToSave.Wisdom(),
-                Intelligence:sheetToSave.Intelligence(),
-                Charisma:sheetToSave.Charisma()
+                AbilityScores: _i.ko.toJS(sheetToSave.AbilityScores)
             };
 
             return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function(response) {
