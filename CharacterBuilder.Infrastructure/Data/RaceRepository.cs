@@ -45,6 +45,13 @@ namespace CharacterBuilder.Infrastructure.Data
             return sheetFromDb;
         }
 
+        public CharacterSheet SaveSubRaceSelection(int sheetId, int subraceId)
+        {
+            var subraceFromDb = _db.Subraces.Include(a => a.AbilityScoreIncreases).Single(s => s.Id == subraceId);
+            var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == sheetId);
+            return sheetFromDb;
+        }
+
         public List<AbilityScoreIncrease> GetByRaceId(int raceId)
         {
             return _db.Races.Single(r => r.Id == raceId).AbilityScoreIncreases.ToList();

@@ -7,13 +7,13 @@ namespace CharacterBuilder.Infrastructure.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AttemptToMakeCOmplexTypeDoShit : IMigrationMetadata
+    public sealed partial class ResettingThisPieceofshit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AttemptToMakeCOmplexTypeDoShit));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ResettingThisPieceofshit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703082217227_AttemptToMakeCOmplexTypeDoShit"; }
+            get { return "201703101311117_ResettingThisPieceofshit"; }
         }
         
         string IMigrationMetadata.Source

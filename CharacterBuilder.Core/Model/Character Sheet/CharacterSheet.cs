@@ -22,6 +22,7 @@ namespace CharacterBuilder.Core.Model
         public Class Class { get; set; }
         public Background Background { get; set; }
         public Race Race { get; set; }
+        public Subrace Subrace { get; set; }
         public int ClassLevel { get; set; }
         public int HitPointsMax { get; set; }
         public IList<Skill> Skills { get; set; }

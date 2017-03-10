@@ -44,6 +44,13 @@ namespace CharacterBuilder.Infrastructure.Services
             var sheetToSave = _raceRepository.SaveRaceSelection(characterSheetId, raceId);
 
             return Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetToSave);
-        }  
+        }
+
+        public CharacterSheetDTO SaveSubRaceSelection(int characterSheetId, int subRaceId)
+        {
+            var sheetToSave = _raceRepository.SaveSubRaceSelection(characterSheetId,subRaceId);
+
+            return Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetToSave);
+        }
     }
 }

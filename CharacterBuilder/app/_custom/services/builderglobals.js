@@ -37,6 +37,14 @@
         window.builder.global_hasSelectedRace = true;
     };
 
+    BuilderGlobalsCls.prototype.hasSelectedSubRace = function () {
+        return window.builder.global_hasSelectedSubRace;
+    };
+
+    BuilderGlobalsCls.prototype.selectSubRace = function () {
+        window.builder.global_hasSelectedSubRace = true;
+    };
+
     BuilderGlobalsCls.prototype.createCookie = function (name, value) {
         var expiry = moment().utc().add(5, 'days').format('LLL');
 

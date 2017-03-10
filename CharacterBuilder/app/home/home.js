@@ -26,7 +26,6 @@
         self.characterSheetsToShow = _i.ko.computed(function () {
             var returnList = self.characterSheets();
             return returnList;
-            //return _i.list.sortAlphabeticallyObservables(returnList);
         });
 
         self.activate = function () {
