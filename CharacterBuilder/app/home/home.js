@@ -82,6 +82,7 @@
                     self.setAbilityScoreBonusesInitialValue(sheet);
                     self.addAbilityScoreIncreasesToScores(sheet);
                     self.calculateAbilityModifiers(sheet);
+                    self.markSkillAsProficiencyChoice(sheet);
                 });
 
                 var mapped = _i.ko.mapping.fromJS(response);
@@ -90,6 +91,19 @@
                 deferred.resolve();
             });
             return deferred;
+        };
+
+        self.markSkillAsProficiencyChoice = function(sheet) {
+            for (var key in sheet.SkillProficiencies) {
+                var obj = sheet.SkillProficiencies[key];
+                for (var skl in sheet.AllSkills) {
+                    if (sheet.AllSkills[skl].Name === obj.Name) {
+                        sheet.AllSkills[skl].canPick = true;
+                    }
+                }
+            }
+
+            
         };
 
         self.setAbilityScoreBonusesInitialValue = function (sheet) {

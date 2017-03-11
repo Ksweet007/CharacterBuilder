@@ -34,6 +34,8 @@ namespace CharacterBuilder.Infrastructure.Mappers
             };
 
             sheetDto.MapAbilityScoreIncreases(characterSheet.AbilityScoreIncreases);
+            sheetDto.MapSkillsToSkillProf(characterSheet.Skills);
+            sheetDto.MapSkillProficiencies();
 
             return sheetDto;
         }

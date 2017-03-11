@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CharacterBuilder.Core.Model;
 
 namespace CharacterBuilder.Core.DTO
@@ -15,8 +16,9 @@ namespace CharacterBuilder.Core.DTO
         public Background Background { get; set; }
         public Race Race { get; set; }
         public Subrace Subrace { get; set; }
-        public IList<Skill> Skills { get; set; } = new List<Skill>();
-        public IList<Skill> AllSkills { get; set; } 
+        public IList<SheetSkill> Skills { get; set; }  = new List<SheetSkill>();
+        public IList<Skill> AllSkills { get; set; }
+        public IList<Skill> SkillProficiencies { get; set; }  = new List<Skill>();
         public ToDo ToDo { get; set; }
         public bool IsComplete { get; set; }
         public int HpMax { get; set; }        
@@ -35,7 +37,35 @@ namespace CharacterBuilder.Core.DTO
                 });                
             }
         }
+
+        public void MapSkillsToSkillProf(IList<Skill> skills)
+        {          
+
+            foreach (var item in skills)
+            {
+                Skills.Add(new SheetSkill
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    AbilityScore = item.AbilityScore.Name
+                });
+            }
+        }
+
+        public void MapSkillProficiencies()
+        {
+            var classProf = Class.Skills;
+            var backgroundProf = Background.Skills;
+            SkillProficiencies = classProf.Concat(backgroundProf).Distinct().ToList();
+        }
         
+    }
+
+    public class SheetSkill
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string AbilityScore { get; set; }
     }
     
     public class ScoreIncrease
