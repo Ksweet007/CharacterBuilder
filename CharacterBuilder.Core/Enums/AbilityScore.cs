@@ -1,4 +1,4 @@
-﻿namespace CharacterBuilder.Core.Model
+﻿namespace CharacterBuilder.Core.Enums
 {
     public class AbilityScore
     {

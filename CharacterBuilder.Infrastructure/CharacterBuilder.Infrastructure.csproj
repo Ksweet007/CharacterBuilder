@@ -61,70 +61,23 @@
   <ItemGroup>
     <Compile Include="Data\ArmorRepository.cs" />
     <Compile Include="Data\BackgroundRepository.cs" />
+    <Compile Include="Data\BaseEfRepository.cs" />
+    <Compile Include="Data\BaseRepository.cs" />
     <Compile Include="Data\CharacterSheetRepository.cs" />
     <Compile Include="Data\ClassRepository.cs" />
     <Compile Include="Data\Contexts\CharacterBuilderDbContext.cs" />
+    <Compile Include="Data\EfRepository.cs" />
     <Compile Include="Data\ProficiencyRepository.cs" />
     <Compile Include="Data\RaceRepository.cs" />
     <Compile Include="Data\WeaponRepository.cs" />
-    <Compile Include="Migrations\201703041650415_FUCKMICROSOFT.cs" />
-    <Compile Include="Migrations\201703041650415_FUCKMICROSOFT.Designer.cs">
-      <DependentUpon>201703041650415_FUCKMICROSOFT.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703051351494_REMOVED_MOD_CALC_FROM_MODEL.cs" />
-    <Compile Include="Migrations\201703051351494_REMOVED_MOD_CALC_FROM_MODEL.Designer.cs">
-      <DependentUpon>201703051351494_REMOVED_MOD_CALC_FROM_MODEL.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703051400054_GaveCreatedDateADefaultInitializer.cs" />
-    <Compile Include="Migrations\201703051400054_GaveCreatedDateADefaultInitializer.Designer.cs">
-      <DependentUpon>201703051400054_GaveCreatedDateADefaultInitializer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703051405066_Switch_Datetime_TO_TOday.cs" />
-    <Compile Include="Migrations\201703051405066_Switch_Datetime_TO_TOday.Designer.cs">
-      <DependentUpon>201703051405066_Switch_Datetime_TO_TOday.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703051407541_Switch_Datetime_TO_UTC.cs" />
-    <Compile Include="Migrations\201703051407541_Switch_Datetime_TO_UTC.Designer.cs">
-      <DependentUpon>201703051407541_Switch_Datetime_TO_UTC.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703051412430_PUTBACKDATETIME.cs" />
-    <Compile Include="Migrations\201703051412430_PUTBACKDATETIME.Designer.cs">
-      <DependentUpon>201703051412430_PUTBACKDATETIME.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703051416538_Removed_UserName.cs" />
-    <Compile Include="Migrations\201703051416538_Removed_UserName.Designer.cs">
-      <DependentUpon>201703051416538_Removed_UserName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703060059117_Added_Race.cs" />
-    <Compile Include="Migrations\201703060059117_Added_Race.Designer.cs">
-      <DependentUpon>201703060059117_Added_Race.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703060104052_Alter_Race.cs" />
-    <Compile Include="Migrations\201703060104052_Alter_Race.Designer.cs">
-      <DependentUpon>201703060104052_Alter_Race.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703060106409_Remove_Subrace.cs" />
-    <Compile Include="Migrations\201703060106409_Remove_Subrace.Designer.cs">
-      <DependentUpon>201703060106409_Remove_Subrace.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703060113340_Remove_Extrenious_HP_Info.cs" />
-    <Compile Include="Migrations\201703060113340_Remove_Extrenious_HP_Info.Designer.cs">
-      <DependentUpon>201703060113340_Remove_Extrenious_HP_Info.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703060119261_Remove_SubRace_Again.cs" />
-    <Compile Include="Migrations\201703060119261_Remove_SubRace_Again.Designer.cs">
-      <DependentUpon>201703060119261_Remove_SubRace_Again.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703060122574_Alter_AbilityScoreImprovement.cs" />
-    <Compile Include="Migrations\201703060122574_Alter_AbilityScoreImprovement.Designer.cs">
-      <DependentUpon>201703060122574_Alter_AbilityScoreImprovement.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201703060146248_Add_Race_TO_CharacterSheet.cs" />
-    <Compile Include="Migrations\201703060146248_Add_Race_TO_CharacterSheet.Designer.cs">
-      <DependentUpon>201703060146248_Add_Race_TO_CharacterSheet.cs</DependentUpon>
+    <Compile Include="Mappers\CharacterSheetMapper.cs" />
+    <Compile Include="Migrations\201703101311117_ResettingThisPieceofshit.cs" />
+    <Compile Include="Migrations\201703101311117_ResettingThisPieceofshit.Designer.cs">
+      <DependentUpon>201703101311117_ResettingThisPieceofshit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CharacterSheetService.cs" />
     <Compile Include="Services\WeaponService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -138,47 +91,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703041650415_FUCKMICROSOFT.resx">
-      <DependentUpon>201703041650415_FUCKMICROSOFT.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703051351494_REMOVED_MOD_CALC_FROM_MODEL.resx">
-      <DependentUpon>201703051351494_REMOVED_MOD_CALC_FROM_MODEL.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703051400054_GaveCreatedDateADefaultInitializer.resx">
-      <DependentUpon>201703051400054_GaveCreatedDateADefaultInitializer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703051405066_Switch_Datetime_TO_TOday.resx">
-      <DependentUpon>201703051405066_Switch_Datetime_TO_TOday.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703051407541_Switch_Datetime_TO_UTC.resx">
-      <DependentUpon>201703051407541_Switch_Datetime_TO_UTC.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703051412430_PUTBACKDATETIME.resx">
-      <DependentUpon>201703051412430_PUTBACKDATETIME.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703051416538_Removed_UserName.resx">
-      <DependentUpon>201703051416538_Removed_UserName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703060059117_Added_Race.resx">
-      <DependentUpon>201703060059117_Added_Race.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703060104052_Alter_Race.resx">
-      <DependentUpon>201703060104052_Alter_Race.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703060106409_Remove_Subrace.resx">
-      <DependentUpon>201703060106409_Remove_Subrace.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703060113340_Remove_Extrenious_HP_Info.resx">
-      <DependentUpon>201703060113340_Remove_Extrenious_HP_Info.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703060119261_Remove_SubRace_Again.resx">
-      <DependentUpon>201703060119261_Remove_SubRace_Again.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703060122574_Alter_AbilityScoreImprovement.resx">
-      <DependentUpon>201703060122574_Alter_AbilityScoreImprovement.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201703060146248_Add_Race_TO_CharacterSheet.resx">
-      <DependentUpon>201703060146248_Add_Race_TO_CharacterSheet.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703101311117_ResettingThisPieceofshit.resx">
+      <DependentUpon>201703101311117_ResettingThisPieceofshit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -13,7 +13,7 @@ namespace CharacterBuilder.Infrastructure.Data
     public class CharacterSheetRepository
     {
         private readonly CharacterBuilderDbContext _db;
-        private readonly UserManager<ApplicationUser> _manager;
+        private readonly UserManager<ApplicationUser> _manager;        
 
         public CharacterSheetRepository()
         {
@@ -24,7 +24,10 @@ namespace CharacterBuilder.Infrastructure.Data
         public CharacterSheet CreateNewSheet(string userId)
         {
             var currentUser = _manager.FindById(userId);
-            var sheet = new CharacterSheet {User = currentUser, ToDo = new ToDo(), CreatedDate = DateTime.UtcNow};
+            var sheet = new CharacterSheet
+            {
+                User = currentUser, ToDo = new ToDo(), CreatedDate = DateTime.UtcNow                
+            };
 
             _db.CharacterSheets.Add(sheet);
 
@@ -37,15 +40,24 @@ namespace CharacterBuilder.Infrastructure.Data
         {
             var currentUser = _manager.FindById(userId);
 
-            return _db.CharacterSheets.Include(c => c.Class)
-                .Include(b=>b.Background)
-                .Include(r=>r.Race)
+            return _db.CharacterSheets
+                .Include(c => c.Class)
+                .Include(b => b.Background)      
+                .Include(r => r.Race)
+                .Include(sr => sr.Subrace)
+                .Include(i => i.AbilityScoreIncreases.Select(a=>a.AbilityScore))
                 .Where(x => x.User.Id == currentUser.Id).ToList();
         }
 
         public CharacterSheet GetCharacterSheetById(int sheetId)
         {
-            return _db.CharacterSheets.Include(t=>t.ToDo).Single(s => s.Id == sheetId);
+            return _db.CharacterSheets.Include(t=>t.ToDo)
+                .Include(c => c.Class)
+                .Include(b => b.Background)
+                .Include(r => r.Race)
+                .Include(sr => sr.Subrace)
+                .Include(a => a.AbilityScoreIncreases.Select(y=>y.AbilityScore))
+                .Single(s => s.Id == sheetId);
         }
 
         public void SaveClassSelection(int classId, int characterSheetId)
@@ -66,13 +78,9 @@ namespace CharacterBuilder.Infrastructure.Data
 
             Save();
         }
-
-        public void SaveRaceSelection(int raceId, int characterSheetId)
+        
+        public void SaveSubRaceSelection(int subRaceId, int characterSheetId)
         {
-            var raceFromDb = _db.Races.Single(r => r.Id == raceId);
-            var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == characterSheetId);
-            sheetFromDb.Race = raceFromDb;
-
             Save();
         }
 
@@ -92,14 +100,15 @@ namespace CharacterBuilder.Infrastructure.Data
             Save();
         }
 
-        public void ToDoRaceSelected(int characterSheetId)
+
+        public void ToDoSubRaceSelected(int characterSheetId)
         {
             var sheetFromDb = _db.CharacterSheets.Include(t => t.ToDo).Single(s => s.Id == characterSheetId);
-            sheetFromDb.ToDo.HasSelectedRace = true;
+            sheetFromDb.ToDo.HasSelectedSubRace = true;
 
             Save();
         }
-
+        
         public void DeleteSheetAndToDoList(int characterSheetId)
         {
             var sheetFromDb = _db.CharacterSheets
@@ -112,6 +121,12 @@ namespace CharacterBuilder.Infrastructure.Data
             _db.ToDos.Remove(toDoToDelete);
 
             Save();
+        }
+
+        public void Update<T>(T entity) where T: class
+        {
+            _db.Entry(entity).State = EntityState.Modified;
+            _db.SaveChanges();
         }
 
         public void Save()

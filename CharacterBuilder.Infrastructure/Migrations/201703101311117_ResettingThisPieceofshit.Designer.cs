@@ -7,13 +7,13 @@ namespace CharacterBuilder.Infrastructure.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Removed_UserName : IMigrationMetadata
+    public sealed partial class ResettingThisPieceofshit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Removed_UserName));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ResettingThisPieceofshit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201703051416538_Removed_UserName"; }
+            get { return "201703101311117_ResettingThisPieceofshit"; }
         }
         
         string IMigrationMetadata.Source

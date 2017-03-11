@@ -13,11 +13,6 @@
 
     return function () {
         var self = this;
-        /*
-            moment('stringofdate').format('LLL') --> January 1, 2017 9:00 AM
-            moment('stringofdate').format('LL') --> January 1, 2017
-            moment('stringofdate').format('L') --> 1/1/2017
-        */
 
         /*==================== BASE DATA ====================*/
         self.characterSheets = _i.ko.observableArray([]);
@@ -27,15 +22,33 @@
 
         self.viewingDetails = _i.ko.observable(false);
         self.showAll = _i.ko.observable(true);
-        
+
         self.characterSheetsToShow = _i.ko.computed(function () {
             var returnList = self.characterSheets();
             return returnList;
-            //return _i.list.sortAlphabeticallyObservables(returnList);
         });
 
         self.activate = function () {
             return self.getPageData().done(function () {
+
+                self.abilScore = _i.ko.computed(function () {
+                    var result = [];
+                    if (self.selectedSheet()) {
+                        for (var propName in self.selectedSheet().AbilityScores) {
+                            var shortName = propName.substr(0, 3);                                                       
+                            var abilMod = self.selectedSheet()[propName + "Mod"]();
+                            var modBonus = self.selectedSheet()[propName + "Bonus"]();
+                            var abilScore = self.selectedSheet().AbilityScores[propName];
+                            var abilityScoreTotal = abilScore() + modBonus;
+
+                            if (self.selectedSheet().AbilityScores.hasOwnProperty(propName) && propName !== 'propList') {
+                                result.push({ propName: propName, shortName: shortName, abilScore: abilityScoreTotal, abilMod: abilMod, templateName: "scalar_templ" });
+                            }
+                        }
+                    }
+
+                    return result;
+                });
 
             });
         };
@@ -54,15 +67,81 @@
         self.getCharacterSheets = function () {
             var deferred = _i.deferred.create();
             _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
-                response.forEach(function(sheet) {
+                response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
+                    self.setAbilityScoreBonusesInitialValue(sheet);
+                    self.addAbilityScoreIncreasesToScores(sheet);
+                    self.calculateAbilityModifiers(sheet);
                 });
                 var mapped = _i.ko.mapping.fromJS(response);
+                mapped().forEach(function (sheet) {
+                    sheet.HpMax(sheet.ConstitutionMod());
+                });
 
                 self.characterSheets(mapped());
                 deferred.resolve();
             });
             return deferred;
+        };
+
+        self.setAbilityScoreBonusesInitialValue = function(sheet) {
+            for (var propName in sheet.AbilityScores) {
+                sheet[propName + "Bonus"] = 0;
+            }
+        };
+
+        self.addAbilityScoreIncreasesToScores = function (sheet) {            
+            sheet.AbilityScoreIncreases.forEach(function (increase) {
+                sheet[increase.Name + "Bonus"] += increase.IncreaseAmount;
+            });
+        };
+
+        self.calculateAbilityModifiers = function (sheet) {
+            for (var propName in sheet.AbilityScores) {
+                sheet[propName + "Mod"] = Math.floor((sheet.AbilityScores[propName] - 10) / 2);
+            }
+        };
+        
+        self.setScoreOnRoll = function (abil, bonus, mod) {
+            var rolledValue = self.rollAbilityScore();
+            var newScore = rolledValue + bonus;
+            var newMod = Math.floor((newScore - 10) / 2);
+
+            abil(rolledValue);
+            mod(newMod);
+        };
+
+        self.rollScore = function (score) {
+            var scoreToRoll = self.selectedSheet().AbilityScores[score.propName];
+            var scoreBonusName = score.propName + "Bonus";
+            var scoreBonus = self.selectedSheet()[scoreBonusName]();
+            var scoreModName = score.propName + "Mod";
+            var scoreMod = self.selectedSheet()[scoreModName];
+            self.setScoreOnRoll(scoreToRoll, scoreBonus, scoreMod);
+            self.saveSheet(self.selectedSheet());
+        };
+
+        self.rollAbilityScore = function () {
+            var rolls = [];
+
+            for (var i = 0; i < 4; i++) {
+                var d6 = 1 + Math.floor(Math.random() * 6);
+                rolls.push(d6);
+            }
+
+            rolls.sort();
+            _i.alert.showAlert({
+                type: "success",
+                message: "Rolls: " + rolls.join(', ')
+            });
+
+            rolls.shift();
+
+            var scoreTotal = 0;
+            for (var s in rolls) {
+                scoreTotal += rolls[s];
+            }
+            return scoreTotal;
         };
 
         self.viewMoreDetails = function (bgSelected) {
@@ -74,29 +153,33 @@
             self.viewingDetails(false);
         };
 
-        self.deleteSheet = function(obj) {
+        self.deleteSheet = function (obj) {
             _i.confirmdelete.show().then(function (response) {
                 if (response.accepted) {
                     _i.charajax.delete('api/charactersheet/DeleteSheet/' + obj.Id(), '').done(function (response) {
                         var alertMsg = "Character Sheet for " + obj.CharacterName() + " Deleted";
-                        self.characterSheets.remove(obj);
                         document.cookie = "SheetBeingWorked=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        if (obj.Id() === _i.globals.getSheetId()) {
+                            _i.globals.clearToDoList();
+                        }
+                        self.characterSheets.remove(obj);
                         _i.alert.showAlert({ type: "error", message: alertMsg });
                     });
                 }
             });
         };
 
-        self.selectClassToEdit = function (sheetToEdit) {
+        self.selectSheetToEdit = function (sheetToEdit) {
             self.selectedSheet(sheetToEdit);
 
             _i.globals.setSheetToEdit(self.selectedSheet().Id());
+            _i.globals.createCookie("SheetBeingWorked", self.selectedSheet().Id());
 
             var editMessage = "Currently Editing";
             if (sheetToEdit.CharacterName() != null) {
                 editMessage += " " + sheetToEdit.CharacterName();
             }
-            
+
             _i.alert.showAlert({ type: "success", message: editMessage });
         };
 
@@ -106,19 +189,36 @@
             self.viewingDetails(true);
         };
 
-        self.addNew = function() {
-            _i.charajax.post('api/charactersheet/CreateNewSheet', '').done(function(response) {
+        self.saveSheet = function (sheetToSave) {
+            var dataToSave = {
+                Id: sheetToSave.Id(),
+                Level: sheetToSave.Level(),
+                CharacterName: sheetToSave.CharacterName(),
+                PlayerName: sheetToSave.PlayerName(),
+                Alignment: sheetToSave.Alignment(),
+                HpMax: sheetToSave.HpMax(),
+                AbilityScores: _i.ko.toJS(sheetToSave.AbilityScores)
+            };
+
+            return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {
+                _i.alert.showAlert({ type: "success", message: "Sheet Saved!" });
+            });
+        };
+
+        self.addNew = function () {
+            _i.charajax.post('api/charactersheet/CreateNewSheet', '').done(function (response) {
                 window.builder.global_sheetid = response.Id;
                 response.createdDateFormatted = moment(response.CreatedDate).format('LLL');
-                
+                self.addAbilityScoreIncreasesToScores(response);
+                self.calculateAbilityModifiers(response);
+
                 var mapped = _i.ko.mapping.fromJS(response);
 
                 self.characterSheets.push(mapped);
                 self.selectedSheet(mapped);
                 self.showAlertAndOpenEditor();
-                
+
             });
         };
-
     }
 });

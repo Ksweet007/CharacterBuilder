@@ -2,9 +2,8 @@
 
 namespace CharacterBuilder.Core.Model
 {
-    public class Race
+    public class Race : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         //public string AgeDescription { get; set; }
@@ -14,7 +13,7 @@ namespace CharacterBuilder.Core.Model
         //public IList<Language> Languages { get; set; }
         public IList<AbilityScoreIncrease> AbilityScoreIncreases { get; set; }
         //public IList<RaceFeature> RacialFeatures { get; set; }
-        //public IList<Subrace> Subraces { get; set; }
+        public IList<Subrace> Subraces { get; set; }
         //public IList<Proficiency> Proficiencies { get; set; }
     }
 }

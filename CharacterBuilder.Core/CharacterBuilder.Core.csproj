@@ -57,13 +57,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\CharacterSheetDTO.cs" />
     <Compile Include="DTO\WeaponCategoryDTO.cs" />
     <Compile Include="DTO\WeaponDTO.cs" />
-    <Compile Include="Model\Background\AbilityScore.cs" />
+    <Compile Include="Enums\AbilityScore.cs" />
     <Compile Include="Enums\FeatureBonusType.cs" />
     <Compile Include="Enums\LanguageType.cs" />
     <Compile Include="Enums\ProficiencyType.cs" />
     <Compile Include="Enums\TraitType.cs" />
+    <Compile Include="Interfaces\IBaseEfRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\ISpecification.cs" />
+    <Compile Include="Model\BaseEntity.cs" />
+    <Compile Include="Model\Character Sheet\AbilityScoreSheetValue.cs" />
     <Compile Include="Model\Equipment\WeaponCategory.cs" />
     <Compile Include="Model\Character Sheet\AbilityScoreIncrease.cs" />
     <Compile Include="Model\Character Sheet\Alignment.cs" />
@@ -94,9 +100,7 @@
     <Compile Include="Model\Equipment\WeaponProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

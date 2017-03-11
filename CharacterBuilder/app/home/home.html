@@ -28,47 +28,53 @@
     <section data-bind="visible: !viewingDetails()">
         <div class="row">
             <!--ko foreach:characterSheetsToShow-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-title">
-                        <div class="media-body media-middle">
-                            <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:CharacterName"></h1>
-                            <span class="pmd-card-subtitle-text" data-bind="text:'Created: ' + createdDateFormatted()"></span>
-                        </div>
-                        <div class="media-right">
-                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.viewMoreDetails">
-                                fullscreen
-                            </button>
-                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectClassToEdit">
-                                edit
-                            </button>
-                            <button class="material-icons md-light pmd-xs btncard pmd-ripple-effect btn-danger" data-bind="click:$parent.deleteSheet">
-                                delete
-                            </button>
-                        </div>
+                        <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:CharacterName"></h1>
+                        <span class="pmd-card-subtitle-text" data-bind="text:'Created: ' + createdDateFormatted()"></span>
                     </div>
-                    <div class="pmd-card-body">
-                        <div class="row">
-                            <div class="col-xs-4">                                
+                    <div class="pmd-card-body text-center">
+                        <div class="row paddedrowtoprow">
+                            <div class="col-xs-4">
                                 <!--ko with:Class-->
-                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.ClassLevel()"></div>
+                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.Level()"></div>
                                 <!--/ko-->
                                 <span class="sheetheader subheader">Class & Level</span>
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>                                
+                                <div class="sheettext largetext" data-bind="text:Name"></div>
                                 <!--/ko-->
                                 <span class="sheetheader subheader">Background</span>
                             </div>
-                            <div class="col-xs-4">                                
+                            <div class="col-xs-4">
                                 <!--ko with:Race-->
                                 <div class="sheettext largetext" data-bind="text:Name"></div>
                                 <!--/ko-->
                                 <span class="sheetheader subheader">Race</span>
                             </div>
                         </div>
-
+                        <div class="row paddedrowbottomrow">
+                            <div class="col-xs-4">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.viewMoreDetails">
+                                    fullscreen
+                                </button>
+                                <div class="sheetheader subheader">Local Edit</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectSheetToEdit">
+                                    edit
+                                </button>
+                                <div class="sheetheader subheader">Global Edit</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <button class="material-icons md-light pmd-xs btncard pmd-ripple-effect btn-danger" data-bind="click:$parent.deleteSheet">
+                                    delete
+                                </button>
+                                <div class="sheetheader subheader">Delete</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,30 +84,20 @@
 
     <section data-bind="visible: viewingDetails(),with : selectedSheet ">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 text-center">
-                <div class="pmd-card pmd-card-inverse pageTitle">
-                    <div class="pmd-card-body">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $parent.save'>check_box</button>
-                                <div class="sheetheader subheader">Save</div>
-                            </div>
-                            <div class="col-xs-4">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $parent.closeMoreDetails'>fullscreen_exit</button>
-                                <div class="sheetheader subheader">Return</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-body">
-                        <div class="form-group pmd-textfield pmd-textfield">
-                            <input type="text" id="name" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="sheet-control">
-                            <div class="sheetheader subheader">Character Name</div>
+                        <div class="media-left">
+                            <div class="col-xs-4">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $parent.closeMoreDetails'>fullscreen_exit</button>
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $parent.saveSheet'>check_box</button>
+                            </div>
+                        </div>
+                        <div class="media-body media-middle">
+                            <div class="form-group pmd-textfield pmd-textfield">
+                                <input type="text" id="name" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="sheet-control">
+                                <div class="sheetheader subheader">Character Name</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,104 +108,63 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <!--ko with: Class-->
-                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.ClassLevel()"></div>
-                                <div class="sheetheader subheader">Class & Level</div>
+                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.Level()"></div>
                                 <!--/ko-->
+                                <div class="sheetheader subheader">Class & Level</div>
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
                                 <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <div class="sheetheader subheader">Background</div>
                                 <!--/ko-->
+                                <div class="sheetheader subheader">Background</div>
                             </div>
-                            <div class="col-xs-4"> 
+                            <div class="col-xs-4">
                                 <div class="form-group pmd-textfield pmd-textfield">
                                     <input type="text" id="name" data-bind='value: PlayerName, valueUpdate: "afterkeydown"' class="sheet-control">
-                                    <div class="sheetheader subheader">Player Name</div>                                
-                                </div>                                                              
+                                    <div class="sheetheader subheader">Player Name</div>
+                                </div>
                             </div>
                             <div class="col-xs-4">
-                                <!--ko with: Background-->
+                                <!--ko with: Race-->
                                 <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <div class="sheetheader subheader">Background</div>
                                 <!--/ko-->
+                                <div class="sheetheader subheader">Race</div>
                             </div>
                             <div class="col-xs-4">
-                                <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <div class="sheetheader subheader">Background</div>
-                                <!--/ko-->
-                            </div>
-                            <div class="col-xs-4">
-                                <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <div class="sheetheader subheader">Background</div>
-                                <!--/ko-->
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <input type="text" id="name" data-bind='value: Alignment, valueUpdate: "afterkeydown"' class="sheet-control">
+                                    <div class="sheetheader subheader">Alignment</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <!--BEGIN ABILITYSCORE SECTION-->
-            <div class="col-lg-1 col-md-3 col-sm-1 col-xs-1">
-                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-                    <div class="pmd-card-body text-center">
-                        <div class="row scorecontainer">
-                            <div class="col-xs-12">
-                                <div class="sheetheader subheader">Strength</div>
-                                <div class="sheettext largetext" data-bind="text:'16'"></div>
-                                <div class="sheetheader subheader abilitymodcontainer">3</div>
-                            </div>
-                        </div>
 
-                        <div class="row scorecontainer">
-                            <div class="col-xs-12">
-                                <div class="sheetheader subheader">Dexterity</div>
-                                <div class="sheettext largetext" data-bind="text:'16'"></div>
-                                <div class="sheetheader subheader abilitymodcontainer">3</div>
+        <div class="col-lg-2 col-sm-4 col-xs-8">
+            <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                <div class="pmd-card-body text-center" data-bind="foreach:$parent.abilScore">
+                    <div data-bind="template: {name: templateName, data: $data}"></div>
+                    <script type="text/html" id="scalar_templ">
+                        <div class="row abilityscorerow">
+                            <div class="col-xs-4 abilityscorebody">
+                                <div class="sheetheader abiltext" data-bind="text:shortName"></div>
+                                <div class="sheettext largetext" data-bind="text:abilScore"></div>
+                            </div>
+                            <div class="col-xs-4 abilityscorebody">
+                                <div class="sheetheader abiltext">Mod</div>
+                                <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:abilMod"></div>
+                            </div>
+                            <div class="media-right">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollScore'>
+                                    cached
+                                </button>
                             </div>
                         </div>
-                        
-                        <div class="row scorecontainer">
-                            <div class="col-xs-12">
-                                <div class="sheetheader subheader">Constitution</div>
-                                <div class="sheettext largetext" data-bind="text:'16'"></div>
-                                <div class="sheetheader subheader abilitymodcontainer">3</div>
-                            </div>
-                        </div>
-                        
-                        <div class="row scorecontainer">
-                            <div class="col-xs-12">
-                                <div class="sheetheader subheader">Intelligence</div>
-                                <div class="sheettext largetext" data-bind="text:'16'"></div>
-                                <div class="sheetheader subheader abilitymodcontainer">3</div>
-                            </div>
-                        </div>
-                        
-                        <div class="row scorecontainer">
-                            <div class="col-xs-12">
-                                <div class="sheetheader subheader">Wisdom</div>
-                                <div class="sheettext largetext" data-bind="text:'16'"></div>
-                                <div class="sheetheader subheader abilitymodcontainer">3</div>
-                            </div>
-                        </div>
-                        
-                        <div class="row scorecontainer">
-                            <div class="col-xs-12">
-                                <div class="sheetheader subheader">Charisma</div>
-                                <div class="sheettext largetext" data-bind="text:'16'"></div>
-                                <div class="sheetheader subheader abilitymodcontainer">3</div>
-                            </div>
-                        </div>
-                      
-                    </div>
+                    </script>
                 </div>
-            </div><!--END ABILITY SCORE-->
-        
+            </div>
         </div>
-        
-
     </section>
 </div>
