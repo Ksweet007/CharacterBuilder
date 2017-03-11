@@ -13,16 +13,16 @@
 
     return function () {
         var self = this;
-        
+
         /*==================== BASE DATA ====================*/
         self.characterSheets = _i.ko.observableArray([]);
 
         /*==================== PAGE STATE/FILTERED ITEMS ====================*/
         self.selectedSheet = _i.ko.observable();
-        
+
         self.viewingDetails = _i.ko.observable(false);
         self.showAll = _i.ko.observable(true);
-        
+
         self.characterSheetsToShow = _i.ko.computed(function () {
             var returnList = self.characterSheets();
             return returnList;
@@ -30,6 +30,25 @@
 
         self.activate = function () {
             return self.getPageData().done(function () {
+
+                self.abilScore = _i.ko.computed(function () {
+                    var result = [];
+                    if (self.selectedSheet()) {
+                        for (var propName in self.selectedSheet().AbilityScores) {
+                            var shortName = propName.substr(0, 3);                                                       
+                            var abilMod = self.selectedSheet()[propName + "Mod"]();
+                            var modBonus = self.selectedSheet()[propName + "Bonus"]();
+                            var abilScore = self.selectedSheet().AbilityScores[propName];
+                            var abilityScoreTotal = abilScore() + modBonus;
+
+                            if (self.selectedSheet().AbilityScores.hasOwnProperty(propName) && propName !== 'propList') {
+                                result.push({ propName: propName, shortName: shortName, abilScore: abilityScoreTotal, abilMod: abilMod, templateName: "scalar_templ" });
+                            }
+                        }
+                    }
+
+                    return result;
+                });
 
             });
         };
@@ -54,7 +73,7 @@
                     self.calculateAbilityModifiers(sheet);
                 });
                 var mapped = _i.ko.mapping.fromJS(response);
-                mapped().forEach(function (sheet) {                                        
+                mapped().forEach(function (sheet) {
                     sheet.HpMax(sheet.ConstitutionMod());
                 });
 
@@ -72,11 +91,11 @@
             sheet.WisdomBonus = 0;
             sheet.CharismaBonus = 0;
             sheet.AbilityScoreIncreases.forEach(function (increase) {
-                sheet.AbilityScores[increase.Name] += increase.IncreaseAmount;
+                sheet[increase.Name + "Bonus"] += increase.IncreaseAmount;
             });
         };
 
-        self.calculateAbilityModifiers = function(sheet) {
+        self.calculateAbilityModifiers = function (sheet) {
             sheet.StrengthMod = Math.floor((sheet.AbilityScores.Strength - 10) / 2);
             sheet.DexterityMod = Math.floor((sheet.AbilityScores.Dexterity - 10) / 2);
             sheet.ConstitutionMod = Math.floor((sheet.AbilityScores.Constitution - 10) / 2);
@@ -85,46 +104,26 @@
             sheet.CharismaMod = Math.floor((sheet.AbilityScores.Charisma - 10) / 2);
         };
 
-        self.calculateSingleModifier = function(abil) {
+        self.calculateSingleModifier = function (abil) {
             return Math.floor((abil - 10) / 2);
         };
 
-        self.setScoreOnRoll = function(abil,bonus,mod) {
+        self.setScoreOnRoll = function (abil, bonus, mod) {
             var rolledValue = self.rollAbilityScore();
             var newScore = rolledValue + bonus;
             var newMod = Math.floor((newScore - 10) / 2);
 
-            abil(newScore);
+            abil(rolledValue);
             mod(newMod);
         };
 
-        self.rollStr = function () {
-            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Strength, self.selectedSheet().StrengthBonus(), self.selectedSheet().StrengthMod);
-            self.saveSheet(self.selectedSheet());            
-        };
-
-        self.rollDex = function () {
-            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Dexterity, self.selectedSheet().DexterityBonus(), self.selectedSheet().DexterityMod);
-            self.saveSheet(self.selectedSheet());
-        };
-
-        self.rollCon = function () {
-            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Constitution, self.selectedSheet().ConstitutionBonus(), self.selectedSheet().ConstitutionMod);
-            self.saveSheet(self.selectedSheet());
-        };
-
-        self.rollInt = function () {
-            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Intelligence, self.selectedSheet().IntelligenceBonus(), self.selectedSheet().IntelligenceMod);
-            self.saveSheet(self.selectedSheet());
-        };
-
-        self.rollWis = function () {
-            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Wisdom, self.selectedSheet().WisdomBonus(), self.selectedSheet().WisdomMod);
-            self.saveSheet(self.selectedSheet());
-        };
-
-        self.rollCha = function () {
-            self.setScoreOnRoll(self.selectedSheet().AbilityScores.Charisma, self.selectedSheet().CharismaBonus(), self.selectedSheet().CharismaMod);
+        self.rollScore = function (score) {
+            var scoreToRoll = self.selectedSheet().AbilityScores[score.propName];
+           var scoreBonusName = score.propName + "Bonus";
+            var scoreBonus = self.selectedSheet()[scoreBonusName]();
+            var scoreModName = score.propName + "Mod";
+            var scoreMod = self.selectedSheet()[scoreModName];
+            self.setScoreOnRoll(scoreToRoll, scoreBonus, scoreMod);
             self.saveSheet(self.selectedSheet());
         };
 
@@ -160,33 +159,33 @@
             self.viewingDetails(false);
         };
 
-        self.deleteSheet = function(obj) {
+        self.deleteSheet = function (obj) {
             _i.confirmdelete.show().then(function (response) {
                 if (response.accepted) {
                     _i.charajax.delete('api/charactersheet/DeleteSheet/' + obj.Id(), '').done(function (response) {
-                        var alertMsg = "Character Sheet for " + obj.CharacterName() + " Deleted";                        
+                        var alertMsg = "Character Sheet for " + obj.CharacterName() + " Deleted";
                         document.cookie = "SheetBeingWorked=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                         if (obj.Id() === _i.globals.getSheetId()) {
                             _i.globals.clearToDoList();
                         }
-                        self.characterSheets.remove(obj);                        
+                        self.characterSheets.remove(obj);
                         _i.alert.showAlert({ type: "error", message: alertMsg });
                     });
                 }
             });
         };
-        
+
         self.selectSheetToEdit = function (sheetToEdit) {
             self.selectedSheet(sheetToEdit);
 
             _i.globals.setSheetToEdit(self.selectedSheet().Id());
-            _i.globals.createCookie("SheetBeingWorked",self.selectedSheet().Id());
-            
+            _i.globals.createCookie("SheetBeingWorked", self.selectedSheet().Id());
+
             var editMessage = "Currently Editing";
             if (sheetToEdit.CharacterName() != null) {
                 editMessage += " " + sheetToEdit.CharacterName();
             }
-            
+
             _i.alert.showAlert({ type: "success", message: editMessage });
         };
 
@@ -207,13 +206,13 @@
                 AbilityScores: _i.ko.toJS(sheetToSave.AbilityScores)
             };
 
-            return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function(response) {
+            return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Sheet Saved!" });
             });
         };
 
-        self.addNew = function() {
-            _i.charajax.post('api/charactersheet/CreateNewSheet', '').done(function(response) {
+        self.addNew = function () {
+            _i.charajax.post('api/charactersheet/CreateNewSheet', '').done(function (response) {
                 window.builder.global_sheetid = response.Id;
                 response.createdDateFormatted = moment(response.CreatedDate).format('LLL');
                 self.addAbilityScoreIncreasesToScores(response);
@@ -224,7 +223,7 @@
                 self.characterSheets.push(mapped);
                 self.selectedSheet(mapped);
                 self.showAlertAndOpenEditor();
-                
+
             });
         };
     }

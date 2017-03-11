@@ -144,98 +144,25 @@
 
         <div class="col-lg-2 col-sm-4 col-xs-8">
             <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-                <div class="pmd-card-body text-center" data-bind="with:AbilityScores">
-                    <div class="row abilityscorerow">
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Str</div>
-                            <div class="sheettext largetext" data-bind="text:Strength"></div>
+                <div class="pmd-card-body text-center" data-bind="foreach:$parent.abilScore">
+                    <div data-bind="template: {name: templateName, data: $data}"></div>
+                    <script type="text/html" id="scalar_templ">
+                        <div class="row abilityscorerow">
+                            <div class="col-xs-4 abilityscorebody">
+                                <div class="sheetheader abiltext" data-bind="text:shortName"></div>
+                                <div class="sheettext largetext" data-bind="text:abilScore"></div>
+                            </div>
+                            <div class="col-xs-4 abilityscorebody">
+                                <div class="sheetheader abiltext">Mod</div>
+                                <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:abilMod"></div>
+                            </div>
+                            <div class="media-right">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollScore'>
+                                    cached
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Mod</div>
-                            <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:$parent.StrengthMod"></div>
-                        </div>
-                        <div class="media-right">
-                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollStr'>
-                                cached
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row abilityscorerow">
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Dex</div>
-                            <div class="sheettext largetext" data-bind="text:Dexterity"></div>
-                        </div>
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Mod</div>
-                            <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:$parent.DexterityMod"></div>
-                        </div>
-                        <div class="media-right">
-                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollDex'>
-                                cached
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row abilityscorerow">
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Con</div>
-                            <div class="sheettext largetext" data-bind="text:Constitution"></div>
-                        </div>
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Mod</div>
-                            <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:$parent.ConstitutionMod"></div>
-                        </div>
-                        <div class="media-right">
-                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollCon'>
-                                cached
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="row abilityscorerow">
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Int</div>
-                            <div class="sheettext largetext" data-bind="text:Intelligence"></div>
-                        </div>
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Mod</div>
-                            <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:$parent.IntelligenceMod"></div>
-                        </div>
-                        <div class="media-right">
-                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollInt'>
-                                cached
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row abilityscorerow">
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Wis</div>
-                            <div class="sheettext largetext" data-bind="text:Wisdom"></div>
-                        </div>
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Mod</div>
-                            <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:$parent.WisdomMod"></div>
-                        </div>
-                        <div class="media-right">
-                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollWis'>
-                                cached
-                            </button>
-                        </div>
-                    </div>
-                    <div class="row abilityscorerow">
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Cha</div>
-                            <div class="sheettext largetext" data-bind="text:Charisma"></div>
-                        </div>
-                        <div class="col-xs-4 abilityscorebody">
-                            <div class="sheetheader abiltext">Mod</div>
-                            <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:$parent.CharismaMod"></div>
-                        </div>
-                        <div class="media-right">
-                            <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollCha'>
-                                cached
-                            </button>
-                        </div>
-                    </div>
+                    </script>
                 </div>
             </div>
         </div>
