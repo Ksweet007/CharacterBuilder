@@ -83,6 +83,7 @@
                     self.addAbilityScoreIncreasesToScores(sheet);
                     self.calculateAbilityModifiers(sheet);
                     self.markSkillAsProficiencyChoice(sheet);
+                    sheet.HpMax = sheet.HpMax + (sheet.ConstitutionMod * sheet.Level);
                 });
 
                 var mapped = _i.ko.mapping.fromJS(response);
@@ -101,9 +102,7 @@
                         sheet.AllSkills[skl].canPick = true;
                     }
                 }
-            }
-
-            
+            }            
         };
 
         self.setAbilityScoreBonusesInitialValue = function (sheet) {
@@ -171,14 +170,16 @@
             var rolled = 1 + Math.floor(Math.random() * hitDie);
 
             var currentHp = self.selectedSheet().HpMax();
-            var conMod = self.selectedSheet().ConstitutionMod();
-            var currentLevel = self.selectedSheet().Level();
-            var conModFactor = conMod * currentLevel;
-
-            var newMaxHp = currentHp + rolled + conModFactor;
+            
+            var newMaxHp = (currentHp - (sheet.ConstitutionMod() * sheet.Level())) + rolled;            
             self.selectedSheet().HpMax(newMaxHp);
 
             self.saveSheet(self.selectedSheet()).done(function (response) {
+                var conMod = self.selectedSheet().ConstitutionMod();
+                var currentLevel = self.selectedSheet().Level();
+                var conFactor = conMod * currentLevel;
+                var totalHp = self.selectedSheet().HpMax() + conFactor;
+                self.selectedSheet().HpMax(totalHp);
                 _i.alert.showAlert({ type: "success", message: "Rolled: " + rolled });
             });
         };
