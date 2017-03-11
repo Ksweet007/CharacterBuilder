@@ -59,6 +59,10 @@
                     return result;
                 });
 
+                self.totalHitPoints = function() {
+                    return self.selectedSheet().HpMax() + (self.selectedSheet().ConstitutionMod() * self.selectedSheet().Level());
+                };
+
             });
         };
 
@@ -82,8 +86,7 @@
                     self.setAbilityScoreBonusesInitialValue(sheet);
                     self.addAbilityScoreIncreasesToScores(sheet);
                     self.calculateAbilityModifiers(sheet);
-                    self.markSkillAsProficiencyChoice(sheet);
-                    sheet.HpMax = sheet.HpMax + (sheet.ConstitutionMod * sheet.Level);
+                    self.markSkillAsProficiencyChoice(sheet);                    
                 });
 
                 var mapped = _i.ko.mapping.fromJS(response);
@@ -170,16 +173,11 @@
             var rolled = 1 + Math.floor(Math.random() * hitDie);
 
             var currentHp = self.selectedSheet().HpMax();
-            
-            var newMaxHp = (currentHp - (sheet.ConstitutionMod() * sheet.Level())) + rolled;            
-            self.selectedSheet().HpMax(newMaxHp);
+            var newDbSavedMaxHp = currentHp + (rolled);
 
-            self.saveSheet(self.selectedSheet()).done(function (response) {
-                var conMod = self.selectedSheet().ConstitutionMod();
-                var currentLevel = self.selectedSheet().Level();
-                var conFactor = conMod * currentLevel;
-                var totalHp = self.selectedSheet().HpMax() + conFactor;
-                self.selectedSheet().HpMax(totalHp);
+            self.selectedSheet().HpMax(newDbSavedMaxHp);
+
+            self.saveSheet(self.selectedSheet()).done(function (response) {                
                 _i.alert.showAlert({ type: "success", message: "Rolled: " + rolled });
             });
         };
