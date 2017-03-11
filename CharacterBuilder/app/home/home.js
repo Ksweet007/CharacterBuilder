@@ -133,7 +133,7 @@
             var rolls = [];
 
             for (var i = 0; i < 4; i++) {
-                var d6 = 1 + Math.floor(Math.random() * 6);
+                var d6 = 1 + Math.floor(Math.random() * 6);                
                 rolls.push(d6);
             }
 
@@ -149,7 +149,7 @@
             for (var s in rolls) {
                 scoreTotal += rolls[s];
             }
-            return scoreTotal;
+            return scoreTotal < 8 ? 8 : scoreTotal;
         };
 
         self.rollHitPoints = function (sheet) {
