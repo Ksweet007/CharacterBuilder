@@ -28,6 +28,15 @@
             return returnList;
         });
 
+        self.rollHp = function () {
+            return "Roll HP (1d" + self.selectedSheet().Class.Hitdie() + ")";
+        };
+
+        self.takeDefaultValue = function () {
+            var defaultHp = self.selectedSheet().Class.Hitdie() - (self.selectedSheet().Class.Hitdie() * .5) + 1;
+            return "Default HP " + "(" + defaultHp + ")";
+        };
+
         self.activate = function () {
             return self.getPageData().done(function () {
 
@@ -35,7 +44,7 @@
                     var result = [];
                     if (self.selectedSheet()) {
                         for (var propName in self.selectedSheet().AbilityScores) {
-                            var shortName = propName.substr(0, 3);                                                       
+                            var shortName = propName.substr(0, 3);
                             var abilMod = self.selectedSheet()[propName + "Mod"]();
                             var modBonus = self.selectedSheet()[propName + "Bonus"]();
                             var abilScore = self.selectedSheet().AbilityScores[propName];
@@ -67,30 +76,29 @@
         self.getCharacterSheets = function () {
             var deferred = _i.deferred.create();
             _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
+
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
                     self.setAbilityScoreBonusesInitialValue(sheet);
                     self.addAbilityScoreIncreasesToScores(sheet);
                     self.calculateAbilityModifiers(sheet);
                 });
-                var mapped = _i.ko.mapping.fromJS(response);
-                mapped().forEach(function (sheet) {
-                    sheet.HpMax(sheet.ConstitutionMod());
-                });
 
+                var mapped = _i.ko.mapping.fromJS(response);
                 self.characterSheets(mapped());
+
                 deferred.resolve();
             });
             return deferred;
         };
 
-        self.setAbilityScoreBonusesInitialValue = function(sheet) {
+        self.setAbilityScoreBonusesInitialValue = function (sheet) {
             for (var propName in sheet.AbilityScores) {
                 sheet[propName + "Bonus"] = 0;
             }
         };
 
-        self.addAbilityScoreIncreasesToScores = function (sheet) {            
+        self.addAbilityScoreIncreasesToScores = function (sheet) {
             sheet.AbilityScoreIncreases.forEach(function (increase) {
                 sheet[increase.Name + "Bonus"] += increase.IncreaseAmount;
             });
@@ -101,7 +109,7 @@
                 sheet[propName + "Mod"] = Math.floor((sheet.AbilityScores[propName] - 10) / 2);
             }
         };
-        
+
         self.setScoreOnRoll = function (abil, bonus, mod) {
             var rolledValue = self.rollAbilityScore();
             var newScore = rolledValue + bonus;
@@ -142,6 +150,39 @@
                 scoreTotal += rolls[s];
             }
             return scoreTotal;
+        };
+
+        self.rollHitPoints = function (sheet) {
+            var hitDie = self.selectedSheet().Class.Hitdie();
+            var rolled = 1 + Math.floor(Math.random() * hitDie);
+
+            var currentHp = self.selectedSheet().HpMax();
+            var conMod = self.selectedSheet().ConstitutionMod();
+            var currentLevel = self.selectedSheet().Level();
+            var conModFactor = conMod * currentLevel;
+
+            var newMaxHp = currentHp + rolled + conModFactor;
+            self.selectedSheet().HpMax(newMaxHp);
+
+            self.saveSheet(self.selectedSheet()).done(function (response) {
+                _i.alert.showAlert({ type: "success", message: "Rolled: " + rolled });
+            });
+        };
+
+        self.defaultHitPoints = function (sheet) {
+            var defaultHp = sheet.Class.Hitdie() - (sheet.Class.Hitdie() * .5) + 1;
+
+            var currentHp = sheet.HpMax();
+            var conMod = sheet.ConstitutionMod();
+            var currentLevel = sheet.Level();
+            var conModFactor = conMod * currentLevel;
+
+            var newMaxHp = currentHp + defaultHp + conModFactor;
+            sheet.HpMax(newMaxHp);
+
+            self.saveSheet(sheet).done(function (response) {
+                _i.alert.showAlert({ type: "success", message: "Hit Points Increased"});
+            });
         };
 
         self.viewMoreDetails = function (bgSelected) {

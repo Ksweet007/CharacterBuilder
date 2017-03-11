@@ -102,6 +102,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-lg-6 col-sm-6 col-xs-12">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-body">
@@ -140,31 +141,64 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-lg-2 col-sm-4 col-xs-8">
-            <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-                <div class="pmd-card-body text-center" data-bind="foreach:$parent.abilScore">
-                    <div data-bind="template: {name: templateName, data: $data}"></div>
-                    <script type="text/html" id="scalar_templ">
-                        <div class="row abilityscorerow">
-                            <div class="col-xs-4 abilityscorebody">
-                                <div class="sheetheader abiltext" data-bind="text:shortName"></div>
-                                <div class="sheettext largetext" data-bind="text:abilScore"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-sm-4 col-xs-8">
+                <!-- BEGIN ABILITY SCORE-->
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-body text-center" data-bind="foreach:$parent.abilScore">
+                        <div data-bind="template: {name: templateName, data: $data}"></div>
+                        <script type="text/html" id="scalar_templ">
+                            <div class="row abilityscorerow">
+                                <div class="col-xs-4 abilityscorebody">
+                                    <div class="sheetheader abiltext" data-bind="text:shortName"></div>
+                                    <div class="sheettext largetext" data-bind="text:abilScore"></div>
+                                </div>
+                                <div class="col-xs-4 abilityscorebody">
+                                    <div class="sheetheader abiltext">Mod</div>
+                                    <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:abilMod"></div>
+                                </div>
+                                <div class="media-right">
+                                    <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollScore'>
+                                        cached
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-xs-4 abilityscorebody">
-                                <div class="sheetheader abiltext">Mod</div>
-                                <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:abilMod"></div>
-                            </div>
-                            <div class="media-right">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollScore'>
-                                    cached
-                                </button>
+                        </script>
+                    </div>
+                </div>
+            </div> <!--END ABILITY SCORE-->
+
+            <div class="col-lg-2 col-sm-4 col-xs-8">
+                <!--BEGIN HP-->
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-body text-center">
+                        <div class="row paddedrowtoprow">
+                            <div class="col-xs-14">
+                                <div class="sheettext largetext" data-bind="text:HpMax"></div>
+                                <div class="sheetheader abiltext">Hit Point Max</div>
                             </div>
                         </div>
-                    </script>
+                        <div class="row paddedrowbottomrow">
+                            <div class="col-xs-6">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.rollHitPoints'>
+                                    cached
+                                </button>
+                                <div class="sheetheader subheader" data-bind="text:$root.rollHp()"></div>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.defaultHitPoints">
+                                    edit
+                                </button>
+                                <div class="sheetheader subheader" data-bind="text:$root.takeDefaultValue()"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div><!--END HP-->
+
         </div>
+
     </section>
 </div>
