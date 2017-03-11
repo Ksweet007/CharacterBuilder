@@ -170,6 +170,30 @@
                 </div>
             </div> <!--END ABILITY SCORE-->
 
+            <div class="col-lg-2 col-sm-4 col-xs-8"><!--BEGIN SKILLS-->
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-body" data-bind="foreach:AllSkills">
+                        <div class="row">
+                            <div class="col-xs-1">
+                                <div class="pmd-switch">
+                                    <label>
+                                        <input type="checkbox" name="skill" data-bind='checked:$parent.Skills, value:Id'>
+                                        <span class="pmd-switch-label" ></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-8 skillCol">
+                                <div class="sheetheader abiltext" data-bind="text:Name"></div>
+                            </div>
+                            <div class="media-right">
+                                <div class="sheetheader abiltext">99</div>    
+                            </div>
+                                                        
+                        </div>
+                    </div>
+                </div>
+            </div><!--END SKILLS-->
+
             <div class="col-lg-2 col-sm-4 col-xs-8">
                 <!--BEGIN HP-->
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">

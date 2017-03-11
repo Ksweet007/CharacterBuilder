@@ -41,7 +41,7 @@ namespace CharacterBuilder.Infrastructure.Data
             var currentUser = _manager.FindById(userId);
 
             return _db.CharacterSheets
-                .Include(c => c.Class)
+                .Include(c => c.Class.Skills.Select(a=>a.AbilityScore))
                 .Include(b => b.Background)      
                 .Include(r => r.Race)
                 .Include(sr => sr.Subrace)
@@ -59,6 +59,11 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(a => a.AbilityScoreIncreases.Select(y=>y.AbilityScore))
                 .Single(s => s.Id == sheetId);
         }
+
+        public IList<Skill> ListAllSkills()
+        {
+            return _db.Skills.ToList();
+        } 
 
         public void SaveClassSelection(int classId, int characterSheetId)
         {

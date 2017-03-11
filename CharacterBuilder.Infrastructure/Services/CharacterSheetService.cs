@@ -20,6 +20,7 @@ namespace CharacterBuilder.Infrastructure.Services
         {
             var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
             var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetFromDb);
+            sheetDto.AllSkills = _characterSheetRepository.ListAllSkills();
 
             return sheetDto;
         }
@@ -55,8 +56,15 @@ namespace CharacterBuilder.Infrastructure.Services
         public IList<CharacterSheetDTO> ListByUserId(string userId)
         {
             var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);
+            var allSkills = _characterSheetRepository.ListAllSkills();
 
-            return sheetsFromDb.Select(Mappers.CharacterSheetMapper.MapCharacterSheetDto).ToList();
+            var mappedSheets = sheetsFromDb.Select(Mappers.CharacterSheetMapper.MapCharacterSheetDto).ToList();
+            foreach (var item in mappedSheets)
+            {
+                item.AllSkills = allSkills;
+            }
+            
+            return mappedSheets;
         }
 
         public CharacterSheetDTO SaveRaceSelection(int characterSheetId, int raceId)

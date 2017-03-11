@@ -15,7 +15,8 @@ namespace CharacterBuilder.Core.DTO
         public Background Background { get; set; }
         public Race Race { get; set; }
         public Subrace Subrace { get; set; }
-        public IList<Skill> Skills { get; set; }
+        public IList<Skill> Skills { get; set; } = new List<Skill>();
+        public IList<Skill> AllSkills { get; set; } 
         public ToDo ToDo { get; set; }
         public bool IsComplete { get; set; }
         public int HpMax { get; set; }        
@@ -33,13 +34,15 @@ namespace CharacterBuilder.Core.DTO
                     Name = item.AbilityScore.Name
                 });                
             }
-        }     
+        }
+        
     }
-
+    
     public class ScoreIncrease
     {
         public int Id { get;set; }
         public string Name { get; set; }
         public int IncreaseAmount { get; set; }
     }
+    
 }
