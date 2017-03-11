@@ -69,6 +69,7 @@
             _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
+                    self.setAbilityScoreBonusesInitialValue(sheet);
                     self.addAbilityScoreIncreasesToScores(sheet);
                     self.calculateAbilityModifiers(sheet);
                 });
@@ -83,31 +84,24 @@
             return deferred;
         };
 
-        self.addAbilityScoreIncreasesToScores = function (sheet) {
-            sheet.StrengthBonus = 0;
-            sheet.DexterityBonus = 0;
-            sheet.ConstitutionBonus = 0;
-            sheet.IntelligenceBonus = 0;
-            sheet.WisdomBonus = 0;
-            sheet.CharismaBonus = 0;
+        self.setAbilityScoreBonusesInitialValue = function(sheet) {
+            for (var propName in sheet.AbilityScores) {
+                sheet[propName + "Bonus"] = 0;
+            }
+        };
+
+        self.addAbilityScoreIncreasesToScores = function (sheet) {            
             sheet.AbilityScoreIncreases.forEach(function (increase) {
                 sheet[increase.Name + "Bonus"] += increase.IncreaseAmount;
             });
         };
 
         self.calculateAbilityModifiers = function (sheet) {
-            sheet.StrengthMod = Math.floor((sheet.AbilityScores.Strength - 10) / 2);
-            sheet.DexterityMod = Math.floor((sheet.AbilityScores.Dexterity - 10) / 2);
-            sheet.ConstitutionMod = Math.floor((sheet.AbilityScores.Constitution - 10) / 2);
-            sheet.IntelligenceMod = Math.floor((sheet.AbilityScores.Intelligence - 10) / 2);
-            sheet.WisdomMod = Math.floor((sheet.AbilityScores.Wisdom - 10) / 2);
-            sheet.CharismaMod = Math.floor((sheet.AbilityScores.Charisma - 10) / 2);
+            for (var propName in sheet.AbilityScores) {
+                sheet[propName + "Mod"] = Math.floor((sheet.AbilityScores[propName] - 10) / 2);
+            }
         };
-
-        self.calculateSingleModifier = function (abil) {
-            return Math.floor((abil - 10) / 2);
-        };
-
+        
         self.setScoreOnRoll = function (abil, bonus, mod) {
             var rolledValue = self.rollAbilityScore();
             var newScore = rolledValue + bonus;
@@ -119,7 +113,7 @@
 
         self.rollScore = function (score) {
             var scoreToRoll = self.selectedSheet().AbilityScores[score.propName];
-           var scoreBonusName = score.propName + "Bonus";
+            var scoreBonusName = score.propName + "Bonus";
             var scoreBonus = self.selectedSheet()[scoreBonusName]();
             var scoreModName = score.propName + "Mod";
             var scoreMod = self.selectedSheet()[scoreModName];
