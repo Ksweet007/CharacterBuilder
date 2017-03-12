@@ -25,7 +25,7 @@ namespace CharacterBuilder.Core.Model
         public Subrace Subrace { get; set; }
         public int ClassLevel { get; set; }
         public int HitPointsMax { get; set; }
-        public IList<Skill> Skills { get; set; }= new List<Skill>();
+        public List<Skill> Skills { get; set; }= new List<Skill>();
         public bool IsComplete { get; set; }
         public DateTime CreatedDate { get; set; }
     }

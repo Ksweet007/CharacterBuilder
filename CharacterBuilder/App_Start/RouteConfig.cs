@@ -18,8 +18,8 @@ namespace CharacterBuilder
 
             routes.MapRoute(
                 name: "LogOut",
-                url: "auth/{action}",
-                defaults: new { controller = "Account", action = "LogOff" }
+                url: "account/{action}",
+                defaults: new { controller = "Account", action = "LogOut" }
             );
 
             routes.MapRoute(

@@ -17,9 +17,32 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public IList<Class> GetAllClasses()
         {
-            return _db.Classes.Include(s => s.Skills).ToList();
+            return _db.Classes.ToList();
+
         }
 
+        public CharacterSheet SaveClassSelection(int characterSheetId, int classId)
+        {
+            var clsFromDb = _db.Classes
+                .Include(s => s.Skills)
+                .Single(c => c.Id == classId);
+
+            var sheetFromDb = _db.CharacterSheets
+                .Include(t => t.ToDo)
+                .Single(s => s.Id == characterSheetId);
+
+            sheetFromDb.Class = clsFromDb;
+            sheetFromDb.ToDo.HasSelectedClass = true;
+            
+            Save();
+
+            return sheetFromDb;
+        }
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
         
     }
 }

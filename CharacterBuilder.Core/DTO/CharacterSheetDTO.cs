@@ -38,7 +38,7 @@ namespace CharacterBuilder.Core.DTO
             }
         }
 
-        public void MapSkillsToSkillProf(IList<Skill> skills)
+        public void MapSkillsToSkillProf(List<Skill> skills)
         {          
 
             foreach (var item in skills)
@@ -54,8 +54,8 @@ namespace CharacterBuilder.Core.DTO
 
         public void MapSkillProficiencies()
         {
-            var classProf = Class.Skills;
-            var backgroundProf = Background.Skills;
+            var classProf = Class?.Skills ?? new List<Skill>();
+            var backgroundProf = Background?.Skills ?? new List<Skill>();
             SkillProficiencies = classProf.Concat(backgroundProf).Distinct().ToList();
         }
         

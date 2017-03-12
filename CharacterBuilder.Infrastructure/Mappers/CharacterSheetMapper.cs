@@ -1,4 +1,5 @@
-﻿using CharacterBuilder.Core.DTO;
+﻿using System.Linq;
+using CharacterBuilder.Core.DTO;
 using CharacterBuilder.Core.Model;
 
 namespace CharacterBuilder.Infrastructure.Mappers
@@ -34,7 +35,7 @@ namespace CharacterBuilder.Infrastructure.Mappers
             };
 
             sheetDto.MapAbilityScoreIncreases(characterSheet.AbilityScoreIncreases);
-            sheetDto.MapSkillsToSkillProf(characterSheet.Skills);
+            sheetDto.MapSkillsToSkillProf(characterSheet.Skills.ToList());
             sheetDto.MapSkillProficiencies();
 
             return sheetDto;

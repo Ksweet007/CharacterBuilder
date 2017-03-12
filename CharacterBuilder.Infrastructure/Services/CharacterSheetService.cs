@@ -9,11 +9,13 @@ namespace CharacterBuilder.Infrastructure.Services
     {
         private readonly CharacterSheetRepository _characterSheetRepository;
         private readonly RaceRepository _raceRepository;
+        private readonly ClassRepository _classRepository;
 
         public CharacterSheetService()
         {
             _characterSheetRepository = new CharacterSheetRepository();
             _raceRepository = new RaceRepository();
+            _classRepository = new ClassRepository();
         }
 
         public CharacterSheetDTO GetById(int sheetId)
@@ -65,6 +67,13 @@ namespace CharacterBuilder.Infrastructure.Services
             }
             
             return mappedSheets;
+        }
+
+        public CharacterSheetDTO SaveClassSelection(int characterSheetId, int classId)
+        {
+            var sheetToSave = _classRepository.SaveClassSelection(characterSheetId, classId);
+
+            return Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetToSave);
         }
 
         public CharacterSheetDTO SaveRaceSelection(int characterSheetId, int raceId)

@@ -32,13 +32,12 @@ namespace CharacterBuilder.Controllers.Api
         }
 
         [HttpPut]
-        [Route("SaveClassSelection/{classId}/{characterSheetId}")]
-        public IHttpActionResult SaveClassSelection(int classId, int characterSheetId)
+        [Route("SaveClassSelection/{characterSheetId}/{classId}")]
+        public IHttpActionResult SaveClassSelection(int characterSheetId, int classId)
         {
-            _characterSheetRepository.SaveClassSelection(classId, characterSheetId);
-            _characterSheetRepository.ToDoClassSelected(characterSheetId);
-            
-            return Ok(characterSheetId);   
+            var characterSheet = _characterSheetService.SaveClassSelection(characterSheetId, classId);
+
+            return Ok(characterSheet);   
         }
 
         [HttpPut]

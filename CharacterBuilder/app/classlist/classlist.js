@@ -68,7 +68,7 @@
         };
 
         self.save = function() {
-            return _i.charajax.put('api/charactersheet/SaveClassSelection/'+ self.selectedClass().Id() + '/' + self.sheetId()).done(function() {
+            return _i.charajax.put('api/charactersheet/SaveClassSelection/' + self.sheetId() + '/' + self.selectedClass().Id()).done(function () {
                 _i.alert.showAlert({ type: "success", message: "Class Selected" });
                 _i.globals.selectClass();
             });
