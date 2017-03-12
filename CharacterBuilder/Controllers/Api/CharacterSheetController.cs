@@ -30,26 +30,7 @@ namespace CharacterBuilder.Controllers.Api
 
             return Ok(sheets);
         }
-
-        [HttpPut]
-        [Route("SaveClassSelection/{characterSheetId}/{classId}")]
-        public IHttpActionResult SaveClassSelection(int characterSheetId, int classId)
-        {
-            var characterSheet = _characterSheetService.SaveClassSelection(characterSheetId, classId);
-
-            return Ok(characterSheet);   
-        }
-
-        [HttpPut]
-        [Route("SaveBackgroundSelection/{backgroundId}/{characterSheetId}")]
-        public IHttpActionResult SaveBackgroundSelection(int backgroundId, int characterSheetId)
-        {
-            _characterSheetRepository.SaveBackgroundSelection(backgroundId,characterSheetId);
-            _characterSheetRepository.ToDoBackgroundSelected(characterSheetId);
-
-            return Ok(characterSheetId);
-        }
-
+      
         [HttpPost]
         [Route("CreateNewSheet")]
         public IHttpActionResult CreateNewSheet()

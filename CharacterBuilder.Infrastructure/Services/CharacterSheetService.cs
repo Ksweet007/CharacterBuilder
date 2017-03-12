@@ -10,12 +10,14 @@ namespace CharacterBuilder.Infrastructure.Services
         private readonly CharacterSheetRepository _characterSheetRepository;
         private readonly RaceRepository _raceRepository;
         private readonly ClassRepository _classRepository;
+        private readonly BackgroundRepository _backgroundRepository;
 
         public CharacterSheetService()
         {
             _characterSheetRepository = new CharacterSheetRepository();
             _raceRepository = new RaceRepository();
             _classRepository = new ClassRepository();
+            _backgroundRepository = new BackgroundRepository();
         }
 
         public CharacterSheetDTO GetById(int sheetId)
@@ -25,6 +27,20 @@ namespace CharacterBuilder.Infrastructure.Services
             sheetDto.AllSkills = _characterSheetRepository.ListAllSkills();
 
             return sheetDto;
+        }
+
+        public IList<CharacterSheetDTO> ListByUserId(string userId)
+        {
+            var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);
+            var allSkills = _characterSheetRepository.ListAllSkills();
+
+            var mappedSheets = sheetsFromDb.Select(Mappers.CharacterSheetMapper.MapCharacterSheetDto).ToList();
+            foreach (var item in mappedSheets)
+            {
+                item.AllSkills = allSkills;
+            }
+
+            return mappedSheets;
         }
 
         public CharacterSheetDTO CreateNewSheetByUserId(string userId)
@@ -55,18 +71,11 @@ namespace CharacterBuilder.Infrastructure.Services
             return sheetToUpdate;
         }
 
-        public IList<CharacterSheetDTO> ListByUserId(string userId)
+        public CharacterSheetDTO SaveBackgroundSelection(int characterSheetId, int backgroundId)
         {
-            var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);
-            var allSkills = _characterSheetRepository.ListAllSkills();
+            var sheetToSave = _backgroundRepository.SaveBackgroundSelection(characterSheetId, backgroundId);
 
-            var mappedSheets = sheetsFromDb.Select(Mappers.CharacterSheetMapper.MapCharacterSheetDto).ToList();
-            foreach (var item in mappedSheets)
-            {
-                item.AllSkills = allSkills;
-            }
-            
-            return mappedSheets;
+            return Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetToSave);
         }
 
         public CharacterSheetDTO SaveClassSelection(int characterSheetId, int classId)

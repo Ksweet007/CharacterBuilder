@@ -25,6 +25,7 @@ namespace CharacterBuilder.Infrastructure.Data
         {
             var clsFromDb = _db.Classes
                 .Include(s => s.Skills)
+                .Include(f => f.Features)
                 .Single(c => c.Id == classId);
 
             var sheetFromDb = _db.CharacterSheets

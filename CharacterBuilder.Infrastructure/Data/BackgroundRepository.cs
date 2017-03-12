@@ -23,5 +23,29 @@ namespace CharacterBuilder.Infrastructure.Data
                     .Include(l=>l.Languages)
                     .ToList();
         }
+
+        public CharacterSheet SaveBackgroundSelection(int characterSheetId, int backgroundId)
+        {
+            var backgroundFromDb = _db.Backgrounds
+                .Include(s => s.Skills)
+                .Single(b => b.Id == backgroundId);
+
+            var sheetFromDb = _db.CharacterSheets
+                .Include(t => t.ToDo)
+                .Single(s => s.Id == characterSheetId);
+
+            sheetFromDb.Background = backgroundFromDb;
+            sheetFromDb.ToDo.HasSelectedBackground = true;
+
+            Save();
+
+            return sheetFromDb;
+        }
+
+        public void Save()
+        {
+            _db.SaveChanges();
+        }
+
     }
 }

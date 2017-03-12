@@ -14,6 +14,6 @@ namespace CharacterBuilder.Core.Model
         public IList<Skill> Skills { get; set; }
         public int SkillPickCount { get; set; }        
         public IList<Proficiency> Proficiencies { get; set; }
-        public IList<ProficiencyType> ProficiencyTypes { get; set; }
+        public IList<ProficiencyType> ProficiencyTypes { get; set; }        
     }
 }

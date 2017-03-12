@@ -39,4 +39,5 @@ namespace CharacterBuilder.Core.Model
         public int Intelligence { get; set; }
         public int Charisma { get; set; }
     }
+    
 }

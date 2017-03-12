@@ -41,7 +41,9 @@ namespace CharacterBuilder.Infrastructure.Data
             var currentUser = _manager.FindById(userId);
 
             return _db.CharacterSheets
+                .Include(t =>t.ToDo)
                 .Include(c => c.Class.Skills.Select(a=>a.AbilityScore))
+                .Include(f => f.Class.Features)
                 .Include(b => b.Background)      
                 .Include(r => r.Race)
                 .Include(sr => sr.Subrace)
@@ -64,56 +66,7 @@ namespace CharacterBuilder.Infrastructure.Data
         {
             return _db.Skills.ToList();
         } 
-
-        public void SaveClassSelection(int classId, int characterSheetId)
-        {
-            var clsFromDb = _db.Classes.Single(c => c.Id == classId);
-            var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == characterSheetId);
-            sheetFromDb.Class = clsFromDb;
-
-            Save();
-        }
-
-        public void SaveBackgroundSelection(int backgroundId, int characterSheetId)
-        {
-
-            var bgFromDb = _db.Backgrounds.Single(b => b.Id == backgroundId);
-            var sheetFromDb = _db.CharacterSheets.Single(s => s.Id == characterSheetId);
-            sheetFromDb.Background = bgFromDb;
-
-            Save();
-        }
-        
-        public void SaveSubRaceSelection(int subRaceId, int characterSheetId)
-        {
-            Save();
-        }
-
-        public void ToDoClassSelected (int characterSheetId)
-        {
-            var sheetFromDb = _db.CharacterSheets.Include(t=>t.ToDo).Single(s => s.Id == characterSheetId);
-            sheetFromDb.ToDo.HasSelectedClass = true;
-
-            Save();
-        }
-
-        public void ToDoBackgroundSelected(int characterSheetId)
-        {
-            var sheetFromDb = _db.CharacterSheets.Include(t => t.ToDo).Single(s => s.Id == characterSheetId);
-            sheetFromDb.ToDo.HasSelectedBackground = true;
-
-            Save();
-        }
-
-
-        public void ToDoSubRaceSelected(int characterSheetId)
-        {
-            var sheetFromDb = _db.CharacterSheets.Include(t => t.ToDo).Single(s => s.Id == characterSheetId);
-            sheetFromDb.ToDo.HasSelectedSubRace = true;
-
-            Save();
-        }
-        
+       
         public void DeleteSheetAndToDoList(int characterSheetId)
         {
             var sheetFromDb = _db.CharacterSheets

@@ -20,8 +20,7 @@ namespace CharacterBuilder.Infrastructure.Mappers
                 Background = characterSheet.Background,
                 Race = characterSheet.Race,
                 Subrace = characterSheet.Subrace,
-                ToDo = characterSheet.ToDo,
-                IsComplete = characterSheet.IsComplete,
+                ToDo = characterSheet.ToDo,                
                 HpMax = characterSheet.HitPointsMax,
                 AbilityScores = new AbilityScores
                 {

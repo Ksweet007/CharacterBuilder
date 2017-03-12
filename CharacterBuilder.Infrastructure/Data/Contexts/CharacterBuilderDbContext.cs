@@ -26,6 +26,7 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
         public DbSet<BackgroundVariant> BackgroundVariants { get; set; }
         public DbSet<CharacterSheet> CharacterSheets { get; set; }
         public DbSet<Class> Classes { get; set; }
+        public DbSet<ClassFeatureBonusType> ClassFeatureBonusTypes { get; set; } 
         public DbSet<Feature> Features { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<LanguageType> LanguageTypes { get; set; } 

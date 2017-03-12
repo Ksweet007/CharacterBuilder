@@ -76,6 +76,14 @@
     <Compile Include="Migrations\201703101311117_ResettingThisPieceofshit.Designer.cs">
       <DependentUpon>201703101311117_ResettingThisPieceofshit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703121752211_RemovedPointlessPropertiesFromFeature.cs" />
+    <Compile Include="Migrations\201703121752211_RemovedPointlessPropertiesFromFeature.Designer.cs">
+      <DependentUpon>201703121752211_RemovedPointlessPropertiesFromFeature.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703121801421_AddedBonusTypeFeature.cs" />
+    <Compile Include="Migrations\201703121801421_AddedBonusTypeFeature.Designer.cs">
+      <DependentUpon>201703121801421_AddedBonusTypeFeature.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CharacterSheetService.cs" />
@@ -94,6 +102,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201703101311117_ResettingThisPieceofshit.resx">
       <DependentUpon>201703101311117_ResettingThisPieceofshit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703121752211_RemovedPointlessPropertiesFromFeature.resx">
+      <DependentUpon>201703121752211_RemovedPointlessPropertiesFromFeature.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703121801421_AddedBonusTypeFeature.resx">
+      <DependentUpon>201703121801421_AddedBonusTypeFeature.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
