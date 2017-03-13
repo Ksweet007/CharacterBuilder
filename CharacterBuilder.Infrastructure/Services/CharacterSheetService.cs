@@ -51,6 +51,14 @@ namespace CharacterBuilder.Infrastructure.Services
             return sheetDto;
         }
 
+        public CharacterSheetDTO CreateNewSheetWithClass(string userId, int classId)
+        {
+            var newSheet = _characterSheetRepository.CreateNewSheetWithClass(userId, classId);
+            var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(newSheet);
+
+            return sheetDto;
+        }
+
         public CharacterSheetDTO UpdateSheet(CharacterSheetDTO sheetToUpdate)
         {
             var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetToUpdate.Id);

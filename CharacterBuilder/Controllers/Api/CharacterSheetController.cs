@@ -30,7 +30,7 @@ namespace CharacterBuilder.Controllers.Api
 
             return Ok(sheets);
         }
-      
+
         [HttpPost]
         [Route("CreateNewSheet")]
         public IHttpActionResult CreateNewSheet()
@@ -43,6 +43,21 @@ namespace CharacterBuilder.Controllers.Api
             response.Cookies.Remove(Cookie_Name);
             response.Cookies.Add(cookie);
             
+            return Ok(newSheet);
+        }
+
+        [HttpPost]
+        [Route("CreateNewSheetWithClass/{classId}")]
+        public IHttpActionResult CreateNewSheetWithClass(int classId)
+        {
+            var userId = User.Identity.GetUserId();
+            var newSheet = _characterSheetService.CreateNewSheetWithClass(userId, classId);
+
+            var response = HttpContext.Current.Response;
+            var cookie = new HttpCookie(Cookie_Name, newSheet.Id.ToString());
+            response.Cookies.Remove(Cookie_Name);
+            response.Cookies.Add(cookie);
+
             return Ok(newSheet);
         }
 

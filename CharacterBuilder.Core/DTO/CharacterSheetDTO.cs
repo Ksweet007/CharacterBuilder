@@ -20,7 +20,6 @@ namespace CharacterBuilder.Core.DTO
         public IList<Skill> AllSkills { get; set; }
         public IList<Skill> SkillProficiencies { get; set; }  = new List<Skill>();
         public ToDo ToDo { get; set; }
-        public bool IsComplete => ToDo.HasSelectedClass && ToDo.HasCompletedAbilityScores && ToDo.HasSelectedRace && ToDo.HasSelectedBackground && ToDo.HasSelectedSkills && ToDo.HasSelectedSubRace;
         public int HpMax { get; set; }        
         public AbilityScores AbilityScores { get; set; }
         public IList<ScoreIncrease> AbilityScoreIncreases { get; set; } = new List<ScoreIncrease>();

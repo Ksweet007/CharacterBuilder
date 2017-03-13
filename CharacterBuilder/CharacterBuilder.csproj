@@ -253,6 +253,8 @@
     <Content Include="app\main.js" />
     <Content Include="app\navaway\navaway.html" />
     <Content Include="app\navaway\navaway.js" />
+    <Content Include="app\newsheetprompt\newsheetprompt.html" />
+    <Content Include="app\newsheetprompt\newsheetprompt.js" />
     <Content Include="app\other\other.html" />
     <Content Include="app\other\other.js" />
     <Content Include="app\proficiency\proficiency.html" />

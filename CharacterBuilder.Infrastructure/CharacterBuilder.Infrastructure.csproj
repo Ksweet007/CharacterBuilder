@@ -84,6 +84,10 @@
     <Compile Include="Migrations\201703121801421_AddedBonusTypeFeature.Designer.cs">
       <DependentUpon>201703121801421_AddedBonusTypeFeature.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703130213127_AddedAbilityScoreClassLevelAssoc.cs" />
+    <Compile Include="Migrations\201703130213127_AddedAbilityScoreClassLevelAssoc.Designer.cs">
+      <DependentUpon>201703130213127_AddedAbilityScoreClassLevelAssoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CharacterSheetService.cs" />
@@ -108,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703121801421_AddedBonusTypeFeature.resx">
       <DependentUpon>201703121801421_AddedBonusTypeFeature.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703130213127_AddedAbilityScoreClassLevelAssoc.resx">
+      <DependentUpon>201703130213127_AddedAbilityScoreClassLevelAssoc.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

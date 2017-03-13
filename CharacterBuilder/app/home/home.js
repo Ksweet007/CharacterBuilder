@@ -97,6 +97,19 @@
             return deferred;
         };
 
+        self.hasCompletedCurrentLevel = function() {
+            var todoList = self.selectedSheet().ToDo;
+            for (var key in todoList) {
+                var obj = todoList[key];
+                if (obj() === false) {
+                    console.log("LEVEL NOT COMPLETED LEVEL NOT COMPLETED");
+                    return false;
+                }
+            }
+            console.log("LEVEL COMPLETED LEVEL COMPLETED");
+            return true;
+        };
+
         self.markSkillAsProficiencyChoice = function(sheet) {
             for (var key in sheet.SkillProficiencies) {
                 var obj = sheet.SkillProficiencies[key];
@@ -154,11 +167,7 @@
             }
 
             rolls.sort();
-            _i.alert.showAlert({
-                type: "success",
-                message: "Rolls: " + rolls.join(', ')
-            });
-
+            _i.alert.showAlert({type: "success",message: "Rolls: " + rolls.join(', ')});
             rolls.shift();
 
             var scoreTotal = 0;
@@ -169,6 +178,7 @@
         };
 
         self.rollHitPoints = function (sheet) {
+            var hasCompleted = self.hasCompletedCurrentLevel();
             var hitDie = self.selectedSheet().Class.Hitdie();
             var rolled = 1 + Math.floor(Math.random() * hitDie);
 
@@ -183,7 +193,7 @@
         };
 
         self.defaultHitPoints = function (sheet) {
-            var defaultHp = sheet.Class.Hitdie() - (sheet.Class.Hitdie() * .5) + 1;
+            var defaultHp = (sheet.Class.Hitdie() * .5) + 1;
 
             var currentHp = sheet.HpMax();
             var conMod = sheet.ConstitutionMod();
