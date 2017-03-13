@@ -44,7 +44,7 @@ namespace CharacterBuilder.Core.DTO
 
             foreach (var item in skills)
             {
-                Skills.Add(Id = item.Id);
+                Skills.Add(item.Id);
             }
         }
 

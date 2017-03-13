@@ -16,7 +16,7 @@
         var self = this;
 
         /*==================== BASE DATA ====================*/
-        self.characterSheets = _i.ko.observableArray([]);        
+        self.characterSheets = _i.ko.observableArray([]);
 
         /*==================== PAGE STATE/FILTERED ITEMS ====================*/
         self.selectedSheet = _i.ko.observable();
@@ -69,7 +69,7 @@
                 self.totalHitPoints = function () {
                     return self.selectedSheet().HpMax() + (self.selectedSheet().ConstitutionMod() * self.selectedSheet().Level());
                 };
-                
+
             });
         };
 
@@ -84,27 +84,7 @@
             return deferred;
         };
 
-        self.getCharacterSheets = function () {
-            var deferred = _i.deferred.create();
-            _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
 
-                response.forEach(function (sheet) {
-                    sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
-                    self.setAbilityScoreBonusesInitialValue(sheet);
-                    self.addAbilityScoreIncreasesToScores(sheet);
-                    self.calculateAbilityModifiers(sheet);
-                    self.markSkillAsProficiencyChoice(sheet);
-                    self.setBackgroundSkills(sheet);
-                    sheet.SkillPickCount = sheet.Class.SkillPickCount;
-                });
-
-                var mapped = _i.ko.mapping.fromJS(response);
-                self.characterSheets(mapped());
-
-                deferred.resolve();
-            });
-            return deferred;
-        };
 
         self.markSkillAsProficiencyChoice = function (sheet) {
             for (var key in sheet.SkillProficiencies) {
@@ -117,12 +97,12 @@
             }
         };
 
-        self.setBackgroundSkills = function(sheet) {
-            sheet.Background.Skills.forEach(function(bg) {
+        self.setBackgroundSkills = function (sheet) {
+            sheet.Background.Skills.forEach(function (bg) {
                 sheet.Skills.push(bg.Id);
             });
         };
-        
+
         self.setAbilityScoreBonusesInitialValue = function (sheet) {
             for (var propName in sheet.AbilityScores) {
                 sheet[propName + "Bonus"] = 0;
@@ -187,7 +167,7 @@
             self.selectedSheet().HpMax(totalHpAfterRollNoMod);
             self.updateTodoAndTask("HasIncreasedHp");
             self.saveSheet(self.selectedSheet()).done(function (response) {
-                _i.alert.showAlert({ type: "success", message: "Rolled: " + rolledVal });                
+                _i.alert.showAlert({ type: "success", message: "Rolled: " + rolledVal });
             });
         };
 
@@ -254,10 +234,10 @@
             } else {
                 //call method for normal tasks
             }
-            
+
         };
 
-        self.updateFirstLevelTask = function (taskName) {            
+        self.updateFirstLevelTask = function (taskName) {
             self.selectedSheet().ToDo.FirstLevelTasks[taskName](true);
         };
 
@@ -265,14 +245,18 @@
 
             var skillsToSave = [];
 
-            sheetToSave.Skills().forEach(function(skl) {
-                sheetToSave.AllSkills().forEach(function(baseskill) {
+            sheetToSave.Skills().forEach(function (skl) {
+                sheetToSave.AllSkills().forEach(function (baseskill) {
                     if (baseskill.Id() === skl) {
                         skillsToSave.push(baseskill);
                     }
                 });
             });
-            
+
+            if (sheetToSave.Skills().length === sheetToSave.SkillPickCount()) {
+                self.selectedSheet().ToDo.HasSelectedSkills(true);
+            }
+
             var dataToSave = {
                 Id: sheetToSave.Id(),
                 Level: sheetToSave.Level(),
@@ -282,8 +266,8 @@
                 HpMax: sheetToSave.HpMax(),
                 AbilityScores: _i.ko.toJS(sheetToSave.AbilityScores),
                 ToDo: _i.ko.toJS(sheetToSave.ToDo),
-                Skills: _i.ko.toJS(skillsToSave)
-        };
+                Skills:sheetToSave.Skills()
+            };
 
             return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Sheet Saved!" });
@@ -306,6 +290,35 @@
                 self.showAlertAndOpenEditor();
 
             });
+        };
+        
+
+
+
+        /**
+         * /FUCK FUCK FUCK FUCK FUCKING HERE COCK SHIT FUCKER
+         * @returns {} 
+         */
+
+        self.getCharacterSheets = function () {
+            var deferred = _i.deferred.create();
+            _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
+
+                response.forEach(function (sheet) {
+                    sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
+                    self.setAbilityScoreBonusesInitialValue(sheet);
+                    self.addAbilityScoreIncreasesToScores(sheet);
+                    self.calculateAbilityModifiers(sheet);
+                    self.markSkillAsProficiencyChoice(sheet);
+                    sheet.SkillPickCount = sheet.Class.SkillPickCount + sheet.Background.Skills.length;
+                });
+
+                var mapped = _i.ko.mapping.fromJS(response);
+                self.characterSheets(mapped());
+
+                deferred.resolve();
+            });
+            return deferred;
         };
     }
 });

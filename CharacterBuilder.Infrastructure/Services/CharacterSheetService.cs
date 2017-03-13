@@ -75,7 +75,8 @@ namespace CharacterBuilder.Infrastructure.Services
             sheetFromDb.CharacterName = sheetToUpdate.CharacterName;
             sheetFromDb.Alignment = sheetToUpdate.Alignment;
             sheetFromDb.HitPointsMax = sheetToUpdate.HpMax;
-            
+
+            sheetFromDb.ToDo.HasSelectedSkills = sheetToUpdate.ToDo.HasSelectedSkills;
             sheetFromDb.ToDo.FirstLevelTasks = sheetToUpdate.ToDo.FirstLevelTasks;
             sheetFromDb.ToDo.MarkFirstLevelTasksComplete();
 
