@@ -10,6 +10,14 @@
         public bool HasSelectedSkills { get; set; }
         public bool HasCompletedAbilityScores { get; set; }
         public FirstLevelTasks FirstLevelTasks { get; set; } = new FirstLevelTasks();
+
+        public void MarkFirstLevelTasksComplete()
+        {
+            if (HasCompletedAbilityScores) return;
+            HasCompletedAbilityScores = FirstLevelTasks.HasRolledStrength && FirstLevelTasks.HasRolledDexterity &&
+                                        FirstLevelTasks.HasRolledConstitution && FirstLevelTasks.HasRolledIntelligence
+                                        && FirstLevelTasks.HasRolledWisdom && FirstLevelTasks.HasRolledCharisma;
+        }
     }
 
     public class FirstLevelTasks

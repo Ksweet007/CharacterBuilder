@@ -76,8 +76,8 @@ namespace CharacterBuilder.Infrastructure.Services
             sheetFromDb.HitPointsMax = sheetToUpdate.HpMax;
             
             sheetFromDb.ToDo.FirstLevelTasks = sheetToUpdate.ToDo.FirstLevelTasks;
-            
-            
+            sheetFromDb.ToDo.MarkFirstLevelTasksComplete();
+
             _characterSheetRepository.Update(sheetFromDb);
 
             return sheetToUpdate;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using CharacterBuilder.Core.Model;
 
 namespace CharacterBuilder.Core.DTO
@@ -66,8 +65,7 @@ namespace CharacterBuilder.Core.DTO
             if (CharacterCreationComplete) return;
 
             var initialSelctionsMade = ToDo.HasSelectedBackground && ToDo.HasSelectedClass && ToDo.HasSelectedRace && ToDo.HasSelectedSkills && ToDo.HasSelectedSubRace;
-            var firstLevelTasksComplete = ToDo.FirstLevelTasks.HasRolledStrength && ToDo.FirstLevelTasks.HasRolledDexterity && ToDo.FirstLevelTasks.HasRolledConstitution && ToDo.FirstLevelTasks.HasRolledIntelligence 
-                                            && ToDo.FirstLevelTasks.HasRolledWisdom && ToDo.FirstLevelTasks.HasRolledCharisma;
+            var firstLevelTasksComplete = ToDo.FirstLevelTasks.HasIncreasedHp && ToDo.HasCompletedAbilityScores;
 
             CharacterCreationComplete = initialSelctionsMade && firstLevelTasksComplete;
 
