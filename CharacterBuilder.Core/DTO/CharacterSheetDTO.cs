@@ -56,8 +56,7 @@ namespace CharacterBuilder.Core.DTO
         public void MapSkillProficiencies()
         {
             var classProf = Class?.Skills ?? new List<Skill>();
-            var backgroundProf = Background?.Skills ?? new List<Skill>();
-            SkillProficiencies = classProf.Concat(backgroundProf).Distinct().ToList();
+            SkillProficiencies = classProf.ToList();
         }
 
         public void MarkCharacterCreationComplete()

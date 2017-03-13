@@ -72,7 +72,7 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(t => t.ToDo)
                 .Include(c => c.Class.Skills.Select(a => a.AbilityScore))
                 .Include(f => f.Class.Features)
-                .Include(b => b.Background)
+                .Include(b => b.Background.Skills.Select(a => a.AbilityScore))
                 .Include(r => r.Race)
                 .Include(sr => sr.Subrace)                
                 .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))

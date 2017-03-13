@@ -16,7 +16,7 @@
         var self = this;
 
         /*==================== BASE DATA ====================*/
-        self.characterSheets = _i.ko.observableArray([]);
+        self.characterSheets = _i.ko.observableArray([]);        
 
         /*==================== PAGE STATE/FILTERED ITEMS ====================*/
         self.selectedSheet = _i.ko.observable();
@@ -69,7 +69,7 @@
                 self.totalHitPoints = function () {
                     return self.selectedSheet().HpMax() + (self.selectedSheet().ConstitutionMod() * self.selectedSheet().Level());
                 };
-
+                
             });
         };
 
@@ -94,6 +94,8 @@
                     self.addAbilityScoreIncreasesToScores(sheet);
                     self.calculateAbilityModifiers(sheet);
                     self.markSkillAsProficiencyChoice(sheet);
+                    self.setBackgroundSkills(sheet);
+                    sheet.SkillPickCount = sheet.Class.SkillPickCount;
                 });
 
                 var mapped = _i.ko.mapping.fromJS(response);
@@ -102,19 +104,6 @@
                 deferred.resolve();
             });
             return deferred;
-        };
-
-        self.hasCompletedCurrentLevel = function () {
-            var todoList = self.selectedSheet().ToDo;
-            for (var key in todoList) {
-                var obj = todoList[key];
-                if (obj() === false) {
-                    console.log("LEVEL NOT COMPLETED LEVEL NOT COMPLETED");
-                    return false;
-                }
-            }
-            console.log("LEVEL COMPLETED LEVEL COMPLETED");
-            return true;
         };
 
         self.markSkillAsProficiencyChoice = function (sheet) {
@@ -128,6 +117,12 @@
             }
         };
 
+        self.setBackgroundSkills = function(sheet) {
+            sheet.Background.Skills.forEach(function(bg) {
+                sheet.Skills.push(bg.Id);
+            });
+        };
+        
         self.setAbilityScoreBonusesInitialValue = function (sheet) {
             for (var propName in sheet.AbilityScores) {
                 sheet[propName + "Bonus"] = 0;
