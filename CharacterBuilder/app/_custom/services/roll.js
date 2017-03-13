@@ -17,7 +17,9 @@
         return currentMaxHpNoModBonus + rolled;        
     };
 
-
+    RollCls.prototype.DefaultHitPoints = function (defaultValue, currentMaxHpNoMod) {
+        return currentMaxHpNoMod + defaultValue;
+    };
 
     return new RollCls();
 });

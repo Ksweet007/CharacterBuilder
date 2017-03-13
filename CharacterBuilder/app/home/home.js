@@ -30,14 +30,14 @@
         });
 
         self.rollHp = function () {
-            if (self.selectedSheet().Class.Hitdie === undefined ) {
+            if (self.selectedSheet().Class.Hitdie === undefined) {
                 return "";
             }
             return "Roll HP (1d" + self.selectedSheet().Class.Hitdie() + ")";
         };
 
         self.takeDefaultValue = function () {
-            if (self.selectedSheet().Class.Hitdie === undefined) {                
+            if (self.selectedSheet().Class.Hitdie === undefined) {
                 return "";
             }
             var defaultHp = self.selectedSheet().Class.Hitdie() - (self.selectedSheet().Class.Hitdie() * .5) + 1;
@@ -66,7 +66,7 @@
                     return result;
                 });
 
-                self.totalHitPoints = function() {
+                self.totalHitPoints = function () {
                     return self.selectedSheet().HpMax() + (self.selectedSheet().ConstitutionMod() * self.selectedSheet().Level());
                 };
 
@@ -93,7 +93,7 @@
                     self.setAbilityScoreBonusesInitialValue(sheet);
                     self.addAbilityScoreIncreasesToScores(sheet);
                     self.calculateAbilityModifiers(sheet);
-                    self.markSkillAsProficiencyChoice(sheet);                    
+                    self.markSkillAsProficiencyChoice(sheet);
                 });
 
                 var mapped = _i.ko.mapping.fromJS(response);
@@ -104,7 +104,7 @@
             return deferred;
         };
 
-        self.hasCompletedCurrentLevel = function() {
+        self.hasCompletedCurrentLevel = function () {
             var todoList = self.selectedSheet().ToDo;
             for (var key in todoList) {
                 var obj = todoList[key];
@@ -117,7 +117,7 @@
             return true;
         };
 
-        self.markSkillAsProficiencyChoice = function(sheet) {
+        self.markSkillAsProficiencyChoice = function (sheet) {
             for (var key in sheet.SkillProficiencies) {
                 var obj = sheet.SkillProficiencies[key];
                 for (var skl in sheet.AllSkills) {
@@ -125,7 +125,7 @@
                         sheet.AllSkills[skl].canPick = true;
                     }
                 }
-            }            
+            }
         };
 
         self.setAbilityScoreBonusesInitialValue = function (sheet) {
@@ -169,12 +169,12 @@
             var rolls = [];
 
             for (var i = 0; i < 4; i++) {
-                var d6 = 1 + Math.floor(Math.random() * 6);                
+                var d6 = 1 + Math.floor(Math.random() * 6);
                 rolls.push(d6);
             }
 
             rolls.sort();
-            _i.alert.showAlert({type: "success",message: "Rolls: " + rolls.join(', ')});
+            _i.alert.showAlert({ type: "success", message: "Rolls: " + rolls.join(', ') });
             rolls.shift();
 
             var scoreTotal = 0;
@@ -186,7 +186,7 @@
 
         self.rollHitPoints = function (sheet) {
             var totalHpAfterRollNoMod = _i.roller.RollHitPoints(sheet.Class.Hitdie(), sheet.HpMax());
-            var rolledVal = totalHpAfterRollNoMod - sheet.HpMax();            
+            var rolledVal = totalHpAfterRollNoMod - sheet.HpMax();
 
             self.selectedSheet().HpMax(totalHpAfterRollNoMod);
 
@@ -196,18 +196,13 @@
         };
 
         self.defaultHitPoints = function (sheet) {
-            var defaultHp = (sheet.Class.Hitdie() * .5) + 1;
+            var defaultIncrease = (sheet.Class.Hitdie() * .5) + 1;
+            var totalHpAfterDefaultNoMod = _i.roller.DefaultHitPoints(defaultIncrease, sheet.HpMax());
 
-            var currentHp = sheet.HpMax();
-            var conMod = sheet.ConstitutionMod();
-            var currentLevel = sheet.Level();
-            var conModFactor = conMod * currentLevel;
+            self.selectedSheet().HpMax(totalHpAfterDefaultNoMod);
 
-            var newMaxHp = currentHp + defaultHp + conModFactor;
-            sheet.HpMax(newMaxHp);
-
-            self.saveSheet(sheet).done(function (response) {
-                _i.alert.showAlert({ type: "success", message: "Hit Points Increased"});
+            self.saveSheet(self.selectedSheet()).done(function (response) {
+                _i.alert.showAlert({ type: "success", message: "Hit Points Increased by Default: " + defaultIncrease });
             });
         };
 
@@ -280,7 +275,7 @@
                 self.addAbilityScoreIncreasesToScores(response);
                 self.calculateAbilityModifiers(response);
                 self.markSkillAsProficiencyChoice(response);
-                
+
                 var mapped = _i.ko.mapping.fromJS(response);
 
                 self.characterSheets.push(mapped);
