@@ -16,7 +16,7 @@ namespace CharacterBuilder.Core.DTO
         public Background Background { get; set; }
         public Race Race { get; set; }
         public Subrace Subrace { get; set; }
-        public IList<SheetSkill> Skills { get; set; }  = new List<SheetSkill>();
+        public IList<int> Skills { get; set; } = new List<int>();
         public IList<Skill> AllSkills { get; set; }
         public IList<Skill> SkillProficiencies { get; set; }  = new List<Skill>();
         public ToDo ToDo { get; set; } = new ToDo();        
@@ -44,12 +44,7 @@ namespace CharacterBuilder.Core.DTO
 
             foreach (var item in skills)
             {
-                Skills.Add(new SheetSkill
-                {
-                    Id = item.Id,
-                    Name = item.Name,
-                    AbilityScore = item.AbilityScore.Name
-                });
+                Skills.Add(Id = item.Id);
             }
         }
 

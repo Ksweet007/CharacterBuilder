@@ -262,6 +262,17 @@
         };
 
         self.saveSheet = function (sheetToSave) {
+
+            var skillsToSave = [];
+
+            sheetToSave.Skills().forEach(function(skl) {
+                sheetToSave.AllSkills().forEach(function(baseskill) {
+                    if (baseskill.Id() === skl) {
+                        skillsToSave.push(baseskill);
+                    }
+                });
+            });
+            
             var dataToSave = {
                 Id: sheetToSave.Id(),
                 Level: sheetToSave.Level(),
@@ -270,8 +281,9 @@
                 Alignment: sheetToSave.Alignment(),
                 HpMax: sheetToSave.HpMax(),
                 AbilityScores: _i.ko.toJS(sheetToSave.AbilityScores),
-                ToDo: _i.ko.toJS(sheetToSave.ToDo)
-            };
+                ToDo: _i.ko.toJS(sheetToSave.ToDo),
+                Skills: _i.ko.toJS(skillsToSave)
+        };
 
             return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Sheet Saved!" });

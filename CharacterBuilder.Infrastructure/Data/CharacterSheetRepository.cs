@@ -77,6 +77,7 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(sr => sr.Subrace)                
                 .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
                 .Include(l => l.LevelChecklists)
+                .Include(cs => cs.Skills)
                 .Where(x => x.User.Id == currentUser.Id).ToList();
         }
 
@@ -88,12 +89,18 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(r => r.Race)
                 .Include(sr => sr.Subrace)
                 .Include(a => a.AbilityScoreIncreases.Select(y => y.AbilityScore))
+                .Include(cs => cs.Skills)
                 .Single(s => s.Id == sheetId);
         }
 
         public IList<Skill> ListAllSkills()
         {
             return _db.Skills.ToList();
+        }
+
+        public Skill GetSkillById (int skillId)
+        {
+            return _db.Skills.Single(s => s.Id == skillId);
         }
 
         public LevelChecklist GetLevelChecklistBySheetId(int sheetId, int sheetLevel)

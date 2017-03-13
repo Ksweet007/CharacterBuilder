@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using CharacterBuilder.Core.DTO;
+using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data;
 
 namespace CharacterBuilder.Infrastructure.Services
@@ -77,6 +78,9 @@ namespace CharacterBuilder.Infrastructure.Services
             
             sheetFromDb.ToDo.FirstLevelTasks = sheetToUpdate.ToDo.FirstLevelTasks;
             sheetFromDb.ToDo.MarkFirstLevelTasksComplete();
+
+            var skillsToAdd = sheetToUpdate.Skills.Select(item => _characterSheetRepository.GetSkillById(item)).ToList();
+            sheetFromDb.Skills = skillsToAdd;
 
             _characterSheetRepository.Update(sheetFromDb);
 
