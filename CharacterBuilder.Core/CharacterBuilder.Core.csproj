@@ -73,7 +73,9 @@
     <Compile Include="Model\Character Sheet\AbilityScoreSheetValue.cs" />
     <Compile Include="Model\Character Sheet\ClassLevelEvent.cs" />
     <Compile Include="Model\Character Sheet\ClassFeatureBonusType.cs" />
-    <Compile Include="Model\Class\ClassAbilityScoreIncreases.cs" />
+    <Compile Include="Model\Character Sheet\FirstLevelTasks.cs" />
+    <Compile Include="Model\Character Sheet\LevelChecklist.cs" />
+    <Compile Include="Model\Class\AbilityScoreImprovement.cs" />
     <Compile Include="Model\Class\ClassFeatureBonus.cs" />
     <Compile Include="Model\Equipment\WeaponCategory.cs" />
     <Compile Include="Model\Character Sheet\AbilityScoreIncrease.cs" />

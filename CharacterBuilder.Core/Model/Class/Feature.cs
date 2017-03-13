@@ -9,5 +9,6 @@ namespace CharacterBuilder.Core.Model
         public string Description { get; set; }
         public int Levelgained { get; set; }
         public virtual ICollection<Class> Classes { get; set; }
+        public ClassFeatureBonus FeatureBonus { get; set; }
     }
 }

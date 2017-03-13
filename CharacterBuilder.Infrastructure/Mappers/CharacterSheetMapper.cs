@@ -10,7 +10,7 @@ namespace CharacterBuilder.Infrastructure.Mappers
         {
             var sheetDto = new CharacterSheetDTO
             {
-                Id = characterSheet.Id,
+                Id = characterSheet.Id,                
                 CreatedDate = characterSheet.CreatedDate,
                 Class = characterSheet.Class,
                 Level = characterSheet.ClassLevel,
@@ -36,6 +36,7 @@ namespace CharacterBuilder.Infrastructure.Mappers
             sheetDto.MapAbilityScoreIncreases(characterSheet.AbilityScoreIncreases);
             sheetDto.MapSkillsToSkillProf(characterSheet.Skills.ToList());
             sheetDto.MapSkillProficiencies();
+            sheetDto.MarkCharacterCreationComplete();
 
             return sheetDto;
         }

@@ -26,9 +26,7 @@ namespace CharacterBuilder.Infrastructure.Data
             var currentUser = _manager.FindById(userId);
             var sheet = new CharacterSheet
             {
-                User = currentUser,
-                ToDo = new ToDo(),
-                CreatedDate = DateTime.UtcNow
+                User = currentUser
             };
 
             _db.CharacterSheets.Add(sheet);
@@ -78,6 +76,7 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(sr => sr.Subrace)
                 .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
                 .Where(x => x.User.Id == currentUser.Id).ToList();
+
         }
 
         public CharacterSheet GetCharacterSheetById(int sheetId)

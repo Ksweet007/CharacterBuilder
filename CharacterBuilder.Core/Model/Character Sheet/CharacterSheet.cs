@@ -10,12 +10,17 @@ namespace CharacterBuilder.Core.Model
         {
             CreatedDate = DateTime.Now;
             ClassLevel = 1;
+            ToDo = new ToDo();
+            FirstLevelTasks = new FirstLevelTasks();
+            CreatedDate = DateTime.UtcNow;
         }
         
         public virtual ApplicationUser User { get; set; }
         public AbilityScores AbilityScores { get; set; } = new AbilityScores();
         public IList<AbilityScoreIncrease> AbilityScoreIncreases { get; set; } = new List<AbilityScoreIncrease>();
         public ToDo ToDo { get; set; }
+        public FirstLevelTasks FirstLevelTasks { get; set; }
+        public IList<LevelChecklist> LevelChecklists { get; set; }
         public string CharacterName { get; set; }
         public string PlayerName { get; set; }
         public string Alignment { get; set; }
@@ -26,7 +31,6 @@ namespace CharacterBuilder.Core.Model
         public int ClassLevel { get; set; }
         public int HitPointsMax { get; set; }
         public List<Skill> Skills { get; set; }= new List<Skill>();
-        public bool IsComplete { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 

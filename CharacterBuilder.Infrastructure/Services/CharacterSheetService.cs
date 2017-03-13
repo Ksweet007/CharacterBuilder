@@ -47,6 +47,7 @@ namespace CharacterBuilder.Infrastructure.Services
         {
             var newSheet = _characterSheetRepository.CreateNewSheet(userId);
             var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(newSheet);
+            sheetDto.AllSkills = _characterSheetRepository.ListAllSkills();
 
             return sheetDto;
         }

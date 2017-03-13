@@ -8,7 +8,8 @@
         deferred: require('_custom/deferred'),
         alert: require('_custom/services/alert'),
         globals: require('_custom/services/builderglobals'),
-        confirmdelete: require('confirmdelete/confirmdelete')
+        confirmdelete: require('confirmdelete/confirmdelete'),
+        roller: require('_custom/services/roll')
     };
 
     return function () {
@@ -29,10 +30,16 @@
         });
 
         self.rollHp = function () {
+            if (self.selectedSheet().Class.Hitdie === undefined ) {
+                return "";
+            }
             return "Roll HP (1d" + self.selectedSheet().Class.Hitdie() + ")";
         };
 
         self.takeDefaultValue = function () {
+            if (self.selectedSheet().Class.Hitdie === undefined) {                
+                return "";
+            }
             var defaultHp = self.selectedSheet().Class.Hitdie() - (self.selectedSheet().Class.Hitdie() * .5) + 1;
             return "Default HP " + "(" + defaultHp + ")";
         };
@@ -178,17 +185,13 @@
         };
 
         self.rollHitPoints = function (sheet) {
-            var hasCompleted = self.hasCompletedCurrentLevel();
-            var hitDie = self.selectedSheet().Class.Hitdie();
-            var rolled = 1 + Math.floor(Math.random() * hitDie);
+            var totalHpAfterRollNoMod = _i.roller.RollHitPoints(sheet.Class.Hitdie(), sheet.HpMax());
+            var rolledVal = totalHpAfterRollNoMod - sheet.HpMax();            
 
-            var currentHp = self.selectedSheet().HpMax();
-            var newDbSavedMaxHp = currentHp + (rolled);
+            self.selectedSheet().HpMax(totalHpAfterRollNoMod);
 
-            self.selectedSheet().HpMax(newDbSavedMaxHp);
-
-            self.saveSheet(self.selectedSheet()).done(function (response) {                
-                _i.alert.showAlert({ type: "success", message: "Rolled: " + rolled });
+            self.saveSheet(self.selectedSheet()).done(function (response) {
+                _i.alert.showAlert({ type: "success", message: "Rolled: " + rolledVal });
             });
         };
 
@@ -273,9 +276,11 @@
             _i.charajax.post('api/charactersheet/CreateNewSheet', '').done(function (response) {
                 window.builder.global_sheetid = response.Id;
                 response.createdDateFormatted = moment(response.CreatedDate).format('LLL');
+                self.setAbilityScoreBonusesInitialValue(response);
                 self.addAbilityScoreIncreasesToScores(response);
                 self.calculateAbilityModifiers(response);
-
+                self.markSkillAsProficiencyChoice(response);
+                
                 var mapped = _i.ko.mapping.fromJS(response);
 
                 self.characterSheets.push(mapped);

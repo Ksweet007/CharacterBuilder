@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using CharacterBuilder.Core.Model;
 
 namespace CharacterBuilder.Core.DTO
@@ -19,7 +20,10 @@ namespace CharacterBuilder.Core.DTO
         public IList<SheetSkill> Skills { get; set; }  = new List<SheetSkill>();
         public IList<Skill> AllSkills { get; set; }
         public IList<Skill> SkillProficiencies { get; set; }  = new List<Skill>();
-        public ToDo ToDo { get; set; }
+        public ToDo ToDo { get; set; } = new ToDo();
+        public FirstLevelTasks FirstLevelTasks { get; set; } = new FirstLevelTasks();
+        public bool CharacterCreationComplete { get; set; }
+        public LevelChecklist LevelChecklist { get; set; } //Only load one per level, once saved, grab new one from DB
         public int HpMax { get; set; }        
         public AbilityScores AbilityScores { get; set; }
         public IList<ScoreIncrease> AbilityScoreIncreases { get; set; } = new List<ScoreIncrease>();
@@ -56,6 +60,18 @@ namespace CharacterBuilder.Core.DTO
             var classProf = Class?.Skills ?? new List<Skill>();
             var backgroundProf = Background?.Skills ?? new List<Skill>();
             SkillProficiencies = classProf.Concat(backgroundProf).Distinct().ToList();
+        }
+
+        public void MarkCharacterCreationComplete()
+        {
+            if (CharacterCreationComplete) return;
+
+            var initialSelctionsMade = ToDo.HasSelectedBackground && ToDo.HasSelectedClass && ToDo.HasSelectedRace && ToDo.HasSelectedSkills && ToDo.HasSelectedSubRace;
+            var firstLevelTasksComplete = FirstLevelTasks.HasRolledStrength && FirstLevelTasks.HasRolledDexterity && FirstLevelTasks.HasRolledConstitution && FirstLevelTasks.HasRolledIntelligence 
+                                            && FirstLevelTasks.HasRolledWisdom && FirstLevelTasks.HasRolledCharisma;
+
+            CharacterCreationComplete = initialSelctionsMade && firstLevelTasksComplete;
+
         }
         
     }
