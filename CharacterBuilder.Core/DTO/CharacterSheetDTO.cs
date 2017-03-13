@@ -20,8 +20,7 @@ namespace CharacterBuilder.Core.DTO
         public IList<SheetSkill> Skills { get; set; }  = new List<SheetSkill>();
         public IList<Skill> AllSkills { get; set; }
         public IList<Skill> SkillProficiencies { get; set; }  = new List<Skill>();
-        public ToDo ToDo { get; set; } = new ToDo();
-        public FirstLevelTasks FirstLevelTasks { get; set; } = new FirstLevelTasks();
+        public ToDo ToDo { get; set; } = new ToDo();        
         public bool CharacterCreationComplete { get; set; }
         public LevelChecklist LevelChecklist { get; set; } //Only load one per level, once saved, grab new one from DB
         public int HpMax { get; set; }        
@@ -67,8 +66,8 @@ namespace CharacterBuilder.Core.DTO
             if (CharacterCreationComplete) return;
 
             var initialSelctionsMade = ToDo.HasSelectedBackground && ToDo.HasSelectedClass && ToDo.HasSelectedRace && ToDo.HasSelectedSkills && ToDo.HasSelectedSubRace;
-            var firstLevelTasksComplete = FirstLevelTasks.HasRolledStrength && FirstLevelTasks.HasRolledDexterity && FirstLevelTasks.HasRolledConstitution && FirstLevelTasks.HasRolledIntelligence 
-                                            && FirstLevelTasks.HasRolledWisdom && FirstLevelTasks.HasRolledCharisma;
+            var firstLevelTasksComplete = ToDo.FirstLevelTasks.HasRolledStrength && ToDo.FirstLevelTasks.HasRolledDexterity && ToDo.FirstLevelTasks.HasRolledConstitution && ToDo.FirstLevelTasks.HasRolledIntelligence 
+                                            && ToDo.FirstLevelTasks.HasRolledWisdom && ToDo.FirstLevelTasks.HasRolledCharisma;
 
             CharacterCreationComplete = initialSelctionsMade && firstLevelTasksComplete;
 

@@ -162,6 +162,7 @@
             var scoreModName = score.propName + "Mod";
             var scoreMod = self.selectedSheet()[scoreModName];
             self.setScoreOnRoll(scoreToRoll, scoreBonus, scoreMod);
+            self.updateTodoAndTask("HasRolled" + score.propName);
             self.saveSheet(self.selectedSheet());
         };
 
@@ -189,9 +190,9 @@
             var rolledVal = totalHpAfterRollNoMod - sheet.HpMax();
 
             self.selectedSheet().HpMax(totalHpAfterRollNoMod);
-
+            self.updateTodoAndTask("HasIncreasedHp");
             self.saveSheet(self.selectedSheet()).done(function (response) {
-                _i.alert.showAlert({ type: "success", message: "Rolled: " + rolledVal });
+                _i.alert.showAlert({ type: "success", message: "Rolled: " + rolledVal });                
             });
         };
 
@@ -251,6 +252,20 @@
             self.viewingDetails(true);
         };
 
+        self.updateTodoAndTask = function (taskName) {
+            var sheet = self.selectedSheet();
+            if (sheet.Level() === 1) {
+                self.updateFirstLevelTask(taskName);
+            } else {
+                //call method for normal tasks
+            }
+            
+        };
+
+        self.updateFirstLevelTask = function (taskName) {            
+            self.selectedSheet().ToDo.FirstLevelTasks[taskName](true);
+        };
+
         self.saveSheet = function (sheetToSave) {
             var dataToSave = {
                 Id: sheetToSave.Id(),
@@ -259,7 +274,8 @@
                 PlayerName: sheetToSave.PlayerName(),
                 Alignment: sheetToSave.Alignment(),
                 HpMax: sheetToSave.HpMax(),
-                AbilityScores: _i.ko.toJS(sheetToSave.AbilityScores)
+                AbilityScores: _i.ko.toJS(sheetToSave.AbilityScores),
+                ToDo: _i.ko.toJS(sheetToSave.ToDo)
             };
 
             return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {

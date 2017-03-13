@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\CharacterSheetDTO.cs" />
+    <Compile Include="DTO\ToDoDto.cs" />
     <Compile Include="DTO\WeaponCategoryDTO.cs" />
     <Compile Include="DTO\WeaponDTO.cs" />
     <Compile Include="Enums\AbilityScore.cs" />
@@ -73,7 +74,6 @@
     <Compile Include="Model\Character Sheet\AbilityScoreSheetValue.cs" />
     <Compile Include="Model\Character Sheet\ClassLevelEvent.cs" />
     <Compile Include="Model\Character Sheet\ClassFeatureBonusType.cs" />
-    <Compile Include="Model\Character Sheet\FirstLevelTasks.cs" />
     <Compile Include="Model\Character Sheet\LevelChecklist.cs" />
     <Compile Include="Model\Class\AbilityScoreImprovement.cs" />
     <Compile Include="Model\Class\ClassFeatureBonus.cs" />

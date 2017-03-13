@@ -23,6 +23,7 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public CharacterSheet CreateNewSheet(string userId)
         {
+            //Level checklist won't be handled until levelup is added
             var currentUser = _manager.FindById(userId);
             var sheet = new CharacterSheet
             {
@@ -73,10 +74,10 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(f => f.Class.Features)
                 .Include(b => b.Background)
                 .Include(r => r.Race)
-                .Include(sr => sr.Subrace)
+                .Include(sr => sr.Subrace)                
                 .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
+                .Include(l => l.LevelChecklists)
                 .Where(x => x.User.Id == currentUser.Id).ToList();
-
         }
 
         public CharacterSheet GetCharacterSheetById(int sheetId)
@@ -93,6 +94,11 @@ namespace CharacterBuilder.Infrastructure.Data
         public IList<Skill> ListAllSkills()
         {
             return _db.Skills.ToList();
+        }
+
+        public LevelChecklist GetLevelChecklistBySheetId(int sheetId, int sheetLevel)
+        {
+            return _db.LevelChecklists.SingleOrDefault(l => l.CharacterSheet.Id == sheetId && l.Level == l.CharacterSheet.ClassLevel);
         }
 
         public void DeleteSheetAndToDoList(int characterSheetId)

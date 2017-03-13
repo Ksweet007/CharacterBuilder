@@ -104,6 +104,22 @@
     <Compile Include="Migrations\201703131822042_FirstLevel.Designer.cs">
       <DependentUpon>201703131822042_FirstLevel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703132032078_FirstLevelgfhfgdhdfgh.cs" />
+    <Compile Include="Migrations\201703132032078_FirstLevelgfhfgdhdfgh.Designer.cs">
+      <DependentUpon>201703132032078_FirstLevelgfhfgdhdfgh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703132042237_FirstLevelgfhfgdhdfghgfhghfghfghf.cs" />
+    <Compile Include="Migrations\201703132042237_FirstLevelgfhfgdhdfghgfhghfghfghf.Designer.cs">
+      <DependentUpon>201703132042237_FirstLevelgfhfgdhdfghgfhghfghfghf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703132045322_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfh.cs" />
+    <Compile Include="Migrations\201703132045322_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfh.Designer.cs">
+      <DependentUpon>201703132045322_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703132103370_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfhghjhgjhgfj.cs" />
+    <Compile Include="Migrations\201703132103370_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfhghjhgjhgfj.Designer.cs">
+      <DependentUpon>201703132103370_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfhghjhgjhgfj.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CharacterSheetService.cs" />
@@ -143,6 +159,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703131822042_FirstLevel.resx">
       <DependentUpon>201703131822042_FirstLevel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703132032078_FirstLevelgfhfgdhdfgh.resx">
+      <DependentUpon>201703132032078_FirstLevelgfhfgdhdfgh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703132042237_FirstLevelgfhfgdhdfghgfhghfghfghf.resx">
+      <DependentUpon>201703132042237_FirstLevelgfhfgdhdfghgfhghfghfghf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703132045322_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfh.resx">
+      <DependentUpon>201703132045322_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703132103370_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfhghjhgjhgfj.resx">
+      <DependentUpon>201703132103370_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfhghjhgjhgfj.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

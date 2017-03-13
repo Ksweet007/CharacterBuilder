@@ -22,6 +22,7 @@ namespace CharacterBuilder.Infrastructure.Mappers
                 Subrace = characterSheet.Subrace,
                 ToDo = characterSheet.ToDo,                
                 HpMax = characterSheet.HitPointsMax,
+                LevelChecklist = characterSheet.LevelChecklists.SingleOrDefault(c => c.Level == characterSheet.ClassLevel)?? new LevelChecklist(),
                 AbilityScores = new AbilityScores
                 {
                     Strength = characterSheet.AbilityScores.Strength,

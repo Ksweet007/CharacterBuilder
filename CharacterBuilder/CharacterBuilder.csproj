@@ -295,6 +295,7 @@
     <Content Include="app\_custom\services\indexeddb.js" />
     <Content Include="app\_custom\services\listmanager.js" />
     <Content Include="app\_custom\services\propeller.js" />
+    <Content Include="app\_custom\services\roll.js" />
     <Content Include="app\_custom\services\saveblockui.js" />
     <Content Include="app\_custom\services\search.js" />
     <Content Include="app\_custom\services\spellcard.js" />

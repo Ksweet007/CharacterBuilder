@@ -33,7 +33,7 @@ namespace CharacterBuilder.Infrastructure.Services
         {
             var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);
             var allSkills = _characterSheetRepository.ListAllSkills();
-
+            
             var mappedSheets = sheetsFromDb.Select(Mappers.CharacterSheetMapper.MapCharacterSheetDto).ToList();
             foreach (var item in mappedSheets)
             {
@@ -74,7 +74,10 @@ namespace CharacterBuilder.Infrastructure.Services
             sheetFromDb.CharacterName = sheetToUpdate.CharacterName;
             sheetFromDb.Alignment = sheetToUpdate.Alignment;
             sheetFromDb.HitPointsMax = sheetToUpdate.HpMax;
-
+            
+            sheetFromDb.ToDo.FirstLevelTasks = sheetToUpdate.ToDo.FirstLevelTasks;
+            
+            
             _characterSheetRepository.Update(sheetFromDb);
 
             return sheetToUpdate;
