@@ -289,6 +289,7 @@
     <Content Include="app\_custom\dialog\show.js" />
     <Content Include="app\_custom\events\captureKeyEvents.js" />
     <Content Include="app\_custom\koFunctions\changeTracker.js" />
+    <Content Include="app\_custom\services\abilityscore.js" />
     <Content Include="app\_custom\services\alert.js" />
     <Content Include="app\_custom\services\builderglobals.js" />
     <Content Include="app\_custom\services\event.js" />

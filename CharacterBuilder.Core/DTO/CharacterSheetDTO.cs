@@ -25,9 +25,25 @@ namespace CharacterBuilder.Core.DTO
         public int HpMax { get; set; }        
         public AbilityScores AbilityScores { get; set; }
         public IList<ScoreIncrease> AbilityScoreIncreases { get; set; } = new List<ScoreIncrease>();
+        public bool LevelChecklistComplete { get; set; }
 
+        public void MarkLevelChecklistComplete()
+        {
+            if (LevelChecklist == null)
+            {
+                LevelChecklistComplete = false;
+                return;
+            }
 
-
+            if (LevelChecklist.HasAbilityScoreIncrease)
+            {
+                LevelChecklistComplete = LevelChecklist.HasIncreasedAbilityScores && LevelChecklist.HasIncreasedHp;
+            }
+            else
+            {
+                LevelChecklistComplete = LevelChecklist.HasIncreasedHp;
+            }
+        }
 
         public void MapAbilityScoreIncreases(IList<AbilityScoreIncrease>increases )
         {
