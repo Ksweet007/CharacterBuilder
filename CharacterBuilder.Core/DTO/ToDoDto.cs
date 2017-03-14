@@ -12,7 +12,6 @@ namespace CharacterBuilder.Core.DTO
         public bool HasCompletedAbilityScores { get; set; }
         public bool HasSelectedSkills { get; set; }
         public FirstLevelTasks FirstLevelTasks { get; set; }
-        public bool CharacterCreationComplete { get; set; }
 
     }
 }

@@ -10,7 +10,8 @@
         globals: require('_custom/services/builderglobals'),
         confirmdelete: require('confirmdelete/confirmdelete'),
         roller: require('_custom/services/roll'),
-        abilityscore: require('_custom/services/abilityscore')
+        abilityscore: require('_custom/services/abilityscore'),
+        checklist: require('_custom/services/checklist')
     };
 
     return function () {
@@ -45,24 +46,18 @@
             return "Default HP " + "(" + defaultHp + ")";
         };
 
-
         /*==================== PROGRESS TOWARDS COMPLETING CURRENT LEVEL ====================*/
 
         self.levelIsComplete = function () {
-            if (!self.selectedSheet().CharacterCreationComplete) return false;
-
-            if (self.selectedSheet().LevelChecklist.HasAbilityScoreIncrease()) {
-                return self.selectedSheet().LevelChecklist.HasIncreasedAbilityScores() && self.selectedSheet().LevelChecklist.HasIncreasedHp();
-            }
-
-            return self.selectedSheet().LevelChecklist.HasIncreasedHp();
+            return _i.checklist.IsLevelComplete(self.selectedSheet());
         };
         
-        self.hasRolledHp = function() {
-            if (self.selectedSheet().Level() === 1) {
-                return self.selectedSheet().ToDo.FirstLevelTasks.HasIncreasedHp();
-            }
-            return self.selectedSheet().LevelChecklist.HasIncreasedHp();
+        self.hasRolledHp = function () {
+            return _i.checklist.IsHpTaskComplete(self.selectedSheet());           
+        };
+
+        self.hasFinishedAbilityScores = function () {
+            return _i.checklist.IsAbilityScoreTaskComplete(self.selectedSheet());
         };
 
         self.activate = function () {
@@ -270,11 +265,16 @@
 
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
+                    
                     self.markSkillAsProficiencyChoice(sheet);
                     sheet.SkillPickCount = 0;
 
                     if (sheet.Class != null) {
                         sheet.SkillPickCount += sheet.Class.SkillPickCount;
+                        
+                        if (sheet.LevelChecklist.HasAbilityScoreIncrease && !sheet.LevelChecklist.HasIncreasedAbilityScores) {
+                            sheet.SelectedAbilityScoreIncreases = 0;
+                        }                        
                     }
                     
                     if (sheet.Background != null) {

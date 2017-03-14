@@ -20,7 +20,6 @@ namespace CharacterBuilder.Core.DTO
         public IList<Skill> AllSkills { get; set; }
         public IList<Skill> SkillProficiencies { get; set; }  = new List<Skill>();
         public ToDo ToDo { get; set; } = new ToDo();        
-        public bool CharacterCreationComplete { get; set; }
         public LevelChecklist LevelChecklist { get; set; } //Only load one per level, once saved, grab new one from DB
         public int HpMax { get; set; }        
         public AbilityScores AbilityScores { get; set; }

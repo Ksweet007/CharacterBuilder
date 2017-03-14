@@ -292,6 +292,7 @@
     <Content Include="app\_custom\services\abilityscore.js" />
     <Content Include="app\_custom\services\alert.js" />
     <Content Include="app\_custom\services\builderglobals.js" />
+    <Content Include="app\_custom\services\checklist.js" />
     <Content Include="app\_custom\services\event.js" />
     <Content Include="app\_custom\services\indexeddb.js" />
     <Content Include="app\_custom\services\listmanager.js" />

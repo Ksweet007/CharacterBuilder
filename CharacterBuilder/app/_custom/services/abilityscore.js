@@ -5,7 +5,7 @@
     };
 
 
-    function AbilityScoreCls() {}
+    function AbilityScoreCls() { }
 
     AbilityScoreCls.prototype.CombineScoresWithIncrease = function (sheet, scoreName) {
         /*========== Setup Initial Score value and Short Name ==========*/
@@ -52,7 +52,7 @@
         var baseScore = this.GetScore;
         var scoreIncreases = this.GetIncreasesForScore(sheet, scoreName);
         var scoreWithIncrease = baseScore + scoreIncreases;
-        
+
         return Math.floor((scoreWithIncrease - 10) / 2);
     };
 
