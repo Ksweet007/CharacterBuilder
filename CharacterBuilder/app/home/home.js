@@ -47,11 +47,11 @@
 
         self.levelIsComplete = function () {
             if (!self.selectedSheet().CharacterCreationComplete) return false;
-                
+
             if (self.selectedSheet().LevelChecklist.HasAbilityScoreIncrease()) {
                 return self.selectedSheet().LevelChecklist.HasIncreasedAbilityScores() && self.selectedSheet().LevelChecklist.HasIncreasedHp();
             }
-            
+
             return self.selectedSheet().LevelChecklist.HasIncreasedHp();
         };
 
@@ -65,15 +65,7 @@
                     for (var propName in self.selectedSheet().AbilityScores) {
                         if (self.selectedSheet().AbilityScores.hasOwnProperty(propName)) {
                             var abilityScoreObj = _i.abilityscore.CombineScoresWithIncrease(self.selectedSheet(), propName);
-                            if (self.selectedSheet().AbilityScores.hasOwnProperty(propName) && propName !== 'propList') {
-                                result.push({
-                                    propName: abilityScoreObj.Name,
-                                    shortName: abilityScoreObj.ShortName,
-                                    abilScore: abilityScoreObj.ScoreTotal(),
-                                    abilMod: abilityScoreObj.Modifier,
-                                    templateName: "scalar_templ"
-                                });
-                            }
+                            result.push({ propName: abilityScoreObj.Name, shortName: abilityScoreObj.ShortName, abilScore: abilityScoreObj.ScoreTotal(), abilMod: abilityScoreObj.Modifier, templateName: "scalar_templ" });
                         }
                     }
 
@@ -183,7 +175,7 @@
             _i.alert.showAlert(alertConfig);
             self.viewingDetails(true);
         };
-       
+
         self.levelUp = function () {
             var currentLevel = self.selectedSheet().Level();
             self.selectedSheet().Level(currentLevel + 1);
