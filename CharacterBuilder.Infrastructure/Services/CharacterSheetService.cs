@@ -88,6 +88,20 @@ namespace CharacterBuilder.Infrastructure.Services
             return sheetToUpdate;
         }
 
+        public LevelChecklist AddLevelChecklist(int sheetId)
+        {
+            var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
+            sheetFromDb.ClassLevel += 1;
+            _characterSheetRepository.Update(sheetFromDb);
+
+            var levelChecklistAdded = _characterSheetRepository.AddLevelChecklist(sheetId);
+            
+            sheetFromDb.LevelChecklists.Add(levelChecklistAdded);
+
+            return levelChecklistAdded;
+
+        }
+
         public CharacterSheetDTO SaveBackgroundSelection(int characterSheetId, int backgroundId)
         {
             var sheetToSave = _backgroundRepository.SaveBackgroundSelection(characterSheetId, backgroundId);

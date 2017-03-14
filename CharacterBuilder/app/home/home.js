@@ -83,8 +83,7 @@
 
             return deferred;
         };
-
-
+        
 
         self.markSkillAsProficiencyChoice = function (sheet) {
             for (var key in sheet.SkillProficiencies) {
@@ -235,6 +234,15 @@
                 //call method for normal tasks
             }
 
+        };
+
+        self.levelUp = function () {
+            var currentLevel = self.selectedSheet().Level();
+            self.selectedSheet().Level(currentLevel + 1);
+
+            return _i.charajax.post('api/charactersheet/AddLevelChecklist/'+ self.selectedSheet().Id()).done(function (response) {
+                _i.alert.showAlert({ type: "success", message: "Leveled-up to level " + self.selectedSheet().Level() });
+            });
         };
 
         self.updateFirstLevelTask = function (taskName) {

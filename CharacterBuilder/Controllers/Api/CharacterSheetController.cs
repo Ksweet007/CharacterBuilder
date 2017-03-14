@@ -70,6 +70,15 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(sheetToEdit);
         }
 
+        [HttpPost]
+        [Route("AddLevelChecklist/{sheetId}")]
+        public IHttpActionResult AddLevelChecklist(int sheetId)
+        {
+            var lvlChecklist = _characterSheetService.AddLevelChecklist(sheetId);
+
+            return Ok(lvlChecklist);
+        }
+
         [HttpDelete]
         [Route("DeleteSheet/{sheetId}")]
         public IHttpActionResult DeleteSheet(int sheetId)

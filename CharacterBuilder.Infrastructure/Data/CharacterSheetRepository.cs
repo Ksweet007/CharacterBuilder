@@ -84,13 +84,31 @@ namespace CharacterBuilder.Infrastructure.Data
         public CharacterSheet GetCharacterSheetById(int sheetId)
         {
             return _db.CharacterSheets.Include(t => t.ToDo)
-                .Include(c => c.Class)
-                .Include(b => b.Background)
+                .Include(t => t.ToDo)
+                .Include(c => c.Class.Skills.Select(a => a.AbilityScore))
+                .Include(f => f.Class.Features)
+                .Include(b => b.Background.Skills.Select(a => a.AbilityScore))
                 .Include(r => r.Race)
                 .Include(sr => sr.Subrace)
-                .Include(a => a.AbilityScoreIncreases.Select(y => y.AbilityScore))
+                .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
+                .Include(l => l.LevelChecklists)
                 .Include(cs => cs.Skills)
                 .Single(s => s.Id == sheetId);
+        }
+
+        public LevelChecklist AddLevelChecklist(int sheetId)
+        {
+            var sheetFromDb = GetCharacterSheetById(sheetId);                       
+            var chkListToAdd = new LevelChecklist
+            {
+                CharacterSheet = sheetFromDb,
+                Level = sheetFromDb.ClassLevel
+            };
+
+            _db.LevelChecklists.Add(chkListToAdd);
+            Save();
+
+            return chkListToAdd;
         }
 
         public IList<Skill> ListAllSkills()

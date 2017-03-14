@@ -8,7 +8,6 @@ namespace CharacterBuilder.Core.Model
     {
         public CharacterSheet()
         {
-            CreatedDate = DateTime.Now;
             ClassLevel = 1;
             ToDo = new ToDo();
             CreatedDate = DateTime.UtcNow;
