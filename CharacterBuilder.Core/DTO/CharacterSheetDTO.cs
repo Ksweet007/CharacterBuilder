@@ -8,7 +8,7 @@ namespace CharacterBuilder.Core.DTO
     public class CharacterSheetDTO : BaseEntity
     {
         public DateTime CreatedDate { get; set; }
-        public Class Class { get; set; }
+        public Class Class { get; set; } = new Class();
         public int Level { get; set; }
         public string CharacterName { get; set; }
         public string PlayerName { get; set; }

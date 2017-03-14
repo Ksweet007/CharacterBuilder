@@ -182,12 +182,21 @@
         };
 
         self.levelUp = function () {
-            //Is our checklist complete?
+            if (!_i.checklist.IsLevelComplete(self.selectedSheet())) {
+                return _i.deferred.createResolved();
+            }
+            
             var currentLevel = self.selectedSheet().Level();
             self.selectedSheet().Level(currentLevel + 1);
 
             return _i.charajax.post('api/charactersheet/AddLevelChecklist/' + self.selectedSheet().Id()).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Leveled-up to level " + self.selectedSheet().Level() });
+                if (self.selectedSheet().LevelCheckList === undefined) {
+                    self.selectedSheet().LevelCheckList = response;
+                } else {
+                    self.selectedSheet().LevelCheckList(response);
+                }
+                
             });
         };
 

@@ -23,7 +23,7 @@
             return sheet.ToDo.HasCompletedAbilityScores();
         }
 
-        if (sheet.LevelChecklist.HasAbilityScoreIncrease) {
+        if (sheet.LevelChecklist.HasAbilityScoreIncrease()) {
             return sheet.SelectedAbilityScoreIncreases() === 2;
         }
 

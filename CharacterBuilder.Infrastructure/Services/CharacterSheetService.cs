@@ -34,11 +34,19 @@ namespace CharacterBuilder.Infrastructure.Services
         {
             var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);
             var allSkills = _characterSheetRepository.ListAllSkills();
-            
+
             var mappedSheets = sheetsFromDb.Select(Mappers.CharacterSheetMapper.MapCharacterSheetDto).ToList();
             foreach (var item in mappedSheets)
             {
                 item.AllSkills = allSkills;
+
+                if (item.Class?.AbilityScoreIncreaseses != null)
+                {                    
+                    if (item.Class.AbilityScoreIncreaseses.Any(x => x.LevelObtained == item.Level))
+                    {
+                        item.LevelChecklist.HasAbilityScoreIncrease = true;
+                    }
+                }
             }
 
             return mappedSheets;
@@ -95,7 +103,8 @@ namespace CharacterBuilder.Infrastructure.Services
             _characterSheetRepository.Update(sheetFromDb);
 
             var levelChecklistAdded = _characterSheetRepository.AddLevelChecklist(sheetId);
-            
+            levelChecklistAdded.Level = sheetFromDb.ClassLevel;
+
             sheetFromDb.LevelChecklists.Add(levelChecklistAdded);
 
             return levelChecklistAdded;
@@ -125,7 +134,7 @@ namespace CharacterBuilder.Infrastructure.Services
 
         public CharacterSheetDTO SaveSubRaceSelection(int characterSheetId, int subRaceId)
         {
-            var sheetToSave = _raceRepository.SaveSubRaceSelection(characterSheetId,subRaceId);
+            var sheetToSave = _raceRepository.SaveSubRaceSelection(characterSheetId, subRaceId);
 
             return Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetToSave);
         }
