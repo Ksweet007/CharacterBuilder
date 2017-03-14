@@ -45,6 +45,9 @@
             return "Default HP " + "(" + defaultHp + ")";
         };
 
+
+        /*==================== PROGRESS TOWARDS COMPLETING CURRENT LEVEL ====================*/
+
         self.levelIsComplete = function () {
             if (!self.selectedSheet().CharacterCreationComplete) return false;
 
@@ -52,6 +55,13 @@
                 return self.selectedSheet().LevelChecklist.HasIncreasedAbilityScores() && self.selectedSheet().LevelChecklist.HasIncreasedHp();
             }
 
+            return self.selectedSheet().LevelChecklist.HasIncreasedHp();
+        };
+        
+        self.hasRolledHp = function() {
+            if (self.selectedSheet().Level() === 1) {
+                return self.selectedSheet().ToDo.FirstLevelTasks.HasIncreasedHp();
+            }
             return self.selectedSheet().LevelChecklist.HasIncreasedHp();
         };
 
@@ -177,6 +187,7 @@
         };
 
         self.levelUp = function () {
+            //Is our checklist complete?
             var currentLevel = self.selectedSheet().Level();
             self.selectedSheet().Level(currentLevel + 1);
 
@@ -260,7 +271,16 @@
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
                     self.markSkillAsProficiencyChoice(sheet);
-                    sheet.SkillPickCount = sheet.Class.SkillPickCount + sheet.Background.Skills.length;
+                    sheet.SkillPickCount = 0;
+
+                    if (sheet.Class != null) {
+                        sheet.SkillPickCount += sheet.Class.SkillPickCount;
+                    }
+                    
+                    if (sheet.Background != null) {
+                        sheet.SkillPickCount += sheet.Background.Skills.length;
+                    }
+                    
                 });
 
                 var mapped = _i.ko.mapping.fromJS(response);
