@@ -20,7 +20,7 @@
         self.characterSheets = _i.ko.observableArray([]);
 
         /*==================== PAGE STATE/FILTERED ITEMS ====================*/
-        self.selectedSheet = _i.ko.observable();
+        self.selectedSheet = _i.ko.observable();       
 
         self.viewingDetails = _i.ko.observable(false);
         self.showAll = _i.ko.observable(true);
@@ -30,7 +30,7 @@
             return returnList;
         });
 
-        self.rollHp = function () {
+        self.rollHpText = function () {
             if (self.selectedSheet().Class.Hitdie === undefined) {
                 return "";
             }
@@ -50,16 +50,19 @@
 
                 self.abilScore = _i.ko.computed(function () {
                     var result = [];
-                    if (self.selectedSheet()) {
-                        var abilityScores = self.selectedSheet().AbilityScores;
-                        for (var propName in abilityScores) {
-                            if (abilityScores.hasOwnProperty(propName)) {
-                                var abilityScoreObj = _i.abilityscore.CombineScoresWithIncrease(self.selectedSheet(), propName);
-                                
-                               
-                                if (self.selectedSheet().AbilityScores.hasOwnProperty(propName) && propName !== 'propList') {
-                                    result.push({ propName: abilityScoreObj.Name, shortName: abilityScoreObj.ShortName, abilScore: abilityScoreObj.ScoreTotal(), abilMod: abilityScoreObj.Modifier, templateName: "scalar_templ" });
-                                }
+                    if (!self.selectedSheet()) return result;
+
+                    for (var propName in self.selectedSheet().AbilityScores) {
+                        if (self.selectedSheet().AbilityScores.hasOwnProperty(propName)) {
+                            var abilityScoreObj = _i.abilityscore.CombineScoresWithIncrease(self.selectedSheet(), propName);
+                            if (self.selectedSheet().AbilityScores.hasOwnProperty(propName) && propName !== 'propList') {
+                                result.push({
+                                    propName: abilityScoreObj.Name,
+                                    shortName: abilityScoreObj.ShortName,
+                                    abilScore: abilityScoreObj.ScoreTotal(),
+                                    abilMod: abilityScoreObj.Modifier,
+                                    templateName: "scalar_templ"
+                                });
                             }
                         }
                     }
@@ -68,7 +71,7 @@
                 });
 
                 self.totalHitPoints = function () {
-                    return self.selectedSheet().HpMax() + (self.selectedSheet().ConstitutionMod() * self.selectedSheet().Level());
+                    return self.selectedSheet().HpMax() + (self.selectedSheet().AbilityScores["Constitution"]());                    
                 };
 
             });
@@ -84,7 +87,6 @@
 
             return deferred;
         };
-
 
         self.markSkillAsProficiencyChoice = function (sheet) {
             for (var key in sheet.SkillProficiencies) {
@@ -103,61 +105,11 @@
             });
         };
 
-        self.setAbilityScoreBonusesInitialValue = function (sheet) {
-            for (var propName in sheet.AbilityScores) {
-                sheet[propName + "Bonus"] = 0; // Using this is pointless, need to use Increase array
-            }
-        };
-
-        self.addAbilityScoreIncreasesToScores = function (sheet) {
-            sheet.AbilityScoreIncreases.forEach(function (increase) {
-                sheet[increase.Name + "Bonus"] += increase.IncreaseAmount;
-            });
-        };
-
-        self.calculateAbilityModifiers = function (sheet) {
-            for (var propName in sheet.AbilityScores) {
-                sheet[propName + "Mod"] = Math.floor((sheet.AbilityScores[propName] - 10) / 2);
-            }
-        };
-
-        self.setScoreOnRoll = function (abil, bonus, mod) {
-            var rolledValue = self.rollAbilityScore();
-            var newScore = rolledValue + bonus;
-            var newMod = Math.floor((newScore - 10) / 2);
-
-            abil(rolledValue);
-            mod(newMod);
-        };
-
         self.rollScore = function (score) {
-            var scoreToRoll = self.selectedSheet().AbilityScores[score.propName];
-            var scoreBonusName = score.propName + "Bonus";
-            var scoreBonus = self.selectedSheet()[scoreBonusName]();
-            var scoreModName = score.propName + "Mod";
-            var scoreMod = self.selectedSheet()[scoreModName];
-            self.setScoreOnRoll(scoreToRoll, scoreBonus, scoreMod);
+            _i.roller.RollAbilityScore(self.selectedSheet(), score);
+
             self.updateTodoAndTask("HasRolled" + score.propName);
             self.saveSheet(self.selectedSheet());
-        };
-
-        self.rollAbilityScore = function () {
-            var rolls = [];
-
-            for (var i = 0; i < 4; i++) {
-                var d6 = 1 + Math.floor(Math.random() * 6);
-                rolls.push(d6);
-            }
-
-            rolls.sort();
-            _i.alert.showAlert({ type: "success", message: "Rolls: " + rolls.join(', ') });
-            rolls.shift();
-
-            var scoreTotal = 0;
-            for (var s in rolls) {
-                scoreTotal += rolls[s];
-            }
-            return scoreTotal < 8 ? 8 : scoreTotal;
         };
 
         self.rollHitPoints = function (sheet) {
@@ -183,7 +135,7 @@
         };
 
         self.viewMoreDetails = function (bgSelected) {
-            self.selectedSheet(bgSelected);
+            self.selectedSheet(bgSelected);            
             self.viewingDetails(true);
         };
 
@@ -287,8 +239,6 @@
             _i.charajax.post('api/charactersheet/CreateNewSheet', '').done(function (response) {
                 window.builder.global_sheetid = response.Id;
                 response.createdDateFormatted = moment(response.CreatedDate).format('LLL');
-                self.setAbilityScoreBonusesInitialValue(response);
-                self.addAbilityScoreIncreasesToScores(response);
                 self.calculateAbilityModifiers(response);
                 self.markSkillAsProficiencyChoice(response);
 
@@ -301,28 +251,18 @@
             });
         };
 
-
-
-
-        /**
-         * /FUCK FUCK FUCK FUCK FUCKING HERE COCK SHIT FUCKER
-         * @returns {} 
-         */
-
         self.getCharacterSheets = function () {
             var deferred = _i.deferred.create();
             _i.charajax.get('api/charactersheet/GetUserSheets').done(function (response) {
 
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
-                    self.setAbilityScoreBonusesInitialValue(sheet);
-                    self.addAbilityScoreIncreasesToScores(sheet);
-                    self.calculateAbilityModifiers(sheet);
                     self.markSkillAsProficiencyChoice(sheet);
                     sheet.SkillPickCount = sheet.Class.SkillPickCount + sheet.Background.Skills.length;
                 });
 
                 var mapped = _i.ko.mapping.fromJS(response);
+
                 self.characterSheets(mapped());
 
                 deferred.resolve();
