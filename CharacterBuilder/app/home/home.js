@@ -9,7 +9,8 @@
         alert: require('_custom/services/alert'),
         globals: require('_custom/services/builderglobals'),
         confirmdelete: require('confirmdelete/confirmdelete'),
-        roller: require('_custom/services/roll')
+        roller: require('_custom/services/roll'),
+        abilityscore: require('_custom/services/abilityscore')
     };
 
     return function () {
@@ -50,15 +51,15 @@
                 self.abilScore = _i.ko.computed(function () {
                     var result = [];
                     if (self.selectedSheet()) {
-                        for (var propName in self.selectedSheet().AbilityScores) {
-                            var shortName = propName.substr(0, 3);
-                            var abilMod = self.selectedSheet()[propName + "Mod"]();
-                            var modBonus = self.selectedSheet()[propName + "Bonus"]();
-                            var abilScore = self.selectedSheet().AbilityScores[propName];
-                            var abilityScoreTotal = abilScore() + modBonus;
-
-                            if (self.selectedSheet().AbilityScores.hasOwnProperty(propName) && propName !== 'propList') {
-                                result.push({ propName: propName, shortName: shortName, abilScore: abilityScoreTotal, abilMod: abilMod, templateName: "scalar_templ" });
+                        var abilityScores = self.selectedSheet().AbilityScores;
+                        for (var propName in abilityScores) {
+                            if (abilityScores.hasOwnProperty(propName)) {
+                                var abilityScoreObj = _i.abilityscore.CombineScoresWithIncrease(self.selectedSheet(), propName);
+                                
+                               
+                                if (self.selectedSheet().AbilityScores.hasOwnProperty(propName) && propName !== 'propList') {
+                                    result.push({ propName: abilityScoreObj.Name, shortName: abilityScoreObj.ShortName, abilScore: abilityScoreObj.ScoreTotal(), abilMod: abilityScoreObj.Modifier, templateName: "scalar_templ" });
+                                }
                             }
                         }
                     }
@@ -83,7 +84,7 @@
 
             return deferred;
         };
-        
+
 
         self.markSkillAsProficiencyChoice = function (sheet) {
             for (var key in sheet.SkillProficiencies) {
@@ -104,7 +105,7 @@
 
         self.setAbilityScoreBonusesInitialValue = function (sheet) {
             for (var propName in sheet.AbilityScores) {
-                sheet[propName + "Bonus"] = 0;
+                sheet[propName + "Bonus"] = 0; // Using this is pointless, need to use Increase array
             }
         };
 
@@ -240,7 +241,7 @@
             var currentLevel = self.selectedSheet().Level();
             self.selectedSheet().Level(currentLevel + 1);
 
-            return _i.charajax.post('api/charactersheet/AddLevelChecklist/'+ self.selectedSheet().Id()).done(function (response) {
+            return _i.charajax.post('api/charactersheet/AddLevelChecklist/' + self.selectedSheet().Id()).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Leveled-up to level " + self.selectedSheet().Level() });
             });
         };
@@ -274,7 +275,7 @@
                 HpMax: sheetToSave.HpMax(),
                 AbilityScores: _i.ko.toJS(sheetToSave.AbilityScores),
                 ToDo: _i.ko.toJS(sheetToSave.ToDo),
-                Skills:sheetToSave.Skills()
+                Skills: sheetToSave.Skills()
             };
 
             return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {
@@ -299,7 +300,7 @@
 
             });
         };
-        
+
 
 
 

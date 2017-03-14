@@ -26,6 +26,9 @@ namespace CharacterBuilder.Core.DTO
         public AbilityScores AbilityScores { get; set; }
         public IList<ScoreIncrease> AbilityScoreIncreases { get; set; } = new List<ScoreIncrease>();
 
+
+
+
         public void MapAbilityScoreIncreases(IList<AbilityScoreIncrease>increases )
         {
             foreach(var item in increases)
@@ -35,7 +38,7 @@ namespace CharacterBuilder.Core.DTO
                     Id = item.Id,
                     IncreaseAmount = item.IncreaseValue,
                     Name = item.AbilityScore.Name
-                });                
+                });                                               
             }
         }
 
@@ -52,19 +55,7 @@ namespace CharacterBuilder.Core.DTO
         {
             var classProf = Class?.Skills ?? new List<Skill>();
             SkillProficiencies = classProf.ToList();
-        }
-
-        public void MarkCharacterCreationComplete()
-        {
-            if (CharacterCreationComplete) return;
-
-            var initialSelctionsMade = ToDo.HasSelectedBackground && ToDo.HasSelectedClass && ToDo.HasSelectedRace && ToDo.HasSelectedSkills && ToDo.HasSelectedSubRace;
-            var firstLevelTasksComplete = ToDo.FirstLevelTasks.HasIncreasedHp && ToDo.HasCompletedAbilityScores;
-
-            CharacterCreationComplete = initialSelctionsMade && firstLevelTasksComplete;
-
-        }
-        
+        }        
     }
 
     public class SheetSkill

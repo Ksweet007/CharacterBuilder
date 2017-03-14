@@ -7,8 +7,12 @@
 
     function RollCls() { }
 
-    RollCls.prototype.RollAbilityScore = function() {
+    RollCls.prototype.RollAbilityScore = function(score) {
+        
+    };
 
+    RollCls.prototype.DefaultHitPoints = function (defaultValue, currentMaxHpNoMod) {
+        return currentMaxHpNoMod + defaultValue;
     };
 
     RollCls.prototype.RollHitPoints = function (hitDie, currentMaxHpNoModBonus) {
@@ -16,10 +20,6 @@
 
         return currentMaxHpNoModBonus + rolled;        
     };
-
-    RollCls.prototype.DefaultHitPoints = function (defaultValue, currentMaxHpNoMod) {
-        return currentMaxHpNoMod + defaultValue;
-    };
-
+    
     return new RollCls();
 });
