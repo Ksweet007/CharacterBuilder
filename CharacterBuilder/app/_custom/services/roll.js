@@ -10,7 +10,7 @@
     function RollCls() { }
 
     RollCls.prototype.RollAbilityScore = function (sheet, score) {
-        var abilityScoreObj = sheet.AbilityScores[score.Name];
+        var abilityScoreObj = sheet.AbilityScores[score.propName];
         
         var rolledValue = this.GetRolledValue();
         abilityScoreObj(rolledValue);

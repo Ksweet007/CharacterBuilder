@@ -70,15 +70,15 @@
                     for (var propName in self.selectedSheet().AbilityScores) {
                         if (self.selectedSheet().AbilityScores.hasOwnProperty(propName)) {
                             var abilityScoreObj = _i.abilityscore.CombineScoresWithIncrease(self.selectedSheet(), propName);
-                            result.push({ propName: abilityScoreObj.Name, shortName: abilityScoreObj.ShortName, abilScore: abilityScoreObj.ScoreTotal(), abilMod: abilityScoreObj.Modifier, templateName: "scalar_templ" });
+                            result.push({ propName: abilityScoreObj.Name, shortName: abilityScoreObj.ShortName, abilScore: abilityScoreObj.ScoreTotal, abilMod: abilityScoreObj.Modifier, templateName: "scalar_templ" });
                         }
                     }
 
                     return result;
                 });
 
-                self.totalHitPoints = function () {
-                    return self.selectedSheet().HpMax() + (self.selectedSheet().AbilityScores["Constitution"]());
+                self.totalHitPoints = function () {                    
+                    return self.selectedSheet().HpMax() + Math.floor(((self.selectedSheet().AbilityScores["Constitution"]() - 10) / 2));
                 };
 
             });

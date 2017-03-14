@@ -10,20 +10,20 @@
     AbilityScoreCls.prototype.CombineScoresWithIncrease = function (sheet, scoreName) {
         /*========== Setup Initial Score value and Short Name ==========*/
         var shortName = scoreName.substr(0, 3);
-        var abilityScoreTotal = sheet.AbilityScores[scoreName];
+        var abilityScoreTotal = sheet.AbilityScores[scoreName]();
+        var scoreWithIncrease = abilityScoreTotal;
 
         /*========== Find increases that match current Ability Score and apply them ==========*/
         sheet.AbilityScoreIncreases().forEach(function (increase) {
             if (increase.Name() === scoreName) {
-                var scoreWithIncrease = abilityScoreTotal() + increase.IncreaseAmount();
-                abilityScoreTotal(scoreWithIncrease);
+                scoreWithIncrease += increase.IncreaseAmount();                
             }
         });
 
         /*========== Calculate Modifier ==========*/
-        var abilityScoreModifier = Math.floor((abilityScoreTotal() - 10) / 2);
+        var abilityScoreModifier = Math.floor((scoreWithIncrease - 10) / 2);
 
-        return { Name: scoreName, ShortName: shortName, ScoreTotal: abilityScoreTotal, Modifier: abilityScoreModifier };
+        return { Name: scoreName, ShortName: shortName, ScoreTotal: scoreWithIncrease, Modifier: abilityScoreModifier };
     };
 
     AbilityScoreCls.prototype.CalculateAbilityScoreModifier = function (sheet) {
@@ -49,7 +49,7 @@
     };
 
     AbilityScoreCls.prototype.GetScoreModifier = function (sheet, scoreName) {
-        var baseScore = this.GetScore;
+        var baseScore = this.GetScore();
         var scoreIncreases = this.GetIncreasesForScore(sheet, scoreName);
         var scoreWithIncrease = baseScore + scoreIncreases;
 
