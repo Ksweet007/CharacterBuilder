@@ -46,7 +46,7 @@
             return "Default HP " + "(" + defaultHp + ")";
         };
 
-        /*==================== PROGRESS TOWARDS COMPLETING CURRENT LEVEL ====================*/
+        /*==================== LEVEL CHECKLIST ====================*/
 
         self.levelIsComplete = function () {
             return _i.checklist.IsLevelComplete(self.selectedSheet());
@@ -77,10 +77,6 @@
                     return result;
                 });
 
-                self.totalHitPoints = function () {                    
-                    return self.selectedSheet().HpMax() + Math.floor(((self.selectedSheet().AbilityScores["Constitution"]() - 10) / 2));
-                };
-
             });
         };
 
@@ -96,7 +92,6 @@
         };
 
         self.markSkillAsProficiencyChoice = function (sheet) {
-
             sheet.SkillProficiencies.forEach(function (skl) {
                 sheet.AllSkills.forEach(function (skill) {
                     if (skill.Name === skl.Name) {
@@ -104,9 +99,9 @@
                     }
                 });
             });
-
         };
 
+        /*==================== ROLLS ====================*/
         self.rollScore = function (score) {
             _i.roller.RollAbilityScore(self.selectedSheet(), score);
 
@@ -124,7 +119,7 @@
                 _i.alert.showAlert({ type: "success", message: "Rolled: " + rolledVal });
             });
         };
-
+        
         self.defaultHitPoints = function (sheet) {
             var defaultIncrease = (sheet.Class.Hitdie() * .5) + 1;
             var totalHpAfterDefaultNoMod = _i.roller.DefaultHitPoints(defaultIncrease, sheet.HpMax());
@@ -274,6 +269,8 @@
 
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
+                    sheet.HpNoMod = sheet.HpMax;
+                    sheet.HpMax += Math.floor(((sheet.AbilityScores["Constitution"] - 10) / 2));
                     
                     self.markSkillAsProficiencyChoice(sheet);
                     sheet.SkillPickCount = 0;
