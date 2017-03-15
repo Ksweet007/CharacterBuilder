@@ -240,6 +240,8 @@
     <Content Include="app\armor\armor.js" />
     <Content Include="app\backgrounds\backgrounds.html" />
     <Content Include="app\backgrounds\backgrounds.js" />
+    <Content Include="app\charactersheet\charactersheet.html" />
+    <Content Include="app\charactersheet\charactersheet.js" />
     <Content Include="app\classlist\classlist.html" />
     <Content Include="app\classlist\classlist.js" />
     <Content Include="app\confirmdelete\confirmdelete.html" />

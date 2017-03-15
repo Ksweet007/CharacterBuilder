@@ -23,7 +23,6 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public CharacterSheet CreateNewSheet(string userId)
         {
-            //Level checklist won't be handled until levelup is added
             var currentUser = _manager.FindById(userId);
             var sheet = new CharacterSheet
             {
@@ -102,9 +101,10 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
                 .Include(l => l.LevelChecklists)
                 .Include(cs => cs.Skills)
+                .Include(u => u.User)
                 .Single(s => s.Id == sheetId);
         }
-
+        
         public LevelChecklist AddLevelChecklist(int sheetId)
         {
             var sheetFromDb = GetCharacterSheetById(sheetId);                       

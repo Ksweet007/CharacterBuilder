@@ -21,11 +21,25 @@ namespace CharacterBuilder.Infrastructure.Services
             _backgroundRepository = new BackgroundRepository();
         }
 
+        public bool DoesUserOwnSheet(int sheetId, string userId)
+        {
+            var userSheet = _characterSheetRepository.GetCharacterSheetById(sheetId);
+
+            return userSheet.User.Id == userId;
+        }
+
         public CharacterSheetDTO GetById(int sheetId)
         {
             var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
             var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetFromDb);
             sheetDto.AllSkills = _characterSheetRepository.ListAllSkills();
+
+            if (sheetDto.Class?.AbilityScoreIncreaseses == null) return sheetDto;
+
+            if (sheetDto.Class.AbilityScoreIncreaseses.Any(x => x.LevelObtained == sheetDto.Level))
+            {
+                sheetDto.LevelChecklist.HasAbilityScoreIncrease = true;
+            }
 
             return sheetDto;
         }

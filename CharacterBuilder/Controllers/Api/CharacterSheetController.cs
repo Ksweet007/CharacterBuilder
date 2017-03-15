@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.Net;
+using System.Web;
 using System.Web.Http;
 using CharacterBuilder.Core.DTO;
 using CharacterBuilder.Core.Model;
@@ -33,14 +34,20 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(sheets);
         }
 
-        //[HttpGet]
-        //[Route("GetSheetSkills/{sheetId}")]
-        //public IHttpActionResult GetSheetSkills(int sheetId)
-        //{
-        //    var skills = _characterSheetService.GetSkillsBySheetId(sheetId);
+        [HttpGet]
+        [Route("GetSheetById/{sheetId}")]
+        public IHttpActionResult GetSheetById(int sheetId)
+        {
+            var userId = User.Identity.GetUserId();
 
-        //    return Ok(skills);
-        //}
+            var canAccess = _characterSheetService.DoesUserOwnSheet(sheetId, userId);
+
+            if (!canAccess) return StatusCode(HttpStatusCode.Forbidden);
+
+            var returnSheet = _characterSheetService.GetById(sheetId);
+
+            return Ok(returnSheet);
+        }
 
         [HttpPost]
         [Route("CreateNewSheet")]
