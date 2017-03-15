@@ -23,7 +23,9 @@
         self.Level = _i.ko.observable(0);
         self.HitPoints = _i.ko.observable(0);
         self.HitDie = _i.ko.observable(0);
+
         self.AbilityScores = _i.ko.observable();
+        self.SelectedAbilityScoreIncreases = _i.ko.observable(0);
 
         self.AllSkills = _i.ko.observableArray([]);
         self.SkillPickCount = _i.ko.observable(0);
@@ -50,29 +52,30 @@
             self.sheetId(sheetId);
             return self.getPageData().done(function () {
 
-                self.abilScore = _i.ko.computed(function () {
-                    return _i.abilityscore.BuildScoreDisplay(self.characterSheet);
-                });
-               
-                self.maxHp = _i.ko.computed(function () {                    
+                self.maxHp = _i.ko.pureComputed(function () {
                     var conMod = self.AbilityScores().Constitution;
                     return self.HitPoints() + conMod;
                 });
 
-                self.defaultHp = _i.ko.computed(function() {
+                self.defaultHp = _i.ko.pureComputed(function () {
                     return self.HitDie() - (self.HitDie() * .5) + 1;
                 });
-                
-            });
-        };
 
-        self.markSkillAsProficiencyChoice = function (sheet) {
-            sheet.SkillProficiencies.forEach(function (skl) {
-                sheet.AllSkills.forEach(function (skill) {
-                    if (skill.Name === skl.Name) {
-                        skill.canPick = true;
+                self.abilityScores = _i.ko.computed(function () {
+                    var scores = [];
+                    for (var property in self.AbilityScores()) {
+                        if (self.AbilityScores().hasOwnProperty(property)) {
+                            var score = {};
+                            score.shortName = property.substr(0, 3);
+                            score.Value = self.AbilityScores()[property];
+                            score.Modifier = Math.floor((self.AbilityScores()[property] - 10) / 2);
+                            scores.push(score);
+                        }
                     }
+
+                    return scores;
                 });
+
             });
         };
 
@@ -105,7 +108,7 @@
                 _i.alert.showAlert({ type: "success", message: "Hit Points Increased by Default: " + defaultIncrease });
             });
         };
-        
+
         self.deleteSheet = function (obj) {
             _i.confirmdelete.show().then(function (response) {
                 if (response.accepted) {
@@ -159,6 +162,18 @@
             if (!self.characterSheet.LevelChecklist.HasAbilityScoreIncrease()) {
                 self.characterSheet.LevelChecklist.HasIncreasedAbilityScores(true);
             }
+        };
+
+        self.markSkillAsProficiencyChoice = function () {
+            self.SkillProficiencies().forEach(function (skl) {
+                self.AllSkills().forEach(function (skill) {
+                    if (skill.Name === skl.Name) {
+                        skill.canPick = true;
+                    } else {
+                        skill.canPick = false;
+                    }
+                });
+            });
         };
 
         self.saveSheet = function (sheetToSave) {
@@ -244,7 +259,7 @@
             return deferred;
         };
 
-        self.getSheetSkills = function() {
+        self.getSheetSkills = function () {
             var deferred = _i.deferred.create();
             _i.charajax.get('api/charactersheet/GetSkillsBySheetId/' + self.sheetId()).done(function (response) {
                 self.skillData = response;
@@ -253,6 +268,8 @@
                 self.SkillPickCount(self.skillData.SkillPickCount);
                 self.SkillProficiencies(self.skillData.SkillProficiencies);
                 self.Skills(self.skillData.Skills);
+
+                self.markSkillAsProficiencyChoice();
 
                 deferred.resolve();
             });
@@ -277,23 +294,12 @@
 
                 self.characterSheet.HpNoMod = self.characterSheet.HpMax;
                 self.characterSheet.HpMax = self.characterSheet.HpNoMod + Math.floor(((self.characterSheet.AbilityScores["Constitution"] - 10) / 2));
-
-                self.markSkillAsProficiencyChoice(self.characterSheet);
-                self.characterSheet.SkillPickCount = 0;
-
-                if (self.characterSheet.Class != null) {
-                    self.characterSheet.SkillPickCount += self.characterSheet.Class.SkillPickCount;
-
-                    if (self.characterSheet.LevelChecklist.HasAbilityScoreIncrease && !self.characterSheet.LevelChecklist.HasIncreasedAbilityScores) {
-                        self.characterSheet.SelectedAbilityScoreIncreases = 0;
-                    }
-                }
-
+                
                 if (self.characterSheet.Background != null) {
                     self.characterSheet.SkillPickCount += self.characterSheet.Background.Skills.length;
                 }
 
-                self.characterSheet =  _i.ko.mapping.fromJS(self.characterSheet);
+                self.characterSheet = _i.ko.mapping.fromJS(self.characterSheet);
 
                 deferred.resolve();
             });

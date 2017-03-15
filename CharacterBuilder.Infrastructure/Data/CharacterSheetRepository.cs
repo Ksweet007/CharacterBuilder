@@ -69,6 +69,7 @@ namespace CharacterBuilder.Infrastructure.Data
             var sheetDb = _db.CharacterSheets
                 .Include(s => s.Skills.Select(a => a.AbilityScore))
                 .Include(c => c.Class.Skills)
+                .Include(b => b.Background.Skills)
                 .Single(x => x.Id == sheetId);
 
             var allSkills = ListAllSkills();
@@ -78,6 +79,7 @@ namespace CharacterBuilder.Infrastructure.Data
                 AllSkills = allSkills,
                 Skills = sheetDb.Skills.Select(item => item.Id).ToList(),
                 SkillProficiencies = sheetDb.Class?.Skills ?? new List<Skill>(),
+                BackgroundSkills = sheetDb.Background?.Skills.Select(item => item.Id).ToList() ?? new List<int>(),
                 SkillPickCount = sheetDb.Class?.SkillPickCount ?? 0
             };
 
