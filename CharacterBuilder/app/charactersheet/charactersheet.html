@@ -7,10 +7,10 @@
                     <div class="pmd-card-body">
                         <div class="media-left">
                             <div class="col-xs-4">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $parent.closeMoreDetails'>fullscreen_exit</button>
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $parent.saveSheet'>check_box</button>
-                                <!--ko if: $root.levelIsComplete()-->
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $parent.levelUp'>file_upload</button>
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.closeMoreDetails'>fullscreen_exit</button>
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.saveSheet'>check_box</button>
+                                <!--ko if: $root.levelIsComplete()-->                                                                         
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.levelUp'>file_upload</button>
                                 <!--/ko-->
                             </div>
                         </div>
@@ -30,13 +30,13 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <!--ko with: Class-->
-                                <div class="sheettext largetext" data-bind="text:Name + ' ' + $parent.Level()"></div>
+                                <div class="sheettext largetext">{{Name}} {{$parent.Level}}</div>
                                 <!--/ko-->
                                 <div class="sheetheader subheader">Class & Level</div>
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
+                                <div class="sheettext largetext">{{Name}}</div>
                                 <!--/ko-->
                                 <div class="sheetheader subheader">Background</div>
                             </div>
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Race-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
+                                <div class="sheettext largetext">{{Name}}</div>
                                 <!--/ko-->
                                 <div class="sheetheader subheader">Race</div>
                             </div>
@@ -71,12 +71,12 @@
                     <div class="pmd-card-body text-center" data-bind="foreach:abilityScores">
                         <div class="row abilityscorerow">
                             <div class="col-xs-4 abilityscorebody">
-                                <div class="sheetheader abiltext" data-bind="text:shortName"></div>
-                                <div class="sheettext largetext" data-bind="text:Value"></div>
+                                <div class="sheetheader abiltext">{{shortName}}</div>
+                                <div class="sheettext largetext">{{Value}}</div>
                             </div>
                             <div class="col-xs-4 abilityscorebody">
                                 <div class="sheetheader abiltext">Mod</div>
-                                <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:Modifier"></div>
+                                <div class="sheetheader abilmod abilitymodcontainer">{{Modifier}}</div>
                             </div>
                             <!--ko if: !$root.hasFinishedAbilityScores()-->
                             <div class="media-right">

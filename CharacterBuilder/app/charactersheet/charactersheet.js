@@ -32,19 +32,8 @@
         self.SkillProficiencies = _i.ko.observableArray([]);
         self.Skills = _i.ko.observableArray([]);
 
-        /*==================== LEVEL CHECKLIST ====================*/
-
-        self.levelIsComplete = function () {
-            return _i.checklist.IsLevelComplete(self.characterSheet);
-        };
-
-        self.hasRolledHp = function () {
-            return _i.checklist.IsHpTaskComplete(self.characterSheet);
-        };
-
-        self.hasFinishedAbilityScores = function () {
-            return _i.checklist.IsAbilityScoreTaskComplete(self.characterSheet);
-        };
+        self.ToDo = _i.ko.observable();
+        self.LevelCheckList = _i.ko.observable();
 
         /*==================== ACTIVATE DEPENDENCIES ====================*/
 
@@ -59,6 +48,39 @@
 
                 self.defaultHp = _i.ko.pureComputed(function () {
                     return self.HitDie() - (self.HitDie() * .5) + 1;
+                });
+
+                self.hasFinishedAbilityScores = _i.ko.computed(function() {
+                    if (self.Level() === 1) {
+                        return self.ToDo().HasCompletedAbilityScores();
+                    }
+
+                    if (self.LevelCheckList().HasAbilityScoreIncrease) {
+                        return self.SelectedAbilityScoreIncreases() === 2;
+                    }
+
+                    return true;
+
+                });
+
+                self.levelIsComplete = _i.ko.computed(function() {
+                    if (self.Level() === 1) {
+                        return _i.checklist.LevelOneComplete(self.ToDo());
+                    }
+
+                    if (self.LevelChecklist().HasAbilityScoreIncrease) {
+                        return self.LevelChecklist().HasIncreasedAbilityScores && self.LevelChecklist().HasIncreasedHp;
+                    }
+
+                    return self.LevelChecklist().HasIncreasedHp;
+                });
+
+                self.hasRolledHp = _i.ko.computed(function() {
+                    if (self.Level() === 1) {
+                        return self.ToDo().FirstLevelTasks.HasIncreasedHp();
+                    }
+
+                    return self.LevelCheckList.HasIncreasedHp;
                 });
 
                 self.abilityScores = _i.ko.computed(function () {
@@ -146,7 +168,7 @@
 
         self.updateTodoAndTask = function (taskName) {
             var sheet = self.characterSheet;
-            if (sheet.Level() === 1) {
+            if (self.Level() === 1) {
                 self.updateFirstLevelTask(taskName);
             } else {
                 self.updateLevelChecklist(taskName);
@@ -280,8 +302,7 @@
             var deferred = _i.deferred.create();
             _i.charajax.get('api/charactersheet/GetSheetById/' + self.sheetId()).done(function (response) {
                 self.characterSheet = response;
-
-                self.characterSheet.createdDateFormatted = moment(self.characterSheet.CreatedDate).format('LLL');
+                
                 self.AbilityScores(self.characterSheet.AbilityScores);
                 self.HitDie(self.characterSheet.Class.Hitdie);
                 self.CharacterName(self.characterSheet.CharacterName);
@@ -292,14 +313,11 @@
 
                 self.Level(self.characterSheet.Level);
 
-                self.characterSheet.HpNoMod = self.characterSheet.HpMax;
-                self.characterSheet.HpMax = self.characterSheet.HpNoMod + Math.floor(((self.characterSheet.AbilityScores["Constitution"] - 10) / 2));
-                
-                if (self.characterSheet.Background != null) {
-                    self.characterSheet.SkillPickCount += self.characterSheet.Background.Skills.length;
-                }
+                self.ToDo(_i.ko.mapping.fromJS(self.characterSheet.ToDo));
+                self.LevelCheckList(self.characterSheet.LevelChecklist);
 
-                self.characterSheet = _i.ko.mapping.fromJS(self.characterSheet);
+
+                
 
                 deferred.resolve();
             });
