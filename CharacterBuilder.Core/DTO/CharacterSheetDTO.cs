@@ -8,23 +8,32 @@ namespace CharacterBuilder.Core.DTO
     public class CharacterSheetDTO : BaseEntity
     {
         public DateTime CreatedDate { get; set; }
-        public Class Class { get; set; } = new Class();
         public int Level { get; set; }
         public string CharacterName { get; set; }
         public string PlayerName { get; set; }
         public string Alignment { get; set; }
+        public int HpMax { get; set; }
+
+
+        public IList<Skill> AllSkills { get; set; }
+        public IList<int> Skills { get; set; } = new List<int>();        
+        public IList<Skill> SkillProficiencies { get; set; } = new List<Skill>();
+
+
+        public Class Class { get; set; } = new Class();        
         public Background Background { get; set; }
         public Race Race { get; set; }
         public Subrace Subrace { get; set; }
-        public IList<int> Skills { get; set; } = new List<int>();
-        public IList<Skill> AllSkills { get; set; }
-        public IList<Skill> SkillProficiencies { get; set; }  = new List<Skill>();
-        public ToDo ToDo { get; set; } = new ToDo();        
-        public LevelChecklist LevelChecklist { get; set; } //Only load one per level, once saved, grab new one from DB
-        public int HpMax { get; set; }        
+        
+
         public AbilityScores AbilityScores { get; set; }
         public IList<ScoreIncrease> AbilityScoreIncreases { get; set; } = new List<ScoreIncrease>();
+
+
+        public ToDo ToDo { get; set; } = new ToDo();
+        public LevelChecklist LevelChecklist { get; set; } //Only load one per level, once saved, grab new one from DB
         public bool LevelChecklistComplete { get; set; }
+
 
         public void MarkLevelChecklistComplete()
         {

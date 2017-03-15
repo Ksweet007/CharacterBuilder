@@ -51,9 +51,9 @@
         self.levelIsComplete = function () {
             return _i.checklist.IsLevelComplete(self.selectedSheet());
         };
-        
+
         self.hasRolledHp = function () {
-            return _i.checklist.IsHpTaskComplete(self.selectedSheet());           
+            return _i.checklist.IsHpTaskComplete(self.selectedSheet());
         };
 
         self.hasFinishedAbilityScores = function () {
@@ -80,17 +80,6 @@
             });
         };
 
-        self.getPageData = function () {
-            var deferred = _i.deferred.create();
-            var promise = _i.deferred.waitForAll(self.getCharacterSheets());
-
-            promise.done(function () {
-                deferred.resolve();
-            });
-
-            return deferred;
-        };
-
         self.markSkillAsProficiencyChoice = function (sheet) {
             sheet.SkillProficiencies.forEach(function (skl) {
                 sheet.AllSkills.forEach(function (skill) {
@@ -110,16 +99,16 @@
         };
 
         self.rollHitPoints = function (sheet) {
-            var totalHpAfterRollNoMod = _i.roller.RollHitPoints(sheet.Class.Hitdie(), sheet.HpMax());
-            var rolledVal = totalHpAfterRollNoMod - sheet.HpMax();
+            var totalHpAfterRollNoMod = _i.roller.RollHitPoints(sheet.Class.Hitdie(), sheet.HpNoMod());
+            var rolledVal = totalHpAfterRollNoMod - sheet.HpNoMod();
 
-            self.selectedSheet().HpMax(totalHpAfterRollNoMod);
+            self.selectedSheet().HpNoMod(totalHpAfterRollNoMod);
             self.updateTodoAndTask("HasIncreasedHp");
             self.saveSheet(self.selectedSheet()).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Rolled: " + rolledVal });
             });
         };
-        
+
         self.defaultHitPoints = function (sheet) {
             var defaultIncrease = (sheet.Class.Hitdie() * .5) + 1;
             var totalHpAfterDefaultNoMod = _i.roller.DefaultHitPoints(defaultIncrease, sheet.HpMax());
@@ -131,14 +120,7 @@
             });
         };
 
-        self.viewMoreDetails = function (bgSelected) {
-            self.selectedSheet(bgSelected);
-            self.viewingDetails(true);
-        };
 
-        self.closeMoreDetails = function () {
-            self.viewingDetails(false);
-        };
 
         self.deleteSheet = function (obj) {
             _i.confirmdelete.show().then(function (response) {
@@ -156,31 +138,11 @@
             });
         };
 
-        self.selectSheetToEdit = function (sheetToEdit) {
-            self.selectedSheet(sheetToEdit);
-
-            _i.globals.setSheetToEdit(self.selectedSheet().Id());
-            _i.globals.createCookie("SheetBeingWorked", self.selectedSheet().Id());
-
-            var editMessage = "Currently Editing";
-            if (sheetToEdit.CharacterName() != null) {
-                editMessage += " " + sheetToEdit.CharacterName();
-            }
-
-            _i.alert.showAlert({ type: "success", message: editMessage });
-        };
-
-        self.showAlertAndOpenEditor = function () {
-            var alertConfig = { type: "success", message: "New Character Added!" };
-            _i.alert.showAlert(alertConfig);
-            self.viewingDetails(true);
-        };
-
         self.levelUp = function () {
             if (!_i.checklist.IsLevelComplete(self.selectedSheet())) {
                 return _i.deferred.createResolved();
             }
-            
+
             var currentLevel = self.selectedSheet().Level();
             self.selectedSheet().Level(currentLevel + 1);
 
@@ -191,7 +153,7 @@
                 } else {
                     self.selectedSheet().LevelCheckList(response);
                 }
-                
+
             });
         };
 
@@ -202,7 +164,6 @@
             } else {
                 self.updateLevelChecklist(taskName);
             }
-
         };
 
         self.updateFirstLevelTask = function (taskName) {
@@ -216,8 +177,18 @@
             }
         };
 
-        self.saveSheet = function (sheetToSave) {
+        self.getPageData = function () {
+            var deferred = _i.deferred.create();
+            var promise = _i.deferred.waitForAll(self.getCharacterSheets());
 
+            promise.done(function () {
+                deferred.resolve();
+            });
+
+            return deferred;
+        };
+
+        self.saveSheet = function (sheetToSave) {
             var skillsToSave = [];
 
             sheetToSave.Skills().forEach(function (skl) {
@@ -238,7 +209,7 @@
                 CharacterName: sheetToSave.CharacterName(),
                 PlayerName: sheetToSave.PlayerName(),
                 Alignment: sheetToSave.Alignment(),
-                HpMax: sheetToSave.HpMax(),
+                HpMax: sheetToSave.HpNoMod(),
                 AbilityScores: _i.ko.toJS(sheetToSave.AbilityScores),
                 ToDo: _i.ko.toJS(sheetToSave.ToDo),
                 Skills: sheetToSave.Skills()
@@ -247,6 +218,15 @@
             return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Sheet Saved!" });
             });
+        };
+
+        self.viewMoreDetails = function (bgSelected) {
+            self.selectedSheet(bgSelected);
+            self.viewingDetails(true);
+        };
+
+        self.closeMoreDetails = function () {
+            self.viewingDetails(false);
         };
 
         self.addNew = function () {
@@ -258,8 +238,25 @@
 
                 self.characterSheets.push(mapped);
                 self.selectedSheet(mapped);
-                self.showAlertAndOpenEditor();
+                _i.alert.showAlert({ type: "success", message: "New Character Added!" });
+                self.viewingDetails(true);
 
+            });
+        };
+
+        self.selectSheetToEdit = function (sheetToEdit) {
+            self.selectedSheet(sheetToEdit);
+
+            _i.globals.setSheetToEdit(self.selectedSheet().Id());
+            _i.globals.createCookie("SheetBeingWorked", self.selectedSheet().Id());
+
+            var editMessage = "Currently Editing";
+            if (sheetToEdit.CharacterName() != null) {
+                editMessage += " " + sheetToEdit.CharacterName();
+            }
+
+            _i.alert.showAlert({
+                type: "success", message: editMessage
             });
         };
 
@@ -270,27 +267,27 @@
                 response.forEach(function (sheet) {
                     sheet.createdDateFormatted = moment(sheet.CreatedDate).format('LLL');
                     sheet.HpNoMod = sheet.HpMax;
-                    sheet.HpMax += Math.floor(((sheet.AbilityScores["Constitution"] - 10) / 2));
-                    
+                    sheet.HpMax = sheet.HpNoMod + Math.floor(((sheet.AbilityScores["Constitution"] - 10) / 2));
+
                     self.markSkillAsProficiencyChoice(sheet);
                     sheet.SkillPickCount = 0;
 
                     if (sheet.Class != null) {
                         sheet.SkillPickCount += sheet.Class.SkillPickCount;
-                        
+
                         if (sheet.LevelChecklist.HasAbilityScoreIncrease && !sheet.LevelChecklist.HasIncreasedAbilityScores) {
                             sheet.SelectedAbilityScoreIncreases = 0;
-                        }                        
+                        }
                     }
-                    
+
                     if (sheet.Background != null) {
                         sheet.SkillPickCount += sheet.Background.Skills.length;
                     }
-                    
+
                 });
 
                 var mapped = _i.ko.mapping.fromJS(response);
-
+                
                 self.characterSheets(mapped());
 
                 deferred.resolve();

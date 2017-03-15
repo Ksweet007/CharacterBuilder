@@ -30,6 +30,13 @@ namespace CharacterBuilder.Infrastructure.Services
             return sheetDto;
         }
 
+        public IList<Skill> GetSkillsBySheetId(int sheetId)
+        {
+            var skillsFromDb = _characterSheetRepository.GetSkillsBySheetId(sheetId);
+
+            return skillsFromDb;
+        }
+        
         public IList<CharacterSheetDTO> ListByUserId(string userId)
         {
             var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);
@@ -40,12 +47,11 @@ namespace CharacterBuilder.Infrastructure.Services
             {
                 item.AllSkills = allSkills;
 
-                if (item.Class?.AbilityScoreIncreaseses != null)
-                {                    
-                    if (item.Class.AbilityScoreIncreaseses.Any(x => x.LevelObtained == item.Level))
-                    {
-                        item.LevelChecklist.HasAbilityScoreIncrease = true;
-                    }
+                if (item.Class?.AbilityScoreIncreaseses == null) continue;
+
+                if (item.Class.AbilityScoreIncreaseses.Any(x => x.LevelObtained == item.Level))
+                {
+                    item.LevelChecklist.HasAbilityScoreIncrease = true;
                 }
             }
 

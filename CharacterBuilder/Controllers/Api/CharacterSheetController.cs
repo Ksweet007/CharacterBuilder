@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Http;
 using CharacterBuilder.Core.DTO;
+using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data;
 using CharacterBuilder.Infrastructure.Services;
 using Microsoft.AspNet.Identity;
@@ -13,12 +14,13 @@ namespace CharacterBuilder.Controllers.Api
     {
         private readonly CharacterSheetRepository _characterSheetRepository;
         private readonly CharacterSheetService _characterSheetService;
+
         const string Cookie_Name = "SheetBeingWorked";
 
         public CharacterSheetController()
         {
             _characterSheetRepository = new CharacterSheetRepository();        
-            _characterSheetService = new CharacterSheetService();
+            _characterSheetService = new CharacterSheetService();            
         }
         
         [HttpGet]
@@ -30,6 +32,15 @@ namespace CharacterBuilder.Controllers.Api
 
             return Ok(sheets);
         }
+
+        //[HttpGet]
+        //[Route("GetSheetSkills/{sheetId}")]
+        //public IHttpActionResult GetSheetSkills(int sheetId)
+        //{
+        //    var skills = _characterSheetService.GetSkillsBySheetId(sheetId);
+
+        //    return Ok(skills);
+        //}
 
         [HttpPost]
         [Route("CreateNewSheet")]

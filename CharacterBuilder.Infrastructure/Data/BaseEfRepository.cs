@@ -9,9 +9,9 @@ namespace CharacterBuilder.Infrastructure.Data
 {
     public class BaseEfRepository
     {
-        private static readonly CharacterBuilderDbContext _dbContext;
+        private readonly CharacterBuilderDbContext _dbContext;
 
-        static BaseEfRepository() 
+        public BaseEfRepository() 
         {
             _dbContext = new CharacterBuilderDbContext();
         }

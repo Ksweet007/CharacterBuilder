@@ -64,6 +64,15 @@ namespace CharacterBuilder.Infrastructure.Data
             return sheet;
         }
 
+        public IList<Skill> GetSkillsBySheetId(int sheetId)
+        {
+            var sheetDb = _db.CharacterSheets
+                .Include(s => s.Skills)
+                .Single(x => x.Id == sheetId);
+
+            return sheetDb.Skills ?? new List<Skill>();
+        }
+
         public IList<CharacterSheet> GetUserSheets(string userId)
         {
             var currentUser = _manager.FindById(userId);

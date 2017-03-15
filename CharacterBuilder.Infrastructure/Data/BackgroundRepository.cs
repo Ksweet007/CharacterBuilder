@@ -36,7 +36,8 @@ namespace CharacterBuilder.Infrastructure.Data
 
             sheetFromDb.Background = backgroundFromDb;
             sheetFromDb.ToDo.HasSelectedBackground = true;
-
+            sheetFromDb.Skills.AddRange(backgroundFromDb.Skills);
+            
             Save();
 
             return sheetFromDb;
