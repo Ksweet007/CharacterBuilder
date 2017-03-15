@@ -96,10 +96,10 @@
                     <div class="pmd-card-body" data-bind="foreach:AllSkills">
                         <div class="row">
                             <div class="col-xs-1">
-                                <div class="pmd-checkbox pmd-checkbox-ripple-effect">
+                                <div class="pmd-checkbox">
                                     <label>
-                                        <input type="checkbox" name="skill" data-bind='checked:$parent.Skills, value:Id, enable: $data.canPick'>
-                                        <span class="pmd-checkbox-label" data-bind="style:{ opacity: $data.canPick ? '1' : '0' }"></span>
+                                        <input type="checkbox" name="skill" data-bind='checked:$parent.Skills, value:Id, enable: canPick'>
+                                        <span class="pmd-checkbox-label" data-bind="style:{ opacity: canPick ? '1' : '0.5' }"></span>
                                     </label>
                                 </div>
                             </div>

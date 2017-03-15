@@ -164,16 +164,16 @@
             }
         };
 
-        self.markSkillAsProficiencyChoice = function () {
-            self.SkillProficiencies().forEach(function (skl) {
-                self.AllSkills().forEach(function (skill) {
-                    if (skill.Name === skl.Name) {
-                        skill.canPick = true;
-                    } else {
-                        skill.canPick = false;
+        self.markSkillAsProficiencyChoice = function () {            
+            self.AllSkills().forEach(function (baseSkill) {
+                baseSkill.canPick = false;
+                self.SkillProficiencies().forEach(function(skillProficiency) {
+                    if (baseSkill.Id === skillProficiency.Id) {
+                        baseSkill.canPick = true;
                     }
                 });
             });
+
         };
 
         self.saveSheet = function (sheetToSave) {

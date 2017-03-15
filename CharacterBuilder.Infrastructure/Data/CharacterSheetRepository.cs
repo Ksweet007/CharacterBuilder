@@ -69,7 +69,7 @@ namespace CharacterBuilder.Infrastructure.Data
             var sheetDb = _db.CharacterSheets
                 .Include(s => s.Skills.Select(a => a.AbilityScore))
                 .Include(c => c.Class.Skills)
-                .Include(b => b.Background.Skills)
+                .Include(b => b.Background.Skills.Select(a=>a.AbilityScore))
                 .Single(x => x.Id == sheetId);
 
             var allSkills = ListAllSkills();
