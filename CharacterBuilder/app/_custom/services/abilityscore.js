@@ -26,6 +26,19 @@
         return { Name: scoreName, ShortName: shortName, ScoreTotal: scoreWithIncrease, Modifier: abilityScoreModifier };
     };
 
+    AbilityScoreCls.prototype.BuildScoreDisplay = function(sheet) {
+        var result = [];
+
+        for (var propName in sheet.AbilityScores) {
+            if (sheet.AbilityScores.hasOwnProperty(propName)) {
+                var abilityScoreObj = this.CombineScoresWithIncrease(sheet, propName);
+                result.push({ propName: abilityScoreObj.Name, shortName: abilityScoreObj.ShortName, abilScore: abilityScoreObj.ScoreTotal, abilMod: abilityScoreObj.Modifier, templateName: "scalar_templ" });
+            }
+        }
+
+        return result;
+    };
+
     AbilityScoreCls.prototype.CalculateAbilityScoreModifier = function (sheet) {
         for (var propName in sheet.AbilityScores) {
             sheet[propName + "Mod"] = Math.floor((sheet.AbilityScores[propName] - 10) / 2);

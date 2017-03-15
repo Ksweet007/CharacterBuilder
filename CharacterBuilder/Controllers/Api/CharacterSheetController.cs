@@ -49,6 +49,15 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(returnSheet);
         }
 
+        [HttpGet]
+        [Route("GetSkillsBySheetId/{sheetId}")]
+        public IHttpActionResult GetSkillsBySheetId(int sheetId)
+        {
+            var skills = _characterSheetService.GetSkillsBySheetId(sheetId);
+
+            return Ok(skills);
+        }
+
         [HttpPost]
         [Route("CreateNewSheet")]
         public IHttpActionResult CreateNewSheet()

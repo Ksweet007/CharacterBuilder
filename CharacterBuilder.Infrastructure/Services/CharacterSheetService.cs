@@ -28,6 +28,13 @@ namespace CharacterBuilder.Infrastructure.Services
             return userSheet.User.Id == userId;
         }
 
+        public SkillDto GetSkillsBySheetId(int sheetId)
+        {
+            var skillsFromDb = _characterSheetRepository.GetSkillsBySheetId(sheetId);
+
+            return skillsFromDb;
+        }
+
         public CharacterSheetDTO GetById(int sheetId)
         {
             var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
@@ -42,13 +49,6 @@ namespace CharacterBuilder.Infrastructure.Services
             }
 
             return sheetDto;
-        }
-
-        public IList<Skill> GetSkillsBySheetId(int sheetId)
-        {
-            var skillsFromDb = _characterSheetRepository.GetSkillsBySheetId(sheetId);
-
-            return skillsFromDb;
         }
         
         public IList<CharacterSheetDTO> ListByUserId(string userId)

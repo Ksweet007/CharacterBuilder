@@ -68,7 +68,6 @@ namespace CharacterBuilder.Core.DTO
 
         public void MapSkillsToSkillProf(List<Skill> skills)
         {          
-
             foreach (var item in skills)
             {
                 Skills.Add(item.Id);
@@ -81,14 +80,7 @@ namespace CharacterBuilder.Core.DTO
             SkillProficiencies = classProf.ToList();
         }        
     }
-
-    public class SheetSkill
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string AbilityScore { get; set; }
-    }
-    
+   
     public class ScoreIncrease
     {
         public int Id { get;set; }

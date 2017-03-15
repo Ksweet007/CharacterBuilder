@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using CharacterBuilder.Core.DTO;
 using CharacterBuilder.Core.Model;
 using CharacterBuilder.Core.Model.User;
 using CharacterBuilder.Infrastructure.Data.Contexts;
@@ -63,13 +64,24 @@ namespace CharacterBuilder.Infrastructure.Data
             return sheet;
         }
 
-        public IList<Skill> GetSkillsBySheetId(int sheetId)
+        public SkillDto GetSkillsBySheetId(int sheetId)
         {
             var sheetDb = _db.CharacterSheets
-                .Include(s => s.Skills)
+                .Include(s => s.Skills.Select(a => a.AbilityScore))
+                .Include(c => c.Class.Skills)
                 .Single(x => x.Id == sheetId);
 
-            return sheetDb.Skills ?? new List<Skill>();
+            var allSkills = ListAllSkills();
+            
+            var mapped = new SkillDto
+            {
+                AllSkills = allSkills,
+                Skills = sheetDb.Skills.Select(item => item.Id).ToList(),
+                SkillProficiencies = sheetDb.Class?.Skills ?? new List<Skill>(),
+                SkillPickCount = sheetDb.Class?.SkillPickCount ?? 0
+            };
+
+            return mapped;
         }
 
         public IList<CharacterSheet> GetUserSheets(string userId)
@@ -82,7 +94,7 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(f => f.Class.Features)
                 .Include(b => b.Background.Skills.Select(a => a.AbilityScore))
                 .Include(r => r.Race)
-                .Include(sr => sr.Subrace)                
+                .Include(sr => sr.Subrace)
                 .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
                 .Include(l => l.LevelChecklists)
                 .Include(cs => cs.Skills)
@@ -104,10 +116,26 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(u => u.User)
                 .Single(s => s.Id == sheetId);
         }
-        
+
+        public CharacterSheet GetCharacterSheetByIdNoInludes(int sheetId)
+        {
+            return _db.CharacterSheets.Include(t => t.ToDo)
+                .Include(t => t.ToDo)
+                //.Include(c => c.Class.Skills.Select(a => a.AbilityScore))
+                .Include(f => f.Class.Features)
+                .Include(b => b.Background.Skills.Select(a => a.AbilityScore))
+                .Include(r => r.Race)
+                .Include(sr => sr.Subrace)
+                .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
+                .Include(l => l.LevelChecklists)
+                .Include(cs => cs.Skills)
+                .Include(u => u.User)
+                .Single(s => s.Id == sheetId);
+        }
+
         public LevelChecklist AddLevelChecklist(int sheetId)
         {
-            var sheetFromDb = GetCharacterSheetById(sheetId);                       
+            var sheetFromDb = GetCharacterSheetById(sheetId);
             var chkListToAdd = new LevelChecklist
             {
                 CharacterSheet = sheetFromDb,
@@ -125,7 +153,7 @@ namespace CharacterBuilder.Infrastructure.Data
             return _db.Skills.ToList();
         }
 
-        public Skill GetSkillById (int skillId)
+        public Skill GetSkillById(int skillId)
         {
             return _db.Skills.Single(s => s.Id == skillId);
         }

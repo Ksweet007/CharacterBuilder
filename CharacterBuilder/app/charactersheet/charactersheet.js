@@ -17,22 +17,18 @@
     return function () {
         var self = this;
         self.sheetId = _i.ko.observable(0);
+        self.CharacterName = _i.ko.observable('');
+        self.PlayerName = _i.ko.observable('');
+        self.Alignment = _i.ko.observable('');
+        self.Level = _i.ko.observable(0);
+        self.HitPoints = _i.ko.observable(0);
+        self.HitDie = _i.ko.observable(0);
+        self.AbilityScores = _i.ko.observable();
 
-        /*==================== PAGE STATE/FILTERED ITEMS ====================*/
-        self.rollHpText = function () {
-            if (self.characterSheet.Class.Hitdie === undefined) {
-                return "";
-            }
-            return "Roll HP (1d" + self.characterSheet.Class.Hitdie() + ")";
-        };
-
-        self.takeDefaultValue = function () {
-            if (self.characterSheet.Class.Hitdie === undefined) {
-                return "";
-            }
-            var defaultHp = self.characterSheet.Class.Hitdie() - (self.characterSheet.Class.Hitdie() * .5) + 1;
-            return "Default HP " + "(" + defaultHp + ")";
-        };
+        self.AllSkills = _i.ko.observableArray([]);
+        self.SkillPickCount = _i.ko.observable(0);
+        self.SkillProficiencies = _i.ko.observableArray([]);
+        self.Skills = _i.ko.observableArray([]);
 
         /*==================== LEVEL CHECKLIST ====================*/
 
@@ -48,22 +44,36 @@
             return _i.checklist.IsAbilityScoreTaskComplete(self.characterSheet);
         };
 
+        /*==================== ACTIVATE DEPENDENCIES ====================*/
+
         self.activate = function (sheetId) {
             self.sheetId(sheetId);
             return self.getPageData().done(function () {
 
                 self.abilScore = _i.ko.computed(function () {
-                    var result = [];
-
-                    for (var propName in self.characterSheet.AbilityScores) {
-                        if (self.characterSheet.AbilityScores.hasOwnProperty(propName)) {
-                            var abilityScoreObj = _i.abilityscore.CombineScoresWithIncrease(self.characterSheet, propName);
-                            result.push({ propName: abilityScoreObj.Name, shortName: abilityScoreObj.ShortName, abilScore: abilityScoreObj.ScoreTotal, abilMod: abilityScoreObj.Modifier, templateName: "scalar_templ" });
-                        }
-                    }
-
-                    return result;
+                    return _i.abilityscore.BuildScoreDisplay(self.characterSheet);
                 });
+                
+                self.rollHpText = function () {
+                    if (self.characterSheet.Class.Hitdie === undefined) {
+                        return "";
+                    }
+                    return "Roll HP (1d" + self.characterSheet.Class.Hitdie() + ")";
+                };
+
+                self.maxHp = _i.ko.computed(function () {                    
+                    var conMod = self.AbilityScores().Constitution;
+                    return self.HitPoints() + conMod;
+                });
+
+                self.takeDefaultValue = function () {
+                    if (self.characterSheet.Class.Hitdie === undefined) {
+                        return "";
+                    }
+                    var defaultHp = self.characterSheet.Class.Hitdie() - (self.characterSheet.Class.Hitdie() * .5) + 1;
+                    return "Default HP " + "(" + defaultHp + ")";
+                };
+
             });
         };
 
@@ -162,17 +172,6 @@
             }
         };
 
-        self.getPageData = function () {
-            var deferred = _i.deferred.create();
-            var promise = _i.deferred.waitForAll(self.getCharacterSheets());
-
-            promise.done(function () {
-                deferred.resolve();
-            });
-
-            return deferred;
-        };
-
         self.saveSheet = function (sheetToSave) {
             var skillsToSave = [];
 
@@ -245,12 +244,48 @@
             });
         };
 
-        self.getCharacterSheets = function () {
+        self.getPageData = function () {
+            var deferred = _i.deferred.create();
+            var promise = _i.deferred.waitForAll(self.getCharacterSheet(), self.getSheetSkills());
+
+            promise.done(function () {
+                deferred.resolve();
+            });
+
+            return deferred;
+        };
+
+        self.getSheetSkills = function() {
+            var deferred = _i.deferred.create();
+            _i.charajax.get('api/charactersheet/GetSkillsBySheetId/' + self.sheetId()).done(function (response) {
+                self.skillData = response;
+
+                self.AllSkills(self.skillData.AllSkills);
+                self.SkillPickCount(self.skillData.SkillPickCount);
+                self.SkillProficiencies(self.skillData.SkillProficiencies);
+                self.Skills(self.skillData.Skills);
+
+                deferred.resolve();
+            });
+            return deferred;
+        };
+
+        self.getCharacterSheet = function () {
             var deferred = _i.deferred.create();
             _i.charajax.get('api/charactersheet/GetSheetById/' + self.sheetId()).done(function (response) {
                 self.characterSheet = response;
 
                 self.characterSheet.createdDateFormatted = moment(self.characterSheet.CreatedDate).format('LLL');
+                self.AbilityScores(self.characterSheet.AbilityScores);
+                self.HitDie(self.characterSheet.HpMax);
+                self.CharacterName(self.characterSheet.CharacterName);
+                self.PlayerName(self.characterSheet.PlayerName);
+                self.Class = self.characterSheet.Class;
+                self.Background = self.characterSheet.Background;
+                self.Race = self.characterSheet.Race;
+
+                self.Level(self.characterSheet.Level);
+
                 self.characterSheet.HpNoMod = self.characterSheet.HpMax;
                 self.characterSheet.HpMax = self.characterSheet.HpNoMod + Math.floor(((self.characterSheet.AbilityScores["Constitution"] - 10) / 2));
 

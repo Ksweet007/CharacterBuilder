@@ -1,6 +1,6 @@
 ﻿<nav-header params="{isDirty: null, save: null}"></nav-header>
 <div class="container-fluid full-width-container">
-    <section data-bind="with : characterSheet ">
+    <section>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <!--ko with: Class-->
-                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.Level()"></div>
+                                <div class="sheettext largetext" data-bind="text:Name + ' ' + $parent.Level()"></div>
                                 <!--/ko-->
                                 <div class="sheetheader subheader">Class & Level</div>
                             </div>
@@ -68,7 +68,7 @@
             <div class="col-lg-2 col-sm-4 col-xs-8">
                 <!-- BEGIN ABILITY SCORE-->
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-                    <div class="pmd-card-body text-center" data-bind="foreach:$parent.abilScore">
+                    <div class="pmd-card-body text-center" data-bind="foreach:abilScore">
                         <div data-bind="template: {name: templateName, data: $data}"></div>
                         <script type="text/html" id="scalar_templ">
                             <div class="row abilityscorerow">
@@ -124,7 +124,7 @@
                     <div class="pmd-card-body text-center">
                         <div class="row paddedrowtoprow">
                             <div class="col-xs-14">
-                                <div class="sheettext largetext" data-bind="text:HpMax"></div>
+                                <div class="sheettext largetext" data-bind="text:maxHp"></div>
                                 <div class="sheetheader abiltext">Hit Point Max</div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.rollHitPoints'>
                                     cached
                                 </button>
-                                <div class="sheetheader subheader" data-bind="text:$root.rollHpText()"></div>
+                                <div class="sheetheader subheader" data-bind="text:'Roll HP (1d ' + HitDie()"></div>
                             </div>
                             <div class="col-xs-6">
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.defaultHitPoints">

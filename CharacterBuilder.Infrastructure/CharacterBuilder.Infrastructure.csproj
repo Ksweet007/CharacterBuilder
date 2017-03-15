@@ -72,6 +72,7 @@
     <Compile Include="Data\RaceRepository.cs" />
     <Compile Include="Data\WeaponRepository.cs" />
     <Compile Include="Mappers\CharacterSheetMapper.cs" />
+    <Compile Include="Mappers\CharacterSheetSkillMapper.cs" />
     <Compile Include="Migrations\201703101311117_ResettingThisPieceofshit.cs" />
     <Compile Include="Migrations\201703101311117_ResettingThisPieceofshit.Designer.cs">
       <DependentUpon>201703101311117_ResettingThisPieceofshit.cs</DependentUpon>

@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\CharacterSheetDTO.cs" />
+    <Compile Include="DTO\SkillDto.cs" />
     <Compile Include="DTO\ToDoDto.cs" />
     <Compile Include="DTO\WeaponCategoryDTO.cs" />
     <Compile Include="DTO\WeaponDTO.cs" />
