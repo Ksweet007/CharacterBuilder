@@ -107,7 +107,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-8 skillCol">
-                                <div class="sheetheader abiltext" data-bind="text:Name"></div>
+                                <div class="sheetheader abiltext">{{Name}}</div>
                             </div>
                             <div class="media-right">
                                 <div class="sheetheader abiltext">99</div>
@@ -124,7 +124,7 @@
                     <div class="pmd-card-body text-center">
                         <div class="row paddedrowtoprow">
                             <div class="col-xs-14">
-                                <div class="sheettext largetext" data-bind="text:maxHp"></div>
+                                <div class="sheettext largetext">{{maxHp}}</div>
                                 <div class="sheetheader abiltext">Hit Point Max</div>
                             </div>
                         </div>
@@ -134,13 +134,13 @@
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.rollHitPoints'>
                                     cached
                                 </button>
-                                <div class="sheetheader subheader" data-bind="text:'Roll HP (1d ' + HitDie()"></div>
+                                <div class="sheetheader subheader">Roll HP (1d{{HitDie}})</div>
                             </div>
                             <div class="col-xs-6">
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.defaultHitPoints">
                                     edit
                                 </button>
-                                <div class="sheetheader subheader" data-bind="text:$root.takeDefaultValue()"></div>
+                                <div class="sheetheader subheader">Default HP ({{defaultHp}})</div>
                             </div>
                         </div>
                         <!--/ko-->

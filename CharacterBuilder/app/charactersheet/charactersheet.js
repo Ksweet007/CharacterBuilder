@@ -53,27 +53,16 @@
                 self.abilScore = _i.ko.computed(function () {
                     return _i.abilityscore.BuildScoreDisplay(self.characterSheet);
                 });
-                
-                self.rollHpText = function () {
-                    if (self.characterSheet.Class.Hitdie === undefined) {
-                        return "";
-                    }
-                    return "Roll HP (1d" + self.characterSheet.Class.Hitdie() + ")";
-                };
-
+               
                 self.maxHp = _i.ko.computed(function () {                    
                     var conMod = self.AbilityScores().Constitution;
                     return self.HitPoints() + conMod;
                 });
 
-                self.takeDefaultValue = function () {
-                    if (self.characterSheet.Class.Hitdie === undefined) {
-                        return "";
-                    }
-                    var defaultHp = self.characterSheet.Class.Hitdie() - (self.characterSheet.Class.Hitdie() * .5) + 1;
-                    return "Default HP " + "(" + defaultHp + ")";
-                };
-
+                self.defaultHp = _i.ko.computed(function() {
+                    return self.HitDie() - (self.HitDie() * .5) + 1;
+                });
+                
             });
         };
 
@@ -277,7 +266,7 @@
 
                 self.characterSheet.createdDateFormatted = moment(self.characterSheet.CreatedDate).format('LLL');
                 self.AbilityScores(self.characterSheet.AbilityScores);
-                self.HitDie(self.characterSheet.HpMax);
+                self.HitDie(self.characterSheet.Class.Hitdie);
                 self.CharacterName(self.characterSheet.CharacterName);
                 self.PlayerName(self.characterSheet.PlayerName);
                 self.Class = self.characterSheet.Class;
