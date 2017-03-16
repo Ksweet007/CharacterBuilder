@@ -67,7 +67,7 @@
                     var shortName = scoreName.toUpperCase().substr(0, 3);
                     var scoreMod = Math.floor((scoreValue - 10) / 2);
 
-                    return { shortName: shortName, Value: scoreValue, Modifier: scoreMod };
+                    return { shortName: shortName, Value: scoreValue, Modifier: scoreMod, Name: scoreName };
                 };
 
                 self.Strength = _i.ko.computed(function () {
@@ -137,9 +137,9 @@
 
         /*==================== ROLLS ====================*/
         self.rollScore = function (score) {
-            _i.roller.RollAbilityScore(self.characterSheet, score);
+            _i.roller.RollAbilityScore(self.AbilityScores(), score);
 
-            self.updateTodoAndTask("HasRolled" + score.propName);
+            self.updateTodoAndTask("HasRolled" + score.Name);
             self.saveSheet(self.characterSheet);
         };
 

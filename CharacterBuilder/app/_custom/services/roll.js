@@ -9,11 +9,11 @@
 
     function RollCls() { }
 
-    RollCls.prototype.RollAbilityScore = function (sheet, score) {
-        var abilityScoreObj = sheet.AbilityScores[score.propName];
+    RollCls.prototype.RollAbilityScore = function (abilityScores, score) {
+        var abilityScoreObj = abilityScores[score.Name];
         
         var rolledValue = this.GetRolledValue();
-        abilityScoreObj(rolledValue);
+        abilityScoreObj = rolledValue;
     };
 
     RollCls.prototype.GetRolledValue = function () {
