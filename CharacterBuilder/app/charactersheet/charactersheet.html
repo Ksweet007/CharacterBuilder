@@ -71,14 +71,14 @@
                     <div class="pmd-card-body text-center" data-bind="foreach:AbilityScoreListing()">
                         <div class="row abilityscorerow">
                             <div class="col-xs-4 abilityscorebody">
-                                <div class="sheetheader abiltext">CON</div>
+                                <div class="sheetheader abiltext">{{ShortName}}</div>
                                 <div class="sheettext largetext">{{Score}}</div>
                             </div>
                             <div class="col-xs-4 abilityscorebody">
                                 <div class="sheetheader abiltext">Mod</div>
                                 <div class="sheetheader abilmod abilitymodcontainer">{{Mod}}</div>
                             </div>
-                            <!--ko if: !$root.hasFinishedAbilityScores()-->
+                            <!--ko if: $data.CanRoll -->
                             <div class="media-right">
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollScore'>
                                     cached

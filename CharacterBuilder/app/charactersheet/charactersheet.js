@@ -35,7 +35,7 @@
 
         self.ToDo = _i.ko.observable();
         self.LevelChecklist = _i.ko.observable();
-        
+
         self.activate = function (sheetId) {
             self.sheetId(sheetId);
             return self.getPageData().done(function () {
@@ -51,7 +51,7 @@
                     return returnVal;
                 };
 
-                self.ScoreIncreases = function() {
+                self.ScoreIncreases = function () {
                     return {
                         Strength: self.scoreIncreaseByName("Strength"),
                         Dexterity: self.scoreIncreaseByName("Dexterity"),
@@ -64,69 +64,93 @@
 
                 self.Strength = {
                     Name: "Strength",
+                    ShortName: "STR",
                     Score: _i.ko.computed(function () {
-                        return self.AbilityScores().Strength() + self.ScoreIncreases().Strength;;
+                        return self.AbilityScores().Strength() + self.ScoreIncreases().Strength;
                     }),
                     Mod: _i.ko.computed(function () {
                         return Math.floor((self.AbilityScores().Strength() - 10) / 2);
+                    }),
+                    CanRoll: _i.ko.computed(function () {
+                        return !self.ToDo().FirstLevelTasks.HasRolledStrength();
                     })
                 };
 
                 self.Dexterity = {
                     Name: "Dexterity",
+                    ShortName: "DEX",
                     Score: _i.ko.computed(function () {
                         return self.AbilityScores().Dexterity() + self.ScoreIncreases().Dexterity;
                     }),
                     Mod: _i.ko.computed(function () {
                         return Math.floor((self.AbilityScores().Dexterity() - 10) / 2);
+                    }),
+                    CanRoll: _i.ko.computed(function () {
+                        return !self.ToDo().FirstLevelTasks.HasRolledDexterity();
                     })
                 };
 
                 self.Constitution = {
                     Name: "Constitution",
+                    ShortName: "CON",
                     Score: _i.ko.computed(function () {
                         return self.AbilityScores().Constitution() + self.ScoreIncreases().Constitution;
                     }),
                     Mod: _i.ko.computed(function () {
                         return Math.floor((self.AbilityScores().Constitution() - 10) / 2);
+                    }),
+                    CanRoll: _i.ko.computed(function () {
+                        return !self.ToDo().FirstLevelTasks.HasRolledConstitution();
                     })
                 };
 
                 self.Intelligence = {
                     Name: "Intelligence",
+                    ShortName: "INT",
                     Score: _i.ko.computed(function () {
                         return self.AbilityScores().Intelligence() + self.ScoreIncreases().Intelligence;
                     }),
                     Mod: _i.ko.computed(function () {
                         return Math.floor((self.AbilityScores().Intelligence() - 10) / 2);
+                    }),
+                    CanRoll: _i.ko.computed(function () {
+                        return !self.ToDo().FirstLevelTasks.HasRolledIntelligence();
                     })
                 };
 
                 self.Wisdom = {
                     Name: "Wisdom",
+                    ShortName: "WIS",
                     Score: _i.ko.computed(function () {
-                       return self.AbilityScores().Wisdom() + self.ScoreIncreases().Wisdom;
+                        return self.AbilityScores().Wisdom() + self.ScoreIncreases().Wisdom;
                     }),
                     Mod: _i.ko.computed(function () {
                         return Math.floor((self.AbilityScores().Wisdom() - 10) / 2);
+                    }),
+                    CanRoll: _i.ko.computed(function () {
+                        return !self.ToDo().FirstLevelTasks.HasRolledWisdom();
                     })
                 };
 
                 self.Charisma = {
                     Name: "Charisma",
+                    ShortName: "CHA",
                     Score: _i.ko.computed(function () {
                         return self.AbilityScores().Charisma() + self.ScoreIncreases().Charisma;
                     }),
                     Mod: _i.ko.computed(function () {
                         return Math.floor((self.AbilityScores().Charisma() - 10) / 2);
+                    }),
+                    CanRoll: _i.ko.computed(function () {
+                        return !self.ToDo().FirstLevelTasks.HasRolledCharisma();
                     })
                 };
-                
+
                 self.AbilityScoreListing = _i.ko.observableArray([self.Strength, self.Dexterity, self.Constitution, self.Intelligence, self.Wisdom, self.Charisma]);
-                
+
                 self.maxHp = _i.ko.pureComputed(function () {
                     var hpIncrease = self.Constitution.Mod() * self.Level();
-                    return self.HitPoints() + hpIncrease; //Add Con Mod Each Level to our base HP (All Rolled values)
+                    return self.HitPoints() + hpIncrease; //Add Con Mod per Level to our base HP (All Rolled values)
                 });
 
                 self.defaultHp = _i.ko.pureComputed(function () {
@@ -333,28 +357,24 @@
             _i.charajax.get('api/charactersheet/GetSheetById/' + self.sheetId()).done(function (response) {
                 self.characterSheet = response;
 
+                self.CharacterName(self.characterSheet.CharacterName);
+                self.PlayerName(self.characterSheet.PlayerName);
+                self.Alignment(self.characterSheet.Alignment);
+
+                self.Level(self.characterSheet.Level);
+
+                self.Class = self.characterSheet.Class;
+                self.Background = self.characterSheet.Background;
+                self.Race = self.characterSheet.Race;
+
                 self.AbilityScores(_i.ko.mapping.fromJS(self.characterSheet.AbilityScores));
-                //self.AbilityScores(self.characterSheet.AbilityScores);
-
-
                 self.AbilityScoreIncreases(self.characterSheet.AbilityScoreIncreases);
 
                 self.HitDie(self.characterSheet.Class.Hitdie);
                 self.HitPoints(self.characterSheet.HpMax);
 
-                self.CharacterName(self.characterSheet.CharacterName);
-                self.PlayerName(self.characterSheet.PlayerName);
-                self.Class = self.characterSheet.Class;
-                self.Background = self.characterSheet.Background;
-                self.Race = self.characterSheet.Race;
-
-                self.Level(self.characterSheet.Level);
-
                 self.ToDo(_i.ko.mapping.fromJS(self.characterSheet.ToDo));
                 self.LevelChecklist(self.characterSheet.LevelChecklist);
-
-
-
 
                 deferred.resolve();
             });
