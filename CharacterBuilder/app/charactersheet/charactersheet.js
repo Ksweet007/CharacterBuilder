@@ -35,21 +35,10 @@
 
         self.ToDo = _i.ko.observable();
         self.LevelChecklist = _i.ko.observable();
-
-
-
+        
         self.activate = function (sheetId) {
             self.sheetId(sheetId);
             return self.getPageData().done(function () {
-
-                self.maxHp = _i.ko.pureComputed(function () {
-                    var conMod = Math.floor((self.AbilityScores().Constitution - 10) / 2);
-                    return self.HitPoints() + conMod;
-                });
-
-                self.defaultHp = _i.ko.pureComputed(function () {
-                    return self.HitDie() - (self.HitDie() * .5) + 1;
-                });
 
                 self.scoreIncreaseByName = function (scoreName) {
                     var returnVal = 0;
@@ -62,62 +51,87 @@
                     return returnVal;
                 };
 
-                self.buildAbilityScore = function (scoreName) {
-                    var scoreValue = self.scoreIncreaseByName(scoreName);
-                    var shortName = scoreName.toUpperCase().substr(0, 3);
-                    var scoreMod = Math.floor((scoreValue - 10) / 2);
-
-                    return { shortName: shortName, Value: scoreValue, Modifier: scoreMod, Name: scoreName };
+                self.ScoreIncreases = function() {
+                    return {
+                        Strength: self.scoreIncreaseByName("Strength"),
+                        Dexterity: self.scoreIncreaseByName("Dexterity"),
+                        Constitution: self.scoreIncreaseByName("Constitution"),
+                        Intelligence: self.scoreIncreaseByName("Intelligence"),
+                        Wisdom: self.scoreIncreaseByName("Wisdom"),
+                        Charisma: self.scoreIncreaseByName("Charisma")
+                    }
                 };
 
-                self.Strength = _i.ko.computed(function () {
-                    return self.buildAbilityScore("Strength");
-                });
-                self.StrengthMod = _i.ko.computed(function () {
-                    return Math.floor((self.Strength() - 10) / 2);
-                });
-
-                self.Dexterity = _i.ko.computed(function () {
-                    return self.buildAbilityScore("Dexterity");
-                });
-                self.DexterityMod = _i.ko.computed(function () {
-                    return Math.floor((self.Dexterity() - 10) / 2);
-                });
-
-                self.ConstitutionObj = {
-                    Name:"Constitution",
+                self.Strength = {
+                    Name: "Strength",
                     Score: _i.ko.computed(function () {
-                        var scoreIncrease = self.scoreIncreaseByName("Constitution");
-                        return self.AbilityScores().Constitution() + scoreIncrease;
+                        return self.AbilityScores().Strength() + self.ScoreIncreases().Strength;;
+                    }),
+                    Mod: _i.ko.computed(function () {
+                        return Math.floor((self.AbilityScores().Strength() - 10) / 2);
+                    })
+                };
+
+                self.Dexterity = {
+                    Name: "Dexterity",
+                    Score: _i.ko.computed(function () {
+                        return self.AbilityScores().Dexterity() + self.ScoreIncreases().Dexterity;
+                    }),
+                    Mod: _i.ko.computed(function () {
+                        return Math.floor((self.AbilityScores().Dexterity() - 10) / 2);
+                    })
+                };
+
+                self.Constitution = {
+                    Name: "Constitution",
+                    Score: _i.ko.computed(function () {
+                        return self.AbilityScores().Constitution() + self.ScoreIncreases().Constitution;
                     }),
                     Mod: _i.ko.computed(function () {
                         return Math.floor((self.AbilityScores().Constitution() - 10) / 2);
                     })
                 };
 
-                self.Intelligence = _i.ko.computed(function () {
-                    return self.buildAbilityScore("Intelligence");
-                });
-                self.IntelligenceMod = _i.ko.computed(function () {
-                    return Math.floor((self.Intelligence() - 10) / 2);
+                self.Intelligence = {
+                    Name: "Intelligence",
+                    Score: _i.ko.computed(function () {
+                        return self.AbilityScores().Intelligence() + self.ScoreIncreases().Intelligence;
+                    }),
+                    Mod: _i.ko.computed(function () {
+                        return Math.floor((self.AbilityScores().Intelligence() - 10) / 2);
+                    })
+                };
+
+                self.Wisdom = {
+                    Name: "Wisdom",
+                    Score: _i.ko.computed(function () {
+                       return self.AbilityScores().Wisdom() + self.ScoreIncreases().Wisdom;
+                    }),
+                    Mod: _i.ko.computed(function () {
+                        return Math.floor((self.AbilityScores().Wisdom() - 10) / 2);
+                    })
+                };
+
+                self.Charisma = {
+                    Name: "Charisma",
+                    Score: _i.ko.computed(function () {
+                        return self.AbilityScores().Charisma() + self.ScoreIncreases().Charisma;
+                    }),
+                    Mod: _i.ko.computed(function () {
+                        return Math.floor((self.AbilityScores().Charisma() - 10) / 2);
+                    })
+                };
+                
+                self.AbilityScoreListing = _i.ko.observableArray([self.Strength, self.Dexterity, self.Constitution, self.Intelligence, self.Wisdom, self.Charisma]);
+                
+                self.maxHp = _i.ko.pureComputed(function () {
+                    var hpIncrease = self.Constitution.Mod() * self.Level();
+                    return self.HitPoints() + hpIncrease; //Add Con Mod Each Level to our base HP (All Rolled values)
                 });
 
-                self.Wisdom = _i.ko.computed(function () {
-                    return self.buildAbilityScore("Wisdom");
+                self.defaultHp = _i.ko.pureComputed(function () {
+                    return self.HitDie() - (self.HitDie() * .5) + 1;
                 });
-                self.WisdomMod = _i.ko.computed(function () {
-                    return Math.floor((self.Wisdom() - 10) / 2);
-                });
-
-                self.Charisma = _i.ko.computed(function () {
-                    return self.buildAbilityScore("Charisma");
-                });
-                self.CharismaMod = _i.ko.computed(function () {
-                    return Math.floor((self.Charisma() - 10) / 2);
-                });
-
-                self.AbilityScoreListing = _i.ko.observableArray([self.ConstitutionObj]);
-                //self.AbilityScoreListing = _i.ko.observableArray([self.Strength(),self.Dexterity(),self.Constitution(),self.Intelligence(),self.Wisdom(),self.Charisma()]);
 
                 self.hasFinishedAbilityScores = _i.ko.computed(function () {
                     if (self.Level() === 1) {
@@ -326,6 +340,8 @@
                 self.AbilityScoreIncreases(self.characterSheet.AbilityScoreIncreases);
 
                 self.HitDie(self.characterSheet.Class.Hitdie);
+                self.HitPoints(self.characterSheet.HpMax);
+
                 self.CharacterName(self.characterSheet.CharacterName);
                 self.PlayerName(self.characterSheet.PlayerName);
                 self.Class = self.characterSheet.Class;
