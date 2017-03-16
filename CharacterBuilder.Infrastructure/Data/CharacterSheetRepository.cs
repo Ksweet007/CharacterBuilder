@@ -73,14 +73,15 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Single(x => x.Id == sheetId);
 
             var allSkills = ListAllSkills();
-            
+            var pickCount = sheetDb.Class?.SkillPickCount + sheetDb.Background?.Skills.Count;
+
             var mapped = new SkillDto
             {
                 AllSkills = allSkills,
                 Skills = sheetDb.Skills.Select(item => item.Id).ToList(),
                 SkillProficiencies = sheetDb.Class?.Skills ?? new List<Skill>(),
                 BackgroundSkills = sheetDb.Background?.Skills.Select(item => item.Id).ToList() ?? new List<int>(),
-                SkillPickCount = sheetDb.Class?.SkillPickCount ?? 0
+                SkillPickCount = pickCount ?? 0
             };
 
             return mapped;

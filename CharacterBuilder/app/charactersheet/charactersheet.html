@@ -7,7 +7,6 @@
                     <div class="pmd-card-body">
                         <div class="media-left">
                             <div class="col-xs-4">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.closeMoreDetails'>fullscreen_exit</button>
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.saveSheet'>check_box</button>
                                 <!--ko if: $root.levelIsComplete()-->                                                                         
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.levelUp'>file_upload</button>
@@ -29,10 +28,12 @@
                     <div class="pmd-card-body">
                         <div class="row">
                             <div class="col-xs-4">
-                                <!--ko with: Class-->
-                                <div class="sheettext largetext">{{Name}} {{$parent.Level}}</div>
-                                <!--/ko-->
-                                <div class="sheetheader subheader">Class & Level</div>
+                                
+                                    <!--ko with: Class-->
+                                    <div class="sheettext largetext">{{Name}} {{$parent.Level}}</div>
+                                    <!--/ko-->
+                                    <div class="sheetheader subheader">Class & Level</div>
+                                
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
@@ -65,10 +66,9 @@
 
         </div>
         <div class="row">
-            <div class="col-lg-2 col-sm-4 col-xs-8">
-                <!-- BEGIN ABILITY SCORE-->
+            <div class="col-lg-2 col-sm-4 col-xs-8">               
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-                    <div class="pmd-card-body text-center" data-bind="foreach:abilityScores">
+                    <div class="pmd-card-body text-center" data-bind="foreach:AbilityScoreListing">
                         <div class="row abilityscorerow">
                             <div class="col-xs-4 abilityscorebody">
                                 <div class="sheetheader abiltext">{{shortName}}</div>
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-            </div> <!--END ABILITY SCORE-->
+            </div>
 
             <div class="col-lg-2 col-sm-4 col-xs-8">
                 <!--BEGIN SKILLS-->
