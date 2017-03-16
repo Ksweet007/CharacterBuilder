@@ -74,7 +74,7 @@ namespace CharacterBuilder.Infrastructure.Data
 
             var bgSkills = sheetDb.Background?.Skills ?? new List<Skill>();
             var allSkills = ListAllSkills();
-            var pickCount = sheetDb.Class?.SkillPickCount + sheetDb.Background?.Skills.Count;
+            var pickCount = sheetDb.Class?.SkillPickCount;
 
             var mapped = new SkillDto
             {

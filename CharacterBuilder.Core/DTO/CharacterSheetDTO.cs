@@ -15,7 +15,7 @@ namespace CharacterBuilder.Core.DTO
         public int HpMax { get; set; }
 
 
-        public IList<int> Skills { get; set; } = new List<int>();        
+        public IList<SkillListingDTO> SkillsSelected { get; set; }  
 
         public IList<ProficiencyBonus> ProficiencyBonuses { get; set;}
 

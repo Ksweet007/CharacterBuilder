@@ -157,6 +157,14 @@
                 });
 
                 self.AllSkills().forEach(function (item) {
+                    if (self.ToDo().HasSelectedSkills()) {
+                        if (item.IsSelected()) {
+                            item.Value(self[item.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
+                        } else {
+                            item.Value(self[item.AbilityScoreName()].Mod());
+                        }
+                        item.IsLockedChoice(true);
+                    }
                     if (item.IsSelected()) {
                         item.Value(self[item.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
                     } else {
@@ -166,8 +174,12 @@
                     item.IsSelected.subscribe(function (isSelected) {
                         if (isSelected) {
                             item.Value(self[item.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
+                            self.SkillsSelected().push(item);
+                            self.CheckSkillLimit();
                         } else {
                             item.Value(self[item.AbilityScoreName()].Mod());
+                            self.SkillsSelected.remove(item);
+                            self.CheckSkillLimit();
                         }
                     });
                 });
@@ -194,14 +206,6 @@
 
                 });
 
-                self.hasFinishedSkills = _i.ko.computed(function () {
-                    if (self.Class.Id === 0) return false;
-
-                    if (self.SkillsSelected().length === self.SkillPickCount()) {
-                        self.ToDo().HasSelectedSkills(true);
-                    }
-                });
-
                 self.levelIsComplete = _i.ko.computed(function () {
                     if (self.Level() === 1) {
                         return _i.checklist.LevelOneComplete(self.ToDo());
@@ -223,8 +227,6 @@
 
                     return !self.LevelChecklist().HasIncreasedHp();
                 });
-
-
 
             });
         };
@@ -258,6 +260,24 @@
             self.saveSheet(self.characterSheet).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Hit Points Increased by Default: " + defaultIncrease });
             });
+        };
+
+        self.CheckSkillLimit = function () {
+            if (self.SkillsSelected().length === self.SkillPickCount()) {
+                self.ToDo().HasSelectedSkills(true);
+                self.AllSkills().forEach(function(item) {
+                    if (!item.IsSelected()) {
+                        item.IsLockedChoice(true);
+                    }
+                });
+            } else {
+                self.ToDo().HasSelectedSkills(false);
+                self.AllSkills().forEach(function (item) {
+                    if (!item.IsSelected() && item.IsProficient()) {
+                        item.IsLockedChoice(false);
+                    }
+                });
+            }
         };
 
         self.deleteSheet = function (obj) {
@@ -305,15 +325,6 @@
         };
 
         self.saveSheet = function () {
-            var skillsToSave = [];
-
-            self.SkillsSelected().forEach(function (skl) {
-                self.AllSkills().forEach(function (baseskill) {
-                    if (baseskill.Id === skl) {
-                        skillsToSave.push(baseskill);
-                    }
-                });
-            });
 
             var dataToSave = {
                 Id: self.sheetId(),
@@ -324,7 +335,7 @@
                 HpMax: self.HitPoints(),
                 AbilityScores: _i.ko.toJS(self.AbilityScores),
                 ToDo: _i.ko.toJS(self.ToDo),
-                Skills: self.SkillsSelected()
+                SkillsSelected: _i.ko.toJS(self.SkillsSelected)
             };
 
             return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {
