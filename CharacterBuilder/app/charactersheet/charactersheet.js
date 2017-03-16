@@ -252,11 +252,12 @@
         };
 
         self.defaultHitPoints = function (sheet) {
-            var defaultIncrease = (sheet.Class.Hitdie() * .5) + 1;
-            var totalHpAfterDefaultNoMod = _i.roller.DefaultHitPoints(defaultIncrease, sheet.HpMax());
+            var defaultIncrease = (self.HitDie() * .5) + 1;
+            var totalHpAfterDefaultNoMod = defaultIncrease + sheet.HitPoints();
 
-            self.characterSheet.HpMax(totalHpAfterDefaultNoMod);
+            self.HitPoints(totalHpAfterDefaultNoMod);
 
+            self.updateTodoAndTask("HasIncreasedHp");
             self.saveSheet(self.characterSheet).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Hit Points Increased by Default: " + defaultIncrease });
             });
@@ -301,7 +302,7 @@
 
             return _i.charajax.post('api/charactersheet/AddLevelChecklist/' + self.sheetId()).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Leveled-up to level " + self.Level() });
-                self.LevelCheckList(response);
+                self.LevelChecklist(_i.ko.mapping.fromJS(response));
             });
         };
 
@@ -318,7 +319,7 @@
         };
 
         self.updateLevelChecklist = function (taskName) {
-            self.LevelChecklist[taskName](true);
+            self.LevelChecklist()[taskName](true);
             if (!self.LevelChecklist().HasAbilityScoreIncrease()) {
                 self.LevelChecklist().HasIncreasedAbilityScores(true);
             }
