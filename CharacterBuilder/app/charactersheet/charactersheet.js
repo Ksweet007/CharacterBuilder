@@ -34,7 +34,7 @@
         self.Skills = _i.ko.observableArray([]);
 
         self.ProficiencyBonuses = _i.ko.observableArray([]);
-        
+
         self.ToDo = _i.ko.observable();
         self.LevelChecklist = _i.ko.observable();
 
@@ -159,12 +159,12 @@
                     return self.HitDie() - (self.HitDie() * .5) + 1;
                 });
 
-                self.ProficiencyBonus = _i.ko.computed(function() {
-                    return self.ProficiencyBonuses().filter(function(bonus) {
+                self.ProficiencyBonus = _i.ko.computed(function () {
+                    return self.ProficiencyBonuses().filter(function (bonus) {
                         if (bonus.Level === self.Level()) return bonus;
                     });
                 });
-                
+
                 self.hasFinishedAbilityScores = _i.ko.computed(function () {
                     if (self.Level() === 1) {
                         return self.ToDo().HasCompletedAbilityScores();
@@ -176,6 +176,14 @@
 
                     return true;
 
+                });
+
+                self.hasFinishedSkills = _i.ko.computed(function () {
+                    if (self.Class.Id === 0) return false;
+
+                    if (self.Skills().length === self.SkillPickCount()) {
+                        self.ToDo().HasSelectedSkills(true);
+                    }
                 });
 
                 self.levelIsComplete = _i.ko.computed(function () {
@@ -280,18 +288,6 @@
             }
         };
 
-        self.markSkillAsProficiencyChoice = function () {
-            self.AllSkills().forEach(function (baseSkill) {
-                baseSkill.canPick = false;
-                self.SkillProficiencies().forEach(function (skillProficiency) {
-                    if (baseSkill.Id === skillProficiency.Id) {
-                        baseSkill.canPick = true;
-                    }
-                });
-            });
-
-        };
-
         self.saveSheet = function () {
             var skillsToSave = [];
 
@@ -302,10 +298,6 @@
                     }
                 });
             });
-
-            if (self.Skills().length === self.SkillPickCount()) {
-                self.ToDo().HasSelectedSkills(true);
-            }
 
             var dataToSave = {
                 Id: self.sheetId(),
@@ -345,7 +337,12 @@
                 self.SkillProficiencies(self.skillData.SkillProficiencies);
                 self.Skills(self.skillData.Skills);
 
-                self.markSkillAsProficiencyChoice();
+                self.AllSkills().forEach(function (skill) {
+                    skill.IsSelected = _i.ko.computed(function () {
+                        var matches = self.Skills().filter(function (item) { return skill.Id === item });
+                        return matches.length > 0;
+                    });
+                });
 
                 deferred.resolve();
             });

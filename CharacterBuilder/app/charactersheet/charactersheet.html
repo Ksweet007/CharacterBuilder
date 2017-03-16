@@ -27,14 +27,12 @@
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-body">
                         <div class="row">
-                            <div class="col-xs-4">                               
-                                <div class="sheettext largetext">{{Class.Name}} {{Level}}</div>                                
+                            <div class="col-xs-4">
+                                <div class="sheettext largetext">{{Class.Name}} {{Level}}</div>
                                 <div class="sheetheader subheader">Class & Level</div>
                             </div>
                             <div class="col-xs-4">
-                                <!--ko with: Background-->
-                                <div class="sheettext largetext">{{Name}}</div>
-                                <!--/ko-->
+                                <div class="sheettext largetext">{{Background.Name}}</div>
                                 <div class="sheetheader subheader">Background</div>
                             </div>
                             <div class="col-xs-4">
@@ -44,9 +42,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-4">
-                                <!--ko with: Race-->
-                                <div class="sheettext largetext">{{Name}}</div>
-                                <!--/ko-->
+                                <div class="sheettext largetext">{{Race.Name}}</div>
                                 <div class="sheetheader subheader">Race</div>
                             </div>
                             <div class="col-xs-4">
@@ -87,15 +83,15 @@
             </div>
 
             <div class="col-lg-2 col-sm-4 col-xs-8">
-                <!--BEGIN SKILLS-->
-                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5"><!--BEGIN SKILLS-->
                     <div class="pmd-card-body" data-bind="foreach:AllSkills">
                         <div class="row">
                             <div class="col-xs-1">
                                 <div class="pmd-checkbox">
                                     <label>
-                                        <input type="checkbox" name="skill" data-bind='checked:$parent.Skills, value:Id, enable: canPick'>
-                                        <span class="pmd-checkbox-label" data-bind="style:{ opacity: canPick ? '1' : '0.5' }"></span>
+                                        <input type="checkbox" name="skill" data-bind='checked:IsSelected, value:Id, disable: IsLockedChoice'>
+                                        <span class="pmd-checkbox-label" data-bind="style:{ opacity: IsLockedChoice ? '0.5' : '1' }"></span>
                                     </label>
                                 </div>
                             </div>
@@ -105,7 +101,6 @@
                             <div class="media-right">
                                 <div class="sheetheader abiltext">99</div>
                             </div>
-
                         </div>
                     </div>
                 </div>

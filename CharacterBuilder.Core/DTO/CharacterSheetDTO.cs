@@ -15,9 +15,7 @@ namespace CharacterBuilder.Core.DTO
         public int HpMax { get; set; }
 
 
-        public IList<Skill> AllSkills { get; set; }
         public IList<int> Skills { get; set; } = new List<int>();        
-        public IList<Skill> SkillProficiencies { get; set; } = new List<Skill>();
 
         public IList<ProficiencyBonus> ProficiencyBonuses { get; set;}
 
@@ -66,20 +64,7 @@ namespace CharacterBuilder.Core.DTO
                 });                                               
             }
         }
-
-        public void MapSkillsToSkillProf(List<Skill> skills)
-        {          
-            foreach (var item in skills)
-            {
-                Skills.Add(item.Id);
-            }
-        }
-
-        public void MapSkillProficiencies()
-        {
-            var classProf = Class?.Skills ?? new List<Skill>();
-            SkillProficiencies = classProf.ToList();
-        }        
+      
     }
    
     public class ScoreIncrease

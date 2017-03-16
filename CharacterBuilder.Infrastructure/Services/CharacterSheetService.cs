@@ -39,7 +39,7 @@ namespace CharacterBuilder.Infrastructure.Services
         {
             var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
             var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetFromDb);
-            sheetDto.AllSkills = _characterSheetRepository.ListAllSkills();
+
             sheetDto.ProficiencyBonuses = _characterSheetRepository.GetProficiencyBonusesByClassId(sheetDto.Class.Id);
 
             if (sheetDto.Class?.AbilityScoreIncreaseses == null) return sheetDto;
@@ -52,33 +52,28 @@ namespace CharacterBuilder.Infrastructure.Services
             return sheetDto;
         }
         
-        public IList<CharacterSheetDTO> ListByUserId(string userId)
+        public IList<CharacterSheetMinimalDto> ListByUserId(string userId)
         {
-            var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);
-            var allSkills = _characterSheetRepository.ListAllSkills();
+            var sheetsFromDb = _characterSheetRepository.GetUserSheets(userId);        
 
-            var mappedSheets = sheetsFromDb.Select(Mappers.CharacterSheetMapper.MapCharacterSheetDto).ToList();
-            foreach (var item in mappedSheets)
+            return sheetsFromDb.Select(sheet => new CharacterSheetMinimalDto
             {
-                item.AllSkills = allSkills;
+                Id = sheet.Id,
+                CharacterName = sheet.CharacterName,
+                Class = sheet.Class?.Name ?? "",
+                Race = sheet.Race?.Name ?? "",
+                Background = sheet.Background?.Name ?? "",
+                CreatedDate = sheet.CreatedDate,
+                Level = sheet.ClassLevel
 
-                if (item.Class?.AbilityScoreIncreaseses == null) continue;
-
-                if (item.Class.AbilityScoreIncreaseses.Any(x => x.LevelObtained == item.Level))
-                {
-                    item.LevelChecklist.HasAbilityScoreIncrease = true;
-                }
-            }
-
-            return mappedSheets;
+            }).ToList();
         }
 
         public CharacterSheetDTO CreateNewSheetByUserId(string userId)
         {
             var newSheet = _characterSheetRepository.CreateNewSheet(userId);
             var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(newSheet);
-            sheetDto.AllSkills = _characterSheetRepository.ListAllSkills();
-
+            
             return sheetDto;
         }
 

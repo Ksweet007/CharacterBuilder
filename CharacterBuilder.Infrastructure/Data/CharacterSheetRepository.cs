@@ -67,9 +67,9 @@ namespace CharacterBuilder.Infrastructure.Data
         public SkillDto GetSkillsBySheetId(int sheetId)
         {
             var sheetDb = _db.CharacterSheets
-                .Include(s => s.Skills.Select(a => a.AbilityScore))
+                .Include(s => s.Skills)
                 .Include(c => c.Class.Skills)
-                .Include(b => b.Background.Skills.Select(a=>a.AbilityScore))
+                .Include(b => b.Background.Skills)
                 .Single(x => x.Id == sheetId);
 
             var allSkills = ListAllSkills();
@@ -77,13 +77,18 @@ namespace CharacterBuilder.Infrastructure.Data
 
             var mapped = new SkillDto
             {
-                AllSkills = allSkills,
+                AllSkills = Mappers.CharacterSheetSkillMapper.MapSkillToDto(allSkills),
                 Skills = sheetDb.Skills.Select(item => item.Id).ToList(),
                 SkillProficiencies = sheetDb.Class?.Skills ?? new List<Skill>(),
-                BackgroundSkills = sheetDb.Background?.Skills.Select(item => item.Id).ToList() ?? new List<int>(),
+                BackgroundSkills = sheetDb.Background?.Skills ?? new List<Skill>(),
                 SkillPickCount = pickCount ?? 0
             };
 
+            foreach (var item in mapped.AllSkills)
+            {
+                item.IsLockedChoice = mapped.BackgroundSkills.Any(s => s.Id == item.Id);
+            }
+       
             return mapped;
         }
 
@@ -92,38 +97,18 @@ namespace CharacterBuilder.Infrastructure.Data
             var currentUser = _manager.FindById(userId);
 
             return _db.CharacterSheets
-                .Include(t => t.ToDo)                
-                .Include(c => c.Class.Skills.Select(a => a.AbilityScore))
-                .Include(f => f.Class.Features)
-                .Include(b => b.Background.Skills.Select(a => a.AbilityScore))
+                .Include(c => c.Class)
+                .Include(b => b.Background)
                 .Include(r => r.Race)
                 .Include(sr => sr.Subrace)
-                .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
-                .Include(l => l.LevelChecklists)
-                .Include(cs => cs.Skills)
-                .Where(x => x.User.Id == currentUser.Id).ToList();          
+                .Where(x => x.User.Id == currentUser.Id).ToList();
         }
-        
+
         public CharacterSheet GetCharacterSheetById(int sheetId)
         {
             return _db.CharacterSheets.Include(t => t.ToDo)
                 .Include(t => t.ToDo)
                 .Include(c => c.Class.Skills.Select(a => a.AbilityScore))
-                .Include(f => f.Class.Features)
-                .Include(b => b.Background.Skills.Select(a => a.AbilityScore))
-                .Include(r => r.Race)
-                .Include(sr => sr.Subrace)
-                .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
-                .Include(l => l.LevelChecklists)
-                .Include(cs => cs.Skills)
-                .Include(u => u.User)
-                .Single(s => s.Id == sheetId);
-        }
-
-        public CharacterSheet GetCharacterSheetByIdNoInludes(int sheetId)
-        {
-            return _db.CharacterSheets.Include(t => t.ToDo)
-                .Include(t => t.ToDo)
                 .Include(f => f.Class.Features)
                 .Include(b => b.Background.Skills.Select(a => a.AbilityScore))
                 .Include(r => r.Race)
@@ -157,7 +142,7 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public IList<Skill> ListAllSkills()
         {
-            return _db.Skills.ToList();
+            return _db.Skills.Include(a => a.AbilityScore).ToList();
         }
 
         public Skill GetSkillById(int skillId)
