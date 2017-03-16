@@ -31,6 +31,7 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
         public DbSet<Language> Languages { get; set; }
         public DbSet<LanguageType> LanguageTypes { get; set; } 
         public DbSet<LevelChecklist>  LevelChecklists { get; set; }
+        public DbSet<ProficiencyBonus>  ProficiencyBonuses { get; set; }
         public DbSet<Proficiency> Proficiencies { get; set; }
         public DbSet<ProficiencyType> ProficiencyTypes { get; set; }
         public DbSet<Race> Races { get; set; }
@@ -41,8 +42,7 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
         public DbSet<WeaponProperty> WeaponProperties { get; set; }
         public DbSet<WeaponCategory> WeaponCategories { get; set; }
 
-        
-        //public DbSet<Alignment> Alignments { get; set; }
+     
         //public DbSet<Spell> Spells { get; set; }
         //public DbSet<DieSize> DiceSizes { get; set; }
         //public DbSet<Item> Items { get; set; }       

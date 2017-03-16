@@ -78,7 +78,7 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 .paddedrowtoprow{ padding-bottom: 15px;}
 .paddedrowbottomrow{ padding-top: 5px;}
 
-.form-group.pmd-textfield{ margin-bottom:16px; line-height:22px;}
+.form-group.pmd-textfield{ margin-bottom:3px; line-height:22px;}
 .pmd-textfield .sheet-control{background: transparent; border: none; border-bottom:solid 1px #e6e6e6; outline: none; box-shadow:none; padding:0; border-radius:0; font-size:13px;}
 .pmd-textfield .sheet-control-hiddenborder{background: transparent; border: none; outline: none; box-shadow:none; padding:0; border-radius:0; font-size:13px;}
 .pmd-textfield .sheet-control{padding-bottom:6px;}

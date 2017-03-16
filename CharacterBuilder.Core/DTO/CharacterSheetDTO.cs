@@ -19,6 +19,7 @@ namespace CharacterBuilder.Core.DTO
         public IList<int> Skills { get; set; } = new List<int>();        
         public IList<Skill> SkillProficiencies { get; set; } = new List<Skill>();
 
+        public IList<ProficiencyBonus> ProficiencyBonuses { get; set;}
 
         public Class Class { get; set; } = new Class();        
         public Background Background { get; set; }

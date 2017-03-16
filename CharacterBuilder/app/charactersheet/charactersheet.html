@@ -8,7 +8,7 @@
                         <div class="media-left">
                             <div class="col-xs-4">
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.saveSheet'>check_box</button>
-                                <!--ko if: $root.levelIsComplete()-->                                                                         
+                                <!--ko if: $root.levelIsComplete()-->
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.levelUp'>file_upload</button>
                                 <!--/ko-->
                             </div>
@@ -27,13 +27,9 @@
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-body">
                         <div class="row">
-                            <div class="col-xs-4">
-                                
-                                    <!--ko with: Class-->
-                                    <div class="sheettext largetext">{{Name}} {{$parent.Level}}</div>
-                                    <!--/ko-->
-                                    <div class="sheetheader subheader">Class & Level</div>
-                                
+                            <div class="col-xs-4">                               
+                                <div class="sheettext largetext">{{Class.Name}} {{Level}}</div>                                
+                                <div class="sheetheader subheader">Class & Level</div>
                             </div>
                             <div class="col-xs-4">
                                 <!--ko with: Background-->
@@ -66,7 +62,7 @@
 
         </div>
         <div class="row">
-            <div class="col-lg-2 col-sm-4 col-xs-8">               
+            <div class="col-lg-2 col-sm-4 col-xs-8">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-body text-center" data-bind="foreach:AbilityScoreListing()">
                         <div class="row abilityscorerow">

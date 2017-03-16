@@ -92,7 +92,7 @@ namespace CharacterBuilder.Infrastructure.Data
             var currentUser = _manager.FindById(userId);
 
             return _db.CharacterSheets
-                .Include(t => t.ToDo)
+                .Include(t => t.ToDo)                
                 .Include(c => c.Class.Skills.Select(a => a.AbilityScore))
                 .Include(f => f.Class.Features)
                 .Include(b => b.Background.Skills.Select(a => a.AbilityScore))
@@ -101,9 +101,9 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(i => i.AbilityScoreIncreases.Select(a => a.AbilityScore))
                 .Include(l => l.LevelChecklists)
                 .Include(cs => cs.Skills)
-                .Where(x => x.User.Id == currentUser.Id).ToList();
+                .Where(x => x.User.Id == currentUser.Id).ToList();          
         }
-
+        
         public CharacterSheet GetCharacterSheetById(int sheetId)
         {
             return _db.CharacterSheets.Include(t => t.ToDo)
@@ -124,7 +124,6 @@ namespace CharacterBuilder.Infrastructure.Data
         {
             return _db.CharacterSheets.Include(t => t.ToDo)
                 .Include(t => t.ToDo)
-                //.Include(c => c.Class.Skills.Select(a => a.AbilityScore))
                 .Include(f => f.Class.Features)
                 .Include(b => b.Background.Skills.Select(a => a.AbilityScore))
                 .Include(r => r.Race)
@@ -149,6 +148,11 @@ namespace CharacterBuilder.Infrastructure.Data
             Save();
 
             return chkListToAdd;
+        }
+
+        public IList<ProficiencyBonus> GetProficiencyBonusesByClassId(int classId)
+        {
+            return classId == 0 ? new List<ProficiencyBonus>() : _db.ProficiencyBonuses.Where(p => p.ClassId == classId).ToList();
         }
 
         public IList<Skill> ListAllSkills()

@@ -121,6 +121,18 @@
     <Compile Include="Migrations\201703132103370_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfhghjhgjhgfj.Designer.cs">
       <DependentUpon>201703132103370_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfhghjhgjhgfj.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703161443563_AddingProfBonusToClass.cs" />
+    <Compile Include="Migrations\201703161443563_AddingProfBonusToClass.Designer.cs">
+      <DependentUpon>201703161443563_AddingProfBonusToClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703161447180_FixProfBonus.cs" />
+    <Compile Include="Migrations\201703161447180_FixProfBonus.Designer.cs">
+      <DependentUpon>201703161447180_FixProfBonus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703161547403_FixProfDBSETT.cs" />
+    <Compile Include="Migrations\201703161547403_FixProfDBSETT.Designer.cs">
+      <DependentUpon>201703161547403_FixProfDBSETT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CharacterSheetService.cs" />
@@ -172,6 +184,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703132103370_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfhghjhgjhgfj.resx">
       <DependentUpon>201703132103370_FirstLevelgfhfgdhdfghgfhghfghfghfghfhgfhghjhgjhgfj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703161443563_AddingProfBonusToClass.resx">
+      <DependentUpon>201703161443563_AddingProfBonusToClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703161447180_FixProfBonus.resx">
+      <DependentUpon>201703161447180_FixProfBonus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703161547403_FixProfDBSETT.resx">
+      <DependentUpon>201703161547403_FixProfDBSETT.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -33,6 +33,8 @@
         self.SkillProficiencies = _i.ko.observableArray([]);
         self.Skills = _i.ko.observableArray([]);
 
+        self.ProficiencyBonuses = _i.ko.observableArray([]);
+        
         self.ToDo = _i.ko.observable();
         self.LevelChecklist = _i.ko.observable();
 
@@ -157,6 +159,12 @@
                     return self.HitDie() - (self.HitDie() * .5) + 1;
                 });
 
+                self.ProficiencyBonus = _i.ko.computed(function() {
+                    return self.ProficiencyBonuses().filter(function(bonus) {
+                        if (bonus.Level === self.Level()) return bonus;
+                    });
+                });
+                
                 self.hasFinishedAbilityScores = _i.ko.computed(function () {
                     if (self.Level() === 1) {
                         return self.ToDo().HasCompletedAbilityScores();
@@ -364,6 +372,8 @@
 
                 self.HitDie(self.characterSheet.Class.Hitdie);
                 self.HitPoints(self.characterSheet.HpMax);
+
+                self.ProficiencyBonuses(self.characterSheet.ProficiencyBonuses);
 
                 self.ToDo(_i.ko.mapping.fromJS(self.characterSheet.ToDo));
                 self.LevelChecklist(_i.ko.mapping.fromJS(self.characterSheet.LevelChecklist));
