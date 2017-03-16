@@ -31,7 +31,7 @@
         self.AllSkills = _i.ko.observableArray([]);
         self.SkillPickCount = _i.ko.observable(0);
         self.SkillProficiencies = _i.ko.observableArray([]);
-        self.Skills = _i.ko.observableArray([]);
+        self.SkillsSelected = _i.ko.observableArray([]);
 
         self.ProficiencyBonuses = _i.ko.observableArray([]);
 
@@ -162,7 +162,21 @@
                 self.ProficiencyBonus = _i.ko.computed(function () {
                     return self.ProficiencyBonuses().filter(function (bonus) {
                         if (bonus.Level === self.Level()) return bonus;
+                    })[0];
+                });
+
+                self.trueSkills = _i.ko.computed(function () {
+                    var items = self.AllSkills().map(function (item) {
+                        var newItem = {};
+                        newItem.Id = item.Id;
+                        newItem.Name = item.Name;
+                        newItem.IsLockedChoice = _i.ko.observable(item.IsLockedChoice);
+                        newItem.IsSelected = _i.ko.observable(item.IsSelected);
+                        newItem.Value = self[item.AbilityScoreName].Mod() + self.ProficiencyBonus().BonusValue;
+
+                        return _i.ko.mapping.fromJS(newItem);
                     });
+                    return items;
                 });
 
                 self.hasFinishedAbilityScores = _i.ko.computed(function () {
@@ -181,7 +195,7 @@
                 self.hasFinishedSkills = _i.ko.computed(function () {
                     if (self.Class.Id === 0) return false;
 
-                    if (self.Skills().length === self.SkillPickCount()) {
+                    if (self.SkillsSelected().length === self.SkillPickCount()) {
                         self.ToDo().HasSelectedSkills(true);
                     }
                 });
@@ -291,7 +305,7 @@
         self.saveSheet = function () {
             var skillsToSave = [];
 
-            self.Skills().forEach(function (skl) {
+            self.SkillsSelected().forEach(function (skl) {
                 self.AllSkills().forEach(function (baseskill) {
                     if (baseskill.Id === skl) {
                         skillsToSave.push(baseskill);
@@ -308,7 +322,7 @@
                 HpMax: self.HitPoints(),
                 AbilityScores: _i.ko.toJS(self.AbilityScores),
                 ToDo: _i.ko.toJS(self.ToDo),
-                Skills: self.Skills()
+                Skills: self.SkillsSelected()
             };
 
             return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {
@@ -335,14 +349,7 @@
                 self.AllSkills(self.skillData.AllSkills);
                 self.SkillPickCount(self.skillData.SkillPickCount);
                 self.SkillProficiencies(self.skillData.SkillProficiencies);
-                self.Skills(self.skillData.Skills);
-
-                self.AllSkills().forEach(function (skill) {
-                    skill.IsSelected = _i.ko.computed(function () {
-                        var matches = self.Skills().filter(function (item) { return skill.Id === item });
-                        return matches.length > 0;
-                    });
-                });
+                self.SkillsSelected(self.skillData.SkillsSelected);
 
                 deferred.resolve();
             });

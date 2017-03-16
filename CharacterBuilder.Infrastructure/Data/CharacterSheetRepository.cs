@@ -72,23 +72,28 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(b => b.Background.Skills)
                 .Single(x => x.Id == sheetId);
 
+            var bgSkills = sheetDb.Background?.Skills ?? new List<Skill>();
             var allSkills = ListAllSkills();
             var pickCount = sheetDb.Class?.SkillPickCount + sheetDb.Background?.Skills.Count;
 
             var mapped = new SkillDto
             {
                 AllSkills = Mappers.CharacterSheetSkillMapper.MapSkillToDto(allSkills),
-                Skills = sheetDb.Skills.Select(item => item.Id).ToList(),
+                SkillsSelected = sheetDb.Skills ?? new List<Skill>(),
                 SkillProficiencies = sheetDb.Class?.Skills ?? new List<Skill>(),
-                BackgroundSkills = sheetDb.Background?.Skills ?? new List<Skill>(),
                 SkillPickCount = pickCount ?? 0
             };
 
             foreach (var item in mapped.AllSkills)
             {
-                item.IsLockedChoice = mapped.BackgroundSkills.Any(s => s.Id == item.Id);
+                var isBgSkill = bgSkills.Any(s => s.Id == item.Id);
+                var isSelectedSkill = mapped.SkillsSelected.Any(s => s.Id == item.Id);
+                var isProfSkill = mapped.SkillProficiencies.Any(s => s.Id == item.Id);
+
+                item.IsSelected = isSelectedSkill || isBgSkill;
+                item.IsLockedChoice = isBgSkill || !isProfSkill;                
             }
-       
+            
             return mapped;
         }
 

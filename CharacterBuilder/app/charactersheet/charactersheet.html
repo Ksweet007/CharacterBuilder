@@ -85,7 +85,7 @@
             <div class="col-lg-2 col-sm-4 col-xs-8">
                 
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5"><!--BEGIN SKILLS-->
-                    <div class="pmd-card-body" data-bind="foreach:AllSkills">
+                    <div class="pmd-card-body" data-bind="foreach:trueSkills">
                         <div class="row">
                             <div class="col-xs-1">
                                 <div class="pmd-checkbox">
@@ -99,7 +99,7 @@
                                 <div class="sheetheader abiltext">{{Name}}</div>
                             </div>
                             <div class="media-right">
-                                <div class="sheetheader abiltext">99</div>
+                                <div class="sheetheader abiltext">{{Value}}</div>
                             </div>
                         </div>
                     </div>
