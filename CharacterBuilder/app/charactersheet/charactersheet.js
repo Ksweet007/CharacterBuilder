@@ -162,7 +162,7 @@
                         return self.ToDo().HasCompletedAbilityScores();
                     }
 
-                    if (self.LevelChecklist().HasAbilityScoreIncrease) {
+                    if (self.LevelChecklist().HasAbilityScoreIncrease()) {
                         return self.SelectedAbilityScoreIncreases() === 2;
                     }
 
@@ -176,18 +176,20 @@
                     }
 
                     if (self.LevelChecklist().HasAbilityScoreIncrease) {
-                        return self.LevelChecklist().HasIncreasedAbilityScores && self.LevelChecklist().HasIncreasedHp;
+                        return self.LevelChecklist().HasIncreasedAbilityScores() && self.LevelChecklist().HasIncreasedHp();
                     }
 
-                    return self.LevelChecklist().HasIncreasedHp;
+                    return self.LevelChecklist().HasIncreasedHp();
                 });
 
-                self.hasRolledHp = _i.ko.computed(function () {
+                self.CanRollHp = _i.ko.computed(function () {
+                    if (self.Class.Id === 0) return false;
+
                     if (self.Level() === 1) {
-                        return self.ToDo().FirstLevelTasks.HasIncreasedHp();
+                        return !self.ToDo().FirstLevelTasks.HasIncreasedHp();
                     }
 
-                    return self.LevelChecklist().HasIncreasedHp;
+                    return !self.LevelChecklist().HasIncreasedHp();
                 });
 
 
@@ -243,21 +245,11 @@
         };
 
         self.levelUp = function () {
-            if (!_i.checklist.IsLevelComplete(self.characterSheet)) {
-                return _i.deferred.createResolved();
-            }
+            self.Level(self.Level() + 1);
 
-            var currentLevel = self.characterSheet.Level();
-            self.characterSheet.Level(currentLevel + 1);
-
-            return _i.charajax.post('api/charactersheet/AddLevelChecklist/' + self.characterSheet.Id()).done(function (response) {
-                _i.alert.showAlert({ type: "success", message: "Leveled-up to level " + self.characterSheet.Level() });
-                if (self.characterSheet.LevelCheckList === undefined) {
-                    self.characterSheet.LevelCheckList = response;
-                } else {
-                    self.characterSheet.LevelCheckList(response);
-                }
-
+            return _i.charajax.post('api/charactersheet/AddLevelChecklist/' + self.sheetId()).done(function (response) {
+                _i.alert.showAlert({ type: "success", message: "Leveled-up to level " + self.Level() });
+                self.LevelCheckList(response);
             });
         };
 
@@ -274,9 +266,9 @@
         };
 
         self.updateLevelChecklist = function (taskName) {
-            self.characterSheet.LevelChecklist[taskName](true);
-            if (!self.characterSheet.LevelChecklist.HasAbilityScoreIncrease()) {
-                self.characterSheet.LevelChecklist.HasIncreasedAbilityScores(true);
+            self.LevelChecklist[taskName](true);
+            if (!self.LevelChecklist().HasAbilityScoreIncrease()) {
+                self.LevelChecklist().HasIncreasedAbilityScores(true);
             }
         };
 
@@ -374,7 +366,7 @@
                 self.HitPoints(self.characterSheet.HpMax);
 
                 self.ToDo(_i.ko.mapping.fromJS(self.characterSheet.ToDo));
-                self.LevelChecklist(self.characterSheet.LevelChecklist);
+                self.LevelChecklist(_i.ko.mapping.fromJS(self.characterSheet.LevelChecklist));
 
                 deferred.resolve();
             });

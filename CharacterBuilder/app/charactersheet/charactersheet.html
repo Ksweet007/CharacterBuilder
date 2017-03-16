@@ -125,7 +125,7 @@
                                 <div class="sheetheader abiltext">Hit Point Max</div>
                             </div>
                         </div>
-                        <!--ko if: !$root.hasRolledHp()-->
+                        <!--ko if: $root.CanRollHp-->
                         <div class="row paddedrowbottomrow">
                             <div class="col-xs-6">
                                 <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.rollHitPoints'>
