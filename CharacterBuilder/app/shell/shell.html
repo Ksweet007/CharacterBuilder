@@ -3,36 +3,6 @@
 <!-- Left sidebar -->
 <aside class="pmd-sidebar sidebar-default pmd-sidebar-left bg-fill-darkblue sidebar-with-icons pmd-sidebar-slide-push pmd-sidebar-open" role="navigation" data-bind="rippleeffect">
     <ul class="nav pmd-sidebar-nav">
-        <!-- User info -->
-        <li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg" data-bind="dropdown">
-            <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media pmd-ripple-effect" data-sidebar="true" aria-expandedhref="javascript:void(0);">
-                <div class="media-left">
-                    <img src="assets/images/D20_Inverted.png" alt="New User" style="height:40px;width:40px;">
-                </div>
-                <div class="media-body media-middle">User</div>
-                <div class="media-right media-middle"><i class="dic-more-vert dic"></i></div>
-            </a>
-            <ul class="dropdown-menu">
-                <!--ko foreach: router.navigationModel-->
-                <!--ko if: linktype === 'user'-->
-                <li data-bind="dropdown">
-                    <a class="pmd-ripple-effect" data-bind="attr: { href: hash }">
-                        <i class="media-left media-middle"></i>
-                        <span class="media-body" data-bind="text: title"></span>
-                    </a>
-                </li>
-                <!--/ko-->
-                <!--/ko-->
-                <li data-bind="dropdown">
-                    <a href="account/logout">
-                        <i class="media-left media-middle"></i>
-                        <div class="media-body">Logout</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <!-- End user info -->
-
         <!--MAIN NAV STARTS-->
         <!--ko foreach: router.navigationModel-->
         <!--ko if: linktype === 'single'-->
@@ -62,6 +32,22 @@
                 <!--/ko-->
             </ul>
         </li>
+
+        <!-- User info -->
+        <li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg" data-bind="dropdown">
+            <a aria-expanded="false" data-toggle="dropdown" class="btn-user dropdown-toggle media pmd-ripple-effect" data-sidebar="true" aria-expandedhref="javascript:void(0);">
+                <span class="media-body">User</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li data-bind="dropdown">
+                    <a href="account/logout">
+                        <i class="media-left media-middle"></i>
+                        <div class="media-body">Logout</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <!-- End user info -->
 
         <!--END MAIN NAV-->
     </ul>

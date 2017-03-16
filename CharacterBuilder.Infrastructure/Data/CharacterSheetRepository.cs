@@ -91,7 +91,8 @@ namespace CharacterBuilder.Infrastructure.Data
                 var isProfSkill = mapped.SkillProficiencies.Any(s => s.Id == item.Id);
 
                 item.IsSelected = isSelectedSkill || isBgSkill;
-                item.IsLockedChoice = isBgSkill || !isProfSkill;                
+                item.IsLockedChoice = isBgSkill || !isProfSkill;
+                item.IsProficient = isProfSkill || isBgSkill;
             }
             
             return mapped;
@@ -140,9 +141,9 @@ namespace CharacterBuilder.Infrastructure.Data
             return chkListToAdd;
         }
 
-        public IList<ProficiencyBonus> GetProficiencyBonusesByClassId(int classId)
+        public IList<ProficiencyBonus> GetProficiencyBonusesByClassId()
         {
-            return classId == 0 ? new List<ProficiencyBonus>() : _db.ProficiencyBonuses.Where(p => p.ClassId == classId).ToList();
+            return _db.ProficiencyBonuses.ToList();
         }
 
         public IList<Skill> ListAllSkills()

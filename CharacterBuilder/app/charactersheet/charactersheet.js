@@ -150,6 +150,28 @@
 
                 self.AbilityScoreListing = _i.ko.observableArray([self.Strength, self.Dexterity, self.Constitution, self.Intelligence, self.Wisdom, self.Charisma]);
 
+                self.ProficiencyBonus = _i.ko.computed(function () {
+                    return self.ProficiencyBonuses().filter(function (bonus) {
+                        return bonus.Level === self.Level();
+                    })[0];
+                });
+
+                self.AllSkills().forEach(function (item) {
+                    if (item.IsSelected()) {
+                        item.Value(self[item.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
+                    } else {
+                        item.Value(self[item.AbilityScoreName()].Mod());
+                    }
+
+                    item.IsSelected.subscribe(function (isSelected) {
+                        if (isSelected) {
+                            item.Value(self[item.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
+                        } else {
+                            item.Value(self[item.AbilityScoreName()].Mod());
+                        }
+                    });
+                });
+
                 self.maxHp = _i.ko.pureComputed(function () {
                     var hpIncrease = self.Constitution.Mod() * self.Level();
                     return self.HitPoints() + hpIncrease; //Add Con Mod per Level to our base HP (All Rolled values)
@@ -157,26 +179,6 @@
 
                 self.defaultHp = _i.ko.pureComputed(function () {
                     return self.HitDie() - (self.HitDie() * .5) + 1;
-                });
-
-                self.ProficiencyBonus = _i.ko.computed(function () {
-                    return self.ProficiencyBonuses().filter(function (bonus) {
-                        if (bonus.Level === self.Level()) return bonus;
-                    })[0];
-                });
-
-                self.trueSkills = _i.ko.computed(function () {
-                    var items = self.AllSkills().map(function (item) {
-                        var newItem = {};
-                        newItem.Id = item.Id;
-                        newItem.Name = item.Name;
-                        newItem.IsLockedChoice = _i.ko.observable(item.IsLockedChoice);
-                        newItem.IsSelected = _i.ko.observable(item.IsSelected);
-                        newItem.Value = self[item.AbilityScoreName].Mod() + self.ProficiencyBonus().BonusValue;
-
-                        return _i.ko.mapping.fromJS(newItem);
-                    });
-                    return items;
                 });
 
                 self.hasFinishedAbilityScores = _i.ko.computed(function () {
@@ -346,7 +348,11 @@
             _i.charajax.get('api/charactersheet/GetSkillsBySheetId/' + self.sheetId()).done(function (response) {
                 self.skillData = response;
 
-                self.AllSkills(self.skillData.AllSkills);
+                self.skillData.AllSkills.forEach(function (item) {
+                    item.Value = _i.ko.observable(0);
+                    self.AllSkills().push(_i.ko.mapping.fromJS(item));
+                });
+
                 self.SkillPickCount(self.skillData.SkillPickCount);
                 self.SkillProficiencies(self.skillData.SkillProficiencies);
                 self.SkillsSelected(self.skillData.SkillsSelected);

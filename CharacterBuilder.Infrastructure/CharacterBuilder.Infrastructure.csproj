@@ -133,6 +133,10 @@
     <Compile Include="Migrations\201703161547403_FixProfDBSETT.Designer.cs">
       <DependentUpon>201703161547403_FixProfDBSETT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703162118497_NormalizedProfBonus.cs" />
+    <Compile Include="Migrations\201703162118497_NormalizedProfBonus.Designer.cs">
+      <DependentUpon>201703162118497_NormalizedProfBonus.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CharacterSheetService.cs" />
@@ -193,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703161547403_FixProfDBSETT.resx">
       <DependentUpon>201703161547403_FixProfDBSETT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703162118497_NormalizedProfBonus.resx">
+      <DependentUpon>201703162118497_NormalizedProfBonus.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,5 +7,6 @@
         public string AbilityScoreName { get; set; }
         public bool IsLockedChoice { get; set; }
         public bool IsSelected { get; set; }
+        public bool IsProficient { get; set; }        
     }
 }

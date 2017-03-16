@@ -40,7 +40,7 @@ namespace CharacterBuilder.Infrastructure.Services
             var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
             var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetFromDb);
 
-            sheetDto.ProficiencyBonuses = _characterSheetRepository.GetProficiencyBonusesByClassId(sheetDto.Class.Id);
+            sheetDto.ProficiencyBonuses = _characterSheetRepository.GetProficiencyBonusesByClassId();
 
             if (sheetDto.Class?.AbilityScoreIncreaseses == null) return sheetDto;
 

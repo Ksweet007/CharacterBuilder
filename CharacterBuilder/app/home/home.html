@@ -33,7 +33,7 @@
                     <div class="pmd-card-title">
                         <div class="media-body media-middle">
                             <div class="col-xs-10">
-                                <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:CharacterName"></h1>
+                                <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary">{{CharacterName}}</h1>
                                 <span class="pmd-card-subtitle-text" data-bind="text:'Created: ' + createdDateFormatted()"></span>    
                             </div>                            
                         </div>
@@ -50,22 +50,16 @@
                     </div>
                     <div class="pmd-card-body text-center">
                         <div class="row paddedrowtoprow">
-                            <div class="col-xs-4">
-                                <!--ko with:Class-->
-                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.Level()"></div>
-                                <!--/ko-->
+                            <div class="col-xs-4">                                
+                                <div class="sheettext largetext">{{Class}} {{Level}}</div>                                
                                 <span class="sheetheader subheader">Class & Level</span>
                             </div>
                             <div class="col-xs-4">
-                                <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <!--/ko-->
+                                <div class="sheettext largetext">{{Background}}</div>                                
                                 <span class="sheetheader subheader">Background</span>
                             </div>
-                            <div class="col-xs-4">
-                                <!--ko with:Race-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <!--/ko-->
+                            <div class="col-xs-4">                                
+                                <div class="sheettext largetext">{{Race}}</div>                                
                                 <span class="sheetheader subheader">Race</span>
                             </div>
                         </div>

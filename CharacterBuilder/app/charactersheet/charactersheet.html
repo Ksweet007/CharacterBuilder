@@ -85,13 +85,13 @@
             <div class="col-lg-2 col-sm-4 col-xs-8">
                 
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5"><!--BEGIN SKILLS-->
-                    <div class="pmd-card-body" data-bind="foreach:trueSkills">
+                    <div class="pmd-card-body" data-bind="foreach:AllSkills">
                         <div class="row">
                             <div class="col-xs-1">
                                 <div class="pmd-checkbox">
                                     <label>
-                                        <input type="checkbox" name="skill" data-bind='checked:IsSelected, value:Id, disable: IsLockedChoice'>
-                                        <span class="pmd-checkbox-label" data-bind="style:{ opacity: IsLockedChoice ? '0.5' : '1' }"></span>
+                                        <input type="checkbox" name="skill" data-bind='checked:IsSelected, value:Id, disable: IsLockedChoice() === true'>
+                                        <span class="pmd-checkbox-label" data-bind="style:{ opacity: IsLockedChoice() ===false ? '1' : '0.5' }"></span>
                                     </label>
                                 </div>
                             </div>
