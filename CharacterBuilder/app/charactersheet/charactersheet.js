@@ -34,7 +34,7 @@
         self.Skills = _i.ko.observableArray([]);
 
         self.ToDo = _i.ko.observable();
-        self.LevelCheckList = _i.ko.observable();
+        self.LevelChecklist = _i.ko.observable();
 
 
 
@@ -102,7 +102,7 @@
                         return self.ToDo().HasCompletedAbilityScores();
                     }
 
-                    if (self.LevelCheckList().HasAbilityScoreIncrease) {
+                    if (self.LevelChecklist().HasAbilityScoreIncrease) {
                         return self.SelectedAbilityScoreIncreases() === 2;
                     }
 
@@ -127,7 +127,7 @@
                         return self.ToDo().FirstLevelTasks.HasIncreasedHp();
                     }
 
-                    return self.LevelCheckList.HasIncreasedHp;
+                    return self.LevelChecklist().HasIncreasedHp;
                 });
 
 
@@ -310,7 +310,7 @@
                 self.Level(self.characterSheet.Level);
 
                 self.ToDo(_i.ko.mapping.fromJS(self.characterSheet.ToDo));
-                self.LevelCheckList(self.characterSheet.LevelChecklist);
+                self.LevelChecklist(self.characterSheet.LevelChecklist);
 
 
 
