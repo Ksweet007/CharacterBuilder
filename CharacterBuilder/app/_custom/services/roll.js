@@ -13,7 +13,7 @@
         var abilityScoreObj = abilityScores[score.Name];
         
         var rolledValue = this.GetRolledValue();
-        abilityScoreObj = rolledValue;
+        abilityScoreObj(rolledValue);
     };
 
     RollCls.prototype.GetRolledValue = function () {

@@ -73,29 +73,51 @@
                 self.Strength = _i.ko.computed(function () {
                     return self.buildAbilityScore("Strength");
                 });
+                self.StrengthMod = _i.ko.computed(function () {
+                    return Math.floor((self.Strength() - 10) / 2);
+                });
 
                 self.Dexterity = _i.ko.computed(function () {
                     return self.buildAbilityScore("Dexterity");
                 });
-
-
-                self.Constitution = _i.ko.computed(function () {
-                    return self.buildAbilityScore("Constitution");
+                self.DexterityMod = _i.ko.computed(function () {
+                    return Math.floor((self.Dexterity() - 10) / 2);
                 });
+
+                self.ConstitutionObj = {
+                    Name:"Constitution",
+                    Score: _i.ko.computed(function () {
+                        var scoreIncrease = self.scoreIncreaseByName("Constitution");
+                        return self.AbilityScores().Constitution() + scoreIncrease;
+                    }),
+                    Mod: _i.ko.computed(function () {
+                        return Math.floor((self.AbilityScores().Constitution() - 10) / 2);
+                    })
+                };
 
                 self.Intelligence = _i.ko.computed(function () {
                     return self.buildAbilityScore("Intelligence");
+                });
+                self.IntelligenceMod = _i.ko.computed(function () {
+                    return Math.floor((self.Intelligence() - 10) / 2);
                 });
 
                 self.Wisdom = _i.ko.computed(function () {
                     return self.buildAbilityScore("Wisdom");
                 });
+                self.WisdomMod = _i.ko.computed(function () {
+                    return Math.floor((self.Wisdom() - 10) / 2);
+                });
 
                 self.Charisma = _i.ko.computed(function () {
                     return self.buildAbilityScore("Charisma");
                 });
+                self.CharismaMod = _i.ko.computed(function () {
+                    return Math.floor((self.Charisma() - 10) / 2);
+                });
 
-                self.AbilityScoreListing = _i.ko.observableArray([self.Strength(),self.Dexterity(),self.Constitution(),self.Intelligence(),self.Wisdom(),self.Charisma()]);
+                self.AbilityScoreListing = _i.ko.observableArray([self.ConstitutionObj]);
+                //self.AbilityScoreListing = _i.ko.observableArray([self.Strength(),self.Dexterity(),self.Constitution(),self.Intelligence(),self.Wisdom(),self.Charisma()]);
 
                 self.hasFinishedAbilityScores = _i.ko.computed(function () {
                     if (self.Level() === 1) {
@@ -297,7 +319,10 @@
             _i.charajax.get('api/charactersheet/GetSheetById/' + self.sheetId()).done(function (response) {
                 self.characterSheet = response;
 
-                self.AbilityScores(self.characterSheet.AbilityScores);
+                self.AbilityScores(_i.ko.mapping.fromJS(self.characterSheet.AbilityScores));
+                //self.AbilityScores(self.characterSheet.AbilityScores);
+
+
                 self.AbilityScoreIncreases(self.characterSheet.AbilityScoreIncreases);
 
                 self.HitDie(self.characterSheet.Class.Hitdie);
