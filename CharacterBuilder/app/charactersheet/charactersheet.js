@@ -13,7 +13,8 @@
         abilityscore: require('_custom/services/abilityscore'),
         checklist: require('_custom/services/checklist')
     };
-
+    //http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
+    //http://knockoutjs.com/documentation/plugins-mapping.html
     return function () {
         var self = this;
         self.sheetId = _i.ko.observable(0);
@@ -32,6 +33,7 @@
         self.SkillPickCount = _i.ko.observable(0);
         self.SkillProficiencies = _i.ko.observableArray([]);
         self.SkillsSelected = _i.ko.observableArray([]);
+        self.SelectedSkills = _i.ko.observableArray([]);
 
         self.ProficiencyBonuses = _i.ko.observableArray([]);
 
@@ -156,37 +158,45 @@
                     })[0];
                 });
 
-                self.AllSkills().forEach(function (item) {
-                    if (self.ToDo().HasSelectedSkills()) {
-                        if (item.IsSelected()) {
-                            item.Value(self[item.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
-                        } else {
-                            item.Value(self[item.AbilityScoreName()].Mod());
-                        }
-                        item.IsLockedChoice(true);
-                    }
-                    if (item.IsSelected()) {
-                        item.Value(self[item.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
-                    } else {
-                        item.Value(self[item.AbilityScoreName()].Mod());
-                    }
+                self.SkillsData = _i.ko.computed(function () {
+                    
+                });
+                    
+                self.MorphedSkill = function(id, abilityScoreName, isLockedChoice, isProficient, isSelected, name, value) {
+                    
+                }
 
-                    item.IsSelected.subscribe(function (isSelected) {
-                        if (isSelected) {
-                            item.Value(self[item.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
-                            self.SkillsSelected().push(item);
-                            self.CheckSkillLimit();
-                        } else {
-                            item.Value(self[item.AbilityScoreName()].Mod());
-                            self.SkillsSelected.remove(item);
-                            self.CheckSkillLimit();
+                self.SelectedSkills.subscribe(function (changes) {
+                    changes.forEach(function (change) {
+                        var skill = change.value;
+                        if (change.status === 'added') {
+                            skill.Value(self[skill.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
+                            skill.IsSelected(true);
+                        } else if (change.status === 'deleted') {
+                            skill.Value(self[skill.AbilityScoreName()].Mod());
+                            skill.IsSelected(false);
                         }
                     });
+
+                }, null, "arrayChange");
+
+                self.CheckSkillLimit = _i.ko.computed(function () {
+                    if (self.SkillsSelected().length === self.SkillPickCount()) {
+                        self.ToDo().HasSelectedSkills(true);
+                    } else {
+                        self.ToDo().HasSelectedSkills(false);
+                    }
                 });
+
+                self.LockSkills = function () {
+                    _i.ko.utils.arrayForEach(self.AllSkills(), function (skill) {
+
+                    });
+                };
 
                 self.maxHp = _i.ko.pureComputed(function () {
                     var hpIncrease = self.Constitution.Mod() * self.Level();
-                    return self.HitPoints() + hpIncrease; //Add Con Mod per Level to our base HP (All Rolled values)
+                    return self.HitPoints() + hpIncrease;
                 });
 
                 self.defaultHp = _i.ko.pureComputed(function () {
@@ -261,24 +271,6 @@
             self.saveSheet(self.characterSheet).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Hit Points Increased by Default: " + defaultIncrease });
             });
-        };
-
-        self.CheckSkillLimit = function () {
-            if (self.SkillsSelected().length === self.SkillPickCount()) {
-                self.ToDo().HasSelectedSkills(true);
-                self.AllSkills().forEach(function(item) {
-                    if (!item.IsSelected()) {
-                        item.IsLockedChoice(true);
-                    }
-                });
-            } else {
-                self.ToDo().HasSelectedSkills(false);
-                self.AllSkills().forEach(function (item) {
-                    if (!item.IsSelected() && item.IsProficient()) {
-                        item.IsLockedChoice(false);
-                    }
-                });
-            }
         };
 
         self.deleteSheet = function (obj) {

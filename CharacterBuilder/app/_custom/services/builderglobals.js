@@ -93,7 +93,6 @@
             return false;
         }
         return true;
-        //setCookie("SheetBeingWorked, sheetId, 5");
     };
 
     BuilderGlobalsCls.prototype.deleteCookie = function (cookieName) {

@@ -168,10 +168,12 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Single(s => s.Id == characterSheetId);
 
             var toDoToDelete = sheetFromDb.ToDo;
+            var levelChecklistsToDelete = _db.LevelChecklists.Where(c => c.CharacterSheet.Id == characterSheetId).ToList();
 
             _db.CharacterSheets.Remove(sheetFromDb);
             _db.ToDos.Remove(toDoToDelete);
-
+            _db.LevelChecklists.RemoveRange(levelChecklistsToDelete);
+            
             Save();
         }
 

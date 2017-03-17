@@ -18,7 +18,6 @@ namespace CharacterBuilder.Infrastructure.Data
         public IList<Class> GetAllClasses()
         {
             return _db.Classes.ToList();
-
         }
 
         public CharacterSheet SaveClassSelection(int characterSheetId, int classId)
@@ -34,7 +33,7 @@ namespace CharacterBuilder.Infrastructure.Data
 
             sheetFromDb.Class = clsFromDb;
             sheetFromDb.ToDo.HasSelectedClass = true;
-            
+           
             Save();
 
             return sheetFromDb;

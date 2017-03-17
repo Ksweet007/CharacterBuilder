@@ -120,11 +120,11 @@ namespace CharacterBuilder.Infrastructure.Services
 
             var levelChecklistAdded = _characterSheetRepository.AddLevelChecklist(sheetId);
             levelChecklistAdded.Level = sheetFromDb.ClassLevel;
+            levelChecklistAdded.HasAbilityScoreIncrease = sheetFromDb.Class.AbilityScoreIncreaseses.Any(x => x.LevelObtained == sheetFromDb.ClassLevel);
 
             sheetFromDb.LevelChecklists.Add(levelChecklistAdded);
 
             return levelChecklistAdded;
-
         }
 
         public CharacterSheetDTO SaveBackgroundSelection(int characterSheetId, int backgroundId)

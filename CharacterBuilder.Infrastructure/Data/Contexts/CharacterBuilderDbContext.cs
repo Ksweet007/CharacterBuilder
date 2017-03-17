@@ -59,13 +59,16 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
             modelBuilder.HasDefaultSchema("core");
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            EfMapCharacterSheet(modelBuilder);
+            //EfMapLevelChecklist(modelBuilder);
         }
 
-        private static void EfMapCharacterSheet(DbModelBuilder modelBuilder)
-        {
-            var sheet = modelBuilder.Entity<CharacterSheet>();                        
-        }
+        //private static void EfMapLevelChecklist(DbModelBuilder modelBuilder)
+        //{
+        //    var lvlChecklist = modelBuilder.Entity<LevelChecklist>();
+        //    lvlChecklist.HasRequired(x => x.CharacterSheet)
+        //        .WithMany(y => y.LevelChecklists)
+        //        .HasForeignKey(f => f.CharacterSheet.Id);
+        //}
 
         public static CharacterBuilderDbContext Create()
         {
