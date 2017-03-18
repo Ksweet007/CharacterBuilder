@@ -45,6 +45,10 @@
               
                 /*==================== COMPUTED OBSERVABLES ====================*/
                 
+                var toDoToKo = _i.ko.mapping.fromJS(self.characterSheet.ToDo);
+                var mappedToDo = new _i.mapper.MapToDo(toDoToKo, self);
+                self.ToDo(mappedToDo);
+
                 /*>>>>>>>>>>>>>>>>>>>> ABILITY SCORES <<<<<<<<<<<<<<<<<<<<*/
                 var dat = { AbilityScores: self.AbilityScores, ScoreIncreases: self.AbilityScoreIncreases, ToDo: self.ToDo };
                 var abilityScorecls = new _i.abilityscore(dat);
@@ -71,10 +75,6 @@
                 });
                 self.AllSkills(mappedSkills);
 
-                var toDoToKo = _i.mapping.fromJS(self.characterSheet.ToDo);
-                //self.ToDo(_i.ko.mapping.fromJS(self.characterSheet.ToDo));
-
-
                 var listToKo = _i.ko.mapping.fromJS(self.characterSheet.LevelChecklist);
                 var mappedChecklist = new _i.mapper.MapLevelChecklist(listToKo, self);
                 self.LevelChecklist(mappedChecklist);
@@ -99,7 +99,7 @@
                         return !self.ToDo().FirstLevelTasks.HasIncreasedHp();
                     }
 
-                    return !self.LevelChecklist().HasIncreasedHp;
+                    return !self.LevelChecklist().HasIncreasedHp();
                 });
 
                 self.SelectedSkills.subscribe(function (changes) {
@@ -138,7 +138,7 @@
 
             self.HitPoints(totalHpAfterRollNoMod);
 
-            self.updateTodoAndTask("HasIncreasedHp");
+            self.updateTodoAndTask("HasIncreasedHp");            
             self.saveSheet(self.characterSheet).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Rolled: " + rolledVal });
             });
@@ -177,7 +177,11 @@
 
             return _i.charajax.post('api/charactersheet/AddLevelChecklist/' + self.sheetId()).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Leveled-up to level " + self.Level() });
-                self.LevelChecklist(_i.ko.mapping.fromJS(response));
+                //self.LevelChecklist(_i.ko.mapping.fromJS(response));
+
+                var listToKo = _i.ko.mapping.fromJS(response);
+                var mappedChecklist = new _i.mapper.MapLevelChecklist(listToKo, self);
+                self.LevelChecklist(mappedChecklist);
             });
         };
 
@@ -194,9 +198,9 @@
         };
 
         self.updateLevelChecklist = function (taskName) {
-            self.LevelChecklist()[taskName] = true;
-            if (!self.LevelChecklist().HasAbilityScoreIncrease) {
-                self.LevelChecklist().HasIncreasedAbilityScores = true;
+            self.LevelChecklist()[taskName](true);
+            if (!self.LevelChecklist().HasAbilityScoreIncrease()) {
+                self.LevelChecklist().HasIncreasedAbilityScores(true);
             }
         };
 

@@ -53,5 +53,18 @@
         return checkList;
     };
 
+    MapperCls.prototype.MapToDo = function(toDo, data) {
+        toDo.HasCompletedAbilityScores = _i.ko.computed(function() {
+            if (data.Level() === 1) {
+                return toDo.FirstLevelTasks.HasRolledStrength && toDo.FirstLevelTasks.HasRolledDexterity &&
+                                        toDo.FirstLevelTasks.HasRolledConstitution && toDo.FirstLevelTasks.HasRolledIntelligence
+                                        && toDo.FirstLevelTasks.HasRolledWisdom && toDo.FirstLevelTasks.HasRolledCharisma;
+            }
+            return true;
+        });
+
+        return toDo;
+    };
+
     return new MapperCls();
 });
