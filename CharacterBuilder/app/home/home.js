@@ -70,8 +70,8 @@
 
         self.addNew = function () {
             _i.charajax.post('api/charactersheet/CreateNewSheet', '').done(function (response) {
+                _i.globals.clearToDoList();
                 window.builder.global_sheetid = response.Id;
-
                 _i.alert.showAlert({ type: "success", message: "New Character Added!" });
 
                 window.location.href = '#charactersheet/' + response.Id;

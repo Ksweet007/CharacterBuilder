@@ -46,6 +46,8 @@ namespace CharacterBuilder.Infrastructure.Data
                 HasAbilityScoreIncrease = (sheetFromDb.Class.AbilityScoreIncreaseses.Any(x=>x.LevelObtained == sheetFromDb.ClassLevel))
             };
 
+
+
             _db.LevelChecklists.Add(chkListToAdd);
             Save();
 

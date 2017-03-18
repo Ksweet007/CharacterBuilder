@@ -20,31 +20,36 @@
         return skill;
     };
 
-    MapperCls.prototype.MapLevelChecklist = function (checkList, data) {
-        //Need to add write values for when this updates via database saves
-        checkList.HpTaskComplete = _i.ko.computed(function () {
-            if (data.Level() === 1) {
-                return data.ToDo().FirstLevelTasks.HasIncreasedHp();
-            }
-            return checkList.HasIncreasedHp();
+    MapperCls.prototype.MapLevelChecklist = function (checkList, data) {        
+        checkList.HpTaskComplete = _i.ko.pureComputed({
+            read: function() {
+                if (data.Level() === 1) {
+                    return data.ToDo().FirstLevelTasks.HasIncreasedHp();
+                }
+                return checkList.HasIncreasedHp();    
+            },
+            write: function (value) {
+
+                checkList.HasIncreasedHp(value);
+            }                      
         });
         checkList.AbilityScoreTaskComplete = _i.ko.computed(function () {
             if (data.Level() === 1) {
                 return data.ToDo().HasCompletedAbilityScores();
             }
-            return !checkList.HasAbilityScoreIncreases() || data.SelectedAbilityScoreIncreases() === 2;
+            return !checkList.HasAbilityScoreIncrease() || data.SelectedAbilityScoreIncreases() === 2;
         });
         checkList.SkillTaskComplete = _i.ko.computed(function () {
             return data.ToDo().HasSelectedSkills();
         });
         checkList.HasAbilityScoreIncreases = _i.ko.computed(function () {
-            if (data.Class) {
+            if (data.Class && data.Class.AbilityScoreIncreases) {
                 var match = _i.ko.utils.arrayFilter(data.Class.AbilityScoreIncreaseses(), function (item) {
                     return item.LevelObtained === data.Level();
                 });
             }
         });
-
+        
         return checkList;
     };
 

@@ -6,23 +6,46 @@
 
     function AbilityScoreCls(data) {
         var self = this;
-        self.data = data;
+        self.AbilityScores = data.AbilityScores;
+        self.AbilityScoreIncreases = data.ScoreIncreases;
+        self.ToDo = data.ToDo;
+
+        self.scoreIncreaseByName = function (scoreName) {
+            var returnVal = 0;
+            self.AbilityScoreIncreases().forEach(function (increase) {
+                if (increase.Name === scoreName) {
+                    returnVal += increase.IncreaseAmount;
+                }
+            });
+
+            return returnVal;
+        };
+
+        self.ScoreIncreases = function () {
+            return {
+                Strength: self.scoreIncreaseByName("Strength"),
+                Dexterity: self.scoreIncreaseByName("Dexterity"),
+                Constitution: self.scoreIncreaseByName("Constitution"),
+                Intelligence: self.scoreIncreaseByName("Intelligence"),
+                Wisdom: self.scoreIncreaseByName("Wisdom"),
+                Charisma: self.scoreIncreaseByName("Charisma")
+            }
+        };
     }
 
     AbilityScoreCls.prototype.Strength = function (data) {
         var self = this;
-        var foo = "dfdf";
         return {
             Name: "Strength",
             ShortName: "STR",
             Score: _i.ko.computed(function () {
-                return self.data.AbilityScores().Strength() + self.data.ScoreIncreases().Strength;
+                return self.AbilityScores().Strength() + self.ScoreIncreases().Strength;
             }),
             Mod: _i.ko.computed(function () {
-                return Math.floor((self.data.AbilityScores().Strength() - 10) / 2);
+                return Math.floor((self.AbilityScores().Strength() - 10) / 2);
             }),
             CanRoll: _i.ko.computed(function () {
-                return !self.data.ToDo().FirstLevelTasks.HasRolledStrength();
+                return !self.ToDo().FirstLevelTasks.HasRolledStrength();
             })
         }
     };
@@ -33,13 +56,13 @@
             Name: "Dexterity",
             ShortName: "DEX",
             Score: _i.ko.computed(function () {
-                return self.data.AbilityScores().Dexterity() + self.data.ScoreIncreases().Dexterity;
+                return self.AbilityScores().Dexterity() + self.ScoreIncreases().Dexterity;
             }),
             Mod: _i.ko.computed(function () {
-                return Math.floor((self.data.AbilityScores().Dexterity() - 10) / 2);
+                return Math.floor((self.AbilityScores().Dexterity() - 10) / 2);
             }),
             CanRoll: _i.ko.computed(function () {
-                return !self.data.ToDo().FirstLevelTasks.HasRolledDexterity();
+                return !self.ToDo().FirstLevelTasks.HasRolledDexterity();
             })
         }
     };
@@ -50,13 +73,13 @@
             Name: "Constitution",
             ShortName: "CON",
             Score: _i.ko.computed(function () {
-                return self.data.AbilityScores().Constitution() + self.data.ScoreIncreases().Constitution;
+                return self.AbilityScores().Constitution() + self.ScoreIncreases().Constitution;
             }),
             Mod: _i.ko.computed(function () {
-                return Math.floor((self.data.AbilityScores().Constitution() - 10) / 2);
+                return Math.floor((self.AbilityScores().Constitution() - 10) / 2);
             }),
             CanRoll: _i.ko.computed(function () {
-                return !self.data.ToDo().FirstLevelTasks.HasRolledConstitution();
+                return !self.ToDo().FirstLevelTasks.HasRolledConstitution();
             })
         }
     };
@@ -67,13 +90,13 @@
             Name: "Intelligence",
             ShortName: "INT",
             Score: _i.ko.computed(function () {
-                return self.data.AbilityScores().Intelligence() + self.data.ScoreIncreases().Intelligence;
+                return self.AbilityScores().Intelligence() + self.ScoreIncreases().Intelligence;
             }),
             Mod: _i.ko.computed(function () {
-                return Math.floor((self.data.AbilityScores().Intelligence() - 10) / 2);
+                return Math.floor((self.AbilityScores().Intelligence() - 10) / 2);
             }),
             CanRoll: _i.ko.computed(function () {
-                return !self.data.ToDo().FirstLevelTasks.HasRolledIntelligence();
+                return !self.ToDo().FirstLevelTasks.HasRolledIntelligence();
             })
         }
     };
@@ -84,13 +107,13 @@
             Name: "Wisdom",
             ShortName: "WIS",
             Score: _i.ko.computed(function () {
-                return self.data.AbilityScores().Wisdom() + self.data.ScoreIncreases().Wisdom;
+                return self.AbilityScores().Wisdom() + self.ScoreIncreases().Wisdom;
             }),
             Mod: _i.ko.computed(function () {
-                return Math.floor((self.data.AbilityScores().Wisdom() - 10) / 2);
+                return Math.floor((self.AbilityScores().Wisdom() - 10) / 2);
             }),
             CanRoll: _i.ko.computed(function () {
-                return !self.data.ToDo().FirstLevelTasks.HasRolledWisdom();
+                return !self.ToDo().FirstLevelTasks.HasRolledWisdom();
             })
         }
     };
@@ -101,17 +124,16 @@
             Name: "Charisma",
             ShortName: "CHA",
             Score: _i.ko.computed(function () {
-                return self.data.AbilityScores().Charisma() + self.data.ScoreIncreases().Charisma;
+                return self.AbilityScores().Charisma() + self.ScoreIncreases().Charisma;
             }),
             Mod: _i.ko.computed(function () {
-                return Math.floor((self.data.AbilityScores().Charisma() - 10) / 2);
+                return Math.floor((self.AbilityScores().Charisma() - 10) / 2);
             }),
             CanRoll: _i.ko.computed(function () {
-                return !self.data.ToDo().FirstLevelTasks.HasRolledCharisma();
+                return !self.ToDo().FirstLevelTasks.HasRolledCharisma();
             })
         }
     };
 
-
-    return new AbilityScoreCls();
+    return AbilityScoreCls;
 });

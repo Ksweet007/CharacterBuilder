@@ -2,6 +2,7 @@
 using System.Data.Entity.ModelConfiguration.Conventions;
 using CharacterBuilder.Core.Enums;
 using CharacterBuilder.Core.Model;
+using CharacterBuilder.Core.Model.DungeonMaster;
 using CharacterBuilder.Core.Model.User;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -42,15 +43,12 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
         public DbSet<WeaponProperty> WeaponProperties { get; set; }
         public DbSet<WeaponCategory> WeaponCategories { get; set; }
 
-     
-        //public DbSet<Spell> Spells { get; set; }
-        //public DbSet<DieSize> DiceSizes { get; set; }
-        //public DbSet<Item> Items { get; set; }       
-        //public DbSet<RaceFeature> RaceFeatures { get; set; }
-        //public DbSet<Size> Sizes { get; set; }
-        //public DbSet<Tool> Tools { get; set; }
-        //public DbSet<ToolOption> ToolOptions { get; set; }
-        //public DbSet<ToolType> ToolTypes { get; set; }
+
+        //DM STUFF
+        public DbSet<Campaign> Campaigns { get; set; } 
+        public DbSet<PlayerCharacterCard> PlayerCharacterCards { get; set; }
+
+    
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -59,16 +57,8 @@ namespace CharacterBuilder.Infrastructure.Data.Contexts
             modelBuilder.HasDefaultSchema("core");
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            //EfMapLevelChecklist(modelBuilder);
         }
 
-        //private static void EfMapLevelChecklist(DbModelBuilder modelBuilder)
-        //{
-        //    var lvlChecklist = modelBuilder.Entity<LevelChecklist>();
-        //    lvlChecklist.HasRequired(x => x.CharacterSheet)
-        //        .WithMany(y => y.LevelChecklists)
-        //        .HasForeignKey(f => f.CharacterSheet.Id);
-        //}
 
         public static CharacterBuilderDbContext Create()
         {

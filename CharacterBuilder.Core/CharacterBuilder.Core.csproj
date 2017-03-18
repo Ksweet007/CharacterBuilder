@@ -81,6 +81,8 @@
     <Compile Include="Model\Class\AbilityScoreImprovement.cs" />
     <Compile Include="Model\Class\ClassFeatureBonus.cs" />
     <Compile Include="Model\Class\ProficiencyBonus.cs" />
+    <Compile Include="Model\DungeonMaster\Campaign.cs" />
+    <Compile Include="Model\DungeonMaster\PlayerCharacterCard.cs" />
     <Compile Include="Model\Equipment\WeaponCategory.cs" />
     <Compile Include="Model\Character Sheet\AbilityScoreIncrease.cs" />
     <Compile Include="Model\Equipment\Armor.cs" />

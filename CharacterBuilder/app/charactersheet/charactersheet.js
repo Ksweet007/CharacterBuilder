@@ -42,37 +42,19 @@
         self.activate = function (sheetId) {
             self.sheetId(sheetId);
             return self.getPageData().done(function () {
-
-                self.scoreIncreaseByName = function (scoreName) {
-                    var returnVal = 0;
-                    self.AbilityScoreIncreases().forEach(function (increase) {
-                        if (increase.Name === scoreName) {
-                            returnVal += increase.IncreaseAmount;
-                        }
-                    });
-
-                    return returnVal;
-                };
-
-                self.ScoreIncreases = function () {
-                    return {
-                        Strength: self.scoreIncreaseByName("Strength"),
-                        Dexterity: self.scoreIncreaseByName("Dexterity"),
-                        Constitution: self.scoreIncreaseByName("Constitution"),
-                        Intelligence: self.scoreIncreaseByName("Intelligence"),
-                        Wisdom: self.scoreIncreaseByName("Wisdom"),
-                        Charisma: self.scoreIncreaseByName("Charisma")
-                    }
-                };
+              
+                /*==================== COMPUTED OBSERVABLES ====================*/
                 
-                _i.abilityscore.data = { AbilityScores: self.AbilityScores, ScoreIncreases: self.ScoreIncreases, ToDo: self.ToDo };
-                
-                self.Strength = _i.abilityscore.Strength();
-                self.Dexterity = _i.abilityscore.Dexterity();
-                self.Constitution = _i.abilityscore.Constitution();
-                self.Intelligence = _i.abilityscore.Intelligence();
-                self.Wisdom = _i.abilityscore.Wisdom();
-                self.Charisma = _i.abilityscore.Charisma();
+                /*>>>>>>>>>>>>>>>>>>>> ABILITY SCORES <<<<<<<<<<<<<<<<<<<<*/
+                var dat = { AbilityScores: self.AbilityScores, ScoreIncreases: self.AbilityScoreIncreases, ToDo: self.ToDo };
+                var abilityScorecls = new _i.abilityscore(dat);
+
+                self.Strength = abilityScorecls.Strength();
+                self.Dexterity = abilityScorecls.Dexterity();
+                self.Constitution = abilityScorecls.Constitution();
+                self.Intelligence = abilityScorecls.Intelligence();
+                self.Wisdom = abilityScorecls.Wisdom();
+                self.Charisma = abilityScorecls.Charisma();
 
                 self.AbilityScoreListing = _i.ko.observableArray([self.Strength, self.Dexterity, self.Constitution, self.Intelligence, self.Wisdom, self.Charisma]);
 
@@ -89,6 +71,14 @@
                 });
                 self.AllSkills(mappedSkills);
 
+                var toDoToKo = _i.mapping.fromJS(self.characterSheet.ToDo);
+                //self.ToDo(_i.ko.mapping.fromJS(self.characterSheet.ToDo));
+
+
+                var listToKo = _i.ko.mapping.fromJS(self.characterSheet.LevelChecklist);
+                var mappedChecklist = new _i.mapper.MapLevelChecklist(listToKo, self);
+                self.LevelChecklist(mappedChecklist);
+
                 self.maxHp = _i.ko.pureComputed(function () {
                     var hpIncrease = self.Constitution.Mod() * self.Level();
                     return self.HitPoints() + hpIncrease;
@@ -99,7 +89,7 @@
                 });
 
                 self.levelIsComplete = _i.ko.computed(function () {
-                    return self.LevelChecklist().HasIncreasedHp() && self.LevelChecklist().HasIncreasedAbilityScores();
+                    return self.LevelChecklist().HpTaskComplete() && self.LevelChecklist().AbilityScoreTaskComplete();
                 });
 
                 self.CanRollHp = _i.ko.computed(function () {
@@ -109,7 +99,7 @@
                         return !self.ToDo().FirstLevelTasks.HasIncreasedHp();
                     }
 
-                    return !self.LevelChecklist().HasIncreasedHp();
+                    return !self.LevelChecklist().HasIncreasedHp;
                 });
 
                 self.SelectedSkills.subscribe(function (changes) {
@@ -125,20 +115,6 @@
             });//ENDAJAX
         }; //END ACTIVATE
 
-        self.SkillMapper = function (skill) {
-            skill.IsLocked = _i.ko.computed(function () {
-                return skill.IsLockedChoice() || self.ToDo().HasSelectedSkills();
-            }),
-            skill.Value = _i.ko.computed(function () {
-                if (skill.IsSelected()) {
-                    return self[skill.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue;
-                }
-                return self[skill.AbilityScoreName()].Mod();
-            });
-
-            return skill;
-        };
-
         self.CheckSkillLimit = function () {
             if (self.SelectedSkills().length >= self.SkillPickCount()) {
                 self.ToDo().HasSelectedSkills(true);
@@ -150,8 +126,9 @@
         /*==================== ROLLS ====================*/
         self.rollScore = function (score) {
             _i.roller.RollAbilityScore(self.AbilityScores(), score);
-
-            self.updateTodoAndTask("HasRolled" + score.Name);
+            
+            var taskName = "HasRolled" + score.Name;
+            self.ToDo().FirstLevelTasks[taskName](true);
             self.saveSheet(self.characterSheet);
         };
 
@@ -217,9 +194,9 @@
         };
 
         self.updateLevelChecklist = function (taskName) {
-            self.LevelChecklist()[taskName](true);
-            if (!self.LevelChecklist().HasAbilityScoreIncrease()) {
-                self.LevelChecklist().HasIncreasedAbilityScores(true);
+            self.LevelChecklist()[taskName] = true;
+            if (!self.LevelChecklist().HasAbilityScoreIncrease) {
+                self.LevelChecklist().HasIncreasedAbilityScores = true;
             }
         };
 
@@ -276,9 +253,6 @@
                 self.HitPoints(self.characterSheet.HpMax);
 
                 self.ProficiencyBonuses(self.characterSheet.ProficiencyBonuses);
-
-                self.ToDo(_i.ko.mapping.fromJS(self.characterSheet.ToDo));
-                self.LevelChecklist(_i.ko.mapping.fromJS(self.characterSheet.LevelChecklist));
 
                 deferred.resolve();
             });

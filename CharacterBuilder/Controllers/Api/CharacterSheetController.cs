@@ -39,6 +39,7 @@ namespace CharacterBuilder.Controllers.Api
         public IHttpActionResult GetSheetById(int sheetId)
         {
             var userId = User.Identity.GetUserId();
+            var isDm = User.IsInRole("DungeonMaster");
 
             var canAccess = _characterSheetService.DoesUserOwnSheet(sheetId, userId);
 
