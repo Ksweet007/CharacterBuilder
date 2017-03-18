@@ -32,7 +32,6 @@
         self.AllSkills = _i.ko.observableArray([]);
         self.SkillPickCount = _i.ko.observable(0);
         self.SkillProficiencies = _i.ko.observableArray([]);
-        self.SkillsSelected = _i.ko.observableArray([]);
         self.SelectedSkills = _i.ko.observableArray([]);
 
         self.ProficiencyBonuses = _i.ko.observableArray([]);
@@ -158,41 +157,12 @@
                     })[0];
                 });
 
-                self.SkillsData = _i.ko.computed(function () {
-                    
+                var mappedSkills = _i.ko.utils.arrayMap(self.skillData.AllSkills, function (skill) {
+                    var mappedSkl = _i.ko.mapping.fromJS(skill);
+                    return new self.SkillMapper(mappedSkl);
+                    //return new self.SkillMapper(skill);
                 });
-                    
-                self.MorphedSkill = function(id, abilityScoreName, isLockedChoice, isProficient, isSelected, name, value) {
-                    
-                }
-
-                self.SelectedSkills.subscribe(function (changes) {
-                    changes.forEach(function (change) {
-                        var skill = change.value;
-                        if (change.status === 'added') {
-                            skill.Value(self[skill.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue);
-                            skill.IsSelected(true);
-                        } else if (change.status === 'deleted') {
-                            skill.Value(self[skill.AbilityScoreName()].Mod());
-                            skill.IsSelected(false);
-                        }
-                    });
-
-                }, null, "arrayChange");
-
-                self.CheckSkillLimit = _i.ko.computed(function () {
-                    if (self.SkillsSelected().length === self.SkillPickCount()) {
-                        self.ToDo().HasSelectedSkills(true);
-                    } else {
-                        self.ToDo().HasSelectedSkills(false);
-                    }
-                });
-
-                self.LockSkills = function () {
-                    _i.ko.utils.arrayForEach(self.AllSkills(), function (skill) {
-
-                    });
-                };
+                self.AllSkills(mappedSkills);
 
                 self.maxHp = _i.ko.pureComputed(function () {
                     var hpIncrease = self.Constitution.Mod() * self.Level();
@@ -238,7 +208,39 @@
                     return !self.LevelChecklist().HasIncreasedHp();
                 });
 
+                self.SelectedSkills.subscribe(function (changes) {
+                    changes.forEach(function (change) {
+                        if (change.status === 'added') {
+                            self.CheckSkillLimit();
+                        } else if (change.status === 'deleted') {
+                        }
+                    });
+
+                }, null, "arrayChange");
+
+            });//ENDAJAX
+        }; //END ACTIVATE
+
+        self.SkillMapper = function (skill) {
+            skill.IsLocked = _i.ko.computed(function () {
+                return skill.IsLockedChoice() || self.ToDo().HasSelectedSkills();
+            }),
+            skill.Value = _i.ko.computed(function () {
+                if (skill.IsSelected()) {
+                    return self[skill.AbilityScoreName()].Mod() + self.ProficiencyBonus().BonusValue;
+                }
+                return self[skill.AbilityScoreName()].Mod();
             });
+
+            return skill;
+        };
+
+        self.CheckSkillLimit = function () {
+            if (self.SelectedSkills().length >= self.SkillPickCount()) {
+                self.ToDo().HasSelectedSkills(true);
+            } else {
+                self.ToDo().HasSelectedSkills(false);
+            }
         };
 
         /*==================== ROLLS ====================*/
@@ -318,7 +320,6 @@
         };
 
         self.saveSheet = function () {
-
             var dataToSave = {
                 Id: self.sheetId(),
                 Level: self.Level(),
@@ -328,7 +329,7 @@
                 HpMax: self.HitPoints(),
                 AbilityScores: _i.ko.toJS(self.AbilityScores),
                 ToDo: _i.ko.toJS(self.ToDo),
-                SkillsSelected: _i.ko.toJS(self.SkillsSelected)
+                SelectedSkills: _i.ko.toJS(self.SelectedSkills)
             };
 
             return _i.charajax.put('api/charactersheet/EditSheet', dataToSave).done(function (response) {
@@ -338,31 +339,14 @@
 
         self.getPageData = function () {
             var deferred = _i.deferred.create();
-            var promise = _i.deferred.waitForAll(self.getCharacterSheet(), self.getSheetSkills());
+            var promise = _i.deferred.waitForAll(self.getCharacterSheet());
 
             promise.done(function () {
-                deferred.resolve();
-            });
-
-            return deferred;
-        };
-
-        self.getSheetSkills = function () {
-            var deferred = _i.deferred.create();
-            _i.charajax.get('api/charactersheet/GetSkillsBySheetId/' + self.sheetId()).done(function (response) {
-                self.skillData = response;
-
-                self.skillData.AllSkills.forEach(function (item) {
-                    item.Value = _i.ko.observable(0);
-                    self.AllSkills().push(_i.ko.mapping.fromJS(item));
+                self.getSheetSkills().done(function () {
+                    deferred.resolve();
                 });
-
-                self.SkillPickCount(self.skillData.SkillPickCount);
-                self.SkillProficiencies(self.skillData.SkillProficiencies);
-                self.SkillsSelected(self.skillData.SkillsSelected);
-
-                deferred.resolve();
             });
+
             return deferred;
         };
 
@@ -391,6 +375,20 @@
 
                 self.ToDo(_i.ko.mapping.fromJS(self.characterSheet.ToDo));
                 self.LevelChecklist(_i.ko.mapping.fromJS(self.characterSheet.LevelChecklist));
+
+                deferred.resolve();
+            });
+            return deferred;
+        };
+
+        self.getSheetSkills = function () {
+            var deferred = _i.deferred.create();
+            _i.charajax.get('api/charactersheet/GetSkillsBySheetId/' + self.sheetId()).done(function (response) {
+                self.skillData = response;
+
+                self.SkillPickCount(self.skillData.SkillPickCount + self.Background.Skills.length);
+                self.SkillProficiencies(self.skillData.SkillProficiencies);
+                self.SelectedSkills(self.skillData.SelectedSkills);
 
                 deferred.resolve();
             });

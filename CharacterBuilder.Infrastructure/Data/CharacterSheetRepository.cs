@@ -79,7 +79,7 @@ namespace CharacterBuilder.Infrastructure.Data
             var mapped = new SkillDto
             {
                 AllSkills = Mappers.CharacterSheetSkillMapper.MapSkillToDto(allSkills),
-                SkillsSelected = sheetDb.Skills ?? new List<Skill>(),
+                SelectedSkills = sheetDb.Skills.Select(item => item.Id).ToList(),
                 SkillProficiencies = sheetDb.Class?.Skills ?? new List<Skill>(),
                 SkillPickCount = pickCount ?? 0
             };
@@ -87,7 +87,7 @@ namespace CharacterBuilder.Infrastructure.Data
             foreach (var item in mapped.AllSkills)
             {
                 var isBgSkill = bgSkills.Any(s => s.Id == item.Id);
-                var isSelectedSkill = mapped.SkillsSelected.Any(s => s.Id == item.Id);
+                var isSelectedSkill = mapped.SelectedSkills.Any(s => s == item.Id);
                 var isProfSkill = mapped.SkillProficiencies.Any(s => s.Id == item.Id);
 
                 item.IsSelected = isSelectedSkill || isBgSkill;

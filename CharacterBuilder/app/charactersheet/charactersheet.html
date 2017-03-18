@@ -90,8 +90,8 @@
                             <div class="col-xs-1">
                                 <div class="pmd-checkbox">
                                     <label>
-                                        <input type="checkbox" name="skill" data-bind='checked:$parent.SelectedSkills, value:$data, disable: IsLockedChoice() === true'>
-                                        <span class="pmd-checkbox-label" data-bind="style:{ opacity: IsLockedChoice() === false ? '1' : '0.5' }"></span>
+                                        <input type="checkbox" name="skill" data-bind='checked:$parent.SelectedSkills, value:Id, disable: IsLocked() === true'>
+                                        <span class="pmd-checkbox-label" data-bind="style:{ opacity: IsLocked() === false ? '1' : '0.5' }"></span>
                                     </label>
                                 </div>
                             </div>
