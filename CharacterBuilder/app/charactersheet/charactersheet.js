@@ -11,10 +11,10 @@
         confirmdelete: require('confirmdelete/confirmdelete'),
         roller: require('_custom/services/roll'),
         abilityscore: require('_custom/services/abilityscore'),
-        checklist: require('_custom/services/checklist')
+        checklist: require('_custom/services/checklist'),
+        mapper: require('_custom/services/mapper')
     };
-    //http://www.knockmeout.net/2011/04/utility-functions-in-knockoutjs.html
-    //http://knockoutjs.com/documentation/plugins-mapping.html
+    
     return function () {
         var self = this;
         self.sheetId = _i.ko.observable(0);
@@ -64,92 +64,18 @@
                         Charisma: self.scoreIncreaseByName("Charisma")
                     }
                 };
-
-                self.Strength = {
-                    Name: "Strength",
-                    ShortName: "STR",
-                    Score: _i.ko.computed(function () {
-                        return self.AbilityScores().Strength() + self.ScoreIncreases().Strength;
-                    }),
-                    Mod: _i.ko.computed(function () {
-                        return Math.floor((self.AbilityScores().Strength() - 10) / 2);
-                    }),
-                    CanRoll: _i.ko.computed(function () {
-                        return !self.ToDo().FirstLevelTasks.HasRolledStrength();
-                    })
-                };
-
-                self.Dexterity = {
-                    Name: "Dexterity",
-                    ShortName: "DEX",
-                    Score: _i.ko.computed(function () {
-                        return self.AbilityScores().Dexterity() + self.ScoreIncreases().Dexterity;
-                    }),
-                    Mod: _i.ko.computed(function () {
-                        return Math.floor((self.AbilityScores().Dexterity() - 10) / 2);
-                    }),
-                    CanRoll: _i.ko.computed(function () {
-                        return !self.ToDo().FirstLevelTasks.HasRolledDexterity();
-                    })
-                };
-
-                self.Constitution = {
-                    Name: "Constitution",
-                    ShortName: "CON",
-                    Score: _i.ko.computed(function () {
-                        return self.AbilityScores().Constitution() + self.ScoreIncreases().Constitution;
-                    }),
-                    Mod: _i.ko.computed(function () {
-                        return Math.floor((self.AbilityScores().Constitution() - 10) / 2);
-                    }),
-                    CanRoll: _i.ko.computed(function () {
-                        return !self.ToDo().FirstLevelTasks.HasRolledConstitution();
-                    })
-                };
-
-                self.Intelligence = {
-                    Name: "Intelligence",
-                    ShortName: "INT",
-                    Score: _i.ko.computed(function () {
-                        return self.AbilityScores().Intelligence() + self.ScoreIncreases().Intelligence;
-                    }),
-                    Mod: _i.ko.computed(function () {
-                        return Math.floor((self.AbilityScores().Intelligence() - 10) / 2);
-                    }),
-                    CanRoll: _i.ko.computed(function () {
-                        return !self.ToDo().FirstLevelTasks.HasRolledIntelligence();
-                    })
-                };
-
-                self.Wisdom = {
-                    Name: "Wisdom",
-                    ShortName: "WIS",
-                    Score: _i.ko.computed(function () {
-                        return self.AbilityScores().Wisdom() + self.ScoreIncreases().Wisdom;
-                    }),
-                    Mod: _i.ko.computed(function () {
-                        return Math.floor((self.AbilityScores().Wisdom() - 10) / 2);
-                    }),
-                    CanRoll: _i.ko.computed(function () {
-                        return !self.ToDo().FirstLevelTasks.HasRolledWisdom();
-                    })
-                };
-
-                self.Charisma = {
-                    Name: "Charisma",
-                    ShortName: "CHA",
-                    Score: _i.ko.computed(function () {
-                        return self.AbilityScores().Charisma() + self.ScoreIncreases().Charisma;
-                    }),
-                    Mod: _i.ko.computed(function () {
-                        return Math.floor((self.AbilityScores().Charisma() - 10) / 2);
-                    }),
-                    CanRoll: _i.ko.computed(function () {
-                        return !self.ToDo().FirstLevelTasks.HasRolledCharisma();
-                    })
-                };
+                
+                _i.abilityscore.data = { AbilityScores: self.AbilityScores, ScoreIncreases: self.ScoreIncreases, ToDo: self.ToDo };
+                
+                self.Strength = _i.abilityscore.Strength();
+                self.Dexterity = _i.abilityscore.Dexterity();
+                self.Constitution = _i.abilityscore.Constitution();
+                self.Intelligence = _i.abilityscore.Intelligence();
+                self.Wisdom = _i.abilityscore.Wisdom();
+                self.Charisma = _i.abilityscore.Charisma();
 
                 self.AbilityScoreListing = _i.ko.observableArray([self.Strength, self.Dexterity, self.Constitution, self.Intelligence, self.Wisdom, self.Charisma]);
+
 
                 self.ProficiencyBonus = _i.ko.computed(function () {
                     return self.ProficiencyBonuses().filter(function (bonus) {
@@ -159,8 +85,7 @@
 
                 var mappedSkills = _i.ko.utils.arrayMap(self.skillData.AllSkills, function (skill) {
                     var mappedSkl = _i.ko.mapping.fromJS(skill);
-                    return new self.SkillMapper(mappedSkl);
-                    //return new self.SkillMapper(skill);
+                    return new _i.mapper.MapSkill(mappedSkl, self);
                 });
                 self.AllSkills(mappedSkills);
 
@@ -173,29 +98,8 @@
                     return self.HitDie() - (self.HitDie() * .5) + 1;
                 });
 
-                self.hasFinishedAbilityScores = _i.ko.computed(function () {
-                    if (self.Level() === 1) {
-                        return self.ToDo().HasCompletedAbilityScores();
-                    }
-
-                    if (self.LevelChecklist().HasAbilityScoreIncrease()) {
-                        return self.SelectedAbilityScoreIncreases() === 2;
-                    }
-
-                    return true;
-
-                });
-
                 self.levelIsComplete = _i.ko.computed(function () {
-                    if (self.Level() === 1) {
-                        return _i.checklist.LevelOneComplete(self.ToDo());
-                    }
-
-                    if (self.LevelChecklist().HasAbilityScoreIncrease) {
-                        return self.LevelChecklist().HasIncreasedAbilityScores() && self.LevelChecklist().HasIncreasedHp();
-                    }
-
-                    return self.LevelChecklist().HasIncreasedHp();
+                    return self.LevelChecklist().HasIncreasedHp() && self.LevelChecklist().HasIncreasedAbilityScores();
                 });
 
                 self.CanRollHp = _i.ko.computed(function () {

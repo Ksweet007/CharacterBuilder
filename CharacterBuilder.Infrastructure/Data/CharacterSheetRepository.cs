@@ -27,14 +27,29 @@ namespace CharacterBuilder.Infrastructure.Data
             var currentUser = _manager.FindById(userId);
             var sheet = new CharacterSheet
             {
-                User = currentUser
+                User = currentUser                
             };
 
             _db.CharacterSheets.Add(sheet);
-
             Save();
 
             return sheet;
+        }
+
+        public LevelChecklist AddLevelChecklist(int sheetId)
+        {
+            var sheetFromDb = GetCharacterSheetById(sheetId);
+            var chkListToAdd = new LevelChecklist
+            {
+                CharacterSheet = sheetFromDb,
+                Level = (sheetFromDb.ClassLevel == 0) ? 1: sheetFromDb.ClassLevel,
+                HasAbilityScoreIncrease = (sheetFromDb.Class.AbilityScoreIncreaseses.Any(x=>x.LevelObtained == sheetFromDb.ClassLevel))
+            };
+
+            _db.LevelChecklists.Add(chkListToAdd);
+            Save();
+
+            return chkListToAdd;
         }
 
         public CharacterSheet CreateNewSheetWithClass(string userId, int classId)
@@ -124,21 +139,6 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Include(cs => cs.Skills)
                 .Include(u => u.User)
                 .Single(s => s.Id == sheetId);
-        }
-
-        public LevelChecklist AddLevelChecklist(int sheetId)
-        {
-            var sheetFromDb = GetCharacterSheetById(sheetId);
-            var chkListToAdd = new LevelChecklist
-            {
-                CharacterSheet = sheetFromDb,
-                Level = sheetFromDb.ClassLevel
-            };
-
-            _db.LevelChecklists.Add(chkListToAdd);
-            Save();
-
-            return chkListToAdd;
         }
 
         public IList<ProficiencyBonus> GetProficiencyBonusesByClassId()

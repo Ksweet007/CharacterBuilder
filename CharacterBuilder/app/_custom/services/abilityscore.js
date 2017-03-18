@@ -4,71 +4,113 @@
         ko: require('knockout')
     };
 
+    function AbilityScoreCls(data) {
+        var self = this;
+        self.data = data;
+    }
 
-    function AbilityScoreCls() { }
-
-    AbilityScoreCls.prototype.CombineScoresWithIncrease = function (abilityScores, abilityScoreIncreases, scoreName) {
-        /*========== Setup Initial Score value and Short Name ==========*/
-        var shortName = scoreName.substr(0, 3);
-        var abilityScoreTotal = abilityScores[scoreName]();
-        var scoreWithIncrease = abilityScoreTotal;
-
-        /*========== Find increases that match current Ability Score and apply them ==========*/
-        sheet.AbilityScoreIncreases().forEach(function (increase) {
-            if (increase.Name() === scoreName) {
-                scoreWithIncrease += increase.IncreaseAmount();                
-            }
-        });
-
-        /*========== Calculate Modifier ==========*/
-        var abilityScoreModifier = Math.floor((scoreWithIncrease - 10) / 2);
-
-        return { Name: scoreName, ShortName: shortName, Value: scoreWithIncrease, Modifier: abilityScoreModifier };
-    };
-
-    AbilityScoreCls.prototype.BuildScoreDisplay = function(sheet) {
-        var result = [];
-
-        for (var propName in sheet.AbilityScores) {
-            if (sheet.AbilityScores.hasOwnProperty(propName)) {
-                var abilityScoreObj = this.CombineScoresWithIncrease(sheet, propName);
-                result.push({ propName: abilityScoreObj.Name, shortName: abilityScoreObj.ShortName, abilScore: abilityScoreObj.ScoreTotal, abilMod: abilityScoreObj.Modifier, templateName: "scalar_templ" });
-            }
-        }
-
-        return result;
-    };
-
-    AbilityScoreCls.prototype.CalculateAbilityScoreModifier = function (sheet) {
-        for (var propName in sheet.AbilityScores) {
-            sheet[propName + "Mod"] = Math.floor((sheet.AbilityScores[propName] - 10) / 2);
+    AbilityScoreCls.prototype.Strength = function (data) {
+        var self = this;
+        var foo = "dfdf";
+        return {
+            Name: "Strength",
+            ShortName: "STR",
+            Score: _i.ko.computed(function () {
+                return self.data.AbilityScores().Strength() + self.data.ScoreIncreases().Strength;
+            }),
+            Mod: _i.ko.computed(function () {
+                return Math.floor((self.data.AbilityScores().Strength() - 10) / 2);
+            }),
+            CanRoll: _i.ko.computed(function () {
+                return !self.data.ToDo().FirstLevelTasks.HasRolledStrength();
+            })
         }
     };
 
-    AbilityScoreCls.prototype.GetScore = function (sheet, scoreName) {
-        return sheet.AbilityScores[scoreName]();
+    AbilityScoreCls.prototype.Dexterity = function (data) {
+        var self = this;
+        return {
+            Name: "Dexterity",
+            ShortName: "DEX",
+            Score: _i.ko.computed(function () {
+                return self.data.AbilityScores().Dexterity() + self.data.ScoreIncreases().Dexterity;
+            }),
+            Mod: _i.ko.computed(function () {
+                return Math.floor((self.data.AbilityScores().Dexterity() - 10) / 2);
+            }),
+            CanRoll: _i.ko.computed(function () {
+                return !self.data.ToDo().FirstLevelTasks.HasRolledDexterity();
+            })
+        }
     };
 
-    AbilityScoreCls.prototype.GetIncreasesForScore = function (sheet, scoreName) {
-        var increaseTotal = 0;
-
-        sheet.AbilityScoreIncreases().forEach(function (increase) {
-            if (increase.Name() === scoreName) {
-                increaseTotal += increase.IncreaseAmount();
-            }
-        });
-
-        return increaseTotal;
+    AbilityScoreCls.prototype.Constitution = function (data) {
+        var self = this;
+        return {
+            Name: "Constitution",
+            ShortName: "CON",
+            Score: _i.ko.computed(function () {
+                return self.data.AbilityScores().Constitution() + self.data.ScoreIncreases().Constitution;
+            }),
+            Mod: _i.ko.computed(function () {
+                return Math.floor((self.data.AbilityScores().Constitution() - 10) / 2);
+            }),
+            CanRoll: _i.ko.computed(function () {
+                return !self.data.ToDo().FirstLevelTasks.HasRolledConstitution();
+            })
+        }
     };
 
-    AbilityScoreCls.prototype.GetScoreModifier = function (sheet, scoreName) {
-        var baseScore = this.GetScore();
-        var scoreIncreases = this.GetIncreasesForScore(sheet, scoreName);
-        var scoreWithIncrease = baseScore + scoreIncreases;
-
-        return Math.floor((scoreWithIncrease - 10) / 2);
+    AbilityScoreCls.prototype.Intelligence = function (data) {
+        var self = this;
+        return {
+            Name: "Intelligence",
+            ShortName: "INT",
+            Score: _i.ko.computed(function () {
+                return self.data.AbilityScores().Intelligence() + self.data.ScoreIncreases().Intelligence;
+            }),
+            Mod: _i.ko.computed(function () {
+                return Math.floor((self.data.AbilityScores().Intelligence() - 10) / 2);
+            }),
+            CanRoll: _i.ko.computed(function () {
+                return !self.data.ToDo().FirstLevelTasks.HasRolledIntelligence();
+            })
+        }
     };
 
+    AbilityScoreCls.prototype.Wisdom = function (data) {
+        var self = this;
+        return {
+            Name: "Wisdom",
+            ShortName: "WIS",
+            Score: _i.ko.computed(function () {
+                return self.data.AbilityScores().Wisdom() + self.data.ScoreIncreases().Wisdom;
+            }),
+            Mod: _i.ko.computed(function () {
+                return Math.floor((self.data.AbilityScores().Wisdom() - 10) / 2);
+            }),
+            CanRoll: _i.ko.computed(function () {
+                return !self.data.ToDo().FirstLevelTasks.HasRolledWisdom();
+            })
+        }
+    };
+
+    AbilityScoreCls.prototype.Charisma = function (data) {
+        var self = this;
+        return {
+            Name: "Charisma",
+            ShortName: "CHA",
+            Score: _i.ko.computed(function () {
+                return self.data.AbilityScores().Charisma() + self.data.ScoreIncreases().Charisma;
+            }),
+            Mod: _i.ko.computed(function () {
+                return Math.floor((self.data.AbilityScores().Charisma() - 10) / 2);
+            }),
+            CanRoll: _i.ko.computed(function () {
+                return !self.data.ToDo().FirstLevelTasks.HasRolledCharisma();
+            })
+        }
+    };
 
 
     return new AbilityScoreCls();

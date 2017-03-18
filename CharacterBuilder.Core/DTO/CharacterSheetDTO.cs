@@ -15,7 +15,7 @@ namespace CharacterBuilder.Core.DTO
         public int HpMax { get; set; }
 
 
-        public IList<SkillListingDTO> SkillsSelected { get; set; }  
+        public IList<int> SelectedSkills { get; set; }  
 
         public IList<ProficiencyBonus> ProficiencyBonuses { get; set;}
 
@@ -30,27 +30,9 @@ namespace CharacterBuilder.Core.DTO
 
 
         public ToDo ToDo { get; set; } = new ToDo();
-        public LevelChecklist LevelChecklist { get; set; } //Only load one per level, once saved, grab new one from DB
-        public bool LevelChecklistComplete { get; set; }
+        public LevelChecklist LevelChecklist { get; set; } 
 
 
-        public void MarkLevelChecklistComplete()
-        {
-            if (LevelChecklist == null)
-            {
-                LevelChecklistComplete = false;
-                return;
-            }
-
-            if (LevelChecklist.HasAbilityScoreIncrease)
-            {
-                LevelChecklistComplete = LevelChecklist.HasIncreasedAbilityScores && LevelChecklist.HasIncreasedHp;
-            }
-            else
-            {
-                LevelChecklistComplete = LevelChecklist.HasIncreasedHp;
-            }
-        }
 
         public void MapAbilityScoreIncreases(IList<AbilityScoreIncrease>increases )
         {

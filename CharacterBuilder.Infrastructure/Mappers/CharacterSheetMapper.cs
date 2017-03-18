@@ -35,7 +35,6 @@ namespace CharacterBuilder.Infrastructure.Mappers
             };
 
             sheetDto.MapAbilityScoreIncreases(characterSheet.AbilityScoreIncreases);   
-            sheetDto.MarkLevelChecklistComplete();
 
             return sheetDto;
         }

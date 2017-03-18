@@ -101,7 +101,7 @@ namespace CharacterBuilder.Controllers.Api
         [Route("AddLevelChecklist/{sheetId}")]
         public IHttpActionResult AddLevelChecklist(int sheetId)
         {
-            var lvlChecklist = _characterSheetService.AddLevelChecklist(sheetId);
+            var lvlChecklist = _characterSheetService.LevelUp(sheetId);
 
             return Ok(lvlChecklist);
         }

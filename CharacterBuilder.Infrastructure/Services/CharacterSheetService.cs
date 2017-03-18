@@ -24,22 +24,20 @@ namespace CharacterBuilder.Infrastructure.Services
         public bool DoesUserOwnSheet(int sheetId, string userId)
         {
             var userSheet = _characterSheetRepository.GetCharacterSheetById(sheetId);
-
             return userSheet.User.Id == userId;
         }
 
         public SkillDto GetSkillsBySheetId(int sheetId)
         {
             var skillsFromDb = _characterSheetRepository.GetSkillsBySheetId(sheetId);
-
             return skillsFromDb;
         }
 
         public CharacterSheetDTO GetById(int sheetId)
         {
             var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
-            var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetFromDb);
 
+            var sheetDto = Mappers.CharacterSheetMapper.MapCharacterSheetDto(sheetFromDb);
             sheetDto.ProficiencyBonuses = _characterSheetRepository.GetProficiencyBonusesByClassId();
 
             if (sheetDto.Class?.AbilityScoreIncreaseses == null) return sheetDto;
@@ -85,6 +83,18 @@ namespace CharacterBuilder.Infrastructure.Services
             return sheetDto;
         }
 
+        public LevelChecklist LevelUp(int sheetId)
+        {
+            var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
+            sheetFromDb.ClassLevel += 1;
+            _characterSheetRepository.Update(sheetFromDb);
+
+            var checklistAdded = _characterSheetRepository.AddLevelChecklist(sheetId);
+            sheetFromDb.LevelChecklists.Add(checklistAdded);
+
+            return checklistAdded;
+        }
+
         public CharacterSheetDTO UpdateSheet(CharacterSheetDTO sheetToUpdate)
         {
             var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetToUpdate.Id);
@@ -104,28 +114,14 @@ namespace CharacterBuilder.Infrastructure.Services
             sheetFromDb.ToDo.FirstLevelTasks = sheetToUpdate.ToDo.FirstLevelTasks;
             sheetFromDb.ToDo.MarkFirstLevelTasksComplete();
 
-            var skillsToAdd = sheetToUpdate.SkillsSelected.Select(item => _characterSheetRepository.GetSkillById(item.Id)).ToList();
-            sheetFromDb.Skills = skillsToAdd;
+            var skillsToAdd = sheetToUpdate.SelectedSkills.Select(item => _characterSheetRepository.GetSkillById(item)).ToList();
+            sheetFromDb.Skills.AddRange(skillsToAdd);
 
             _characterSheetRepository.Update(sheetFromDb);
 
             return sheetToUpdate;
         }
 
-        public LevelChecklist AddLevelChecklist(int sheetId)
-        {
-            var sheetFromDb = _characterSheetRepository.GetCharacterSheetById(sheetId);
-            sheetFromDb.ClassLevel += 1;
-            _characterSheetRepository.Update(sheetFromDb);
-
-            var levelChecklistAdded = _characterSheetRepository.AddLevelChecklist(sheetId);
-            levelChecklistAdded.Level = sheetFromDb.ClassLevel;
-            levelChecklistAdded.HasAbilityScoreIncrease = sheetFromDb.Class.AbilityScoreIncreaseses.Any(x => x.LevelObtained == sheetFromDb.ClassLevel);
-
-            sheetFromDb.LevelChecklists.Add(levelChecklistAdded);
-
-            return levelChecklistAdded;
-        }
 
         public CharacterSheetDTO SaveBackgroundSelection(int characterSheetId, int backgroundId)
         {

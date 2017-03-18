@@ -7,6 +7,18 @@
 
     function ChecklistCls() { }
 
+    ChecklistCls.prototype.CurrentLevelIsComplete = function (levelChecklist, toDo) {
+        if (levelChecklist.Level() === 0 ) {
+            return toDo.HasCompletedAbilityScores();
+        }
+
+        if (levelChecklist.HasAbilityScoreIncrease()) {            
+            return self.SelectedAbilityScoreIncreases() === 2;
+        }
+
+        return true;
+    };
+
     ChecklistCls.prototype.MarkTaskComplete = function (sheet, taskName) {
         sheet.LevelChecklist[taskName](true);
     };
@@ -35,6 +47,8 @@
             && toDo.HasSelectedRace() && toDo.HasSelectedSubRace() && toDo.HasSelectedSkills()
             && toDo.HasSelectedBackground();
     };
+
+
 
     return new ChecklistCls();
 });
