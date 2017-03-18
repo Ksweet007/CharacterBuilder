@@ -1,0 +1,108 @@
+﻿<nav-header params="{isDirty: null, save: null}"></nav-header>
+<div class="container-fluid full-width-container">
+    <section>
+        <div></div>
+        <div class="section section-custom-home">
+            <div class="section-inner pmd-card-inverse pmd-card pmd-z-depth-5">
+                <div class="pmd-card-title">
+                    <div class="media-body media-middle">
+                        <h3 class="section-title">"The view's always better from behind the screen"</h3>
+                    </div>
+                </div>
+                <div class="pmd-card-body">
+                    <p>From here you can create campaigns, which can then be used to access a listing of cards for each of your Murder Hobos.</p>
+
+                    <div class="media-left">
+                        <span class="pmd-card-subtitle-text">Add New</span>
+                    </div>
+                    <div class="media-right">
+                        <button class="material-icons md-light pmd-xs btncard btnadd pmd-ripple-effect" data-bind='click: addNew'>
+                            add
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="row">
+            {{#foreach: CardsToShow}}
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-title">
+                        <div class="media-body media-middle">
+                            <div class="col-xs-10">
+                                <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary">{{PlayerName}}</h1>
+                            </div>
+                        </div>
+                        <div class="media-right">
+                            <div class="col-xs-4">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectCard">
+                                    check
+                                </button>
+                                <button class="material-icons md-light pmd-xs btncard pmd-ripple-effect btn-danger" data-bind="click:$parent.deleteCard">
+                                    delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="pmd-card-body text-center">
+                        {{#foreach: Players}}
+                        <div class="row paddedrowtoprow">
+                            <div class="col-xs-6">
+                                <div class="sheettext largetext">{{PlayerName}}</div>
+                                <span class="sheetheader subheader">Player Name</span>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="sheettext largetext">{{CharacterName}}</div>
+                                <span class="sheetheader subheader">Character Name</span>
+                            </div>
+                        </div>
+                        {{/foreach}}
+                    </div>-->
+                </div>
+            </div>
+            {{/foreach}}
+        </div>
+    </section>
+
+    <!--<section data-bind="visible: $data.isViewingDetails()">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5 pmd-card-custom-form" data-bind="with : selectedCard">
+                    <div class="pmd-card-body">
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <label for="pname" class="control-label">Player Name</label>
+                            <input type="text" id="pname" data-bind='value: PlayerName, valueUpdate: "afterkeydown"' class="form-control">
+                        </div>
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <label for="cname" class="control-label">Character Name</label>
+                            <input type="text" id="cname" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="form-control">
+                        </div>
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <label for="hp" class="control-label">Hit Points</label>
+                            <input type="text" id="hp" data-bind='value: HitPoints, valueUpdate: "afterkeydown"' class="form-control">
+                        </div>
+
+                        <div class="form-group pmd-textfield pmd-textfield">
+                            <label for="ac" class="control-label">AC</label>
+                            <input type="text" id="ac" data-bind='value: ArmorClass, valueUpdate: "afterkeydown"' class="form-control">
+                        </div>
+
+                        <div class="pmd-card-actions">
+                            <button class="btn pmd-ripple-effect btn-primary" data-bind='click: $parent.save'>Save</button>
+                            <button class="btn pmd-ripple-effect btn-primary" data-bind='click: $parent.cancelEditor'>Cancel</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>-->
+
+
+</div>

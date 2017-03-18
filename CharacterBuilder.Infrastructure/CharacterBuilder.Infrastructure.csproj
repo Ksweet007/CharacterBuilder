@@ -67,6 +67,7 @@
     <Compile Include="Data\CharacterSheetRepository.cs" />
     <Compile Include="Data\ClassRepository.cs" />
     <Compile Include="Data\Contexts\CharacterBuilderDbContext.cs" />
+    <Compile Include="Data\DungeonMasterRepository.cs" />
     <Compile Include="Data\EfRepository.cs" />
     <Compile Include="Data\ProficiencyRepository.cs" />
     <Compile Include="Data\RaceRepository.cs" />
@@ -141,6 +142,10 @@
     <Compile Include="Migrations\201703181534225_AddedDungeonMastershiz.Designer.cs">
       <DependentUpon>201703181534225_AddedDungeonMastershiz.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703181818202_AddedDungeonMastershizhgfjhgjfjghf.cs" />
+    <Compile Include="Migrations\201703181818202_AddedDungeonMastershizhgfjhgjfjghf.Designer.cs">
+      <DependentUpon>201703181818202_AddedDungeonMastershizhgfjhgjfjghf.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CharacterSheetService.cs" />
@@ -207,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703181534225_AddedDungeonMastershiz.resx">
       <DependentUpon>201703181534225_AddedDungeonMastershiz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703181818202_AddedDungeonMastershizhgfjhgjfjghf.resx">
+      <DependentUpon>201703181818202_AddedDungeonMastershizhgfjhgjfjghf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

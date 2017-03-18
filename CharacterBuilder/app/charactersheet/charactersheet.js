@@ -177,7 +177,6 @@
 
             return _i.charajax.post('api/charactersheet/AddLevelChecklist/' + self.sheetId()).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Leveled-up to level " + self.Level() });
-                //self.LevelChecklist(_i.ko.mapping.fromJS(response));
 
                 var listToKo = _i.ko.mapping.fromJS(response);
                 var mappedChecklist = new _i.mapper.MapLevelChecklist(listToKo, self);

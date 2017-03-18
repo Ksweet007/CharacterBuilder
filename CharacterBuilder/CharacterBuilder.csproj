@@ -247,6 +247,10 @@
     <Content Include="app\classlist\classlist.js" />
     <Content Include="app\confirmdelete\confirmdelete.html" />
     <Content Include="app\confirmdelete\confirmdelete.js" />
+    <Content Include="app\dmplayercards\dmplayercards.html" />
+    <Content Include="app\dmplayercards\dmplayercards.js" />
+    <Content Include="app\dmscreen\dmscreen.html" />
+    <Content Include="app\dmscreen\dmscreen.js" />
     <Content Include="app\feature\feature.html" />
     <Content Include="app\feature\feature.js" />
     <Content Include="app\home\home.html" />
@@ -256,6 +260,8 @@
     <Content Include="app\main.js" />
     <Content Include="app\navaway\navaway.html" />
     <Content Include="app\navaway\navaway.js" />
+    <Content Include="app\newcampaignprompt\newcampaignprompt.html" />
+    <Content Include="app\newcampaignprompt\newcampaignprompt.js" />
     <Content Include="app\newsheetprompt\newsheetprompt.html" />
     <Content Include="app\newsheetprompt\newsheetprompt.js" />
     <Content Include="app\other\other.html" />

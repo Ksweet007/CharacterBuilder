@@ -40,6 +40,8 @@
 					{ route: '', title: 'Sheets', moduleId: 'home/home', nav: false, linktype: 'user' },
 					{ route: 'home', title: 'Sheets', moduleId: 'home/home', nav: true, hash: "#home", linktype: 'single' },
                     { route: 'charactersheet(/:sheetid)', title: 'Charactersheet', moduleId: 'charactersheet/charactersheet', nav: false, hash: "#charactersheet", linktype: 'single' },
+                    { route: 'dmplayercards(/:campaignId)', title: 'Playercards', moduleId: 'dmplayercards/dmplayercards', nav: false, hash: "#dmplayercards", linktype: 'single' },
+                    { route: 'dmscreen', title: 'DMScreen', moduleId: 'dmscreen/dmscreen', nav: false, hash: "#dmscreen", linktype: 'single' },
                     { route: 'racelist', title: 'Races', moduleId: 'racelist/racelist', nav: true, hash: "#racelist", linktype: 'single' },
                     { route: 'classlist', title: 'Classes', moduleId: 'classlist/classlist', nav: true, hash: "#classlist", linktype: 'single' },
 					{ route: 'backgrounds', title: 'Backgrounds', moduleId: 'backgrounds/backgrounds', nav: true, hash: "#backgrounds", linktype: 'single' },                    

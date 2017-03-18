@@ -4,7 +4,8 @@
     {
         public int Id { get; set; }
         public Campaign Campaign { get; set; }
-        public string Name { get; set; }
+        public string PlayerName { get; set; }
+        public string CharacterName { get; set; }
         public int PassivePerception { get; set; }
         public string HitPoints { get; set; }
         public int ArmorClass { get; set; }
