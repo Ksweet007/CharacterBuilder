@@ -112,8 +112,14 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 /* Card Footer */      
 .pmd-card-footer .butn{min-width: 88px; padding: 3px 5px; }
 
-/* Character Cards */
-.fieldtitle { font-size: .8rem;}
+
+/* ==========  Label  ========== */
+/* Input */
+.fieldtitle,label.control-label.fieldtitle { font-size: .8rem; color: #e2733c; }
+
+/* ==========  Input  ========== */
+/* Player Cards */
+input.cardinput.dminput{color: #c1b4b4; height: inherit; background: transparent; border: none; border-bottom: solid 1px #e6e6e6; outline: none; box-shadow: none; padding: 0 0 6px 0; border-radius: 0; font-size: 14px; }
 
 /* ==========  Button  ========== */
 
