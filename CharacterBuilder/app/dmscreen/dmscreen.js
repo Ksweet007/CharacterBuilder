@@ -49,7 +49,7 @@
 
         self.selectCampaign = function (campSelected) {
             _i.alert.showAlert({ type: "success", message: "Entering the realm of " + campSelected.Name() });
-            window.location.href = '#dmplayercard/' + campSelected.Id();
+            window.location.href = '#dmplayercards/' + campSelected.Id();
         };
 
         self.addNew = function () {

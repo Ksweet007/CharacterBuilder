@@ -38,7 +38,7 @@
 
                 }, null, "arrayChange");
 
-                var mappedCards = _i.ko.utils.arrayMap(self.data, function(card) {
+                var mappedCards = _i.ko.utils.arrayMap(self.data, function (card) {
                     var mappedCard = _i.ko.mapping.fromJS(card);
                     return new _i.mapper.MapPlayerCard(mappedCard, card);
                 });
@@ -64,7 +64,6 @@
                 self.data = response;
                 var mapped = _i.ko.mapping.fromJS(response);
                 self.PlayerCards(mapped());
-                //self.PlayerCards.sort(function (left, right) { return left.PlayerName === right.PlayerName ? 0 : (left.PlayerName < right.PlayerName ? -1 : 1) });
 
                 deferred.resolve();
             });
@@ -110,8 +109,10 @@
 
             _i.charajax.post('api/dungeonmaster/CreatePlayerCard/', datatosave).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Created new Character Card!" });
-                var mapped = _i.ko.mapping.fromJS(response);
-                self.PlayerCards.push(mapped);                
+
+                var mappedResponse = _i.ko.mapping.fromJS(response);
+                var mappedCard = new _i.mapper.MapPlayerCard(mappedResponse, card);
+                self.PlayerCards.push(mappedCard);
                 self.isAddingNew(false);
             });
         };
@@ -128,7 +129,7 @@
             };
 
             _i.charajax.put('api/dungeonmaster/EditPlayerCard/', datatosave).done(function (response) {
-                _i.alert.showAlert({ type: "success", message: "Edit Saved" });                              
+                _i.alert.showAlert({ type: "success", message: "Edit Saved" });
                 self.isEditing(false);
                 card.PrevCharacterName(response.CharacterName);
                 card.IsEditing(false);
@@ -140,7 +141,7 @@
                 if (response.accepted) {
                     _i.charajax.delete('api/dungeonmaster/DeleteCard/' + obj.Id(), '').done(function (response) {
                         self.PlayerCards.remove(obj);
-                        _i.alert.showAlert({ type: "error", message: "Campaign Deleted" });
+                        _i.alert.showAlert({ type: "error", message: "Player Card Deleted" });
                     });
                 }
             });

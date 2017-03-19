@@ -91,10 +91,9 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 .abilityscorebody { padding-left: 10px;padding-right: 10px;}
 .abilityscorerow{ padding-left: 40px;}
 
-/*==================== NAVBAR ====================*/
+/* ==========  Navbar  ========== */
 .nav>li>a:hover{background-color: #161a22 !important;}
 .navbar-inverse {background-color: #2c3544 !important; border-color: #2c3544 !important}
-
 
 /*==================== SIDEBAR ====================*/
 .pmd-sidebar, .pmd-sidebar-right-fixed  {background-color: #2c3544 !important; border-color: rgba(16, 16, 16, 0.34) !important}
@@ -102,12 +101,37 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 .btn-primary:hover  {background-color: #d20b0b; opacity: .8;}
 .btn-primary:disabled {background-color: #cc6767; opacity: .5; }
 
-/*==================== CARDS ====================*/
+/* ========== Card ========== */
+/* Card Body */
 .modal-content { background-color: rgba(33, 33, 33, 0.46); }
 .pmd-card-body, .pmd-card-body label,.form-control,.modal-body,
 .pmd-textfield-floating-label label,.login-register,.material-icons.md-dark {color:#c1b4b4 !important;}
 .section-inner.pmd-card { color: #c1b4b4;}
 .pageTitle{ background: transparent;}
+
+/* Card Footer */      
+.pmd-card-footer .butn{min-width: 88px; padding: 3px 5px; }
+
+/* Character Cards */
+.fieldtitle { font-size: .8rem;}
+
+/* ==========  Button  ========== */
+
+/* -- Buttons Default --*/
+.butn{background-color: #f4511e; color: #fff; border: none; opacity: .75; border-radius: 2px; margin: 3px 7px; }
+    .butn:hover{ background-color: #337ab7; border-color: #2e6da4;}
+
+    /* -- Old Styles To Refactor -- */
+.btncard { border:0; opacity: .75; border-radius:2px;}
+.btnedit {background-color: #4acc8e;}
+	.btnedit:hover{ background-color: #337ab7; border-color: #2e6da4;}
+.btndelete { background-color: #ff5722; }
+	.btndelete:hover{ background-color: #c9302c; border-color: #ac2925;}
+.btnadd {background-color: #E23c3c;}
+	.btnadd:hover{ background-color: #337ab7; border-color: #ac2925;}
+.btnAddNew { position:relative; display: block; margin-top: 10px; margin-bottom: 10px }
+.btnAddNewContainer { display: table-cell; vertical-align: bottom; padding-left: 10px;}
+.btnAddNewContainer>.btnAddNew button { margin-left: 5px;}
 
 /*==================== CARD MORE DETAIL LABELS ====================*/
 .mordetaillabel { color: #e2733c;}
@@ -138,22 +162,10 @@ tbody { color: #c1b4b4;}
 /*==================== BORDERS ====================*/
 .item-details { border-right:1px solid #dfe3e7; }
 
-/*==================== INNER HEADERS ====================*/
+/* ========== INNER HEADERS ========== */
 h2.typo-fill-secondary, .pmd-card-title-text,
 .navbar-brand, .pmd-card-title strong, .pmd-card-footer, .pmd-sidebar a, .navbar-header .btn:hover,.pmd-textfield label { color: #e2733c !important;}
 .pmd-textfield-floating-label.pmd-textfield-floating-label-completed label  {color: #c1b4b4 !important;}
-
-/*==================== BUTTONS ====================*/
-.btncard { border:0; opacity: .75; border-radius:2px;}
-.btndelete { background-color: #ff5722; }
-	.btndelete:hover{ background-color: #c9302c; border-color: #ac2925;}
-.btnedit {background-color: #4acc8e;}
-	.btnedit:hover{ background-color: #337ab7; border-color: #2e6da4;}
-.btnadd {background-color: #E23c3c;}
-	.btnadd:hover{ background-color: #337ab7; border-color: #ac2925;}
-.btnAddNew { position:relative; display: block; margin-top: 10px; margin-bottom: 10px }
-.btnAddNewContainer { display: table-cell; vertical-align: bottom; padding-left: 10px;}
-.btnAddNewContainer>.btnAddNew button { margin-left: 5px;}
 
 /*==================== PAGE SPECIFIC STYLES ====================*/
 .home-content{ padding:0 20px 16px;}
