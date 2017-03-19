@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Web.Http;
+using CharacterBuilder.Core.DTO;
 using CharacterBuilder.Infrastructure.Data;
 using Microsoft.AspNet.Identity;
 
@@ -52,12 +53,29 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(newCampaign);
         }
 
+        [HttpPost]
+        [Route("CreatePlayerCard/")]
+        public IHttpActionResult CreatePlayerCard([FromBody] PlayerCharacterCardDto cardDto)
+        {
+            var newCard = _dmRepo.CreatePlayerCard(cardDto);
+
+            return Ok(newCard);
+        }
+
         [HttpDelete]
         [Route("DeleteCampaign/{campaignId}")]
         public IHttpActionResult DeleteCampaign(int campaignId)
         {
             _dmRepo.DeleteCampaignById(campaignId);
             return Ok(campaignId);
+        }
+
+        [HttpDelete]
+        [Route("DeleteCard/{cardId}")]
+        public IHttpActionResult DeleteCard(int cardId)
+        {
+            _dmRepo.DeleteCardById(cardId);
+            return Ok(cardId);
         }
 
     }

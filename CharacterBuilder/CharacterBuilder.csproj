@@ -327,7 +327,6 @@
     <Content Include="assets\css\propeller.min.css" />
     <Content Include="assets\css\range-slider.css" />
     <Content Include="assets\css\sidebar.css" />
-    <Content Include="assets\css\testo.css" />
     <Content Include="assets\fonts\roboto\Roboto-Black-webfont.svg" />
     <Content Include="assets\fonts\roboto\Roboto-BlackItalic-webfont.svg" />
     <Content Include="assets\fonts\roboto\Roboto-Bold-webfont.svg" />
