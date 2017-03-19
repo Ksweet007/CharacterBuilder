@@ -100,6 +100,14 @@
         };
 
         self.save = function (card) {
+            if (card.IsEditing() === true) {
+                self.saveEdit(card);
+            }else if(card.IsEditing() === false) {
+                self.saveNew(card);
+            }
+        };
+
+        self.saveNew = function (card) {
             var datatosave = {
                 CampaignId: self.campaignId(),
                 ArmorClass: card.ArmorClass(),

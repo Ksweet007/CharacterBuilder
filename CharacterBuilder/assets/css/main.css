@@ -105,7 +105,7 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 /* Card Body */
 .modal-content { background-color: rgba(33, 33, 33, 0.46); }
 .pmd-card-body, .pmd-card-body label,.form-control,.modal-body,
-.pmd-textfield-floating-label label,.login-register,.material-icons.md-dark {color:#c1b4b4 !important;}
+.pmd-textfield-floating-label label,.login-register,.material-icons.md-dark {color:#c1b4b4;}
 .section-inner.pmd-card { color: #c1b4b4;}
 .pageTitle{ background: transparent;}
 
@@ -119,7 +119,13 @@ h1 strong, h2 strong, h3 strong, h4 strong, h5 strong{font-weight:700;}
 
 /* ==========  Input  ========== */
 /* Player Cards */
-input.cardinput.dminput{color: #c1b4b4; height: inherit; background: transparent; border: none; border-bottom: solid 1px #e6e6e6; outline: none; box-shadow: none; padding: 0 0 6px 0; border-radius: 0; font-size: 14px; }
+.form-group.dm-input{ margin-bottom:0; line-height:22px;}
+.dm-input .form-control{background: transparent; border: none; border-bottom:solid 1px #e2733c; outline: none; box-shadow:none; padding:0;border-radius: 0;}
+.dm-input .form-control.titleinput{line-height: 1.1; margin-bottom: 0; font-size: 14px;border-bottom: none; font-size: 1.5rem; color:#e2733c}
+
+input.form-control.dminput{color: #c1b4b4; height: inherit; background: transparent; border: none; border-bottom: solid 1px #e6e6e6; outline: none; box-shadow: none; padding: 0 0 6px 0; border-radius: 0; font-size: 14px; }
+input.form-control.subtitleinput{ line-height: 1.6; margin-bottom: 0; opacity: 0.54; font-size: 14px;border-bottom: none; height: inherit; }
+input.form-control.standardinput{ line-height: 1.6; margin-bottom: 0; font-size: 14px;border-bottom: none; height: inherit;font-size: .8rem;color: #c1b4b4;text-align: center; }
 
 /* ==========  Button  ========== */
 
@@ -163,7 +169,7 @@ tbody { color: #c1b4b4;}
 .pmd-table.table-hover.table-inverse tbody tr:hover{background-color: #404446;}
 
 /*==================== INPUT FIELDS ====================*/
-.pmd-textfield .form-control{border-color:#c1b4b4;}
+.pmd-textfield .form-control{border-color:#c1b4b4;padding-bottom: 0;}
 
 /*==================== BORDERS ====================*/
 .item-details { border-right:1px solid #dfe3e7; }
