@@ -84,7 +84,9 @@
                 CharacterName: _i.ko.observable(''),
                 ArmorClass: _i.ko.observable(0),
                 HitPoints: _i.ko.observable(0),
-                PassivePerception: _i.ko.observable(0)
+                PassivePerception: _i.ko.observable(0),
+                IsEditing: _i.ko.observable(false)
+                
             };
 
             self.selectedCard(data);
