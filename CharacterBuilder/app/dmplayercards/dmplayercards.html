@@ -27,95 +27,89 @@
                     <div class="pmd-card-title">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
-                                <h1 class="pmd-display1A pmd-card-title-text typo-fill-secondary">{{PlayerName}}</h1>
-                                <p class="pmd-card-subtitle-text">{{CharacterName}}</p>
+                                {{#if $data.IsEditing()}}
+                                    <div class="form-group pmd-textfield pmd-textfield">
+                                        <input type="text" id="pname" data-bind='value: PlayerName, valueUpdate: "afterkeydown"' class="form-control">
+                                        <label for="pname" class="control-label">Player Name</label>
+                                    </div>
+                                    <div class="form-group pmd-textfield pmd-textfield">
+                                        <input type="text" id="cname" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="form-control">
+                                        <label for="cname" class="control-label">Character Name</label>
+                                    </div>
+                                {{/if}}
+
+                                {{#ifnot $data.IsEditing()}}
+                                    <h1 class="pmd-display1A pmd-card-title-text typo-fill-secondary">{{PlayerName}}</h1>
+                                    <p class="pmd-card-subtitle-text">{{CharacterName}}</p>
+                                {{/ifnot}}
                             </div>
                         </div>
                     </div>
                     <div class="pmd-card-body text-center">
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div class="sheettext largetext">{{HitPoints}}</div>
-                                <div class="sheetheader fieldtitle">Hit Points</div>
+                                {{#if $data.IsEditing()}}
+                                    <div class="form-group pmd-textfield pmd-textfield">
+                                        <input type="text" id="hp" data-bind='value: HitPoints, valueUpdate: "afterkeydown"' class="form-control dminput">
+                                        <label for="hp" class="control-label fieldtitle">Hit Points</label>
+                                    </div>
+                                {{/if}}
+                                {{#ifnot $data.IsEditing()}}
+                                    <div class="sheettext largetext">{{HitPoints}}</div>
+                                    <div class="sheetheader fieldtitle">Hit Points</div>
+                                {{/ifnot}}
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div class="sheettext largetext">{{ArmorClass}}</div>
-                                <div class="sheetheader fieldtitle">Armor Class</div>
+                                {{#if $data.IsEditing()}}
+                                    <div class="form-group pmd-textfield pmd-textfield">
+                                        <input type="text" id="ac" data-bind='value: ArmorClass, valueUpdate: "afterkeydown"' class="form-control dminput">
+                                        <label for="ac" class="control-label fieldtitle">AC</label>
+                                    </div>
+                                {{/if}}
+                                {{#ifnot $data.IsEditing()}}
+                                    <div class="sheettext largetext">{{ArmorClass}}</div>
+                                    <div class="sheetheader fieldtitle">Armor Class</div>
+                                {{/ifnot}}
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div class="sheettext largetext">{{PassivePerception}}</div>
-                                <div class="sheetheader fieldtitle">Perception</div>
+                                {{#if $data.IsEditing()}}
+                                    <div class="form-group pmd-textfield pmd-textfield">
+                                        <input type="text" id="percep" data-bind='value: PassivePerception, valueUpdate: "afterkeydown"' class="form-control dminput">
+                                        <label for="percep" class="control-label fieldtitle">Perception</label>
+                                    </div>
+                                {{/if}}
+                                {{#ifnot $data.IsEditing()}}
+                                    <div class="sheettext largetext">{{PassivePerception}}</div>
+                                    <div class="sheetheader fieldtitle">Perception</div>
+                                {{/ifnot}}
                             </div>
                         </div>
                     </div>
                     <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
-                        <button class="butn pmd-ripple-effect" data-bind="click:$parent.selectCard">
-                            <i class="material-icons md-light pmd-xs">edit</i>
-                            <span>Edit</span>
-                        </button>
-                        <button class="butn pmd-ripple-effect" data-bind="click:$parent.deleteCard">
-                            <i class="material-icons md-light pmd-xs">delete</i>
-                            <span>Delete</span>
-                        </button>
+                        {{#if $data.IsEditing()}}
+                            <button class="butn pmd-ripple-effect" data-bind="click:$parent.saveEdit">
+                                <i class="material-icons md-light pmd-xs">check</i>
+                                <span>Save</span>
+                            </button>
+                            <button class="butn pmd-ripple-effect" data-bind="click:$parent.cancel">
+                                <i class="material-icons md-light pmd-xs">cancel</i>
+                                <span>Cancel</span>
+                            </button>
+                        {{/if}}
+                        {{#ifnot $data.IsEditing()}}
+                            <button class="butn pmd-ripple-effect" data-bind="click:$parent.selectCard">
+                                <i class="material-icons md-light pmd-xs">edit</i>
+                                <span>Edit</span>
+                            </button>
+                            <button class="butn pmd-ripple-effect" data-bind="click:$parent.deleteCard">
+                                <i class="material-icons md-light pmd-xs">delete</i>
+                                <span>Delete</span>
+                            </button>
+                        {{/ifnot}}
                     </div>
                 </div>
             </div>
             {{/foreach}}
-        </div>
-    </section>
-
-    <section data-bind="visible: $data.isEditing()">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" data-bind="with:selectedCard()">
-                <div class="pmd-card pmd-card-inverse pmd-z-depth-5 pmd-card-custom-form">
-                    <div class="pmd-card-title">
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-11 col-lg-11">
-                                <div class="form-group pmd-textfield pmd-textfield">
-                                    <input type="text" id="pname" data-bind='value: PlayerName, valueUpdate: "afterkeydown"' class="form-control">
-                                    <label for="pname" class="control-label">Player Name</label>
-                                </div>
-                                <div class="form-group pmd-textfield pmd-textfield">
-                                    <input type="text" id="cname" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="form-control">
-                                    <label for="cname" class="control-label">Character Name</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pmd-card-body text-center">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group pmd-textfield pmd-textfield">
-                                    <input type="text" id="hp" data-bind='value: HitPoints, valueUpdate: "afterkeydown"' class="form-control dminput">
-                                    <label for="hp" class="control-label fieldtitle">Hit Points</label>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group pmd-textfield pmd-textfield">
-                                    <input type="text" id="ac" data-bind='value: ArmorClass, valueUpdate: "afterkeydown"' class="form-control dminput">
-                                    <label for="ac" class="control-label fieldtitle">AC</label>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div class="form-group pmd-textfield pmd-textfield">
-                                    <input type="text" id="percep" data-bind='value: PassivePerception, valueUpdate: "afterkeydown"' class="form-control dminput">
-                                    <label for="percep" class="control-label fieldtitle">Perception</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
-                        <button class="butn pmd-ripple-effect" data-bind="click:$parent.saveEdit">
-                            <i class="material-icons md-light pmd-xs">check</i>
-                            <span>Save</span>
-                        </button>
-                        <button class="butn pmd-ripple-effect" data-bind="click:$parent.cancel">
-                            <i class="material-icons md-light pmd-xs">cancel</i>
-                            <span>Cancel</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
