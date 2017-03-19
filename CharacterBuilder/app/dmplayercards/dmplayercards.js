@@ -7,24 +7,42 @@
         alert: require('_custom/services/alert'),
         confirmdelete: require('confirmdelete/confirmdelete'),
         newcampaignprompt: require('newcampaignprompt/newcampaignprompt'),
+        mapper: require('_custom/services/mapper')
     };
 
     return function () {
         var self = this;
         self.campaignId = _i.ko.observable(0);
         self.PlayerCards = _i.ko.observableArray([]);
-        self.CardsToShow = _i.ko.computed(function () {
-            var returnList = self.PlayerCards();
-            return returnList;
-        });
-
+        //self.CardsToShow = _i.ko.computed(function () {
+        //    var returnList = self.PlayerCards();
+        //    return returnList;
+        //});
         self.selectedCard = _i.ko.observable();
+        self.previousState = _i.ko.observable();
         self.isEditing = _i.ko.observable(false);
         self.isAddingNew = _i.ko.observable(false);
 
         self.activate = function (campaignId) {
             self.campaignId(campaignId);
             return self.getPageData().done(function () {
+
+                self.PlayerCards.subscribe(function (changes) {
+                    changes.forEach(function (change) {
+                        if (change.status === 'added') {
+                            self.PlayerCards().sort(function (left, right) { return left.PlayerName === right.PlayerName ? 0 : (left.PlayerName < right.PlayerName ? -1 : 1) });
+                        } else if (change.status === 'deleted') {
+                            self.PlayerCards().sort(function (left, right) { return left.PlayerName === right.PlayerName ? 0 : (left.PlayerName < right.PlayerName ? -1 : 1) });
+                        }
+                    });
+
+                }, null, "arrayChange");
+
+                var mappedCards = _i.ko.utils.arrayMap(self.data, function(card) {
+                    var mappedCard = _i.ko.mapping.fromJS(card);
+                    return new _i.mapper.MapPlayerCard(mappedCard, card);
+                });
+                self.PlayerCards(mappedCards);
 
             });
         };
@@ -43,9 +61,10 @@
         self.getCards = function () {
             var deferred = _i.deferred.create();
             _i.charajax.get('api/dungeonmaster/PlayerInfoCards/' + self.campaignId()).done(function (response) {
+                self.data = response;
                 var mapped = _i.ko.mapping.fromJS(response);
                 self.PlayerCards(mapped());
-                self.PlayerCards.sort(function (left, right) { return left.PlayerName === right.PlayerName ? 0 : (left.PlayerName < right.PlayerName ? -1 : 1) });
+                //self.PlayerCards.sort(function (left, right) { return left.PlayerName === right.PlayerName ? 0 : (left.PlayerName < right.PlayerName ? -1 : 1) });
 
                 deferred.resolve();
             });
@@ -53,14 +72,13 @@
         };
 
         self.selectCard = function (cardSelected) {
+            cardSelected.IsEditing(true);
             self.selectedCard(cardSelected);
             _i.alert.showAlert({ type: "success", message: "Editing " + cardSelected.CharacterName() });
             self.isEditing(true);
         };
 
-
         self.addNew = function () {
-            self.isEditing(true);
             self.isAddingNew(true);
             var data = {
                 PlayerName: _i.ko.observable(''),
@@ -73,11 +91,14 @@
             self.selectedCard(data);
         };
 
-        self.cancel = function() {
+        self.cancel = function (obj) {
+            obj.IsEditing(false);
+            self.selectedCard(null);
             self.isEditing(false);
+            self.isAddingNew(false);
         };
 
-        self.save = function (card) {            
+        self.save = function (card) {
             var datatosave = {
                 CampaignId: self.campaignId(),
                 ArmorClass: card.ArmorClass(),
@@ -89,9 +110,29 @@
 
             _i.charajax.post('api/dungeonmaster/CreatePlayerCard/', datatosave).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Created new Character Card!" });
-                self.PlayerCards.push(response);
+                var mapped = _i.ko.mapping.fromJS(response);
+                self.PlayerCards.push(mapped);
+                //self.PlayerCards.sort(function (left, right) { return left.PlayerName === right.PlayerName ? 0 : (left.PlayerName < right.PlayerName ? -1 : 1) });
+                self.isAddingNew(false);
+            });
+        };
+
+        self.saveEdit = function (card) {
+            var datatosave = {
+                Id: card.Id(),
+                CampaignId: self.campaignId(),
+                ArmorClass: card.ArmorClass(),
+                CharacterName: card.CharacterName(),
+                HitPoints: card.HitPoints(),
+                PassivePerception: card.PassivePerception(),
+                PlayerName: card.PlayerName()
+            };
+
+            _i.charajax.put('api/dungeonmaster/EditPlayerCard/', datatosave).done(function (response) {
+                _i.alert.showAlert({ type: "success", message: "Edit Saved" });
+                //
                 self.PlayerCards.sort(function (left, right) { return left.PlayerName === right.PlayerName ? 0 : (left.PlayerName < right.PlayerName ? -1 : 1) });
-                self.isEditing(false);                
+                self.isEditing(false);
             });
         };
 

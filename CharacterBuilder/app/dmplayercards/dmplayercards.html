@@ -1,24 +1,21 @@
 ﻿<nav-header params="{isDirty: null, save: null}"></nav-header>
 <div class="container-fluid full-width-container">
+    <h3 class="section-title">Player Cards</h3>
     <section>
-        <div></div>
-        <div class="section section-custom-home">
-            <div class="section-inner pmd-card-inverse pmd-card pmd-z-depth-5">
-                <div class="pmd-card-title">
-                    <div class="media-body media-middle">
-                        <h3 class="section-title">"The view's always better from behind the screen"</h3>
-                    </div>
-                </div>
-                <div class="pmd-card-body">
-                    <p>From here you can create campaigns, which can then be used to access a listing of cards for each of your Murder Hobos.</p>
-
-                    <div class="media-left">
-                        <span class="pmd-card-subtitle-text">Add New</span>
-                    </div>
-                    <div class="media-right">
-                        <button class="material-icons md-light pmd-xs btncard btnadd pmd-ripple-effect" data-bind='click: addNew'>
-                            add
-                        </button>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5 pmd-card-custom-form">
+                    <div class="pmd-card-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <span class="pmd-card-subtitle-text">Add New</span>
+                            </div>
+                            <div>
+                                <button class="material-icons md-light pmd-xs btncard btnadd pmd-ripple-effect" data-bind='click: addNew'>
+                                    add
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -27,7 +24,65 @@
 
     <section data-bind="visible: $data.isEditing()">
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6" data-bind="with:selectedCard">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6" data-bind="with:selectedCard()">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5 pmd-card-custom-form">
+                    <div class="pmd-card-title">
+                        <div class="media-body media-middle">
+                            <div class="col-xs-5">
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <label for="pname" class="control-label">Player Name</label>
+                                    <input type="text" id="pname" data-bind='value: PlayerName, valueUpdate: "afterkeydown"' class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <label for="cname" class="control-label">Character Name</label>
+                                    <input type="text" id="cname" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="media-right">
+                            <div class="col-xs-4">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.saveEdit">
+                                    check
+                                </button>
+                                <button class="material-icons md-light pmd-xs btncard pmd-ripple-effect btn-danger" data-bind="click:$parent.cancel">
+                                    cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pmd-card-body">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <label for="percep" class="control-label">Passive Perception</label>
+                                    <input type="text" id="percep" data-bind='value: PassivePerception, valueUpdate: "afterkeydown"' class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <label for="hp" class="control-label">Hit Points</label>
+                                    <input type="text" id="hp" data-bind='value: HitPoints, valueUpdate: "afterkeydown"' class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <label for="ac" class="control-label">AC</label>
+                                    <input type="text" id="ac" data-bind='value: ArmorClass, valueUpdate: "afterkeydown"' class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section data-bind="visible: $data.isAddingNew()">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-6" data-bind="with:selectedCard()">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5 pmd-card-custom-form">
                     <div class="pmd-card-title">
                         <div class="media-body media-middle">
@@ -85,7 +140,7 @@
 
     <section>
         <div class="row">
-            {{#foreach: CardsToShow}}
+            {{#foreach: PlayerCards}}
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-title">
@@ -95,13 +150,13 @@
                                     <h1 class="pmd-display1A pmd-card-title-text typo-fill-secondary" style="margin-top: 5px;">{{PlayerName}}</h1>
                                     <p class="pmd-card-subtitle-text" style="margin-top: 5px;">{{CharacterName}}</p>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                         <div class="media-right">
                             <div class="col-xs-4">
-                                <!--<button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectCard">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectCard">
                                     edit
-                                </button>-->
+                                </button>
                                 <button class="material-icons md-light pmd-xs btncard pmd-ripple-effect btn-danger" data-bind="click:$parent.deleteCard">
                                     delete
                                 </button>

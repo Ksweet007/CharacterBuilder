@@ -64,6 +64,20 @@ namespace CharacterBuilder.Infrastructure.Data
                 .Single(c => c.Id == campaignId);
         }
 
+        public PlayerCharacterCard EditPlayerCard(PlayerCharacterCardDto cardDto)
+        {
+            var fromDb = _db.PlayerCharacterCards.Single(c => c.Id == cardDto.Id);
+            fromDb.ArmorClass = cardDto.ArmorClass;
+            fromDb.CharacterName = cardDto.CharacterName;
+            fromDb.HitPoints = cardDto.HitPoints;
+            fromDb.PassivePerception = cardDto.PassivePerception;
+            fromDb.PlayerName = cardDto.PlayerName;
+
+            Save();
+
+            return fromDb;
+        }
+
         public IList<PlayerCharacterCard> ListByCampaignId(int campaignId)
         {
             return _db.PlayerCharacterCards.Where(c => c.Campaign.Id == campaignId).ToList();
@@ -76,9 +90,14 @@ namespace CharacterBuilder.Infrastructure.Data
 
         public void DeleteCampaignById(int campaignId)
         {
-            var campFromDb = _db.Campaigns.Single(c => c.Id == campaignId);
+            var campFromDb = _db.Campaigns                
+                .Single(c => c.Id == campaignId);
 
+            var cardsFromDb = _db.PlayerCharacterCards.Where(x => x.Campaign.Id == campaignId).ToList();
+
+            _db.PlayerCharacterCards.RemoveRange(cardsFromDb);
             _db.Campaigns.Remove(campFromDb);
+            
             Save();
         }
 

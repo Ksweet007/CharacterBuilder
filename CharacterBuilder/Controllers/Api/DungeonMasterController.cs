@@ -62,6 +62,15 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(newCard);
         }
 
+        [HttpPut]
+        [Route("EditPlayerCard/")]
+        public IHttpActionResult EditPlayerCard([FromBody] PlayerCharacterCardDto cardDto)
+        {
+            var savedCard = _dmRepo.EditPlayerCard(cardDto);
+
+            return Ok(savedCard);
+        }
+
         [HttpDelete]
         [Route("DeleteCampaign/{campaignId}")]
         public IHttpActionResult DeleteCampaign(int campaignId)

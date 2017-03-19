@@ -19,6 +19,7 @@ namespace CharacterBuilder
         public static void RegisterBundles(BundleCollection bundles)
         {
             var minifyJs = Convert.ToBoolean(System.Configuration.ConfigurationManager.AppSettings["MinifyJs"] ?? "true");
+            
             var vendorBundle = new ScriptBundle("~/scripts/vendor")
                 .Include("~/assets/js/jquery-1.12.2.min.js")
                 .Include("~/assets/js/bootstrap.js")
