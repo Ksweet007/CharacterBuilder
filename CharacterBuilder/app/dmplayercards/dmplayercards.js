@@ -111,8 +111,7 @@
             _i.charajax.post('api/dungeonmaster/CreatePlayerCard/', datatosave).done(function (response) {
                 _i.alert.showAlert({ type: "success", message: "Created new Character Card!" });
                 var mapped = _i.ko.mapping.fromJS(response);
-                self.PlayerCards.push(mapped);
-                //self.PlayerCards.sort(function (left, right) { return left.PlayerName === right.PlayerName ? 0 : (left.PlayerName < right.PlayerName ? -1 : 1) });
+                self.PlayerCards.push(mapped);                
                 self.isAddingNew(false);
             });
         };
@@ -129,10 +128,10 @@
             };
 
             _i.charajax.put('api/dungeonmaster/EditPlayerCard/', datatosave).done(function (response) {
-                _i.alert.showAlert({ type: "success", message: "Edit Saved" });
-                //
-                self.PlayerCards.sort(function (left, right) { return left.PlayerName === right.PlayerName ? 0 : (left.PlayerName < right.PlayerName ? -1 : 1) });
+                _i.alert.showAlert({ type: "success", message: "Edit Saved" });                              
                 self.isEditing(false);
+                card.PrevCharacterName(response.CharacterName);
+                card.IsEditing(false);
             });
         };
 

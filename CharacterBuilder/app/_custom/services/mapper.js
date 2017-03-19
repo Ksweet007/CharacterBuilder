@@ -9,18 +9,7 @@
 
     MapperCls.prototype.MapPlayerCard = function (card, data) {
         card.PrevCharacterName = _i.ko.observable(card.CharacterName());
-        //card.CharacterName = _i.ko.pureComputed({
-        //    read: function () {
-        //        return data.CharacterName;
-        //    },
-        //    write: function (value) {
-        //        if (card.IsEditing()) {
-        //            return value;
-        //        }
-
-        //        return card.PrevCharacterName();                
-        //    }
-        //});       
+     
         card.IsEditing = _i.ko.observable(false);
 
         card.IsEditing.subscribe(function (val) {
