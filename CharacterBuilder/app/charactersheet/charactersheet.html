@@ -1,0 +1,142 @@
+﻿<nav-header params="{isDirty: null, save: null}"></nav-header>
+<div class="container-fluid full-width-container">
+    <section>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-body">
+                        <div class="media-left">
+                            <div class="col-xs-4">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.saveSheet'>check_box</button>
+                                <!--ko if: $root.levelIsComplete()-->
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.levelUp'>file_upload</button>
+                                <!--/ko-->
+                            </div>
+                        </div>
+                        <div class="media-body media-middle">
+                            <div class="form-group pmd-textfield pmd-textfield">
+                                <input type="text" id="name" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="sheet-control">
+                                <div class="sheetheader subheader">Character Name</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-xs-12">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-body">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="sheettext largetext">{{Class.Name}} {{Level}}</div>
+                                <div class="sheetheader subheader">Class & Level</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="sheettext largetext">{{Background.Name}}</div>
+                                <div class="sheetheader subheader">Background</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <input type="text" id="name" data-bind='value: PlayerName, valueUpdate: "afterkeydown"' class="sheet-control">
+                                    <div class="sheetheader subheader">Player Name</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="sheettext largetext">{{Race.Name}}</div>
+                                <div class="sheetheader subheader">Race</div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group pmd-textfield pmd-textfield">
+                                    <input type="text" id="name" data-bind='value: Alignment, valueUpdate: "afterkeydown"' class="sheet-control">
+                                    <div class="sheetheader subheader">Alignment</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-2 col-sm-4 col-xs-8">
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-body text-center" data-bind="foreach:AbilityScoreListing()">
+                        <div class="row abilityscorerow">
+                            <div class="col-xs-4 abilityscorebody">
+                                <div class="sheetheader abiltext">{{ShortName}}</div>
+                                <div class="sheettext largetext">{{Score}}</div>
+                            </div>
+                            <div class="col-xs-4 abilityscorebody">
+                                <div class="sheetheader abiltext">Mod</div>
+                                <div class="sheetheader abilmod abilitymodcontainer">{{Mod}}</div>
+                            </div>
+                            <!--ko if: $data.CanRoll -->
+                            <div class="media-right">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollScore'>
+                                    cached
+                                </button>
+                            </div>
+                            <!--/ko-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-4 col-xs-8">
+                
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5"><!--BEGIN SKILLS-->
+                    <div class="pmd-card-body" data-bind="foreach:AllSkills">
+                        <div class="row">
+                            <div class="col-xs-1">
+                                <div class="pmd-checkbox">
+                                    <label>
+                                        <input type="checkbox" name="skill" data-bind='checked:$parent.SelectedSkills, value:Id, disable: IsLocked() === true'>
+                                        <span class="pmd-checkbox-label" data-bind="style:{ opacity: IsLocked() === false ? '1' : '0.5' }"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-8 skillCol">
+                                <div class="sheetheader abiltext">{{Name}}</div>
+                            </div>
+                            <div class="media-right">
+                                <div class="sheetheader abiltext">{{Value}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!--END SKILLS-->
+
+            <div class="col-lg-2 col-sm-4 col-xs-8">
+                <!--BEGIN HP-->
+                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
+                    <div class="pmd-card-body text-center">
+                        <div class="row paddedrowtoprow">
+                            <div class="col-xs-14">
+                                <div class="sheettext largetext">{{maxHp}}</div>
+                                <div class="sheetheader abiltext">Hit Point Max</div>
+                            </div>
+                        </div>
+                        <!--ko if: $root.CanRollHp-->
+                        <div class="row paddedrowbottomrow">
+                            <div class="col-xs-6">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $root.rollHitPoints'>
+                                    cached
+                                </button>
+                                <div class="sheetheader subheader">Roll HP (1d{{HitDie}})</div>
+                            </div>
+                            <div class="col-xs-6">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$root.defaultHitPoints">
+                                    edit
+                                </button>
+                                <div class="sheetheader subheader">Default HP ({{defaultHp}})</div>
+                            </div>
+                        </div>
+                        <!--/ko-->
+                    </div>
+                </div>
+            </div><!--END HP-->
+
+        </div>
+
+    </section>
+</div>

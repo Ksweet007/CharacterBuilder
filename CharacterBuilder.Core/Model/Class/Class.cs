@@ -3,9 +3,8 @@ using CharacterBuilder.Core.Enums;
 
 namespace CharacterBuilder.Core.Model
 {
-    public class Class
+    public class Class : BaseEntity
     {         
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Primaryability { get; set; }
@@ -14,6 +13,7 @@ namespace CharacterBuilder.Core.Model
         public IList<Skill> Skills { get; set; }
         public int SkillPickCount { get; set; }        
         public IList<Proficiency> Proficiencies { get; set; }
-        public IList<ProficiencyType> ProficiencyTypes { get; set; }
+        public IList<ProficiencyType> ProficiencyTypes { get; set; }        
+        public IList<AbilityScoreImprovement> AbilityScoreIncreaseses { get; set; }         
     }
 }

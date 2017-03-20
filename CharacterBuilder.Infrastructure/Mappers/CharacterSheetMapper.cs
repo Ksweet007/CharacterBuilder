@@ -1,4 +1,5 @@
-﻿using CharacterBuilder.Core.DTO;
+﻿using System.Linq;
+using CharacterBuilder.Core.DTO;
 using CharacterBuilder.Core.Model;
 
 namespace CharacterBuilder.Infrastructure.Mappers
@@ -9,19 +10,19 @@ namespace CharacterBuilder.Infrastructure.Mappers
         {
             var sheetDto = new CharacterSheetDTO
             {
-                Id = characterSheet.Id,
+                Id = characterSheet.Id,                
                 CreatedDate = characterSheet.CreatedDate,
-                Class = characterSheet.Class,
+                Class = characterSheet.Class ?? new Class(),
                 Level = characterSheet.ClassLevel,
                 CharacterName = characterSheet.CharacterName,
                 PlayerName = characterSheet.PlayerName,
                 Alignment = characterSheet.Alignment,
-                Background = characterSheet.Background,
-                Race = characterSheet.Race,
-                Subrace = characterSheet.Subrace,
-                ToDo = characterSheet.ToDo,
-                IsComplete = characterSheet.IsComplete,
+                Background = characterSheet.Background ?? new Background(),
+                Race = characterSheet.Race ?? new Race(),
+                Subrace = characterSheet.Subrace ?? new Subrace(),
+                ToDo = characterSheet.ToDo,                
                 HpMax = characterSheet.HitPointsMax,
+                LevelChecklist = characterSheet.LevelChecklists.SingleOrDefault(c => c.Level == characterSheet.ClassLevel)?? new LevelChecklist(),
                 AbilityScores = new AbilityScores
                 {
                     Strength = characterSheet.AbilityScores.Strength,
@@ -33,7 +34,7 @@ namespace CharacterBuilder.Infrastructure.Mappers
                 }              
             };
 
-            sheetDto.MapAbilityScoreIncreases(characterSheet.AbilityScoreIncreases);
+            sheetDto.MapAbilityScoreIncreases(characterSheet.AbilityScoreIncreases);   
 
             return sheetDto;
         }

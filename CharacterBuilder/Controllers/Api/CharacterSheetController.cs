@@ -1,6 +1,8 @@
-﻿using System.Web;
+﻿using System.Net;
+using System.Web;
 using System.Web.Http;
 using CharacterBuilder.Core.DTO;
+using CharacterBuilder.Core.Model;
 using CharacterBuilder.Infrastructure.Data;
 using CharacterBuilder.Infrastructure.Services;
 using Microsoft.AspNet.Identity;
@@ -13,12 +15,13 @@ namespace CharacterBuilder.Controllers.Api
     {
         private readonly CharacterSheetRepository _characterSheetRepository;
         private readonly CharacterSheetService _characterSheetService;
+
         const string Cookie_Name = "SheetBeingWorked";
 
         public CharacterSheetController()
         {
             _characterSheetRepository = new CharacterSheetRepository();        
-            _characterSheetService = new CharacterSheetService();
+            _characterSheetService = new CharacterSheetService();            
         }
         
         [HttpGet]
@@ -31,24 +34,29 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(sheets);
         }
 
-        [HttpPut]
-        [Route("SaveClassSelection/{classId}/{characterSheetId}")]
-        public IHttpActionResult SaveClassSelection(int classId, int characterSheetId)
+        [HttpGet]
+        [Route("GetSheetById/{sheetId}")]
+        public IHttpActionResult GetSheetById(int sheetId)
         {
-            _characterSheetRepository.SaveClassSelection(classId, characterSheetId);
-            _characterSheetRepository.ToDoClassSelected(characterSheetId);
-            
-            return Ok(characterSheetId);   
+            var userId = User.Identity.GetUserId();
+            var isDm = User.IsInRole("DungeonMaster");
+
+            var canAccess = _characterSheetService.DoesUserOwnSheet(sheetId, userId);
+
+            if (!canAccess) return StatusCode(HttpStatusCode.Forbidden);
+
+            var returnSheet = _characterSheetService.GetById(sheetId);
+
+            return Ok(returnSheet);
         }
 
-        [HttpPut]
-        [Route("SaveBackgroundSelection/{backgroundId}/{characterSheetId}")]
-        public IHttpActionResult SaveBackgroundSelection(int backgroundId, int characterSheetId)
+        [HttpGet]
+        [Route("GetSkillsBySheetId/{sheetId}")]
+        public IHttpActionResult GetSkillsBySheetId(int sheetId)
         {
-            _characterSheetRepository.SaveBackgroundSelection(backgroundId,characterSheetId);
-            _characterSheetRepository.ToDoBackgroundSelected(characterSheetId);
+            var skills = _characterSheetService.GetSkillsBySheetId(sheetId);
 
-            return Ok(characterSheetId);
+            return Ok(skills);
         }
 
         [HttpPost]
@@ -66,6 +74,21 @@ namespace CharacterBuilder.Controllers.Api
             return Ok(newSheet);
         }
 
+        [HttpPost]
+        [Route("CreateNewSheetWithClass/{classId}")]
+        public IHttpActionResult CreateNewSheetWithClass(int classId)
+        {
+            var userId = User.Identity.GetUserId();
+            var newSheet = _characterSheetService.CreateNewSheetWithClass(userId, classId);
+
+            var response = HttpContext.Current.Response;
+            var cookie = new HttpCookie(Cookie_Name, newSheet.Id.ToString());
+            response.Cookies.Remove(Cookie_Name);
+            response.Cookies.Add(cookie);
+
+            return Ok(newSheet);
+        }
+
         [HttpPut]
         [Route("EditSheet/")]
         public IHttpActionResult EditSheet([FromBody] CharacterSheetDTO sheetToEdit)
@@ -73,6 +96,15 @@ namespace CharacterBuilder.Controllers.Api
             _characterSheetService.UpdateSheet(sheetToEdit);
 
             return Ok(sheetToEdit);
+        }
+
+        [HttpPost]
+        [Route("AddLevelChecklist/{sheetId}")]
+        public IHttpActionResult AddLevelChecklist(int sheetId)
+        {
+            var lvlChecklist = _characterSheetService.LevelUp(sheetId);
+
+            return Ok(lvlChecklist);
         }
 
         [HttpDelete]

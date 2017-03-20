@@ -99,7 +99,7 @@
         };
 
         self.save = function () {
-            return _i.charajax.put('api/charactersheet/SaveBackgroundSelection/' + self.selectedBackground().Id() + '/' + self.sheetId()).done(function () {
+            return _i.charajax.put('api/background/SaveBackgroundSelection/' + self.sheetId() + '/' + self.selectedBackground().Id()).done(function () {
                 _i.alert.showAlert({ type: "success", message: "Background Selected" });
                 _i.globals.selectBackground();
             });

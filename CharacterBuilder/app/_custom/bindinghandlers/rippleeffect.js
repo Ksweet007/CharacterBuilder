@@ -36,7 +36,7 @@ define(function (require) {
                 }, 1500);
             });
 
-            _i.$('.pmd-checkbox input').after('<span class="pmd-checkbox-label">&nbsp;</span>');
+//            _i.$('.pmd-checkbox input').after('<span class="pmd-checkbox-label">&nbsp;</span>');
             _i.$(".pmd-checkbox-ripple-effect").on('mousedown touchstart', function (e) {
                 var rippler = $(this);
                 _i.$('.ink').remove();

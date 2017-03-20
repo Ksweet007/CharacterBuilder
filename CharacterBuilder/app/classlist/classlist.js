@@ -6,7 +6,8 @@
         list: require('_custom/services/listmanager'),
         deferred: require('_custom/deferred'),
         globals: require('_custom/services/builderglobals'),
-        alert: require('_custom/services/alert')
+        alert: require('_custom/services/alert'),
+        newsheetprompt: require('newsheetprompt/newsheetprompt')
     };
 
     return function () {
@@ -14,10 +15,11 @@
         /*==================== GLOBAL SHEET STATUS ====================*/
         self.sheetId = _i.globals.getSheetId;
         self.hasPickedClass = _i.globals.hasSelectedClass;
+        self.isWorkingSheet = _i.ko.observable(false);
 
         /*==================== BASE DATA ====================*/
         self.classes = _i.ko.observableArray([]);
-        
+
         /*==================== PAGE STATE/FILTERED ITEMS ====================*/
         self.selectedClass = _i.ko.observable();
         self.viewingDetails = _i.ko.observable(false);
@@ -25,18 +27,25 @@
             var returnList = self.classes();
             return _i.list.sortAlphabeticallyObservables(returnList);
         });
-        
-        self.activate = function() {
-            return self.getPageData().done(function() {
+
+        self.activate = function () {
+            return self.getPageData().done(function () {
+
+                self.isWorkingSheet(_i.globals.checkCookieExists("SheetBeingWorked"));
+                if (self.isWorkingSheet() === true) {
+                    _i.alert.showAlert({ type: "success", message: "Currently working sheet" });
+                } else {
+                    _i.alert.showAlert({ type: "error", message: "Not working Sheet" });
+                }
 
             });
         };
 
-        self.getPageData = function() {
+        self.getPageData = function () {
             var deferred = _i.deferred.create();
             var promise = _i.deferred.waitForAll(self.getClassList());
 
-            promise.done(function() {
+            promise.done(function () {
                 deferred.resolve();
             });
 
@@ -59,16 +68,28 @@
             self.viewingDetails(true);
         };
 
-        self.closeMoreDetails = function () {            
+        self.closeMoreDetails = function () {
             self.viewingDetails(false);
         };
 
         self.selectClass = function () {
-            self.save();
+            if (self.isWorkingSheet() === true) {
+                self.save();
+            } else {
+                _i.newsheetprompt.show().then(function (response) {
+                    if (response.accepted) {
+                        _i.charajax.post('api/charactersheet/CreateNewSheetWithClass/'+ self.selectedClass().Id()).done(function () {
+                            _i.alert.showAlert({ type: "success", message: "Character Sheet Created" });
+                            _i.alert.showAlert({ type: "success", message: "Class Selected" });
+                            _i.globals.selectClass();
+                        });
+                    }
+                });
+            }
         };
 
-        self.save = function() {
-            return _i.charajax.put('api/charactersheet/SaveClassSelection/'+ self.selectedClass().Id() + '/' + self.sheetId()).done(function() {
+        self.save = function () {
+            return _i.charajax.put('api/class/SaveClassSelection/' + self.sheetId() + '/' + self.selectedClass().Id()).done(function () {
                 _i.alert.showAlert({ type: "success", message: "Class Selected" });
                 _i.globals.selectClass();
             });

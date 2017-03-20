@@ -35,7 +35,7 @@ $(document).ready(function() {
         });
 
         // ------- Propeller Checkbox component js function ------- //
-        $('.pmd-checkbox input').after('<span class="pmd-checkbox-label">&nbsp;</span>');
+    $('.pmd-checkbox input');
         // Ripple Effect //
         $(".pmd-checkbox-ripple-effect").on('mousedown', function (e) {
             var rippler = $(this);

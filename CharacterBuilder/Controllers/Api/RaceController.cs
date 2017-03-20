@@ -30,8 +30,7 @@ namespace CharacterBuilder.Controllers.Api
         [HttpPut]
         [Route("SaveRaceSelection/{characterSheetId}/{raceId}")]
         public IHttpActionResult SaveRaceSelection(int characterSheetId, int raceId )
-        {
-            //TODO: Need to Direct elsewhere for an edit
+        {            
             var characterSheet = _characterSheetService.SaveRaceSelection(characterSheetId, raceId);
 
             return Ok(characterSheet);

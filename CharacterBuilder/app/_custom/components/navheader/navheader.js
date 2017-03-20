@@ -18,10 +18,13 @@
         self.isDirty = params.isDirty || _i.ko.observable(false);
         self.inFlightSave = null; //will be the deferred
         self.inFlightSavePromise = null; //will be the inflightSave promise
-        self.lastSavedPartialMessage = _i.ko.observable('');
         self.lastSavedDate = _i.ko.observable();
-
-        self.showLoader = _i.ko.computed(function() {
+        self.pageTitle = _i.ko.observable('');
+        if (params.pageTitle !== undefined) {
+            self.pageTitle(params.pageTitle);
+        }
+        
+        self.showLoader = _i.ko.computed(function () {
             if (self.isSaving() || _i.router.isNavigating()) {
                 return true;
             }
@@ -162,16 +165,6 @@
                     self.saveSuccess(true);
                     self.lastSavedDate(new Date());
                     self.inFlightSave.resolve(true);
-                    self.lastSavedPartialMessage('Just Saved');
-                    self.lastSavedInterval = setTimeout(function () {
-                        self.lastSavedPartialMessage('Saved A Few Seconds Ago');
-                        self.lastSavedInterval = setTimeout(function () {
-                            self.lastSavedPartialMessage('Saved A Minute Ago');
-                            self.lastSavedInterval = setTimeout(function () {
-                                self.lastSavedPartialMessage('Last Saved At ' + formatTime(self.lastSavedDate()));
-                            }, 60 * 1000);
-                        }, 55 * 1000);
-                    }, 5 * 1000);
                 }
             });
 

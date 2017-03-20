@@ -1,6 +1,6 @@
 ﻿<nav-header params="{isDirty: null, save: null}"></nav-header>
 <div class="container-fluid full-width-container">
-    <section data-bind="visible: !viewingDetails()">
+    <section>
         <h2 class="section-title">Drunken Gnome Inn</h2>
         <div class="section section-custom-home">
             <div class="section-inner pmd-card-inverse pmd-card pmd-z-depth-5">
@@ -25,54 +25,42 @@
         </div>
     </section>
 
-    <section data-bind="visible: !viewingDetails()">
+    <section>
         <div class="row">
             <!--ko foreach:characterSheetsToShow-->
             <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-title">
-                        <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary" data-bind="text:CharacterName"></h1>
-                        <span class="pmd-card-subtitle-text" data-bind="text:'Created: ' + createdDateFormatted()"></span>
-                    </div>
-                    <div class="pmd-card-body text-center">
-                        <div class="row paddedrowtoprow">
-                            <div class="col-xs-4">
-                                <!--ko with:Class-->
-                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.Level()"></div>
-                                <!--/ko-->
-                                <span class="sheetheader subheader">Class & Level</span>
-                            </div>
-                            <div class="col-xs-4">
-                                <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <!--/ko-->
-                                <span class="sheetheader subheader">Background</span>
-                            </div>
-                            <div class="col-xs-4">
-                                <!--ko with:Race-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <!--/ko-->
-                                <span class="sheetheader subheader">Race</span>
-                            </div>
+                        <div class="media-body media-middle">
+                            <div class="col-xs-10">
+                                <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary">{{CharacterName}}</h1>
+                                <span class="pmd-card-subtitle-text" data-bind="text:'Created: ' + createdDateFormatted()"></span>    
+                            </div>                            
                         </div>
-                        <div class="row paddedrowbottomrow">
+                        <div class="media-right">
                             <div class="col-xs-4">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.viewMoreDetails">
-                                    fullscreen
-                                </button>
-                                <div class="sheetheader subheader">Local Edit</div>
-                            </div>
-                            <div class="col-xs-4">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectSheetToEdit">
+                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.editSheet">
                                     edit
                                 </button>
-                                <div class="sheetheader subheader">Global Edit</div>
-                            </div>
-                            <div class="col-xs-4">
                                 <button class="material-icons md-light pmd-xs btncard pmd-ripple-effect btn-danger" data-bind="click:$parent.deleteSheet">
                                     delete
                                 </button>
-                                <div class="sheetheader subheader">Delete</div>
+                            </div>                                                                                   
+                        </div>
+                    </div>
+                    <div class="pmd-card-body text-center">
+                        <div class="row paddedrowtoprow">
+                            <div class="col-xs-4">                                
+                                <div class="sheettext largetext">{{Class}} {{Level}}</div>                                
+                                <span class="sheetheader subheader">Class & Level</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="sheettext largetext">{{Background}}</div>                                
+                                <span class="sheetheader subheader">Background</span>
+                            </div>
+                            <div class="col-xs-4">                                
+                                <div class="sheettext largetext">{{Race}}</div>                                
+                                <span class="sheetheader subheader">Race</span>
                             </div>
                         </div>
                     </div>
@@ -82,89 +70,5 @@
         </div>
     </section>
 
-    <section data-bind="visible: viewingDetails(),with : selectedSheet ">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-                    <div class="pmd-card-body">
-                        <div class="media-left">
-                            <div class="col-xs-4">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $parent.closeMoreDetails'>fullscreen_exit</button>
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind='click: $parent.saveSheet'>check_box</button>
-                            </div>
-                        </div>
-                        <div class="media-body media-middle">
-                            <div class="form-group pmd-textfield pmd-textfield">
-                                <input type="text" id="name" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="sheet-control">
-                                <div class="sheetheader subheader">Character Name</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-sm-6 col-xs-12">
-                <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-                    <div class="pmd-card-body">
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <!--ko with: Class-->
-                                <div class="sheettext largetext" data-bind="text:Name() + ' ' + $parent.Level()"></div>
-                                <!--/ko-->
-                                <div class="sheetheader subheader">Class & Level</div>
-                            </div>
-                            <div class="col-xs-4">
-                                <!--ko with: Background-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <!--/ko-->
-                                <div class="sheetheader subheader">Background</div>
-                            </div>
-                            <div class="col-xs-4">
-                                <div class="form-group pmd-textfield pmd-textfield">
-                                    <input type="text" id="name" data-bind='value: PlayerName, valueUpdate: "afterkeydown"' class="sheet-control">
-                                    <div class="sheetheader subheader">Player Name</div>
-                                </div>
-                            </div>
-                            <div class="col-xs-4">
-                                <!--ko with: Race-->
-                                <div class="sheettext largetext" data-bind="text:Name"></div>
-                                <!--/ko-->
-                                <div class="sheetheader subheader">Race</div>
-                            </div>
-                            <div class="col-xs-4">
-                                <div class="form-group pmd-textfield pmd-textfield">
-                                    <input type="text" id="name" data-bind='value: Alignment, valueUpdate: "afterkeydown"' class="sheet-control">
-                                    <div class="sheetheader subheader">Alignment</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-2 col-sm-4 col-xs-8">
-            <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
-                <div class="pmd-card-body text-center" data-bind="foreach:$parent.abilScore">
-                    <div data-bind="template: {name: templateName, data: $data}"></div>
-                    <script type="text/html" id="scalar_templ">
-                        <div class="row abilityscorerow">
-                            <div class="col-xs-4 abilityscorebody">
-                                <div class="sheetheader abiltext" data-bind="text:shortName"></div>
-                                <div class="sheettext largetext" data-bind="text:abilScore"></div>
-                            </div>
-                            <div class="col-xs-4 abilityscorebody">
-                                <div class="sheetheader abiltext">Mod</div>
-                                <div class="sheetheader abilmod abilitymodcontainer" data-bind="text:abilMod"></div>
-                            </div>
-                            <div class="media-right">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger scorerollbtn" data-bind='click: $root.rollScore'>
-                                    cached
-                                </button>
-                            </div>
-                        </div>
-                    </script>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 </div>

@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CharacterBuilder.Core</RootNamespace>
     <AssemblyName>CharacterBuilder.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,6 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTO\CharacterSheetDTO.cs" />
+    <Compile Include="DTO\CharacterSheetMinimalDto.cs" />
+    <Compile Include="DTO\PlayerCharacterCardDto.cs" />
+    <Compile Include="DTO\SkillDto.cs" />
+    <Compile Include="DTO\SkillListingDTO.cs" />
+    <Compile Include="DTO\ToDoDto.cs" />
     <Compile Include="DTO\WeaponCategoryDTO.cs" />
     <Compile Include="DTO\WeaponDTO.cs" />
     <Compile Include="Enums\AbilityScore.cs" />
@@ -70,9 +76,16 @@
     <Compile Include="Interfaces\ISpecification.cs" />
     <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\Character Sheet\AbilityScoreSheetValue.cs" />
+    <Compile Include="Model\Character Sheet\ClassLevelEvent.cs" />
+    <Compile Include="Model\Character Sheet\ClassFeatureBonusType.cs" />
+    <Compile Include="Model\Character Sheet\LevelChecklist.cs" />
+    <Compile Include="Model\Class\AbilityScoreImprovement.cs" />
+    <Compile Include="Model\Class\ClassFeatureBonus.cs" />
+    <Compile Include="Model\Class\ProficiencyBonus.cs" />
+    <Compile Include="Model\DungeonMaster\Campaign.cs" />
+    <Compile Include="Model\DungeonMaster\PlayerCharacterCard.cs" />
     <Compile Include="Model\Equipment\WeaponCategory.cs" />
     <Compile Include="Model\Character Sheet\AbilityScoreIncrease.cs" />
-    <Compile Include="Model\Character Sheet\Alignment.cs" />
     <Compile Include="Model\Equipment\Armor.cs" />
     <Compile Include="Model\Background\Background.cs" />
     <Compile Include="Model\Background\BackgroundCharacteristic.cs" />

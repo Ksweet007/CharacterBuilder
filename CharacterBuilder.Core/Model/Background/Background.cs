@@ -9,7 +9,7 @@ namespace CharacterBuilder.Core.Model
         public string Description { get; set; }
         public int Gold { get; set; }
         public IList<BackgroundCharacteristic> BackgroundCharacteristic { get; set; }
-        public IList<Skill>Skills { get; set; }
+        public IList<Skill>Skills { get; set; } = new List<Skill>();
         public int LanguageCount { get; set; } //How  Many they get. //If count == max then it translates to 'of your choice' otherwise it's 'from'
         public IList<Language> Languages { get; set; }  //From what pool they get them
         public IList<BackgroundVariant> BackgroundVariant { get; set; }
