@@ -27,23 +27,23 @@
 
     <section>
         <div class="row">
+            
+        </div>
+    </section>
+
+    <section>
+        <div class="row">
             <!--ko foreach:campaigns-->
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-4" draggable="true" data-bind="event:{
+                   dragstart: $root.handleDragStart,
+                   dragover:  $root.handleDragOver,
+                   drop:      $root.handleDrop
+                }">
                 <div class="pmd-card pmd-card-inverse pmd-z-depth-5">
                     <div class="pmd-card-title">
                         <div class="media-body media-middle">
                             <div class="col-xs-10">
-                                <h1 class="pmd-display1 pmd-card-title-text typo-fill-secondary">{{Name}}</h1>
-                            </div>
-                        </div>
-                        <div class="media-right">
-                            <div class="col-xs-4">
-                                <button class="material-icons md-light pmd-xs btncard btnedit pmd-ripple-effect btn-danger" data-bind="click:$parent.selectCampaign">
-                                    check
-                                </button>
-                                <button class="material-icons md-light pmd-xs btncard pmd-ripple-effect btn-danger" data-bind="click:$parent.deleteCampaign">
-                                    delete
-                                </button>
+                                <h2 class="pmd-display1 pmd-card-title-text typo-fill-secondary">{{Name}}</h2>
                             </div>
                         </div>
                     </div>
@@ -60,6 +60,16 @@
                             </div>
                         </div>
                         {{/foreach}}
+                    </div>
+                    <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">
+                        <button class="butn pmd-ripple-effect" data-bind="click:$parent.selectCampaign">
+                            <i class="material-icons md-light pmd-xs">check</i>
+                            <span>Select</span>
+                        </button>
+                        <button class="butn pmd-ripple-effect" data-bind="click:$parent.deleteCampaign">
+                            <i class="material-icons md-light pmd-xs">delete</i>
+                            <span>Delete</span>
+                        </button>
                     </div>
                 </div>
             </div>

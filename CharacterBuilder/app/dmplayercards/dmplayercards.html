@@ -30,12 +30,6 @@
                                 {{#if $data.IsEditing()}}
                                 <input type="text" data-bind='value: PlayerName, valueUpdate: "afterkeydown"' class="form-control titleinput" placeholder="PlayerName">
                                 <input type="text" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="form-control subtitleinput" placeholder="CharacterName">
-                                <!--<div class="form-group dm-input">
-                                        <input type="text" data-bind='value: PlayerName, valueUpdate: "afterkeydown"' class="form-control titleinput" placeholder="PlayerName">
-                                    </div>
-                                    <div class="form-group dm-input">
-                                        <input type="text" data-bind='value: CharacterName, valueUpdate: "afterkeydown"' class="form-control subtitleinput" placeholder="CharacterName">
-                                    </div>-->
                                 {{/if}}
                                 {{#ifnot $data.IsEditing()}}
                                 <h1 class="pmd-display1A pmd-card-title-text typo-fill-secondary">{{PlayerName}}</h1>
