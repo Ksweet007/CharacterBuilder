@@ -64,14 +64,42 @@
 
         self.getCampaigns = function () {
             var deferred = _i.deferred.create();
-            _i.charajax.get('api/dungeonmaster/Campaigns').done(function (response) {
+            _i.charajax.get('api/dungeonmaster/Campaigns').done(function(response) {
                 var mapped = _i.ko.mapping.fromJS(response);
+                var newMap =  _i.ko.mapping.fromJS(response, {
+                    create: function (options) {
+                        return _i.ko.observable(options.data);
+                    }
+                });
 
-                self.campaigns(mapped());
+                self.campaigns(newMap());
 
                 deferred.resolve();
             });
             return deferred;
         };
+
+        self.draggedPhoto = _i.ko.observable();
+
+        self.handleDragStart = function (photo, e) {
+            console.log(photo);
+            self.draggedPhoto(photo);
+            console.log('dragStart');
+            // Returning true is required to stop KO squashing the default action
+            // This will allow dragover to take over from dragstart
+            return true;
+        }.bind(self);
+
+        self.handleDragOver = function (e) {
+            console.log('dragOver');
+        }.bind(self);
+
+        self.handleDrop = function (photo, e) {
+            console.log('drop');
+            // The next 3 lines shows how you can copy the dragged photo onto the dropped target...
+            var context = ko.contextFor(e.target);
+            var index = context.$index();
+            self.campaigns()[index](self.draggedPhoto());
+        }.bind(self);
     }
 });
